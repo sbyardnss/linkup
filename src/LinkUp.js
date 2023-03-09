@@ -26,31 +26,27 @@
 
 
 import { Route, Routes } from "react-router-dom"
-import { Login } from "./auth/Login"
-import { Register } from "./auth/Register"
-import { Footer } from "./nav/Footer"
-import { NavBar } from "./nav/NavBar"
-import { NavBarProvider } from "./nav/NavBarContext"
-// import { NavBar } from "./nav/Navbar"
-import { ApplicationViews } from "./views/ApplicationViews"
-import { Authorized } from "./views/Authorized"
-// import { FilterContext } from "./Nav/NavbarContext"
+import { Login } from "./Auth/Login"
+import { Register } from "./Auth/Register"
+import { NavBar } from "./Nav/NavBar"
+import { ApplicationViews } from "./Views/ApplicationViews"
+import { Authorized } from "./Authorized"
 
 
 export const LinkUp = () => {
 	return <Routes>
-		<Route path="/login" element={<Login key="loginPath" />} />
-		<Route path="/register" element={<Register key="registerPath" />} />
+		<Route path="/login" element={<Login />} />
+		<Route path="/register" element={<Register />} />
 
-		<Route key="authContextPath" path="*" element={
+		<Route path="*" element={
 			<>
-				{/* <Authorized > */}
+				<Authorized >
 					{/* <NavBarProvider> */}
 						<NavBar />
 						<ApplicationViews />
 					{/* </NavBarProvider> */}
 
-				{/* </Authorized> */}
+				</Authorized>
 			</>
 
 		} />

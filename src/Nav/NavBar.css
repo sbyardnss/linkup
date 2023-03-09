@@ -1,0 +1,41 @@
+.navigation {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 1px solid lightblue;
+    padding: 0.5em 0 0.5em 1em;
+    margin-bottom: 2em;
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    margin: auto;
+}
+
+.navigation__name {
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+    padding-top: 0.1rem;
+}
+
+.navigation__icon > img {
+    height: 2rem;
+}
+
+.navigation__logout {
+    margin-right: 2em;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.navigation__message {
+    margin-left: auto;
+    margin-right: 4em;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
