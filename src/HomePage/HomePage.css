@@ -1,0 +1,36 @@
+#homepageContainer {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.listOfTeeTimes {
+    list-style: none;
+    display: flex; 
+    flex-direction: column;
+    margin-left: -2em;
+    /* background-color: aliceblue; */
+    /* width: inherit; */
+}
+
+.teeTimeListItem {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: aqua;
+}
+.teeTimesContainer {
+    width: 40%;
+    /* background-color: blanchedalmond; */
+}
+
+.teeTimeButton {
+    margin-left: auto;
+}
+.buttonBlock {
+    display: block;
+    margin-top:auto;
+    margin-bottom: auto;
+    margin-right: 1em;
+}

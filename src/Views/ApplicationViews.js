@@ -1,5 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { HomePage } from "../HomePage/HomePage"
+import { UserList } from "../UserList/UserList"
 
 export const ApplicationViews = () => {
 	
@@ -18,6 +19,7 @@ export const ApplicationViews = () => {
 
 
 					<Route path="/" element={ <HomePage /> } />
+                    <Route path="/" element={ <UserList /> } />
 					
 
 			</Route>

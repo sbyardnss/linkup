@@ -1,0 +1,46 @@
+.container--login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(81, 177, 110);
+    height: 100vh;
+}
+
+#loginBox {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 25%;
+    text-align: center;
+}
+
+#loginLogo {
+    text-align: center;
+}
+
+.centerItems {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    background-color: aliceblue;
+    border: 1px solid gray;
+    border-radius: 5px;
+    
+}
+
+/* #pleaseSignIn {
+    text-align: left;
+} */
+
+.form-control {
+    margin-bottom: 1em;
+}
+
+.link--register {
+    margin-top: 1em;   
+    color: white; 
+}
+
+.bottom {
+    background-color: rgb(112, 87, 49);
+}

@@ -32,7 +32,6 @@ import { NavBar } from "./Nav/NavBar"
 import { ApplicationViews } from "./Views/ApplicationViews"
 import { Authorized } from "./Authorized"
 
-
 export const LinkUp = () => {
 	return <Routes>
 		<Route path="/login" element={<Login />} />

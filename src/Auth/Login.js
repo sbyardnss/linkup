@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
+import "./Auth.css"
 
 export const Login = () => {
     const [email, set] = useState("")
@@ -17,7 +18,7 @@ export const Login = () => {
                     const user = foundUsers[0]
                     localStorage.setItem("linkUp_user", JSON.stringify({
                         id: user.id,
-                        
+                        name: user.name
                     }))
 
                     navigate("/")
@@ -30,28 +31,30 @@ export const Login = () => {
 
     return (
         <main className="container--login">
-            <section>
+            <section id="loginBox">
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1>LinkUp</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset>
-                        <label htmlFor="inputEmail"> Email address </label>
+                    <div id="loginLogo">
+
+                        <h1>LinkUp</h1>
+                    </div>
+                    <h3 id="pleaseSignIn">Please sign in</h3>
+                    <fieldset className="centerItems">
+                        {/* <label htmlFor="inputEmail"> Email address </label> */}
                         <input type="email"
                             value={email}
                             onChange={evt => set(evt.target.value)}
                             className="form-control"
                             placeholder="Email address"
                             required autoFocus />
-                    </fieldset>
-                    <fieldset>
+
                         <button type="submit">
                             Sign in
                         </button>
                     </fieldset>
                 </form>
-            </section>
-            <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
+                <section className="link--register">
+                    <Link to="/register">Not a member yet?</Link>
+                </section>
             </section>
         </main>
     )

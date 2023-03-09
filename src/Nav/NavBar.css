@@ -24,18 +24,22 @@
     height: 2rem;
 }
 
+#linkContainer {
+    margin-left: auto;
+}
+
+.navLinks {
+    display: flex;
+    justify-content: flex-end;    
+}
+.navigation_link {
+    margin-right: 1em;
+}
 .navigation__logout {
     margin-right: 2em;
-    margin-left: auto;
+    margin-left: 1em;
     display: flex;
     flex-direction: row;
     position: relative;
 }
 
-.navigation__message {
-    margin-left: auto;
-    margin-right: 4em;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-}

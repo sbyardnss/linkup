@@ -18,12 +18,27 @@ export const getAllMatches = () => {
         .then(res => res.json())
 }
 
-export const getAllMatchUsers = () => {
-    return fetch(`http://localhost:8088/matchUsers`)
+export const getAllUserMatches = () => {
+    return fetch(`http://localhost:8088/userMatches`)
         .then(res => res.json())
 }
 
 export const getAllMatchUserHoleScores = () => {
     return fetch(`http://localhost:8088/matchUserHoleScores`)
         .then(res => res.json())
+}
+
+export const getAllUserFriends = () => {
+    return fetch(`http://localhost:8088/userFriends`)
+        .then(res => res.json())
+}
+
+
+
+
+//expanded fetches
+
+export const getActiveUserMatches = () => {
+    return fetch(`http://localhost:8088/userMatches?_expand=user&isInitiator=true`)
+    .then(res => res.json())
 }
