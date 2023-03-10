@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { getActiveUserMatches, getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserMatches, getAllUsers } from "../ApiManager"
+import { React, useEffect, useState } from "react"
+import { getActiveUserMatches, getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserMatches, getAllUsers, deleteTeeTime, deleteUserMatch } from "../ApiManager"
 import "./HomePage.css"
 
 export const HomePage = () => {
@@ -10,7 +10,7 @@ export const HomePage = () => {
     const [userMatches, setUserMatches] = useState([])
     const [matchUserHoleScores, setMatchUserHoleScores] = useState([])
     const [userMatchesExpanded, setUserMatchesExpanded] = useState([])
-
+    const [deleteItem, deleteInitiated] = useState(false)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
@@ -59,7 +59,7 @@ export const HomePage = () => {
                     }
                 )
         },
-        []
+        [deleteItem]
     )
 
     useEffect(
@@ -146,23 +146,46 @@ export const HomePage = () => {
 
                     {
                         myTeeTimes.map(teeTime => {
-                            const matchingCourse = courses.find(course => course.id === teeTime.courseId)
-                            return <>
-                                <li key={teeTime.id} className="teeTimeListItem">
-                                    <div>
-                                        <div>
-                                            {matchingCourse.name}
-                                        </div>
-                                        <div>
+                            const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
+                            let allMatchingUserMatches = []
+                            const matchingUserMatches = userMatches.filter(userMatch => userMatch.matchId === teeTime?.id)
+                            {
+                                matchingUserMatches.map(userMatch => {
+                                    allMatchingUserMatches.push(userMatch)
+                                })
+                            }
+                            // console.log(allMatchingUserMatches)
+                            if (matchingCourse) {
 
-                                            {teeTime.time} {teeTime.date}
+                                return <>
+                                    <li key={teeTime?.id} className="teeTimeListItem">
+                                        <div>
+                                            <div>
+                                                {matchingCourse?.name}
+                                            </div>
+                                            <div>
+
+                                                {teeTime?.time} {teeTime?.date}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="buttonBlock">
-                                        <button className="teeTimeButton">Delete</button>
-                                    </div>
-                                </li>
-                            </>
+                                        <div className="buttonBlock">
+                                            <button className="teeTimeButton" onClick={
+                                                () => {
+                                                    deleteTeeTime(teeTime.id)
+                                                    {
+                                                        allMatchingUserMatches.map(userMatch => {
+                                                            deleteUserMatch(userMatch.id)
+                                                        })
+                                                        deleteInitiated(!deleteItem)
+                                                    }
+                                                    // console.log(allMatchingUserMatches)
+                                                    // console.log(teeTime)
+                                                }
+                                            }>Delete</button>
+                                        </div>
+                                    </li>
+                                </>
+                            }
                         })
                     }
                 </ul>
@@ -174,16 +197,16 @@ export const HomePage = () => {
 
                     {
                         othersTeeTimes.map(teeTime => {
-                            const matchingCourse = courses.find(course => course.id === teeTime.courseId)
+                            const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
                             return <>
-                            <li key={teeTime.id} className="teeTimeListItem">
+                                <li key={teeTime?.id} className="teeTimeListItem">
                                     <div>
                                         <div>
-                                            {matchingCourse.name}
+                                            {matchingCourse?.name}
                                         </div>
                                         <div>
 
-                                            {teeTime.time} {teeTime.date}
+                                            {teeTime?.time} {teeTime?.date}
                                         </div>
                                     </div>
                                     <div className="buttonBlock">

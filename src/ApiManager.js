@@ -81,3 +81,16 @@ export const sendUserMatch = (userMatchObj) => {
     )
 }
 
+//delete fetch
+
+export const deleteTeeTime = (teeTimeId) => {
+    return fetch(`http://localhost:8088/matches/${teeTimeId}`, {
+        method: "DELETE"
+    })
+}
+
+export const deleteUserMatch = (userMatchId) => {
+    return fetch(`http://localhost:8088/userMatches/${userMatchId}`, {
+        method: "DELETE"
+    })
+}

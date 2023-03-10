@@ -149,7 +149,7 @@ export const TeeTimeForm = () => {
                                 }
 
                             }} id="savePost" >Save</button>
-                            <button id="cancelPost">Cancel</button>
+                            <button id="cancelPost" onClick={()=> navigate("/")}>Cancel</button>
                         </div>
                     </fieldset>
                 </form>
