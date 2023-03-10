@@ -19,11 +19,19 @@ export const WeatherProvider = (props) => {
         []
     )
     const rainChance14Day = weather14Day.daily?.precipitation_probability_max
+    const next14Dates = weather14Day.daily?.time
+    // console.log(next14Dates)
 
-    // console.log(rainChance14Day)
+    
+
+
+
+
+
+    
     return (
         <WeatherContext.Provider value={{
-            weather14Day
+            weather14Day, rainChance14Day, next14Dates
         }}>
             {props.children}
         </WeatherContext.Provider>

@@ -3,7 +3,6 @@ import { AddCourseForm } from "../Courses/AddCourseForm"
 import { HomePage } from "../HomePage/HomePage"
 import { TeeTimeForm } from "../TeeTimeForm/TeeTimeForm"
 import { UserList } from "../UserList/UserList"
-import { WeatherProvider } from "../Weather/WeatherProvider"
 
 export const ApplicationViews = () => {
 
@@ -21,17 +20,13 @@ export const ApplicationViews = () => {
 			}>
 
 				<Route path="" element={
-					<WeatherProvider>
 
 						<HomePage />
-					</WeatherProvider>
 				} />
 				<Route path="userList" element={<UserList />} />
 				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={
-					<WeatherProvider>
 						<TeeTimeForm />
-					</WeatherProvider>
 				} />
 
 

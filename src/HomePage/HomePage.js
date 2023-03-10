@@ -1,5 +1,6 @@
-import { React, useEffect, useState } from "react"
+import { React, useContext, useEffect, useState } from "react"
 import { getActiveUserMatchesWithMatchInfo, getActiveUserMatches, getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserMatches, getAllUsers, deleteTeeTime, deleteUserMatch, sendUserMatch, getWeatherInfo } from "../ApiManager"
+import { WeatherContext } from "../Weather/WeatherProvider.js"
 import "./HomePage.css"
 
 export const HomePage = () => {
@@ -14,7 +15,8 @@ export const HomePage = () => {
     //switches
     const [deleteItem, deleteInitiated] = useState(false)
     const [joinMatch, joinInitiated] = useState([false])
-
+    const { weather14Day, rainChance14Day, next14Dates } = useContext(WeatherContext)
+    console.log(next14Dates)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -88,6 +90,13 @@ export const HomePage = () => {
     const currentDayOfMonth = currentDate.getDate()
     const currentYear = currentDate.getFullYear()
 
+
+    
+
+
+
+
+
     let myTeeTimes = []
     let othersTeeTimes = []
 
@@ -143,6 +152,11 @@ export const HomePage = () => {
                 <ul className="listOfTeeTimes">
                     {
                         myActiveUserMatchesWithMatchInfo.map(teeTime => {
+                            const [year,month,day] = teeTime?.match?.date.split("/")
+                            const teeTimeDate = `${year}+-+${month}+-+${day}`
+                            let matchingDate = ""
+                            let index = 0
+                            
                             const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                             let allMatchingUserMatches = []
                             const matchingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime?.match.id)
