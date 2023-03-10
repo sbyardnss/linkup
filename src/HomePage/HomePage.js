@@ -65,7 +65,7 @@ export const HomePage = () => {
                     }
                 )
         },
-        []
+        [joinMatch, deleteItem]
     )
 
     useEffect(
@@ -80,7 +80,7 @@ export const HomePage = () => {
         [deleteItem, joinMatch]
     )
 
-    
+
 
 
     const currentDate = new Date();
@@ -109,13 +109,19 @@ export const HomePage = () => {
         }
     }
     onlyMyTeeTimes()
-    console.log(onlyOthersUserMatches)
+    // console.log(onlyOthersUserMatches)
     const onlyOpenTeeTimes = () => {
         let matchingTeeTimes = []
         {
             onlyOthersUserMatches.map(othersUserMatch => {
-                const myMatch = matches.find(match => match.id === othersUserMatch.matchId)
-                othersTeeTimes.push(myMatch)
+                const haveIJoinedAlready = myTeeTimes.find(teeTime => teeTime.id === othersUserMatch.matchId)
+                if (!haveIJoinedAlready) {
+                    const myMatch = matches.find(match => match.id === othersUserMatch.matchId)
+                    othersTeeTimes.push(myMatch)
+                }
+
+
+
             })
 
         }
@@ -213,8 +219,9 @@ export const HomePage = () => {
                     {
                         othersTeeTimes.map(teeTime => {
                             const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
-                            const matchingUserMatch = userMatches.find(userMatch => userMatch?.matchId === teeTime?.match?.id)
-                            console.log(teeTime)
+                            // const matchingUserMatch = userMatches.find(userMatch => userMatch?.matchId === teeTime?.match?.id)
+                            // console.log(teeTime)
+
                             return <>
                                 <li key={teeTime?.id} className="joinableTeeTimes">
                                     <div>
@@ -242,6 +249,8 @@ export const HomePage = () => {
                                     </div>
                                 </li>
                             </>
+
+
                         })
                     }
                 </ul>
