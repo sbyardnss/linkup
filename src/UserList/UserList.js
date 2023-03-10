@@ -60,7 +60,7 @@ export const UserList = () => {
         }
     }
     nonFriends()
-    console.log(userFriends)
+    // console.log(userFriends)
     return <>
 
     </>

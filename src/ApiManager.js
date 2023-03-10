@@ -1,3 +1,5 @@
+
+//get fetches
 export const getAllUsers = () => {
     return fetch(`http://localhost:8088/users`)
         .then(res => res.json())
@@ -42,3 +44,40 @@ export const getActiveUserMatches = () => {
     return fetch(`http://localhost:8088/userMatches?_expand=user&isInitiator=true`)
     .then(res => res.json())
 }
+
+
+
+//post fetches
+
+export const sendTeeTime = (teeTimeObj) => {
+    return fetch(`http://localhost:8088/matches`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(teeTimeObj)
+    })
+    .then(res => res.json())
+    .then(
+        () => {
+            getAllMatches()
+        }
+    )
+}
+
+export const sendUserMatch = (userMatchObj) => {
+    return fetch(`http://localhost:8088/userMatches`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userMatchObj)
+    })
+    .then(res => res.json())
+    .then(
+        () => {
+            getAllUserMatches()
+        }
+    )
+}
+
