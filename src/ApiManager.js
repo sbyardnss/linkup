@@ -35,7 +35,12 @@ export const getAllUserFriends = () => {
         .then(res => res.json())
 }
 
+//external API fetches
 
+export const getWeatherInfo = () => {
+    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=precipitation_probability&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
+    .then(res => res.json())
+}
 
 
 //expanded fetches
@@ -44,6 +49,12 @@ export const getActiveUserMatches = () => {
     return fetch(`http://localhost:8088/userMatches?_expand=user&isInitiator=true`)
     .then(res => res.json())
 }
+
+export const getActiveUserMatchesWithMatchInfo = () => {
+    return fetch(`http://localhost:8088/userMatches?_expand=match`)
+    .then(res => res.json())
+}
+
 
 
 

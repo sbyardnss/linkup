@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react"
-import { getActiveUserMatches, getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserMatches, getAllUsers, deleteTeeTime, deleteUserMatch } from "../ApiManager"
+import { getActiveUserMatchesWithMatchInfo, getActiveUserMatches, getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserMatches, getAllUsers, deleteTeeTime, deleteUserMatch, sendUserMatch, getWeatherInfo } from "../ApiManager"
 import "./HomePage.css"
 
 export const HomePage = () => {
@@ -10,7 +10,12 @@ export const HomePage = () => {
     const [userMatches, setUserMatches] = useState([])
     const [matchUserHoleScores, setMatchUserHoleScores] = useState([])
     const [userMatchesExpanded, setUserMatchesExpanded] = useState([])
+    const [userMatchesWithMatchInfo, setUserMatchesWithMatchInfo] = useState([])
+    //switches
     const [deleteItem, deleteInitiated] = useState(false)
+    const [joinMatch, joinInitiated] = useState([false])
+
+
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
@@ -38,17 +43,6 @@ export const HomePage = () => {
         []
     )
 
-    // useEffect(
-    //     () => {
-    //         getAllCourseHoles()
-    //         .then(
-    //             (data) => {
-    //                 setCourseHoles(data)
-    //             }
-    //         )
-    //     },
-    //     []
-    // )
 
     useEffect(
         () => {
@@ -76,27 +70,18 @@ export const HomePage = () => {
 
     useEffect(
         () => {
-            getActiveUserMatches()
+            getActiveUserMatchesWithMatchInfo()
                 .then(
                     (data) => {
-                        setUserMatchesExpanded(data)
+                        setUserMatchesWithMatchInfo(data)
                     }
                 )
         },
-        []
+        [deleteItem, joinMatch]
     )
 
-    // useEffect(
-    //     () => {
-    //         getAllMatchUserHoleScores()
-    //         .then(
-    //             (data) => {
-    //                 setMatchUserHoleScores(data)
-    //             }
-    //         )
-    //     },
-    //     []
-    // )
+    
+
 
     const currentDate = new Date();
     const currentMonth = (currentDate.getMonth() + 1)
@@ -106,11 +91,11 @@ export const HomePage = () => {
     let myTeeTimes = []
     let othersTeeTimes = []
 
-    const onlyMyUserMatches = userMatchesExpanded.filter(uME => {
-        return uME.user.id === linkUpUserObj.id
+    const onlyMyUserMatches = userMatches.filter(uME => {
+        return uME.userId === linkUpUserObj.id
     })
-    const onlyOthersUserMatches = userMatchesExpanded.filter(uME => {
-        return uME.user.id !== linkUpUserObj.id
+    const onlyOthersUserMatches = userMatches.filter(uME => {
+        return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
     })
 
     const onlyMyTeeTimes = () => {
@@ -124,8 +109,8 @@ export const HomePage = () => {
         }
     }
     onlyMyTeeTimes()
-
-    const onlyOthersTeeTimes = () => {
+    console.log(onlyOthersUserMatches)
+    const onlyOpenTeeTimes = () => {
         let matchingTeeTimes = []
         {
             onlyOthersUserMatches.map(othersUserMatch => {
@@ -135,7 +120,14 @@ export const HomePage = () => {
 
         }
     }
-    onlyOthersTeeTimes()
+    onlyOpenTeeTimes()
+
+
+    const myActiveUserMatchesWithMatchInfo = userMatchesWithMatchInfo.filter(userMatch => userMatch.userId === linkUpUserObj.id)
+
+
+
+    // console.log(myActiveUserMatchesWithMatchInfo)
 
 
     return <>
@@ -143,35 +135,35 @@ export const HomePage = () => {
             <section className="teeTimesContainer">
                 <h3>My Tee Times</h3>
                 <ul className="listOfTeeTimes">
-
                     {
-                        myTeeTimes.map(teeTime => {
-                            const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
+                        myActiveUserMatchesWithMatchInfo.map(teeTime => {
+                            const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                             let allMatchingUserMatches = []
+                            const matchingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime?.match.id)
+                            // console.log(teeTime)
+
                             const matchingUserMatches = userMatches.filter(userMatch => userMatch.matchId === teeTime?.id)
                             {
                                 matchingUserMatches.map(userMatch => {
                                     allMatchingUserMatches.push(userMatch)
                                 })
                             }
-                            // console.log(allMatchingUserMatches)
-                            if (matchingCourse) {
-
+                            if (matchingCourse && teeTime.isInitiator === true) {
                                 return <>
-                                    <li key={teeTime?.id} className="teeTimeListItem">
+                                    <li key={teeTime?.id} className="myCreatedTeeTime">
                                         <div>
                                             <div>
                                                 {matchingCourse?.name}
                                             </div>
                                             <div>
 
-                                                {teeTime?.time} {teeTime?.date}
+                                                {teeTime?.match.time} {teeTime?.match.date}
                                             </div>
                                         </div>
                                         <div className="buttonBlock">
                                             <button className="teeTimeButton" onClick={
                                                 () => {
-                                                    deleteTeeTime(teeTime.id)
+                                                    deleteTeeTime(teeTime.match.id)
                                                     {
                                                         allMatchingUserMatches.map(userMatch => {
                                                             deleteUserMatch(userMatch.id)
@@ -182,6 +174,29 @@ export const HomePage = () => {
                                                     // console.log(teeTime)
                                                 }
                                             }>Delete</button>
+                                        </div>
+                                    </li>
+                                </>
+                            }
+                            else {
+                                return <>
+                                    <li key={teeTime?.id} className="myJoinedTeeTime">
+                                        <div>
+                                            <div>
+                                                {matchingCourse?.name}
+                                            </div>
+                                            <div>
+
+                                                {teeTime?.match.time} {teeTime?.match.date}
+                                            </div>
+                                        </div>
+                                        <div className="buttonBlock">
+                                            <button className="teeTimeButton" onClick={
+                                                () => {
+                                                    deleteUserMatch(teeTime.id)
+                                                    deleteInitiated(!deleteItem)
+                                                }
+                                            }>Bail</button>
                                         </div>
                                     </li>
                                 </>
@@ -198,8 +213,10 @@ export const HomePage = () => {
                     {
                         othersTeeTimes.map(teeTime => {
                             const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
+                            const matchingUserMatch = userMatches.find(userMatch => userMatch?.matchId === teeTime?.match?.id)
+                            console.log(teeTime)
                             return <>
-                                <li key={teeTime?.id} className="teeTimeListItem">
+                                <li key={teeTime?.id} className="joinableTeeTimes">
                                     <div>
                                         <div>
                                             {matchingCourse?.name}
@@ -210,7 +227,18 @@ export const HomePage = () => {
                                         </div>
                                     </div>
                                     <div className="buttonBlock">
-                                        <button className="teeTimebutton">Join</button>
+                                        <button className="joinTeeTimeButton" onClick={
+                                            () => {
+                                                const userMatchObjToSendToApi = {
+                                                    matchId: teeTime?.id,
+                                                    userId: linkUpUserObj.id,
+                                                    isInitiator: false,
+                                                    totalStrokes: 0
+                                                }
+                                                sendUserMatch(userMatchObjToSendToApi)
+                                                joinInitiated(!joinMatch)
+                                            }
+                                        }>Join</button>
                                     </div>
                                 </li>
                             </>

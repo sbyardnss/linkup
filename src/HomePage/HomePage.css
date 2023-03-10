@@ -1,6 +1,8 @@
 #homepageContainer {
     margin-top: 100px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
 }
 
@@ -17,20 +19,66 @@
     display: flex;
     /* flex-direction: column; */
     justify-content: space-between;
+    padding: 1em;
     margin: .5em 0;
     background-color: aqua;
 }
 .teeTimesContainer {
-    width: 40%;
+    width: 70%;
     /* background-color: blanchedalmond; */
 }
 
 .teeTimeButton {
     margin-left: auto;
+    padding: .5em 0;
+    width: 90px;
+    font-size: large;
+    font-weight: normal;
+    font-style: oblique;
+    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19);
+}
+
+.joinTeeTimeButton {
+    margin-left: auto;
+    padding: .5em 0;
+    width: 90px;
+    font-size: large;
+    font-weight: normal;
+    font-style: oblique;
+    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19);
 }
 .buttonBlock {
     display: block;
     margin-top:auto;
     margin-bottom: auto;
     margin-right: 1em;
+}
+
+.myCreatedTeeTime {
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: aqua;
+}
+
+.myJoinedTeeTime {
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: rgb(150, 250, 170);
+}
+
+.joinableTeeTimes{
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: rgb(217, 183, 249);
 }
