@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { AddCourseForm } from "../Courses/AddCourseForm"
 import { HomePage } from "../HomePage/HomePage"
 import { TeeTimeForm } from "../TeeTimeForm/TeeTimeForm"
 import { UserList } from "../UserList/UserList"
@@ -26,6 +27,7 @@ export const ApplicationViews = () => {
 					</WeatherProvider>
 				} />
 				<Route path="userList" element={<UserList />} />
+				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={
 					<WeatherProvider>
 						<TeeTimeForm />

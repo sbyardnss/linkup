@@ -92,6 +92,17 @@ export const sendUserMatch = (userMatchObj) => {
     )
 }
 
+export const sendNewCourse = (newCourseObj) => {
+    return fetch(`http://localhost:8088/courses`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newCourseObj)
+    })
+    .then(res => res.json())
+}
+
 //delete fetch
 
 export const deleteTeeTime = (teeTimeId) => {
