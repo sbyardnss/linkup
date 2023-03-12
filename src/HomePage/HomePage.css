@@ -29,24 +29,42 @@
 }
 
 .teeTimeButton {
-    margin-left: auto;
+    /* margin-left: auto;
+    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+    background-color: rgb(37, 120, 41);
     padding: .5em 0;
+    color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-left: 20px;
     width: 90px;
     font-size: large;
     font-weight: normal;
     font-style: oblique;
-    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19);
+
 }
 
 .joinTeeTimeButton {
-    margin-left: auto;
+    /* margin-left: auto;
+    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+    background-color: rgb(37, 120, 41);
     padding: .5em 0;
+    color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-left: 20px;
     width: 90px;
     font-size: large;
     font-weight: normal;
     font-style: oblique;
-    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19);
 }
+button:active {
+    background: #b38080;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+       -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+            box-shadow: inset 0px 0px 5px #c1c1c1;
+     outline: none;
+  }
 .buttonBlock {
     display: block;
     margin-top:auto;

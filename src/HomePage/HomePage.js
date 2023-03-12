@@ -234,9 +234,14 @@ export const HomePage = () => {
                                         </>
                                     }
                                     else {
+                                        const initiatingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime?.match.id)
+                                        const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
                                         return <>
                                             <li key={teeTime?.id} className="myJoinedTeeTime">
                                                 <div>
+                                                    <div>
+                                                        {initiatingUser?.name}
+                                                    </div>
                                                     <div>
                                                         {matchingCourse?.name}
                                                     </div>
@@ -278,6 +283,8 @@ export const HomePage = () => {
                         othersTeeTimes.map(teeTime => {
                             const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
                             // const matchingUserMatch = userMatches.find(userMatch => userMatch?.matchId === teeTime?.match?.id)
+                            const initiatingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime.id)
+                            const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
                             // console.log(teeTime)
                             const [month, day, year] = teeTime?.date.split("/")
                             const teeTimeDate = `${year}-${month}-${day}`
@@ -299,6 +306,9 @@ export const HomePage = () => {
                                     return <>
                                         <li key={teeTime?.id} className="joinableTeeTimes">
                                             <div>
+                                                <div>
+                                                    {initiatingUser?.name}
+                                                </div>
                                                 <div>
                                                     {matchingCourse?.name}
                                                 </div>
