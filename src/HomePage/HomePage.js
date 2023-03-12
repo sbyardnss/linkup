@@ -155,7 +155,7 @@ export const HomePage = () => {
 
     return <>
         <main id="homepageContainer">
-            <section className="teeTimesContainer">
+            <section className="myTeeTimesContainer">
                 <h3>My Tee Times</h3>
                 <ul className="listOfTeeTimes">
                     {
@@ -257,7 +257,7 @@ export const HomePage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="buttonBlock">
-                                                    <button className="teeTimeButton" onClick={
+                                                    <button className="joinTeeTimeButton" onClick={
                                                         () => {
                                                             deleteUserMatch(teeTime.id)
                                                             deleteInitiated(!deleteItem)
@@ -275,7 +275,7 @@ export const HomePage = () => {
                 </ul>
 
             </section>
-            <section className="teeTimesContainer">
+            <section className="openTeeTimesContainer">
                 <h3>Open Tee Times</h3>
                 <ul className="listOfTeeTimes">
 
