@@ -161,103 +161,109 @@ export const HomePage = () => {
                     {
                         myActiveUserMatchesWithMatchInfo.map(teeTime => {
                             const [month, day, year] = teeTime?.match?.date.split("/")
-                            const teeTimeDate = `${year}-${month}-${day}`
-                            const stringTeeTimeDate = teeTimeDate.toString()
-                            let matchingDate = ""
-                            let index = 0
-                            let rainChance = 0
-                            {
-                                next14Dates?.map((date, indexOfDate) => {
-                                    if (date === teeTimeDate) {
-                                        if (rainChance14Day) {
-                                            rainChance = rainChance14Day[indexOfDate]
-                                        }
+                            if (next14Dates) {
+                                const [todaysYear, todaysMonth, todaysDay] = next14Dates[0].split("-")
+                                if (day >= todaysDay && month >= todaysMonth && year >= todaysYear) {
+                                    const teeTimeDate = `${year}-${month}-${day}`
+                                    const stringTeeTimeDate = teeTimeDate.toString()
+                                    let matchingDate = ""
+                                    let index = 0
+                                    let rainChance = 0
+                                    {
+                                        next14Dates?.map((date, indexOfDate) => {
+                                            if (date === teeTimeDate) {
+                                                if (rainChance14Day) {
+                                                    rainChance = rainChance14Day[indexOfDate]
+                                                }
+                                            }
+
+                                        })
                                     }
 
-                                })
-                            }
+                                    // const rainChance = rainChance14Day[index]
+                                    // const index = getWeatherIndex(stringTeeTimeDate)
 
-                            // const rainChance = rainChance14Day[index]
-                            // const index = getWeatherIndex(stringTeeTimeDate)
+                                    // console.log(stringTeeTimeDate)
+                                    const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                    let allMatchingUserMatches = []
+                                    const matchingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime?.match.id)
 
-                            // console.log(stringTeeTimeDate)
-                            const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                            let allMatchingUserMatches = []
-                            const matchingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime?.match.id)
+                                    const matchingUserMatches = userMatches.filter(userMatch => userMatch.matchId === teeTime?.id)
+                                    {
+                                        matchingUserMatches.map(userMatch => {
+                                            allMatchingUserMatches.push(userMatch)
+                                        })
+                                    }
+                                    if (matchingCourse && teeTime.isInitiator === true) {
+                                        return <>
+                                            <li key={teeTime?.id} className="myCreatedTeeTime">
+                                                <div>
+                                                    <div>
+                                                        {/* initiating user */}
+                                                    </div>
+                                                    <div>
+                                                        {matchingCourse?.name}
+                                                    </div>
+                                                    <div>
 
-                            const matchingUserMatches = userMatches.filter(userMatch => userMatch.matchId === teeTime?.id)
-                            {
-                                matchingUserMatches.map(userMatch => {
-                                    allMatchingUserMatches.push(userMatch)
-                                })
-                            }
-                            if (matchingCourse && teeTime.isInitiator === true) {
-                                return <>
-                                    <li key={teeTime?.id} className="myCreatedTeeTime">
-                                        <div>
-                                            <div>
-                                                {/* initiating user */}
-                                            </div>
-                                            <div>
-                                                {matchingCourse?.name}
-                                            </div>
-                                            <div>
+                                                        {teeTime?.match.time} {teeTime?.match.date}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        {rainChance}% chance of rain
 
-                                                {teeTime?.match.time} {teeTime?.match.date}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                {rainChance}% chance of rain
+                                                    </div>
+                                                </div>
+                                                <div className="buttonBlock">
+                                                    <button className="teeTimeButton" onClick={
+                                                        () => {
+                                                            deleteTeeTime(teeTime.match.id)
+                                                            {
+                                                                allMatchingUserMatches.map(userMatch => {
+                                                                    deleteUserMatch(userMatch.id)
+                                                                })
+                                                                deleteInitiated(!deleteItem)
+                                                            }
+                                                            // console.log(allMatchingUserMatches)
+                                                            // console.log(teeTime)
+                                                        }
+                                                    }>Delete</button>
+                                                </div>
+                                            </li>
+                                        </>
+                                    }
+                                    else {
+                                        return <>
+                                            <li key={teeTime?.id} className="myJoinedTeeTime">
+                                                <div>
+                                                    <div>
+                                                        {matchingCourse?.name}
+                                                    </div>
+                                                    <div>
 
-                                            </div>
-                                        </div>
-                                        <div className="buttonBlock">
-                                            <button className="teeTimeButton" onClick={
-                                                () => {
-                                                    deleteTeeTime(teeTime.match.id)
-                                                    {
-                                                        allMatchingUserMatches.map(userMatch => {
-                                                            deleteUserMatch(userMatch.id)
-                                                        })
-                                                        deleteInitiated(!deleteItem)
-                                                    }
-                                                    // console.log(allMatchingUserMatches)
-                                                    // console.log(teeTime)
-                                                }
-                                            }>Delete</button>
-                                        </div>
-                                    </li>
-                                </>
-                            }
-                            else {
-                                return <>
-                                    <li key={teeTime?.id} className="myJoinedTeeTime">
-                                        <div>
-                                            <div>
-                                                {matchingCourse?.name}
-                                            </div>
-                                            <div>
+                                                        {teeTime?.match.time} {teeTime?.match.date}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        {rainChance}% chance of rain
 
-                                                {teeTime?.match.time} {teeTime?.match.date}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                {rainChance}% chance of rain
+                                                    </div>
+                                                </div>
+                                                <div className="buttonBlock">
+                                                    <button className="teeTimeButton" onClick={
+                                                        () => {
+                                                            deleteUserMatch(teeTime.id)
+                                                            deleteInitiated(!deleteItem)
+                                                        }
+                                                    }>Bail</button>
+                                                </div>
+                                            </li>
+                                        </>
+                                    }
+                                }
 
-                                            </div>
-                                        </div>
-                                        <div className="buttonBlock">
-                                            <button className="teeTimeButton" onClick={
-                                                () => {
-                                                    deleteUserMatch(teeTime.id)
-                                                    deleteInitiated(!deleteItem)
-                                                }
-                                            }>Bail</button>
-                                        </div>
-                                    </li>
-                                </>
                             }
                         })
                     }
@@ -286,40 +292,45 @@ export const HomePage = () => {
 
                                 })
                             }
+                            if (next14Dates) {
+                                const [todaysYear, todaysMonth, todaysDay] = next14Dates[0].split("-")
+                                if (day >= todaysDay && month >= todaysMonth && year >= todaysYear) {
 
-                            return <>
-                                <li key={teeTime?.id} className="joinableTeeTimes">
-                                    <div>
-                                        <div>
-                                            {matchingCourse?.name}
-                                        </div>
-                                        <div>
-
-                                            {teeTime?.time} {teeTime?.date}
-                                        </div>
-                                    </div>
-                                    <div>
+                                    return <>
+                                        <li key={teeTime?.id} className="joinableTeeTimes">
                                             <div>
-                                                {rainChance}% chance of rain
+                                                <div>
+                                                    {matchingCourse?.name}
+                                                </div>
+                                                <div>
 
+                                                    {teeTime?.time} {teeTime?.date}
+                                                </div>
                                             </div>
-                                        </div>
-                                    <div className="buttonBlock">
-                                        <button className="joinTeeTimeButton" onClick={
-                                            () => {
-                                                const userMatchObjToSendToApi = {
-                                                    matchId: teeTime?.id,
-                                                    userId: linkUpUserObj.id,
-                                                    isInitiator: false,
-                                                    totalStrokes: 0
-                                                }
-                                                sendUserMatch(userMatchObjToSendToApi)
-                                                joinInitiated(!joinMatch)
-                                            }
-                                        }>Join</button>
-                                    </div>
-                                </li>
-                            </>
+                                            <div>
+                                                <div>
+                                                    {rainChance}% chance of rain
+
+                                                </div>
+                                            </div>
+                                            <div className="buttonBlock">
+                                                <button className="joinTeeTimeButton" onClick={
+                                                    () => {
+                                                        const userMatchObjToSendToApi = {
+                                                            matchId: teeTime?.id,
+                                                            userId: linkUpUserObj.id,
+                                                            isInitiator: false,
+                                                            totalStrokes: 0
+                                                        }
+                                                        sendUserMatch(userMatchObjToSendToApi)
+                                                        joinInitiated(!joinMatch)
+                                                    }
+                                                }>Join</button>
+                                            </div>
+                                        </li>
+                                    </>
+                                }
+                            }
 
 
                         })
