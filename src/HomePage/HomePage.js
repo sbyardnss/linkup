@@ -348,6 +348,9 @@ export const HomePage = () => {
                 </ul>
             </section>
         </main>
+        <footer id="homePageFooter">
+
+        </footer>
 
     </>
 }

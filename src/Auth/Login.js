@@ -5,7 +5,7 @@ import "./Auth.css"
 
 export const Login = () => {
     const [email, set] = useState("")
-    const [password, setPassword] = useState("")
+    const [submittedPassword, setPassword] = useState("")
     const navigate = useNavigate()
 
     const handleLogin = (e) => {
@@ -18,10 +18,14 @@ export const Login = () => {
                     const user = foundUsers[0]
                     localStorage.setItem("linkUp_user", JSON.stringify({
                         id: user.id,
-                        name: user.name
+                        name: user.name,
+                        password: submittedPassword
                     }))
+                    if(user.password === submittedPassword) {
 
-                    navigate("/")
+                        navigate("/")
+                    }
+
                 }
                 else {
                     window.alert("Invalid login")
@@ -45,6 +49,12 @@ export const Login = () => {
                             onChange={evt => set(evt.target.value)}
                             className="form-control"
                             placeholder="Email address"
+                            required autoFocus />
+                        <input type="password"
+                            value={submittedPassword}
+                            onChange={evt => setPassword(evt.target.value)}
+                            className="form-control"
+                            placeholder="password"
                             required autoFocus />
 
                         <button type="submit">
