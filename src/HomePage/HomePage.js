@@ -173,13 +173,13 @@ export const HomePage = () => {
                                             rainChance = rainChance14Day[indexOfDate]
                                         }
                                     }
-                                    
+
                                 })
                             }
-                            
+
                             // const rainChance = rainChance14Day[index]
                             // const index = getWeatherIndex(stringTeeTimeDate)
-                            
+
                             // console.log(stringTeeTimeDate)
                             const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                             let allMatchingUserMatches = []
@@ -207,7 +207,10 @@ export const HomePage = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            {rainChance}
+                                            <div>
+                                                {rainChance}% chance of rain
+
+                                            </div>
                                         </div>
                                         <div className="buttonBlock">
                                             <button className="teeTimeButton" onClick={
@@ -239,6 +242,12 @@ export const HomePage = () => {
                                                 {teeTime?.match.time} {teeTime?.match.date}
                                             </div>
                                         </div>
+                                        <div>
+                                            <div>
+                                                {rainChance}% chance of rain
+
+                                            </div>
+                                        </div>
                                         <div className="buttonBlock">
                                             <button className="teeTimeButton" onClick={
                                                 () => {
@@ -264,6 +273,19 @@ export const HomePage = () => {
                             const matchingCourse = courses.find(course => course.id === teeTime?.courseId)
                             // const matchingUserMatch = userMatches.find(userMatch => userMatch?.matchId === teeTime?.match?.id)
                             // console.log(teeTime)
+                            const [month, day, year] = teeTime?.date.split("/")
+                            const teeTimeDate = `${year}-${month}-${day}`
+                            let rainChance = 0
+                            {
+                                next14Dates?.map((date, indexOfDate) => {
+                                    if (date === teeTimeDate) {
+                                        if (rainChance14Day) {
+                                            rainChance = rainChance14Day[indexOfDate]
+                                        }
+                                    }
+
+                                })
+                            }
 
                             return <>
                                 <li key={teeTime?.id} className="joinableTeeTimes">
@@ -276,6 +298,12 @@ export const HomePage = () => {
                                             {teeTime?.time} {teeTime?.date}
                                         </div>
                                     </div>
+                                    <div>
+                                            <div>
+                                                {rainChance}% chance of rain
+
+                                            </div>
+                                        </div>
                                     <div className="buttonBlock">
                                         <button className="joinTeeTimeButton" onClick={
                                             () => {
