@@ -16,7 +16,7 @@ export const HomePage = () => {
     const [deleteItem, deleteInitiated] = useState(false)
     const [joinMatch, joinInitiated] = useState([false])
     const { weather14Day, rainChance14Day, next14Dates } = useContext(WeatherContext)
-    console.log(next14Dates)
+    // console.log(weather14Day)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -91,7 +91,7 @@ export const HomePage = () => {
     const currentYear = currentDate.getFullYear()
 
 
-    
+
 
 
 
@@ -123,7 +123,7 @@ export const HomePage = () => {
         let matchingTeeTimes = []
         {
             onlyOthersUserMatches.map(othersUserMatch => {
-                const haveIJoinedAlready = myTeeTimes.find(teeTime => teeTime.id === othersUserMatch.matchId)
+                const haveIJoinedAlready = myTeeTimes.find(teeTime => teeTime?.id === othersUserMatch.matchId)
                 if (!haveIJoinedAlready) {
                     const myMatch = matches.find(match => match.id === othersUserMatch.matchId)
                     othersTeeTimes.push(myMatch)
@@ -140,9 +140,17 @@ export const HomePage = () => {
 
     const myActiveUserMatchesWithMatchInfo = userMatchesWithMatchInfo.filter(userMatch => userMatch.userId === linkUpUserObj.id)
 
+    let index = 0
 
+    // console.log(next14Dates)
+    // const getWeatherIndex = (teeTimeDateNum) => {
+    //     next14Dates?.map((date, indexOfDate) => {
+    //         if (date === teeTimeDateNum) {
+    //             return indexOfDate
+    //         }
+    //     })
+    // }
 
-    // console.log(myActiveUserMatchesWithMatchInfo)
 
 
     return <>
@@ -152,15 +160,30 @@ export const HomePage = () => {
                 <ul className="listOfTeeTimes">
                     {
                         myActiveUserMatchesWithMatchInfo.map(teeTime => {
-                            const [year,month,day] = teeTime?.match?.date.split("/")
-                            const teeTimeDate = `${year}+-+${month}+-+${day}`
+                            const [month, day, year] = teeTime?.match?.date.split("/")
+                            const teeTimeDate = `${year}-${month}-${day}`
+                            const stringTeeTimeDate = teeTimeDate.toString()
                             let matchingDate = ""
                             let index = 0
+                            let rainChance = 0
+                            {
+                                next14Dates?.map((date, indexOfDate) => {
+                                    if (date === teeTimeDate) {
+                                        if (rainChance14Day) {
+                                            rainChance = rainChance14Day[indexOfDate]
+                                        }
+                                    }
+                                    
+                                })
+                            }
                             
+                            // const rainChance = rainChance14Day[index]
+                            // const index = getWeatherIndex(stringTeeTimeDate)
+                            
+                            // console.log(stringTeeTimeDate)
                             const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                             let allMatchingUserMatches = []
                             const matchingUserMatch = userMatches.find(userMatch => userMatch.matchId === teeTime?.match.id)
-                            // console.log(teeTime)
 
                             const matchingUserMatches = userMatches.filter(userMatch => userMatch.matchId === teeTime?.id)
                             {
@@ -173,12 +196,18 @@ export const HomePage = () => {
                                     <li key={teeTime?.id} className="myCreatedTeeTime">
                                         <div>
                                             <div>
+                                                {/* initiating user */}
+                                            </div>
+                                            <div>
                                                 {matchingCourse?.name}
                                             </div>
                                             <div>
 
                                                 {teeTime?.match.time} {teeTime?.match.date}
                                             </div>
+                                        </div>
+                                        <div>
+                                            {rainChance}
                                         </div>
                                         <div className="buttonBlock">
                                             <button className="teeTimeButton" onClick={

@@ -20,7 +20,7 @@ export const WeatherProvider = (props) => {
     )
     const rainChance14Day = weather14Day.daily?.precipitation_probability_max
     const next14Dates = weather14Day.daily?.time
-    // console.log(next14Dates)
+    // console.log(weather14Day)
 
     
 
