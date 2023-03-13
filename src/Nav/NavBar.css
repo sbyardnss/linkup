@@ -12,6 +12,7 @@
     width: 100%;
     background-color: whitesmoke;
     margin: auto;
+    height: auto;
 }
 
 .navigation__name {

@@ -1,13 +1,18 @@
+@import "../Nav/NavBar.css";
+
+
 #homepageContainer {
-    /* margin-top: 80px; */
+    
     /* padding-top: 20px; */
+    /* margin-top: var(auto); */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     background-color: rgb(81, 177, 110);
     background-size: 250%;
-    height: 100vh;
+    background-attachment: scroll;
+    /* height: 100vh; */
 
 }
 
@@ -40,8 +45,8 @@
 }
 
 .teeTimeButton {
-    /* margin-left: auto;
-    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+     /* margin-left: auto; */
+    /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
     background-color: rgb(37, 120, 41);
     padding: .5em 0;
     color: white;

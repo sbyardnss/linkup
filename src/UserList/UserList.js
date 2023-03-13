@@ -37,7 +37,7 @@ export const UserList = () => {
         },
         []
     )
-        //this doesnt work yet
+    //this doesnt work yet
     let friendsOfActiveUser = []
     const myUserFriends = userFriends.filter(userFriend => userFriend.userId === linkUpUserObj.id)
     const myFriends = () => {
@@ -62,6 +62,19 @@ export const UserList = () => {
     nonFriends()
     // console.log(userFriends)
     return <>
+        <section id="fullUserList">
+            <ul>
+                {
+                    users.map(
+                        user => {
+                            return <>
+                                <li>{user.name}</li>
+                            </>
+                        }
+                    )
+                }
 
+            </ul>
+        </section>
     </>
 }

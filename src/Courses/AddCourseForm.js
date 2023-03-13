@@ -62,7 +62,7 @@ export const AddCourseForm = () => {
                             <input type="text" id="phoneNumber" placeholder="new course phone number" onChange={
                                 (evt) => {
                                     const copy = { ...newCourse }
-                                    copy.address = evt.target.value
+                                    copy.phoneNumber = evt.target.value
                                     updateNewCourse(copy)
                                 }
                             } />
