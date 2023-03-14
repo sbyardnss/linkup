@@ -1,0 +1,83 @@
+.joinTeeTimeButton {
+    /* margin-left: auto;
+    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+    /* background-color: rgb(37, 120, 41); */
+    background-color: purple;
+
+    padding: .5em 0;
+    color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-left: 20px;
+    width: 90px;
+    font-size: large;
+    font-weight: normal;
+    font-style: oblique;
+}
+
+.teeTimeListItem {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    padding: 1em;
+    margin: .5em 0;
+    background-color: aqua;
+}
+.teeTimeButton {
+    /* margin-left: auto; */
+   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+   background-color: rgb(37, 120, 41);
+   padding: .5em 0;
+   color: white;
+   border: 2px solid black;
+   border-radius: 4px;
+   margin-left: 20px;
+   width: 90px;
+   font-size: large;
+   font-weight: normal;
+   font-style: oblique;
+
+}
+button:active {
+    background: #b38080;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+}
+
+.buttonBlock {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1em;
+}
+
+.myCreatedTeeTime {
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: aqua;
+}
+
+.myJoinedTeeTime {
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: rgb(150, 250, 170);
+}
+
+.joinableTeeTimes {
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: rgb(217, 183, 249);
+}

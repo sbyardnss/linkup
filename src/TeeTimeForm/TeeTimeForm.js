@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { getAllCourses, getAllMatches, sendTeeTime, sendUserMatch } from "../ApiManager"
+import { sendTeeTime, sendUserMatch } from "../ApiManager"
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./TeeTimeForm.css"
 export const TeeTimeForm = () => {
-    const [courses, setCourses] = useState([])
-    const [matches, setMatches] = useState([])
+    const { courses, matches, setMatchCreated, matchCreated } = useContext(TeeTimeContext)
 
 
     const [newMatch, updateNewMatch] = useState({
@@ -16,34 +16,9 @@ export const TeeTimeForm = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
-
-    useEffect(
-        () => {
-            getAllCourses()
-                .then(
-                    (data) => {
-                        setCourses(data)
-                    }
-                )
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            getAllMatches()
-                .then(
-                    (data) => {
-                        setMatches(data)
-                    }
-                )
-        },
-        []
-    )
+    const lastMatchIndex = matches.length
+    const lastMatchInMatches = matches[lastMatchIndex - 1]
     
-
-
-
     const teeTimeObjToSendToApi = {
         courseId: parseInt(newMatch.course),
         date: newMatch.date,
@@ -53,12 +28,11 @@ export const TeeTimeForm = () => {
     }
 
     const userMatchObjToSendToApi = {
-        matchId: matches.length + 1,
+        matchId: lastMatchInMatches?.id + 1,
         userId: linkUpUserObj.id,
         isInitiator: true,
         totalStrokes: 0
     }
-// console.log(newMatch)
     return <>
         <main id="createTeeTimeContainer">
 
@@ -142,6 +116,7 @@ export const TeeTimeForm = () => {
 
                                     sendTeeTime(teeTimeObjToSendToApi)
                                     sendUserMatch(userMatchObjToSendToApi)
+                                    setMatchCreated(!matchCreated)
                                     navigate("/")
                                 }
                                 else {

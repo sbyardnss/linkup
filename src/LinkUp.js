@@ -33,6 +33,7 @@ import { ApplicationViews } from "./Views/ApplicationViews"
 import { Authorized } from "./Authorized"
 import { WeatherProvider } from "./Weather/WeatherProvider"
 import "./index.css"
+import { TeeTimeProvider } from "./TeeTime/TeeTimeProvider"
 export const LinkUp = () => {
 	return <Routes>
 		<Route path="/login" element={<Login />} />
@@ -43,9 +44,10 @@ export const LinkUp = () => {
 				<Authorized >
 					<WeatherProvider>
 						<div id="fullsiteContainer">
-							<NavBar />
-							<ApplicationViews id="applicationViewsContainer"/>
-
+							<TeeTimeProvider>
+								<NavBar />
+								<ApplicationViews id="applicationViewsContainer" />
+							</TeeTimeProvider>
 						</div>
 					</WeatherProvider>
 				</Authorized>
