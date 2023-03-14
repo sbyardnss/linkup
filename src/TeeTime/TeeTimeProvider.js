@@ -20,6 +20,12 @@ export const TeeTimeProvider = (props) => {
                         setUsers(userData)
                     }
                 )
+
+        },
+        []
+    )
+    useEffect(
+        () => {
             getAllCourses()
                 .then(
                     (courseData) => {
@@ -62,6 +68,6 @@ export const TeeTimeProvider = (props) => {
             {props.children}
         </TeeTimeContext.Provider>
     )
-    
-    
+
+
 }

@@ -1,29 +1,19 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { getAllCourses, sendNewCourse } from "../ApiManager"
+import { deleteCourse, sendNewCourse } from "../ApiManager"
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./AddCourseForm.css"
 
 export const AddCourseForm = () => {
-    const [courses, setCourses] = useState([])
     const [newCourse, updateNewCourse] = useState({})
     const [addedCourse, setAddedCourse] = useState(false)
 
     const navigate = useNavigate()
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const { courses } = useContext(TeeTimeContext)
 
 
-    useEffect(
-        () => {
-            getAllCourses()
-                .then(
-                    (data) => {
-                        setCourses(data)
-                    }
-                )
-        },
-        [addedCourse]
-    )
 
     const newCourseObjToSendToAPI = {
         name: newCourse.name,
@@ -100,10 +90,19 @@ export const AddCourseForm = () => {
                         courses.map(course => {
                             return <>
                                 <li key={course.id} className="courseListItem">
-                                    <div>{course.image}</div>
-                                    <div>{course.name}</div>
-                                    <div>{course.address}</div>
-                                    <div>{course.phoneNumber}</div>
+                                    <div>
+                                        <div>{course.image}</div>
+                                        <div>{course.name}</div>
+                                        <div>{course.address}</div>
+                                        <div>{course.phoneNumber}</div>
+                                    </div>
+                                    <button onClick={
+                                        () => {
+                                            deleteCourse(course.id)
+
+                                        }
+                                    }>Delete Course</button>
+
                                 </li>
                             </>
                         })

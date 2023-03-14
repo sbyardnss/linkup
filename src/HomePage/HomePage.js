@@ -14,10 +14,10 @@ export const HomePage = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
-    const onlyMyUserMatches = userMatchesWithMatchInfo?.filter(uME => {
+    const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId === linkUpUserObj.id
     })
-    const onlyOthersUserMatches = userMatchesWithMatchInfo?.filter(uME => {
+    const onlyOthersUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
     })
 

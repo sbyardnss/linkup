@@ -15,11 +15,15 @@ export const getAllCourseHoles = () => {
         .then(res => res.json())
 }
 
+// export async function getAllMatches() {
+//     const response = await fetch(`http://localhost:8088/matches`)
+//     return response
+//         .then(res => res.json())
+// }
 export const getAllMatches = () => {
     return fetch(`http://localhost:8088/matches`)
         .then(res => res.json())
 }
-
 export const getAllUserMatches = () => {
     return fetch(`http://localhost:8088/userMatches`)
         .then(res => res.json())
@@ -39,7 +43,7 @@ export const getAllUserFriends = () => {
 
 export const getWeatherInfo = () => {
     return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=precipitation_probability&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
-    .then(res => res.json())
+        .then(res => res.json())
 }
 
 
@@ -47,12 +51,12 @@ export const getWeatherInfo = () => {
 
 export const getActiveUserMatches = () => {
     return fetch(`http://localhost:8088/userMatches?_expand=user&isInitiator=true`)
-    .then(res => res.json())
+        .then(res => res.json())
 }
 
 export const getActiveUserMatchesWithMatchInfo = () => {
     return fetch(`http://localhost:8088/userMatches?_expand=match`)
-    .then(res => res.json())
+        .then(res => res.json())
 }
 
 
@@ -68,12 +72,12 @@ export const sendTeeTime = (teeTimeObj) => {
         },
         body: JSON.stringify(teeTimeObj)
     })
-    .then(res => res.json())
-    .then(
-        () => {
-            getAllMatches()
-        }
-    )
+        .then(res => res.json())
+        .then(
+            () => {
+                getAllMatches()
+            }
+        )
 }
 
 export const sendUserMatch = (userMatchObj) => {
@@ -84,12 +88,12 @@ export const sendUserMatch = (userMatchObj) => {
         },
         body: JSON.stringify(userMatchObj)
     })
-    .then(res => res.json())
-    .then(
-        () => {
-            getAllUserMatches()
-        }
-    )
+        .then(res => res.json())
+        .then(
+            () => {
+                getAllUserMatches()
+            }
+        )
 }
 
 export const sendNewCourse = (newCourseObj) => {
@@ -100,7 +104,7 @@ export const sendNewCourse = (newCourseObj) => {
         },
         body: JSON.stringify(newCourseObj)
     })
-    .then(res => res.json())
+        .then(res => res.json())
 }
 
 //delete fetch
@@ -113,6 +117,12 @@ export const deleteTeeTime = (teeTimeId) => {
 
 export const deleteUserMatch = (userMatchId) => {
     return fetch(`http://localhost:8088/userMatches/${userMatchId}`, {
+        method: "DELETE"
+    })
+}
+
+export const deleteCourse = (courseId) => {
+    return fetch(`http://localhost:8088/courses/${courseId}`, {
         method: "DELETE"
     })
 }
