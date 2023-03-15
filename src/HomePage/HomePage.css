@@ -1,4 +1,4 @@
-@import "../Nav/NavBar.css";
+/* @import "../Nav/NavBar.css"; */
 
 
 #homepageContainer {
@@ -13,6 +13,7 @@
     background-size: 250%;
     background-attachment: scroll;
     /* height: 100vh; */
+    margin-top: 80px;
 
 }
 
@@ -20,14 +21,13 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    margin-left: -2em;
+    /* margin-left: -2em; */
     /* background-color: aliceblue; */
     /* width: inherit; */
 }
 
 
 .myTeeTimesContainer {
-    margin-top: 80px;
     width: 70%;
     /* background-color: blanchedalmond; */
 }

@@ -1,30 +1,18 @@
-import { useState, useEffect } from "react"
-import { getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserFriends, getAllUserMatches, getAllUsers } from "../ApiManager"
+import { useState, useEffect, useContext } from "react"
+import { addFriend, changeFriendStatus, deleteFriend, getAllUserFriends } from "../ApiManager"
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 
 import "./UserList.css"
 
 
 export const UserList = () => {
-    const [users, setUsers] = useState([])
+    const { users } = useContext(TeeTimeContext)
     const [userFriends, setUserFriends] = useState([])
-
+    const [activeUserFriends, setActiveUserFriends] = useState([])
+    const [friendChange, setFriendChange] = useState(false)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-
-
-
-    useEffect(
-        () => {
-            getAllUsers()
-                .then(
-                    (data) => {
-                        setUsers(data)
-                    }
-                )
-        },
-        []
-    )
 
     useEffect(
         () => {
@@ -35,46 +23,102 @@ export const UserList = () => {
                     }
                 )
         },
-        []
+        [friendChange]
     )
-    //this doesnt work yet
-    let friendsOfActiveUser = []
-    const myUserFriends = userFriends.filter(userFriend => userFriend.userId === linkUpUserObj.id)
-    const myFriends = () => {
-        {
-            myUserFriends.map(userFriend => {
-                const matchedFriend = users.find(user => user.id === userFriend.friendId)
-                friendsOfActiveUser.push(matchedFriend)
-            })
-        }
-    }
-    myFriends()
+    useEffect(
+        () => {
+            getAllUserFriends()
+                .then(
+                    (data) => {
+                        setActiveUserFriends(data.filter(userFriend => userFriend.userId === linkUpUserObj.id))
+                    })
 
-    let nonFriendsOfActiveUser = []
-    const nonFriends = () => {
-        {
-            myUserFriends.map(friendUser => {
-                const matchedUser = users.find(user => user.id !== friendUser.friendId)
-                nonFriendsOfActiveUser.push(matchedUser)
-            })
-        }
-    }
-    nonFriends()
-    // console.log(userFriends)
+        },
+        [userFriends]
+    )
+    
+
+        console.log(activeUserFriends)
     return <>
-        <section id="fullUserList">
-            <ul>
-                {
-                    users.map(
-                        user => {
-                            return <>
-                                <li>{user.name}</li>
-                            </>
-                        }
-                    )
-                }
+        <main id="fullUserList">
 
-            </ul>
-        </section>
+            <section className="userListContainer">
+                <ul className="listOfOtherUsers">
+                    {
+                        users.map(
+                            user => {
+                                if (user.id !== linkUpUserObj.id) {
+                                    const matchingFriendRelationship = activeUserFriends.find(userFriend => userFriend.friendId === user.id)
+                                    if (matchingFriendRelationship && matchingFriendRelationship.confirmed === true) {
+                                        return <>
+                                            <li key={user.id} className="userListItem">
+                                                <h3>
+                                                    {user.name}
+                                                </h3>
+                                                <button className="deleteFriendButton" onClick={
+
+                                                    () => {
+                                                        deleteFriend(matchingFriendRelationship.id)
+                                                        const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
+                                                        const copy = otherSideOfDeletedRequest
+                                                        copy.confirmed = false
+                                                        changeFriendStatus(copy, otherSideOfDeletedRequest.id)
+                                                        setFriendChange(!friendChange)
+
+                                                    }
+                                                }>unfriend</button>
+
+                                            </li>
+                                        </>
+                                    }
+                                    else if (matchingFriendRelationship && matchingFriendRelationship.confirmed === false){
+                                        return <>
+                                            <li key={user.id} className="userListItem">
+                                                <h3>
+                                                    {user.name}
+                                                </h3>
+                                                <button className="cancelRequestButton" onClick={
+
+                                                    () => {
+                                                        deleteFriend(matchingFriendRelationship.id)
+                                                        setFriendChange(!friendChange)
+
+                                                    }
+                                                }>cancel request</button>
+
+                                            </li>
+                                        </>
+                                    }
+                                    else {
+
+                                        return <>
+                                            <li key={user.id} className="userListItem">
+                                                <h3>
+                                                    {user.name}
+                                                </h3>
+                                                <button className="addFriendButton" onClick={
+                                                    () => {
+                                                        const newFriendForAPI = {
+                                                            userId: linkUpUserObj.id,
+                                                            friendId: user.id,
+                                                            confirmed: false
+                                                        }
+                                                        addFriend(newFriendForAPI)
+                                                        setFriendChange(!friendChange)
+                                                    }
+                                                }>request</button>
+
+                                            </li>
+                                        </>
+                                    }
+
+                                }
+                            }
+                        )
+                    }
+
+                </ul>
+            </section>
+        </main>
     </>
 }

@@ -107,6 +107,17 @@ export const sendNewCourse = (newCourseObj) => {
         .then(res => res.json())
 }
 
+export const addFriend = (newFriendObj) => {
+    return fetch(`http://localhost:8088/userFriends`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newFriendObj)
+    })
+        .then(res => res.json())
+}
+
 //delete fetch
 
 export const deleteTeeTime = (teeTimeId) => {
@@ -125,4 +136,24 @@ export const deleteCourse = (courseId) => {
     return fetch(`http://localhost:8088/courses/${courseId}`, {
         method: "DELETE"
     })
+}
+
+export const deleteFriend = (friendRelationshipId) => {
+    return fetch(`http://localhost:8088/userFriends/${friendRelationshipId}`, {
+        method: "DELETE"
+    })
+}
+
+
+//put fetches
+
+export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
+    return fetch(`http://localhost:8088/userFriends/${userFriendId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userFriendReplacement)
+    })
+        .then(res => res.json())
 }

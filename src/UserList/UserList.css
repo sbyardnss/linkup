@@ -1,3 +1,91 @@
 #fullUserList {
     margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.userListContainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listOfOtherUsers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: inherit;
+
+}
+
+
+.addFriendButton {
+    /* margin-left: auto; */
+   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+   background-color: rgb(37, 79, 120);
+   padding: .5em 0;
+   color: white;
+   border: 2px solid black;
+   border-radius: 4px;
+   margin-left: 20px;
+   width: 90px;
+   font-size: large;
+   font-weight: normal;
+   font-style: oblique;
+
+}
+.cancelRequestButton {
+    /* margin-left: auto; */
+   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+   background-color: rgb(37, 120, 41);
+   padding: .5em 0;
+   color: white;
+   border: 2px solid black;
+   border-radius: 4px;
+   margin-left: 20px;
+   width: 90px;
+   font-size: large;
+   font-weight: normal;
+   font-style: oblique;
+
+}
+.deleteFriendButton {
+    /* margin-left: auto; */
+   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+   background-color: rgb(120, 37, 37);
+   padding: .5em 0;
+   color: white;
+   border: 2px solid black;
+   border-radius: 4px;
+   margin-left: 20px;
+   width: 90px;
+   font-size: large;
+   font-weight: normal;
+   font-style: oblique;
+
+}
+button:active {
+    background: #b38080;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+}
+
+.addFriendButtonBlock {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1em;
+}
+
+.userListItem {
+    display: flex;
+    padding: 1em;
+    justify-content: space-between;
+    margin: .5em 0;
+    background-color: aqua;
 }

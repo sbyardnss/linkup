@@ -55,20 +55,15 @@ button:active {
 
 .myCreatedTeeTime {
     display: flex;
-    /* flex-direction: column; */
     padding: 1em;
     justify-content: space-between;
-    /* align-items: start; */
     margin: .5em 0;
-    margin-right: 200px;
     background-color: aqua;
 }
 
 .myJoinedTeeTime {
     display: flex;
-    /* flex-direction: column; */
     padding: 1em;
-
     justify-content: space-between;
     margin: .5em 0;
     background-color: rgb(150, 250, 170);
@@ -76,9 +71,7 @@ button:active {
 
 .joinableTeeTimes {
     display: flex;
-    /* flex-direction: column; */
     padding: 1em;
-
     justify-content: space-between;
     margin: .5em 0;
     background-color: rgb(217, 183, 249);
