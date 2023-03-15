@@ -13,8 +13,6 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
-    console.log(rainChance14Day)
-
     //build weather string here
     const dateTwoWeeksOut = Date.parse(next14Dates[13])
     let rainChance = 0

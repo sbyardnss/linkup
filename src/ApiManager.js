@@ -1,4 +1,5 @@
-
+const localLinkUpUser = localStorage.getItem("linkUp_user")
+const linkUpUserObj = JSON.parse(localLinkUpUser)
 //get fetches
 export const getAllUsers = () => {
     return fetch(`http://localhost:8088/users`)
@@ -39,6 +40,12 @@ export const getAllUserFriends = () => {
         .then(res => res.json())
 }
 
+export const getAllUserFriendsForActiveUser = () => {
+    const localLinkUpUser = localStorage.getItem("linkUp_user")
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    return fetch(`http://localhost:8088/userFriends?&userId=${linkUpUserObj.id}`)
+        .then(res => res.json())
+}
 //external API fetches
 
 

@@ -7,13 +7,17 @@ import "./HomePage.css"
 
 export const HomePage = () => {
 
-    const { users, courses, matches, userMatchesWithMatchInfo } = useContext(TeeTimeContext)
+    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends } = useContext(TeeTimeContext)
 
     const { next14Dates } = useContext(WeatherContext)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
+
+
+    
+    
     const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId === linkUpUserObj.id
     })
@@ -24,7 +28,14 @@ export const HomePage = () => {
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
 
-    const onlyOthersUserMatches = userMatchesWithMatchInfo.filter(uME => {
+    //sort userMatches so that only matches initiated by friends show in open matches
+    const userMatchesIHaveAccessTo = userMatchesWithMatchInfo.filter(userMatch => {
+        if (activeUserFriends.find(userFriend => userFriend.friendId === userMatch.userId && userMatch.isInitiator === true)) {
+            return userMatch
+        } 
+    })
+
+    const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
         return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
     })
 
@@ -73,6 +84,7 @@ export const HomePage = () => {
         const bDate = Date.parse(b.match.date)
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
+    
 
     //todays generated date for comparison    PASS DOWN AS PROP
     const currentDate = new Date();

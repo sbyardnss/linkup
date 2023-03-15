@@ -38,6 +38,9 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
             if (rainChance === 0) {
                 weatherInfoString = "0% chance of rain"
             }
+            if (rainChance === null) {
+                weatherInfoString = "too early for weather data"
+            }
         })
 
     }

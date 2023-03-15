@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { getActiveUserMatchesWithMatchInfo, getActiveUserMatches, getAllCourseHoles, getAllCourses, getAllMatches, getAllMatchUserHoleScores, getAllUserMatches, getAllUsers, deleteTeeTime, deleteUserMatch, sendUserMatch, getWeatherInfo } from "../ApiManager"
+import { getActiveUserMatchesWithMatchInfo, getAllCourses, getAllMatches, getAllUsers, getAllUserFriendsForActiveUser } from "../ApiManager"
 export const TeeTimeContext = createContext()
 
 export const TeeTimeProvider = (props) => {
@@ -7,11 +7,11 @@ export const TeeTimeProvider = (props) => {
     const [courses, setCourses] = useState([])
     const [matches, setMatches] = useState([])
     const [userMatchesWithMatchInfo, setUserMatchesWithMatchInfo] = useState([])
-
+    const [activeUserFriends, setActiveUserFriends] = useState([])
     const [deleteItem, deleteInitiated] = useState(false)
     const [joinMatch, joinInitiated] = useState([false])
     const [matchCreated, setMatchCreated] = useState(false)
-
+    const [friendChange, setFriendChange] = useState(false)
     useEffect(
         () => {
             getAllUsers()
@@ -47,6 +47,17 @@ export const TeeTimeProvider = (props) => {
         [deleteItem, matchCreated]
     )
 
+    useEffect(
+        () => {
+            getAllUserFriendsForActiveUser()
+            .then(
+                (data) => {
+                    setActiveUserFriends(data)
+                }
+            )
+        },
+        [friendChange]
+    )
 
     useEffect(
         () => {
@@ -57,7 +68,7 @@ export const TeeTimeProvider = (props) => {
                     }
                 )
         },
-        [deleteItem, joinMatch, matchCreated]
+        [deleteItem, joinMatch, matchCreated, friendChange]
     )
     
 
@@ -68,7 +79,7 @@ export const TeeTimeProvider = (props) => {
 
     return (
         <TeeTimeContext.Provider value={{
-            deleteItem, deleteInitiated, joinMatch, joinInitiated, users, courses, matches, userMatchesWithMatchInfo, matchCreated, setMatchCreated
+            deleteItem, deleteInitiated, joinMatch, joinInitiated, users, courses, matches, userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends
         }}>
             {props.children}
         </TeeTimeContext.Provider>

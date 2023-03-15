@@ -6,11 +6,8 @@ import "./UserList.css"
 
 
 export const UserList = () => {
-    const { users } = useContext(TeeTimeContext)
+    const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends } = useContext(TeeTimeContext)
     const [userFriends, setUserFriends] = useState([])
-    const [activeUserFriends, setActiveUserFriends] = useState([])
-    const [friendChange, setFriendChange] = useState(false)
-
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
@@ -38,7 +35,7 @@ export const UserList = () => {
     )
 
 
-    console.log(activeUserFriends)
+    // console.log(activeUserFriends)
     return <>
         <main id="fullUserList">
 
@@ -75,6 +72,9 @@ export const UserList = () => {
                                             </li>
                                         </>
                                     }
+
+
+
                                     // CODE BELOW FOR REQUESTING ONLY
                                     // else if (matchingFriendRelationship && matchingFriendRelationship.confirmed === false){
                                     // else if (matchingFriendRelationship) {
@@ -96,6 +96,7 @@ export const UserList = () => {
                                     //         </li>
                                     //     </>
                                     // }
+
                                     else {
 
                                         return <>
