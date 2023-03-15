@@ -45,3 +45,21 @@
     padding: 0;
     margin-bottom: 60px;
 }
+.editProfileButton {
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    padding: .25em .25em;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 60px;
+    font-size: large;
+    font-weight: normal;
+    font-style: oblique;
+ 
+}
+
+#profileHeader {
+    display: flex;
+}

@@ -7,10 +7,10 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, matches, userMatchesWithMatchInfo } = useContext(TeeTimeContext)
-    const { weather14Day, rainChance14Day, next14Dates } = useContext(WeatherContext)
+    const { users, courses, userMatchesWithMatchInfo, activeUserFriends } = useContext(TeeTimeContext)
+    const { next14Dates } = useContext(WeatherContext)
     const [profile, updateProfile] = useState({})
-    
+
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const currentUser = users.find(user => user.id === linkUpUserObj.id)
@@ -34,14 +34,26 @@ export const UserProfile = () => {
     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
     const currentDateParsed = Date.parse(currentDateString)
 
-
     return <>
         <main id="profileContainer">
             <section className="profile__info">
                 <div>
-                    <h2>{currentUser?.name}</h2>
-                    <div>{currentUser?.logo}</div>
-                    <div>Friends:</div>
+                    <div id="profileHeader">
+                        <h2>{currentUser?.name}</h2>
+                        <button className="editProfileButton">Edit</button>
+                    </div>
+                    <div>Friends:
+                        <ul className="listOfFriends">
+                            {
+                                activeUserFriends.map(userFriend => {
+                                    const friendObj = users.find(user => user.id === userFriend.friendId)
+                                    return <>
+                                        <li>{friendObj.name}</li>
+                                    </>
+                                })
+                            }
+                        </ul>
+                    </div>
                 </div>
             </section>
             <section className="teeTimesContainer">
@@ -82,7 +94,7 @@ export const UserProfile = () => {
                     }
                 </ul>
                 <h3>Past Tee Times:</h3>
-                <ul className="listOfPastTeeTimes"> 
+                <ul className="listOfPastTeeTimes">
                     {
                         sortedOnlyMyUserMatches.map(teeTime => {
                             if (next14Dates) {
