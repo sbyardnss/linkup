@@ -41,12 +41,18 @@ export const getAllUserFriends = () => {
 
 //external API fetches
 
+
+//old weather data fetch
+// export const getWeatherInfo = () => {
+//     return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=precipitation_probability&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
+//         .then(res => res.json())
+// }
+
+
 export const getWeatherInfo = () => {
-    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=precipitation_probability&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
+    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=temperature_2m,precipitation_probability,windspeed_10m&models=best_match&daily=precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
         .then(res => res.json())
 }
-
-
 //expanded fetches
 
 export const getActiveUserMatches = () => {
@@ -156,4 +162,5 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
         body: JSON.stringify(userFriendReplacement)
     })
         .then(res => res.json())
+
 }

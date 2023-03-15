@@ -36,9 +36,9 @@ export const UserList = () => {
         },
         [userFriends]
     )
-    
 
-        console.log(activeUserFriends)
+
+    console.log(activeUserFriends)
     return <>
         <main id="fullUserList">
 
@@ -49,7 +49,10 @@ export const UserList = () => {
                             user => {
                                 if (user.id !== linkUpUserObj.id) {
                                     const matchingFriendRelationship = activeUserFriends.find(userFriend => userFriend.friendId === user.id)
-                                    if (matchingFriendRelationship && matchingFriendRelationship.confirmed === true) {
+                                    // if (matchingFriendRelationship && matchingFriendRelationship.confirmed === true) {
+                                    //USE CODE ABOVE IF YOU IMPLEMENT FRIEND REQUESTS
+                                    if (matchingFriendRelationship) {
+
                                         return <>
                                             <li key={user.id} className="userListItem">
                                                 <h3>
@@ -59,36 +62,40 @@ export const UserList = () => {
 
                                                     () => {
                                                         deleteFriend(matchingFriendRelationship.id)
-                                                        const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
-                                                        const copy = otherSideOfDeletedRequest
-                                                        copy.confirmed = false
-                                                        changeFriendStatus(copy, otherSideOfDeletedRequest.id)
+                                                        //CODE BELOW FOR REQUESTING POTENTIAL ONLY
+                                                        // const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
+                                                        // const copy = otherSideOfDeletedRequest
+                                                        // copy.confirmed = false
+                                                        // changeFriendStatus(copy, otherSideOfDeletedRequest.id)
                                                         setFriendChange(!friendChange)
 
                                                     }
-                                                }>unfriend</button>
+                                                }>DELETE</button>
 
                                             </li>
                                         </>
                                     }
-                                    else if (matchingFriendRelationship && matchingFriendRelationship.confirmed === false){
-                                        return <>
-                                            <li key={user.id} className="userListItem">
-                                                <h3>
-                                                    {user.name}
-                                                </h3>
-                                                <button className="cancelRequestButton" onClick={
+                                    // CODE BELOW FOR REQUESTING ONLY
+                                    // else if (matchingFriendRelationship && matchingFriendRelationship.confirmed === false){
+                                    // else if (matchingFriendRelationship) {
 
-                                                    () => {
-                                                        deleteFriend(matchingFriendRelationship.id)
-                                                        setFriendChange(!friendChange)
+                                    //     return <>
+                                    //         <li key={user.id} className="userListItem">
+                                    //             <h3>
+                                    //                 {user.name}
+                                    //             </h3>
+                                    //             <button className="cancelRequestButton" onClick={
 
-                                                    }
-                                                }>cancel request</button>
+                                    //                 () => {
+                                    //                     deleteFriend(matchingFriendRelationship.id)
+                                    //                     setFriendChange(!friendChange)
 
-                                            </li>
-                                        </>
-                                    }
+                                    //                 }
+                                    //             }>cancel request</button>
+
+                                    //         </li>
+                                    //     </>
+                                    // }
                                     else {
 
                                         return <>
@@ -100,13 +107,14 @@ export const UserList = () => {
                                                     () => {
                                                         const newFriendForAPI = {
                                                             userId: linkUpUserObj.id,
-                                                            friendId: user.id,
-                                                            confirmed: false
+                                                            friendId: user.id
+                                                            //CODE BELOW FOR REQUESTING ABILITY ONLY
+                                                            // confirmed: false
                                                         }
                                                         addFriend(newFriendForAPI)
                                                         setFriendChange(!friendChange)
                                                     }
-                                                }>request</button>
+                                                }>ADD</button>
 
                                             </li>
                                         </>
