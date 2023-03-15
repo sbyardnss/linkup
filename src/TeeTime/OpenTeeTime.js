@@ -66,12 +66,14 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
                     <div>
                         {courseName}
                     </div>
+                    <div className="teeTimeDate">
+                        {date}
+                    </div>
                     <div>
-
-                        {time} {date}
+                        {time}
                     </div>
                 </div>
-                <div>
+                <div className="weatherContainer">
                     <div>
                         {weatherInfoString}
                     </div>

@@ -74,7 +74,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
                     <div>
                         {courseName}
                     </div>
-                    <div>
+                    <div className="teeTimeDate">
                         {date}
                     </div>
                     <div>
@@ -82,8 +82,8 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
                         {time}
                     </div>
                 </div>
-                <div>
-                    <div>
+                <div className="weatherContainer">
+                    <div className="teeTimeWeather">
                         {weatherInfoString}
                     </div>
                 </div>
@@ -115,15 +115,15 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
                     <div>
                         {courseName}
                     </div>
-                    <div>
+                    <div className="teeTimeDate">
                         {date}
                     </div>
-                    <div>
+                    <div className="teeTimeWeather">
 
                         {time}
                     </div>
                 </div>
-                <div>
+                <div className="weatherContainer">
                     <div>
                         {weatherInfoString}
                     </div>
