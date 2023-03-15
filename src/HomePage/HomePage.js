@@ -17,16 +17,25 @@ export const HomePage = () => {
     const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId === linkUpUserObj.id
     })
+    //sort matches for my tee times
+    const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) =>  {
+        const aDate = Date.parse(a.match.date)
+        const bDate = Date.parse(b.match.date)
+        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+    })
+
     const onlyOthersUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
     })
 
+    
+    
     // const onlyMyTeeTimes = () => {
-
-    //     {
-    //         onlyMyUserMatches.map(myUserMatch => {
-    //             const myMatch = matches?.find(match => match.id === myUserMatch.matchId)
-    //             myTeeTimes.push(myMatch)
+        
+        //     {
+            //         onlyMyUserMatches.map(myUserMatch => {
+                //             const myMatch = matches?.find(match => match.id === myUserMatch.matchId)
+                //             myTeeTimes.push(myMatch)
     //         })
 
     //     }
@@ -59,7 +68,11 @@ export const HomePage = () => {
             return true
         }
     })
-
+    const sortedOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatchesThatIHaveNotJoined.sort((a, b) =>  {
+        const aDate = Date.parse(a.match.date)
+        const bDate = Date.parse(b.match.date)
+        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+    })
 
     //todays generated date for comparison    PASS DOWN AS PROP
     const currentDate = new Date();
@@ -75,7 +88,7 @@ export const HomePage = () => {
                     <h3>My Tee Times</h3>
                     <ul className="listOfTeeTimes">
                         {
-                            onlyMyUserMatches.map(teeTime => {
+                            sortedOnlyMyUserMatches.map(teeTime => {
                                 if (next14Dates) {
                                     //string values for teeTime date
                                     const [month, day, year] = teeTime?.match?.date.split("/")
@@ -124,7 +137,7 @@ export const HomePage = () => {
                     <ul className="listOfTeeTimes">
 
                         {
-                            onlyOthersUserMatchesThatIHaveNotJoined.map(teeTime => {
+                            sortedOthersUserMatchesThatIHaveNotJoined.map(teeTime => {
                                 //string values for teeTime date
                                 const [month, day, year] = teeTime?.match?.date.split("/")
 

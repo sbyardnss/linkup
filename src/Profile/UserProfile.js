@@ -17,6 +17,12 @@ export const UserProfile = () => {
         return uME.userId === linkUpUserObj.id
     })
 
+    const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) => {
+        const aDate = Date.parse(a.match.date)
+        const bDate = Date.parse(b.match.date)
+        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+    })
+
 
     const currentDate = new Date();
     const currentMonth = (currentDate.getMonth() + 1)
@@ -41,7 +47,7 @@ export const UserProfile = () => {
                     <h3>My Tee Times</h3>
                     <ul className="listOfFutureTeeTimes">
                         {
-                            onlyMyUserMatches.map(teeTime => {
+                            sortedOnlyMyUserMatches.map(teeTime => {
                                 if (next14Dates) {
                                     //string values for teeTime date
                                     const [month, day, year] = teeTime?.match?.date.split("/")
@@ -74,9 +80,9 @@ export const UserProfile = () => {
                             })
                         }
                     </ul>
-                    <ul className="listOfPastTeeTimes">
+                    <ul className="listOfPastTeeTimes"> Past Tee Times:
                         {
-                            onlyMyUserMatches.map(teeTime => {
+                            sortedOnlyMyUserMatches.map(teeTime => {
                                 if (next14Dates) {
                                     const otherUserMatchesForGivenMatch = userMatchesWithMatchInfo.filter(userMatch => {
                                         return userMatch.matchId === teeTime.matchId
@@ -96,21 +102,23 @@ export const UserProfile = () => {
 
                                     if (teeTimeDateParsed < currentDateParsed) {
                                         return <>
-                                            <li>
-                                                <div>{matchingCourse.name}</div>
-                                                <div>{teeTime.match.date}</div>
-                                                <div>{teeTime.match.time}</div>
-                                                <div>Other Players:</div>
-                                                {
-                                                    otherUserMatchesForGivenMatch.map(userMatch => {
-                                                        const matchPlayer = users.find(user => user.id === userMatch.userId)
-                                                        return <>
-                                                            <div>
-                                                                {matchPlayer.name}
-                                                            </div>
-                                                        </>
-                                                    })
-                                                }
+                                            <li className="pastTeeTime">
+                                                <div className="pastTeeTimeInfo">
+                                                    <div>{matchingCourse.name}</div>
+                                                    <div>{teeTime.match.date}</div>
+                                                    <div>{teeTime.match.time}</div>
+                                                </div>
+
+                                                <div className="listOfPlayersOnMatch">Other Players:
+                                                    {
+                                                        otherUserMatchesForGivenMatch.map(userMatch => {
+                                                            const matchPlayer = users.find(user => user.id === userMatch.userId)
+                                                            return <>
+                                                                <div>{matchPlayer.name}</div>
+                                                            </>
+                                                        })
+                                                    }
+                                                </div>
                                             </li>
                                         </>
                                     }

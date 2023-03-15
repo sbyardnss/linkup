@@ -58,7 +58,9 @@ button:active {
     /* flex-direction: column; */
     padding: 1em;
     justify-content: space-between;
+    /* align-items: start; */
     margin: .5em 0;
+    margin-right: 200px;
     background-color: aqua;
 }
 
@@ -80,4 +82,16 @@ button:active {
     justify-content: space-between;
     margin: .5em 0;
     background-color: rgb(217, 183, 249);
+}
+
+.teeTimeDate {
+    margin-right: 200px;
+}
+
+.weatherContainer {
+    width: 200px;
+    border: 2px solid gray;
+    padding:4px;
+    border-radius: 4px;
+    background-color: rgb(150, 250, 170, .5);
 }

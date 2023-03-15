@@ -1,0 +1,25 @@
+#profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.myTeeTimesContainer {
+    width: inherit;
+    
+}
+.pastTeeTime {
+    display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+    margin: .5em 0;
+    background-color: rgb(249, 211, 141);
+}
+
+.listOfPlayersOnMatch {
+    display: flex;
+    flex-direction: column;
+}
+
+.pastTeeTimeInfo {
+    margin-right: 100px;
+}
