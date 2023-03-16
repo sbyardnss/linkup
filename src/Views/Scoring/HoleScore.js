@@ -8,8 +8,9 @@ export const HoleScore = () => {
     const { scorecards, matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch } = useContext(ScorecardContext)
     const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
-    
-    
+    const localLinkUpUser = localStorage.getItem("linkUp_user")
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
+
     return <>
         <main id="holeScoreContainer">
             <select id="selectMatch">
@@ -36,15 +37,22 @@ export const HoleScore = () => {
                                 const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                                 return <>
                                     <option key={teeTime.id} value={teeTime.id}>
-                                        {matchingCourse.name} with 
-                                        {
-                                            otherUserMatchesForGivenMatch.map(userMatch => {
-                                                const matchPlayer = users.find(user => user.id === userMatch.userId)
-                                                return <>
-                                                    <div> {matchPlayer.name} </div>
-                                                </>
-                                            })
-                                        }
+                                        {matchingCourse.name} - with:
+                                        <ul>
+                                            {
+                                                otherUserMatchesForGivenMatch.map(userMatch => {
+                                                    const matchPlayer = users.find(user => user.id === userMatch.userId)
+                                                    if (matchPlayer.id !== linkUpUserObj.id) {
+                                                        return <>
+                                                            <li>{" " + matchPlayer.name + "     "}</li>
+
+                                                        </>
+
+                                                    }
+                                                })
+                                            }
+
+                                        </ul>
                                     </option>
                                 </>
                             }

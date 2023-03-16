@@ -6,7 +6,7 @@ import "./TeeTime.css"
 import { TeeTimeContext } from "./TeeTimeProvider"
 
 export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) => {
-    const { weather14Day, rainChance14Day, next14Dates } = useContext(WeatherContext)
+    const { rainChance14Day, next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
     const { joinMatch, joinInitiated, users, userMatchesWithMatchInfo } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -18,32 +18,57 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
     let rainChance = 0
     let weatherInfoString = ""
     const teeTimeDateParsed = Date.parse(date)
-    {
-        next14Dates.map((date, indexOfDate) => {
-            const [year, month, day] = date.split("-")
-            const forCastYear = parseInt(year)
-            const forCastMonth = parseInt(month)
-            const forCastDay = parseInt(day)
-            const forCastDate = `${forCastMonth}-${forCastDay}-${forCastYear}`
-            const parsedForCastDate = Date.parse(forCastDate)
-            if (parsedForCastDate === teeTimeDateParsed) {
-                rainChance = rainChance14Day[indexOfDate]
-            }
-            else {
-                rainChance = ""
-            }
-            if (rainChance) {
-                weatherInfoString = `${rainChance}% chance of rain`
-            }
-            if (rainChance === 0) {
-                weatherInfoString = "0% chance of rain"
-            }
-            if (rainChance === null) {
-                weatherInfoString = "too early for weather data"
-            }
-        })
 
+
+
+
+    //build hourly weather string here
+    const timeBuilder = (time) => {
+        const [timeString,] = time.split(" ")
+        // console.log(timeString)//4:00
+        let [hours, minutes] = timeString.split(":")
+        if (parseInt(hours) < 12) {
+            hours = parseInt(hours) + 12
+        }
+        return `T${hours}:${minutes}`
     }
+    const [month, day, year] = date.split("/")
+    const dateString = `${year}-${month}-${day}`
+    const exactHourString = `${dateString}${timeBuilder(time)}`
+    const hourIndex = weatherHourArrayForIndex.findIndex(hour => hour === exactHourString)
+    const precipitationHour = hourlyPrecipitation[hourIndex]//works
+    const windHour = hourlyWindspeed[hourIndex]//works
+    const tempHour = hourlyTemp[hourIndex]//works
+
+
+
+    //old daily value for weather
+    // {
+    //     next14Dates.map((date, indexOfDate) => {
+    //         const [year, month, day] = date.split("-")
+    //         const forCastYear = parseInt(year)
+    //         const forCastMonth = parseInt(month)
+    //         const forCastDay = parseInt(day)
+    //         const forCastDate = `${forCastMonth}-${forCastDay}-${forCastYear}`
+    //         const parsedForCastDate = Date.parse(forCastDate)
+    //         if (parsedForCastDate === teeTimeDateParsed) {
+    //             rainChance = rainChance14Day[indexOfDate]
+    //         }
+    //         else {
+    //             rainChance = ""
+    //         }
+    //         if (rainChance) {
+    //             weatherInfoString = `${rainChance}% chance of rain`
+    //         }
+    //         if (rainChance === 0) {
+    //             weatherInfoString = "0% chance of rain"
+    //         }
+    //         if (rainChance === null) {
+    //             weatherInfoString = "too early for weather data"
+    //         }
+    //     })
+
+    // }
 
     //establish initiating user
     const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
@@ -78,7 +103,10 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
                 </div>
                 <div className="weatherContainer">
                     <div>
-                        {weatherInfoString}
+                        {/* {weatherInfoString} */}
+                        <div>Rain: {precipitationHour}% chance</div>
+                        <div>Temp: {tempHour}°F</div>
+                        <div> WindSpeed: {windHour}mph</div>
                     </div>
                 </div>
                 <div className="buttonBlock">
