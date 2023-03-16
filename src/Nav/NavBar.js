@@ -18,10 +18,10 @@ export const NavBar = () => {
             </div> */}
             <div id="linkContainer">
                 <div className="navLinks">
-
+                    <Link className="navigation_link" to="/holeScore">Play</Link>
                     <Link className="navigation_link" to="/createTeeTime">New Tee Time</Link>
-                    <Link className="navigation_link" to="/addCourse">Add Course</Link>
                     <Link className="navigation_link" to="/userList">Make Friends</Link>
+                    <Link className="navigation_link" to="/addCourse">Add Course</Link>
                     <Link className="navigation_link" to="/profile">My Profile</Link>
                 </div>
 

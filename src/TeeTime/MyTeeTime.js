@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, confirm } from "react"
 import { Link } from "react-router-dom"
 import { deleteTeeTime, deleteUserMatch } from "../ApiManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
@@ -6,9 +6,9 @@ import { TeeTimeContext } from "./TeeTimeProvider"
 
 import "./TeeTime.css"
 
-export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => {
+export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, scorecardId }) => {
     const { weather14Day, rainChance14Day, next14Dates } = useContext(WeatherContext)
-    const { deleteItem, deleteInitiated, users, userMatchesWithMatchInfo } = useContext(TeeTimeContext)
+    const { deleteItem, deleteInitiated, users, userMatchesWithMatchInfo, navigate } = useContext(TeeTimeContext)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -49,7 +49,6 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
         weatherInfoString += "too early for weather data"
     }
 
-
     //find all userMatches corresponding to a match that you initiated. this is for the delete button
     let allMatchingUserMatches = []
     const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
@@ -89,14 +88,26 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
                     </div>
                 </div>
                 <div className="buttonBlock">
+                    <button className="scorecardButton" onClick={
+                        () => {
+                            
+                        }
+                    }>Scorecard</button>
+
                     <button key={id} className="teeTimeButton" onClick={
                         () => {
-                            deleteTeeTime(matchId)
-                            {
-                                allMatchingUserMatches.map(userMatch => {
-                                    deleteUserMatch(userMatch.id)
-                                })
-                                deleteInitiated(!deleteItem)
+                            if (window.confirm("are you sure?")) {
+
+                                deleteTeeTime(matchId)
+                                {
+                                    allMatchingUserMatches.map(userMatch => {
+                                        deleteUserMatch(userMatch.id)
+                                    })
+                                    deleteInitiated(!deleteItem)
+                                }
+                            }
+                            else {
+                                return null
                             }
                         }
                     }>Delete</button>
@@ -130,10 +141,13 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId }) => 
                     </div>
                 </div>
                 <div className="buttonBlock">
+                    <button className="scorecardButton">Scorecard</button>
                     <button className="joinTeeTimeButton" onClick={
                         () => {
-                            deleteUserMatch(id)
-                            deleteInitiated(!deleteItem)
+                            if (window.confirm("are you sure?")) {
+                                deleteUserMatch(id)
+                                deleteInitiated(!deleteItem)
+                            }
                         }
                     }>Bail</button>
                 </div>

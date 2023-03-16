@@ -7,7 +7,7 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, userMatchesWithMatchInfo, activeUserFriends } = useContext(TeeTimeContext)
+    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profile, updateProfile] = useState({})
 
@@ -74,17 +74,21 @@ export const UserProfile = () => {
 
 
                                 const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-
+                                const matchingScorecardId = teeTime.scorecardId
                                 if (teeTimeDateParsed >= currentDateParsed) {
                                     return <>
-                                        <MyTeeTime key={teeTime.id}
-                                            id={teeTime.id}
-                                            courseId={matchingCourse.id}
-                                            courseName={matchingCourse.name}
-                                            date={teeTime.match.date}
-                                            time={teeTime.match.time}
-                                            matchId={teeTime.matchId}
-                                        />
+                                        <div className="userProfileMatches">
+                                            <MyTeeTime key={teeTime.id}
+                                                id={teeTime.id}
+                                                courseId={matchingCourse.id}
+                                                courseName={matchingCourse.name}
+                                                date={teeTime.match.date}
+                                                time={teeTime.match.time}
+                                                matchId={teeTime.matchId}
+                                                scorecardId={matchingScorecardId}
+                                            />
+
+                                        </div>
                                     </>
                                 }
 
@@ -113,6 +117,7 @@ export const UserProfile = () => {
 
 
                                 const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                const matchingScorecardId = teeTime.scorecardId
 
                                 if (teeTimeDateParsed < currentDateParsed) {
                                     return <>
@@ -132,6 +137,14 @@ export const UserProfile = () => {
                                                         </>
                                                     })
                                                 }
+                                            </div>
+                                            <div className="profileButtonBlock">
+                                                <button className="profileScorecardButton" onClick={
+                                                    () => {
+                                                        console.log(teeTime.matchId)
+                                                        navigate(`/scorecards/${teeTime.matchId}`)
+                                                    }
+                                                }>Scorecard</button>
                                             </div>
                                         </li>
                                     </>

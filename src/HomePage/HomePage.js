@@ -7,7 +7,7 @@ import "./HomePage.css"
 
 export const HomePage = () => {
 
-    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends } = useContext(TeeTimeContext)
+    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed} = useContext(TeeTimeContext)
 
     const { next14Dates } = useContext(WeatherContext)
 
@@ -18,26 +18,26 @@ export const HomePage = () => {
 
 
 
-    const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
-        return uME.userId === linkUpUserObj.id
-    })
-    //sort matches for my tee times
-    const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) => {
-        const aDate = Date.parse(a.match.date)
-        const bDate = Date.parse(b.match.date)
-        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-    })
+    // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
+    //     return uME.userId === linkUpUserObj.id
+    // })
+    // //sort matches for my tee times
+    // const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) => {
+    //     const aDate = Date.parse(a.match.date)
+    //     const bDate = Date.parse(b.match.date)
+    //     return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+    // })
 
-    //sort userMatches so that only matches initiated by friends show in open matches
-    const userMatchesIHaveAccessTo = userMatchesWithMatchInfo.filter(userMatch => {
-        if (activeUserFriends.find(userFriend => userFriend.friendId === userMatch.userId && userMatch.isInitiator === true)) {
-            return userMatch
-        }
-    })
+    // //sort userMatches so that only matches initiated by friends show in open matches
+    // const userMatchesIHaveAccessTo = userMatchesWithMatchInfo.filter(userMatch => {
+    //     if (activeUserFriends.find(userFriend => userFriend.friendId === userMatch.userId && userMatch.isInitiator === true)) {
+    //         return userMatch
+    //     }
+    // })
 
-    const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
-        return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
-    })
+    // const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
+    //     return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
+    // })
 
 
 
@@ -70,20 +70,20 @@ export const HomePage = () => {
     // }
     // onlyOpenTeeTimes()
 
-    const onlyOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatches.filter(othersUserMatch => {
-        const haveIJoinedAlready = onlyMyUserMatches.find(myUserMatch => myUserMatch.matchId === othersUserMatch.matchId)
-        if (haveIJoinedAlready) {
-            return false
-        }
-        else {
-            return true
-        }
-    })
-    const sortedOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatchesThatIHaveNotJoined.sort((a, b) => {
-        const aDate = Date.parse(a.match.date)
-        const bDate = Date.parse(b.match.date)
-        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-    })
+    // const onlyOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatches.filter(othersUserMatch => {
+    //     const haveIJoinedAlready = onlyMyUserMatches.find(myUserMatch => myUserMatch.matchId === othersUserMatch.matchId)
+    //     if (haveIJoinedAlready) {
+    //         return false
+    //     }
+    //     else {
+    //         return true
+    //     }
+    // })
+    // const sortedOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatchesThatIHaveNotJoined.sort((a, b) => {
+    //     const aDate = Date.parse(a.match.date)
+    //     const bDate = Date.parse(b.match.date)
+    //     return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+    // })
 
 
 
@@ -145,13 +145,13 @@ export const HomePage = () => {
 
 
 
-    //todays generated date for comparison    PASS DOWN AS PROP
-    const currentDate = new Date();
-    const currentMonth = (currentDate.getMonth() + 1)
-    const currentDayOfMonth = currentDate.getDate()
-    const currentYear = currentDate.getFullYear()
-    const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
-    const currentDateParsed = Date.parse(currentDateString)
+    // //todays generated date for comparison    PASS DOWN AS PROP
+    // const currentDate = new Date();
+    // const currentMonth = (currentDate.getMonth() + 1)
+    // const currentDayOfMonth = currentDate.getDate()
+    // const currentYear = currentDate.getFullYear()
+    // const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
+    // const currentDateParsed = Date.parse(currentDateString)
 
 
 

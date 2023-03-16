@@ -46,6 +46,16 @@ export const getAllUserFriendsForActiveUser = () => {
     return fetch(`http://localhost:8088/userFriends?&userId=${linkUpUserObj.id}`)
         .then(res => res.json())
 }
+export const getAllScoreCards = () => {
+    return fetch(`http://localhost:8088/scorecards`)
+        .then(res => res.json())
+}
+
+//get all userMatches with scorecards for paticularMatch 
+export const getUserMatchesForThisMatch = (matchId) => {
+    return fetch(`http://localhost:8088/userMatches?&matchId=${matchId}`)
+        .then(res => res.json())
+}
 //external API fetches
 
 
