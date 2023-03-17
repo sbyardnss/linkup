@@ -6,3 +6,22 @@
     /* background-attachment: fixed, scroll; */
     margin-top: 80px;
 }
+#holeScoreHeader {
+    display: flex;
+    justify-content: space-between;
+}
+.selectHole {
+    margin: 0 60px;
+    width: 60px;
+    height: 60px;
+}
+
+.scorecardSection {
+    width: 70%;
+}
+
+.exitMatchButton {
+    margin-left: 200px;
+}
+
+

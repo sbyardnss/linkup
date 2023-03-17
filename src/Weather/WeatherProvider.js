@@ -27,7 +27,6 @@ export const WeatherProvider = (props) => {
     // const testTeeTimeTime = "2023-03-28T12:00"
     // const parsedTestTeeTime = Date.parse(testTeeTimeTime)
     // console.log(parsedTestTeeTime)
-    // console.log(weather14Day)
     const hourlyWindspeed = weather14Day.hourly?.windspeed_10m
     // console.log(hourlyWindspeed)//works
 

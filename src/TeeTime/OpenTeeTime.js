@@ -30,7 +30,7 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
         if (parseInt(hours) < 12) {
             hours = parseInt(hours) + 12
         }
-        return `T${hours}:${minutes}`
+        return `T${hours}:00`
     }
     const [month, day, year] = date.split("/")
     const dateString = `${year}-${month}-${day}`
@@ -39,7 +39,30 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
     const precipitationHour = hourlyPrecipitation[hourIndex]//works
     const windHour = hourlyWindspeed[hourIndex]//works
     const tempHour = hourlyTemp[hourIndex]//works
+    let precipitationString = ""
+    let windString = ""
+    let tempString = ""
+    if (precipitationHour !== null) {
+        precipitationString = `Rain: ${precipitationHour}% chance`
+    }
+    else {
+        precipitationString = " Precipitation data not yet available"
 
+    }
+    if (windString !== null) {
+        windString = `WindSpeed: ${windHour}mph`
+    }
+    else {
+        windString = "Wind data not yet available"
+
+    }
+    if (tempString !== null) {
+        tempString = `Temp: ${tempHour}°F`
+    }
+    else {
+        tempString = "Temp data not yet available"
+
+    }
 
 
     //old daily value for weather
@@ -102,12 +125,17 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
                     </div>
                 </div>
                 <div className="weatherContainer">
-                    <div>
-                        {/* {weatherInfoString} */}
-                        <div>Rain: {precipitationHour}% chance</div>
+                    <ul className="weatherInfoList">
+                        <div>
+                            {/* {weatherInfoString} */}
+                            {/* <div>Rain: {precipitationHour}% chance</div>
                         <div>Temp: {tempHour}°F</div>
-                        <div> WindSpeed: {windHour}mph</div>
-                    </div>
+                        <div> WindSpeed: {windHour}mph</div> */}
+                            <li className="weatherInfo">{precipitationString}</li>
+                            <li className="weatherInfo">{tempString}</li>
+                            <li className="weatherInfo">{windString}</li>
+                        </div>
+                    </ul>
                 </div>
                 <div className="buttonBlock">
                     <button className="joinTeeTimeButton" onClick={

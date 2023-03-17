@@ -141,6 +141,17 @@ export const addFriend = (newFriendObj) => {
         .then(res => res.json())
 }
 
+export const addUserHoleScore = (newHoleScoreObj) => {
+    return fetch(`http://localhost:8088/matchUserHoleScores`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newHoleScoreObj)
+    })
+        .then(res => res.json())
+}
+
 //delete fetch
 
 export const deleteTeeTime = (teeTimeId) => {
@@ -177,6 +188,18 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(userFriendReplacement)
+    })
+        .then(res => res.json())
+
+}
+
+export const setMatchToConfirmed = (matchReplacement, matchId) => {
+    return fetch(`http://localhost:8088/matches/${matchId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(matchReplacement)
     })
         .then(res => res.json())
 

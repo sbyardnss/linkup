@@ -5,7 +5,7 @@ import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider"
 import "./Scorecard.css"
 
 
-export const Scorecard = () => {
+export const Scorecard = ({holes, scores}) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
     const [scorecards, setScorecards] = useState([])
     const [userMatchesForThisMatch, setUserMatchesForThisMatch] = useState([])
@@ -27,27 +27,12 @@ export const Scorecard = () => {
         },
         []
     )
-    useEffect(
-        () => {
-            getAllScoreCards()
-                .then(
-                    (data) => {
-                        setScorecards(data)
-                    }
-                )
-        },
-        []
-    )
-    // const scorecardsForMatch = userMatchesForThisMatch.map(userMatch => {
-    //     const allScorecards = []
-    //     const playerCard = scorecards.find(scorecard => scorecard.id === userMatch.scorecardId)
-    //     allScorecards.push(playerCard)
-    //     return allScorecards
-    // })
+    
+    
 
     return <>
         <main id="scorecardContainer">
-            <h2>scorecards</h2>
+            {/* <h2>scorecards</h2> */}
             <table className="fullMatchScorecard">
                 <tbody>
                     <tr id="tableHead">
@@ -81,17 +66,15 @@ export const Scorecard = () => {
                 </tbody>
                 {
                     userMatchesForThisMatch?.map(userMatch => {
-                        const playerCard = scorecards?.find(scorecard => scorecard.id === userMatch.scorecardId)
                         const matchingUser = users?.find(user => user.id === userMatch.userId)
 
                         return <>
-                            {/* <tbody key={userMatch.userId}> */}
+                            <tbody key={userMatch.userId}>
                             <tr>
 
-                                {/* <td>{matchingUser.name}</td>
-                                <td>{playerCard.oneStrokes}</td> */}
+                                <td>{matchingUser.name}</td>
                             </tr>
-                            {/* </tbody> */}
+                            </tbody>
                         </>
                     })
                 }

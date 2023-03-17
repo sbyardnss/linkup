@@ -187,7 +187,8 @@ export const HomePage = () => {
                                         //     })
                                         // }
                                         return <>
-                                            <MyTeeTime key={teeTime.id}
+                                            <MyTeeTime 
+                                                key={teeTime.id}
                                                 id={teeTime.id}
                                                 courseId={matchingCourse.id}
                                                 courseName={matchingCourse.name}

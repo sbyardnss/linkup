@@ -1,67 +1,102 @@
-import { useContext } from "react"
+import { useContext, useState, useEffect } from "react"
 import { MyTeeTime } from "../../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../../Weather/WeatherProvider"
 import { ScorecardContext } from "./ScorecardContext"
+import { Scorecard } from "./Scorecard"
+import { setMatchToConfirmed } from "../../ApiManager"
 import "./HoleScore.css"
 export const HoleScore = () => {
-    const { scorecards, matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch } = useContext(ScorecardContext)
+    const { scorecards, matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch, selectedMatch, setSelectedMatch, matchConfirmed, setMatchConfirmed, activeMatchCourse } = useContext(ScorecardContext)
     const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
-    const { next14Dates } = useContext(WeatherContext)
+    const [selectedHole, setSelectedHole] = useState(1)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    const currentHoleInfo = matchUserHoleScores?.find(holeScore => holeScore.coursHoleId === selectedHole)
+    if (activeMatch) {
 
-    return <>
-        <main id="holeScoreContainer">
-            <select id="selectMatch">
-                <option key="0" value="0">Which Match are you playing?</option>
-                {
-                    sortedOnlyMyUserMatches.map(teeTime => {
+        if (activeMatch?.confirmed === true) {
 
-                        const otherUserMatchesForGivenMatch = userMatchesWithMatchInfo.filter(userMatch => {
-                            return userMatch.matchId === teeTime.matchId
-                        })
+            return <>
+                <main id="holeScoreContainer">
+                    <section id="holeScoreHeader">
+                        <div className="matchInfo">
+                            {/* <div>{matchingCourse.name}</div> */}
+                        </div>
+                        <div >
+                            <select className="selectHole" onChange={
+                                (evt) => {
+                                    setSelectedHole(evt.target.value)
+                                }
+                            }>
+                                {
+                                    holeNumbers.map(hole => {
+                                        return <option value={hole}>{hole}</option>
+                                    })
+                                }
+                            </select>
 
-                        //string values for teeTime date
-                        const [month, day, year] = teeTime?.match?.date.split("/")
+                        </div>
 
-                        //numeric values for teeTime date
-                        const intYear = parseInt(year)
-                        const intMonth = parseInt(month)
-                        const intDay = parseInt(day)
-                        const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-                        const teeTimeDateParsed = Date.parse(teeTimeDateString)
-                        if (teeTimeDateParsed >= currentDateParsed) {
-                            if (next14Dates) {
-
-                                const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                                return <>
-                                    <option key={teeTime.id} value={teeTime.id}>
-                                        {matchingCourse.name} - with:
-                                        <ul>
-                                            {
-                                                otherUserMatchesForGivenMatch.map(userMatch => {
-                                                    const matchPlayer = users.find(user => user.id === userMatch.userId)
-                                                    if (matchPlayer.id !== linkUpUserObj.id) {
-                                                        return <>
-                                                            <li>{" " + matchPlayer.name + "     "}</li>
-
-                                                        </>
-
-                                                    }
-                                                })
-                                            }
-
-                                        </ul>
-                                    </option>
-                                </>
+                        <button className="exitMatchButton" onClick={
+                            () => {
+                                setSelectedMatch(0)
                             }
-                        }
-                    })
-                }
+                        }>Exit match</button>
+                    </section>
 
-            </select>
+                    <article className="holeScoreArticle">
+                        <section>
+                            <div>{currentHoleInfo?.coursHoleId}</div>
+                        </section>
+                    </article>
 
-        </main>
-    </>
+                    <section>
+                        <h2>Scorecard</h2>
+                        <Scorecard
+                            holes={holeNumbers}
+                        />
+                    </section>
+
+                </main>
+            </>
+        }
+        else {
+            return <>
+                <main id="holeScoreContainer">
+                    <section id="holeScoreHeader">
+                        <div className="matchInfo">
+                            <div>{activeMatchCourse?.name}</div>
+                        </div>
+                        <div>
+                            <button onClick={
+                                () => {
+                                    {
+                                        holeNumbers.map(hole => {
+
+                                            const userHoleObjForAPI = {
+                                                matchUserId: linkUpUserObj.id,
+                                                strokes: 0,
+                                                courseHoleId: hole,
+                                                notes: ""
+                                            }
+                                        }
+                                        )
+                                    }
+                                }
+                            }>Start Match</button>
+                            <button onClick={
+                                () => {
+                                    setSelectedMatch(0)
+                                }
+                            }>cancel</button>
+                        </div>
+
+                    </section>
+                </main>
+            </>
+
+        }
+    }
 }

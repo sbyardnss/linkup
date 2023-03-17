@@ -32,7 +32,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
         if (parseInt(hours) < 12) {
             hours = parseInt(hours) + 12
         }
-        return `T${hours}:${minutes}`
+        return `T${hours}:00`
     }
     // console.log(timeBuilder(time))//T16:00
 
@@ -48,8 +48,30 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     const windHour = hourlyWindspeed[hourIndex]//works
     const tempHour = hourlyTemp[hourIndex]//works
     // console.log(tempHour)
-    const weatherData = `Rain: ${precipitationHour}% chance${"\n"}Temp: ${tempHour}°F${"\n"}WindSpeed: ${windHour}mph`
+    let precipitationString = ""
+    let windString = ""
+    let tempString = ""
+    if (precipitationHour !== null) {
+        precipitationString = `Rain: ${precipitationHour}% chance`
+    }
+    else { 
+        precipitationString = " Precipitation data not yet available"
 
+    }
+    if (windString !== null) {
+        windString = `WindSpeed: ${windHour}mph`
+    }
+    else { 
+        windString = "Wind data not yet available"
+
+    }
+    if (tempString !== null) {
+        tempString = `Temp: ${tempHour}°F`
+    } 
+    else { 
+        tempString = "Temp data not yet available"
+
+    }
     //old daily value for weather
     // {
     //     next14Dates.map((date, indexOfDate) => {
@@ -107,7 +129,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
     if (initiatingUser && initiatingUser.id === linkUpUserObj.id) {
         return <>
-            <li className="myCreatedTeeTime" key={`TeeTime--${id}`}>
+            <li className="myCreatedTeeTime" key={id}>
                 <div>
                     <div>
                         {courseName}
@@ -121,13 +143,16 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                     </div>
                 </div>
                 <div className="weatherContainer">
-                    <div className="teeTimeWeather">
-                        <div className="tooEarlyWarning">{weatherInfoString}</div>
-                        <div>Rain: {precipitationHour}% chance</div>
-                        <div>Temp: {tempHour}°F</div>
-                        <div> WindSpeed: {windHour}mph</div>
+                    <ul className="weatherInfoList">
 
-                    </div>
+                        {/* <div className="tooEarlyWarning">{weatherInfoString}</div> */}
+                        {/* <div>Rain: {precipitationHour}% chance</div>
+                        <div>Temp: {tempHour}°F</div>
+                    <div> WindSpeed: {windHour}mph</div> */}
+                        <li key={precipitationString} className="weatherInfo">{precipitationString}</li>
+                        <li key={tempString} className="weatherInfo">{tempString}</li>
+                        <li key={windString} className="weatherInfo">{windString}</li>
+                    </ul>
                 </div>
                 <div className="buttonBlock">
                     <button className="scorecardButton" onClick={
@@ -161,7 +186,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     }
     else {
         return <>
-            <li className="myJoinedTeeTime">
+            <li key={id} className="myJoinedTeeTime">
                 <div>
                     <div>
                         {initiatingUser?.name}
@@ -178,12 +203,15 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                     </div>
                 </div>
                 <div className="weatherContainer">
-                    <div>
+                    <ul className="weatherInfoList">
                         {/* {weatherInfoString} */}
-                        <div>Rain: {precipitationHour}% chance</div>
+                        {/* <div>Rain: {precipitationHour}% chance</div>
                         <div>Temp: {tempHour}°F</div>
-                        <div> WindSpeed: {windHour}mph</div>
-                    </div>
+                        <div> WindSpeed: {windHour}mph</div> */}
+                        <li>{precipitationString}</li>
+                        <li>{tempString}</li>
+                        <li>{windString}</li>
+                    </ul>
                 </div>
                 <div className="buttonBlock">
                     <button className="scorecardButton">Scorecard</button>

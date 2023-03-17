@@ -96,7 +96,7 @@ button:active {
 }
 
 .weatherContainer {
-    width: 200px;
+    width: 240px;
     position: relative;
     /* top: 10%; */
 
@@ -123,4 +123,12 @@ button:active {
 .tooEarlyWarning {
     background-color: #ae0707;
     color: aliceblue;
+}
+/* .weatherInfo {
+    font-size: 14px;
+} */
+
+.weatherInfoList {
+    list-style-type: disc;
+    padding-left: 1.5em;
 }

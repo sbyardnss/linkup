@@ -5,6 +5,7 @@ import { UserProfile } from "../Profile/UserProfile"
 import { TeeTimeForm } from "../TeeTimeForm/TeeTimeForm"
 import { UserList } from "../UserList/UserList"
 import { HoleScore } from "./Scoring/HoleScore"
+import { Play } from "./Scoring/Play"
 import { Scorecard } from "./Scoring/Scorecard"
 import { ScorecardProvider } from "./Scoring/ScorecardContext"
 import { ScorecardList } from "./Scoring/ScorecardList"
@@ -30,9 +31,9 @@ export const ApplicationViews = () => {
 						<Scorecard />
 					</ScorecardProvider>
 				} />
-				<Route path="holeScore" element={
+				<Route path="play" element={
 					<ScorecardProvider>
-						<HoleScore />
+						<Play />
 					</ScorecardProvider>
 				} />
 
