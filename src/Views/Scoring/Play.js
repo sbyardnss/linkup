@@ -20,7 +20,7 @@ export const Play = () => {
                 (evt) => {
                     const selectedMatchId = parseInt(evt.target.value)
                     setSelectedMatch(selectedMatchId)
-                    console.log(selectedMatchId)
+                    // console.log(selectedMatchId)
                 }
             }>
                 <option key="0" value="0">Which Match are you playing?</option>
@@ -48,19 +48,18 @@ export const Play = () => {
                                 return <>
                                     <option key={teeTime.id} id={teeTime?.matchId} value={teeTime?.matchId}>
                                         {matchingCourse.name}
-                                         - with:
-                                        
+                                         --
                                             {
                                                 otherUserMatchesForGivenMatch.map(userMatch => {
                                                     const matchPlayer = users.find(user => user.id === userMatch.userId)
                                                     if (matchPlayer.id !== linkUpUserObj.id) {
                                                         return (
-                                                            " " + matchPlayer.name + "     "
+                                                            " " + matchPlayer?.name + "     "
                                                         )
                                                     }
                                                 })
                                             }
-
+                                           --  {teeTime.match.date}
                                         
                                     </option>
                                 </>

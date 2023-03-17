@@ -3,12 +3,13 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getAllScoreCards, getUserMatchesForThisMatch } from "../../ApiManager"
 import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider"
 import "./Scorecard.css"
+import { ScorecardContext } from "./ScorecardContext"
 
 
-export const Scorecard = ({holes, scores}) => {
+export const Scorecard = ({holes, scores }) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
+    const { userMatchesForThisMatch } = useContext(ScorecardContext)
     const [scorecards, setScorecards] = useState([])
-    const [userMatchesForThisMatch, setUserMatchesForThisMatch] = useState([])
     const [allMatchScoreCards, setAllMatchScoreCards] = useState([])
     const [scorecardsForThisMatch, setScorecardsForThisMatch] = useState([])
     const matchId = useParams()
@@ -16,25 +17,12 @@ export const Scorecard = ({holes, scores}) => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     
-    useEffect(
-        () => {
-            getUserMatchesForThisMatch(matchId.scorecardId)
-                .then(
-                    (data) => {
-                        setUserMatchesForThisMatch(data)
-                    }
-                )
-        },
-        []
-    )
-    
-    
 
     return <>
         <main id="scorecardContainer">
             {/* <h2>scorecards</h2> */}
             <table className="fullMatchScorecard">
-                <tbody>
+                <tbody className="tableBody">
                     <tr id="tableHead">
                         <th className="playerHead">player</th>
                         <th className="holeScore">1</th>

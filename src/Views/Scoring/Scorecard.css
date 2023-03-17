@@ -1,16 +1,19 @@
 #scorecardContainer {
     display: flex;
+    justify-content: center;
     /* flex-direction: column; */
     /* align-items: center; */
     /* background-color: rgb(81, 177, 110); */
     /* background-attachment: fixed, scroll; */
     /* margin-top: 200px; */
-    width: 70%;
+    width: fit-content;
 
 }
 
 .fullMatchScorecard {
     border: 1px solid black;
+  
+    /* width: 40%; */
 }
 .tableHeader {
     width: 200px;
@@ -18,15 +21,16 @@
     background-color: brown;
     color: white;
 }
-
+.tableBody {
+    width: 50%;
+}
 .fullMatchScorecard {
-    
     border: 1px solid rgb(13, 52, 29);
     border-collapse: collapse;
     background-color: whitesmoke;
     padding: 10px;
     margin-left: 20px;
-    width: 40%;
+    /* width: 40%; */
 }
 #tableHead {
     margin-bottom: 10px;
@@ -34,7 +38,7 @@
 }
 
 th, td {
-    padding: 10px;
+    padding: 4px;
     border: 1px solid gray;
 }
 .frontNineScore, .backNineScore {

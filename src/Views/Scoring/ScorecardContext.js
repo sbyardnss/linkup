@@ -16,28 +16,29 @@ export const ScorecardProvider = (props) => {
     const [matchConfirmed, setMatchConfirmed] = useState(false)
     const { courses } = useContext(TeeTimeContext)
 
-    
+
     useEffect(
         () => {
-            getUserMatchesForThisMatch()
+            getUserMatchesForThisMatch(selectedMatch)
                 .then(
                     (data) => {
                         setUserMatchesForThisMatch(data)
                     }
                 )
         },
-        []
+        [selectedMatch]
     )
     useEffect(
         () => {
             getAllMatches()
-                .then(
-                    (data) => {
+            .then(
+                (data) => {
+                        console.log(data)
                         setAllMatches(data)
                     }
                 )
         },
-        []
+        [matchConfirmed]
     )
     useEffect(
         () => {
@@ -53,11 +54,11 @@ export const ScorecardProvider = (props) => {
     useEffect(
         () => {
             getAllMatchUserHoleScores()
-            .then(
-                (data) => {
-                    setMatchUserHoleScores(data)
-                }
-            )
+                .then(
+                    (data) => {
+                        setMatchUserHoleScores(data)
+                    }
+                )
         },
         []
     )
@@ -66,7 +67,7 @@ export const ScorecardProvider = (props) => {
             const matchObj = allMatches.find(match => match.id === selectedMatch)
             setActiveMatch(matchObj)
         },
-        [selectedMatch]
+        [selectedMatch, allMatches]
     )
     useEffect(
         () => {
@@ -75,12 +76,12 @@ export const ScorecardProvider = (props) => {
         },
         [activeMatch]
     )
-    // console.log(activeMatch)
+    // console.log(userMatchesForThisMatch)
 
 
     return (
         <ScorecardContext.Provider value={{
-            scorecards, matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch,
+            matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch,
             selectedMatch, setSelectedMatch, matchConfirmed, setMatchConfirmed, activeMatchCourse
         }}>
             {props.children}

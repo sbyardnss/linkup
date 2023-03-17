@@ -4,25 +4,29 @@ import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../../Weather/WeatherProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
-import { setMatchToConfirmed } from "../../ApiManager"
+import { addUserHoleScore, setMatchToConfirmed } from "../../ApiManager"
 import "./HoleScore.css"
 export const HoleScore = () => {
     const { scorecards, matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch, selectedMatch, setSelectedMatch, matchConfirmed, setMatchConfirmed, activeMatchCourse } = useContext(ScorecardContext)
     const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
     const [selectedHole, setSelectedHole] = useState(1)
+
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const currentHoleInfo = matchUserHoleScores?.find(holeScore => holeScore.coursHoleId === selectedHole)
+    // console.log(currentHoleInfo)
+    // console.log(activeMatch)
+
     if (activeMatch) {
 
-        if (activeMatch?.confirmed === true) {
+        if (activeMatch.confirmed === true) {
 
             return <>
                 <main id="holeScoreContainer">
                     <section id="holeScoreHeader">
                         <div className="matchInfo">
-                            {/* <div>{matchingCourse.name}</div> */}
+                            <div>{activeMatchCourse?.name}</div>
                         </div>
                         <div >
                             <select className="selectHole" onChange={
@@ -52,7 +56,7 @@ export const HoleScore = () => {
                         </section>
                     </article>
 
-                    <section>
+                    <section className="scorecardSection">
                         <h2>Scorecard</h2>
                         <Scorecard
                             holes={holeNumbers}
@@ -72,18 +76,23 @@ export const HoleScore = () => {
                         <div>
                             <button onClick={
                                 () => {
-                                    {
-                                        holeNumbers.map(hole => {
+                                    // {
+                                    //     userMatchesForThisMatch.map(userMatch => {
 
-                                            const userHoleObjForAPI = {
-                                                matchUserId: linkUpUserObj.id,
-                                                strokes: 0,
-                                                courseHoleId: hole,
-                                                notes: ""
-                                            }
-                                        }
-                                        )
-                                    }
+                                    //         const userHoleObjForAPI = {
+                                    //             matchUserId: userMatch.userId,
+                                    //             strokes: 0,
+                                    //             courseHoleId: 1,
+                                    //             notes: ""
+                                    //         }
+                                    //         addUserHoleScore(userHoleObjForAPI)
+
+                                    //     })
+                                    // }
+                                    const copy = {...activeMatch}
+                                    copy.confirmed = true
+                                    setMatchToConfirmed(copy, activeMatch.id)
+                                    .then(() => setMatchConfirmed(true))
                                 }
                             }>Start Match</button>
                             <button onClick={
