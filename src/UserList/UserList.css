@@ -13,67 +13,95 @@
     align-items: center;
 }
 
-.listOfOtherUsers {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: inherit;
-
-}
 
 
 .addFriendButton {
-    /* margin-left: auto; */
-   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-   background-color: rgb(37, 79, 120);
-   padding: .5em 0;
-   color: white;
-   border: 2px solid black;
-   border-radius: 4px;
-   margin-left: 20px;
-   width: 90px;
-   font-size: large;
-   font-weight: normal;
-   font-style: oblique;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #008c9c;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue",sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .addFriendButton:active {
+    background-color: #006AE8;
+  }
+  
+  .addFriendButton:hover {
+    background-color: #1C84FF;
+  }
 
-}
 .cancelRequestButton {
     /* margin-left: auto; */
-   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-   background-color: rgb(37, 120, 41);
-   padding: .5em 0;
-   color: white;
-   border: 2px solid black;
-   border-radius: 4px;
-   margin-left: 20px;
-   width: 90px;
-   font-size: large;
-   font-weight: normal;
-   font-style: oblique;
+    /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+    background-color: rgb(37, 120, 41);
+    padding: .5em 0;
+    color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-left: 20px;
+    width: 90px;
+    font-size: large;
+    font-weight: normal;
+    font-style: oblique;
 
 }
+
 .deleteFriendButton {
-    /* margin-left: auto; */
-   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-   background-color: rgb(120, 37, 37);
-   padding: .5em 0;
-   color: white;
-   border: 2px solid black;
-   border-radius: 4px;
-   margin-left: 20px;
-   width: 90px;
-   font-size: large;
-   font-weight: normal;
-   font-style: oblique;
-
-}
-button:active {
-    background: #b38080;
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-    box-shadow: inset 0px 0px 5px #c1c1c1;
-    outline: none;
-}
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #9c0060;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue",sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .deleteFriendButton:active {
+    background-color: #e80055;
+  }
+  
+  .deleteFriendButton:hover {
+    background-color: #ff1c5c;
+  }
 
 .addFriendButtonBlock {
     display: block;
@@ -82,10 +110,31 @@ button:active {
     margin-right: 1em;
 }
 
+
 .userListItem {
     display: flex;
     padding: 1em;
     justify-content: space-between;
-    margin: .5em 0;
-    background-color: aqua;
+    /* backdrop-filter: blur(16px) saturate(180%); */
+    background-color: rgba(13, 103, 103, 0.908);
+    /* color: rgb(222, 222, 222); */
+    color: #CCFAFF;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.586);
+    border-radius: 8px;
+    align-items: center;
+
+
+}
+
+.listOfOtherUsers {
+    list-style: none;
+    padding: 10px 20px;
+    border: 2px solid rgba(0, 255, 0, 0.282);
+    border-radius: 10px;
+    backdrop-filter: blur(40px);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    width: 40%;
+
+
 }

@@ -228,7 +228,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
                 <div className="buttonBlock">
                     {/* <button className="scorecardButton">Scorecard</button> */}
-                    <button className="joinTeeTimeButton" onClick={
+                    <button className="bailTeeTimeButton" onClick={
                         () => {
                             if (window.confirm("are you sure?")) {
                                 deleteUserMatch(id)
