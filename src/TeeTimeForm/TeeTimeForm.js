@@ -38,11 +38,11 @@ export const TeeTimeForm = () => {
 
             <div className="newTeeTime">
                 <form className="teeTimeForm">
-
+                    <h2>When We Playin'?</h2>
                     <fieldset className="newTeeTime_input">
                         
                         <div>
-                            <input type="date" id="title" placeholder="title" onChange={
+                            <input type="date" className="dateTimeSelectors" id="title" placeholder="title" onChange={
                                 (evt) => {
                                     const [year, month, day] = evt.target.value.split("-")
 
@@ -54,7 +54,7 @@ export const TeeTimeForm = () => {
                         </div>
 
                         <div  >
-                            <input type="time" defaultValue={"00:00"} id="title" onChange={
+                            <input type="time" className="dateTimeSelectors" defaultValue={"00:00"} id="title" onChange={
                                 (evt) => {
                                     let timeString = ""
                                     let [hour,] = evt.target.value.split(":")
@@ -77,7 +77,7 @@ export const TeeTimeForm = () => {
 
 
                         <div className="newTeeTime_input">
-                            <select id="courseSelect" onChange={
+                            <select className="courseSelector" id="courseSelect" onChange={
                                 (evt) => {
                                     const copy = { ...newMatch }
                                     copy.course = evt.target.value
@@ -110,7 +110,7 @@ export const TeeTimeForm = () => {
 
 
 
-                        <div>
+                        <div className="teeTimeFormButtonBlock">
                             <button onClick={() => {
                                 if(newMatch.time && newMatch.date && newMatch.course) {
 
@@ -123,8 +123,8 @@ export const TeeTimeForm = () => {
                                     alert("please fill out the form")
                                 }
 
-                            }} id="savePost" >Save</button>
-                            <button id="cancelPost" onClick={()=> navigate("/")}>Cancel</button>
+                            }} className="teeTimeSaveButton" >Save</button>
+                            <button className="teeTimeCancelButton" onClick={()=> navigate("/")}>Cancel</button>
                         </div>
                     </fieldset>
                 </form>
