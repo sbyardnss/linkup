@@ -1,3 +1,15 @@
 #createTeeTimeContainer {
     margin-top: 80px;
 }
+.newTeeTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+.newTeeTime_input {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* height: 400px; */
+}

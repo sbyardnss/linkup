@@ -37,11 +37,11 @@ export const TeeTimeForm = () => {
         <main id="createTeeTimeContainer">
 
             <div className="newTeeTime">
-                <form>
+                <form className="teeTimeForm">
 
                     <fieldset className="newTeeTime_input">
-
-                        <div  >
+                        
+                        <div>
                             <input type="date" id="title" placeholder="title" onChange={
                                 (evt) => {
                                     const [year, month, day] = evt.target.value.split("-")
