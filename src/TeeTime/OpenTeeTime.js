@@ -114,9 +114,9 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
                     <div>
                         {initiatingUser?.name}
                     </div>
-                    <div>
+                    <h4>
                         {courseName}
-                    </div>
+                    </h4>
                     <div className="teeTimeDate">
                         {date}
                     </div>
@@ -124,6 +124,7 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
                         {time}
                     </div>
                 </div>
+                
                 <div className="weatherContainer">
                     <ul className="weatherInfoList">
                         <div>
@@ -137,6 +138,7 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
                         </div>
                     </ul>
                 </div>
+                <div className="otherPlayersContainer">other</div>
                 <div className="buttonBlock">
                     <button className="joinTeeTimeButton" onClick={
                         () => {

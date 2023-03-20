@@ -13,5 +13,7 @@ code {
 }
 
 
- html{background-color: rgb(81, 177, 110);}
-
+ /* html{background-color: #38a169fd;} */
+ /* html{background-color: #33b142db;} */
+html{background-image:url("./images/aerial-view-of-golf-course-1896098.jpg");
+background-size: cover;}

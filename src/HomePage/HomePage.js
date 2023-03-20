@@ -159,8 +159,8 @@ export const HomePage = () => {
         return <>
             <main id="homepageContainer">
                 <section className="myTeeTimesContainer">
-                    <h3>My Tee Times</h3>
                     <ul className="listOfTeeTimes">
+                    <h1 className="teeTimeHeaderTitle">My Tee Times</h1>
                         {
                             sortedOnlyMyUserMatches.map(teeTime => {
                                 if (next14Dates) {
@@ -208,8 +208,8 @@ export const HomePage = () => {
 
                 </section>
                 <section className="openTeeTimesContainer">
-                    <h3>Open Tee Times</h3>
                     <ul className="listOfTeeTimes">
+                    <h1 className="teeTimeHeaderTitle">Open Tee Times</h1>
                         {messageToUserOrOpenMatches()}
                     </ul>
                 </section>

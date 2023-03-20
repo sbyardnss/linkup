@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { deleteTeeTime, deleteUserMatch } from "../ApiManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import { TeeTimeContext } from "./TeeTimeProvider"
-
+import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import "./TeeTime.css"
 
 export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, scorecardId }) => {
@@ -54,21 +54,21 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     if (precipitationHour !== null) {
         precipitationString = `Rain: ${precipitationHour}% chance`
     }
-    else { 
+    else {
         precipitationString = " Precipitation data not yet available"
 
     }
     if (windString !== null) {
         windString = `WindSpeed: ${windHour}mph`
     }
-    else { 
+    else {
         windString = "Wind data not yet available"
 
     }
     if (tempString !== null) {
         tempString = `Temp: ${tempHour}°F`
-    } 
-    else { 
+    }
+    else {
         tempString = "Temp data not yet available"
 
     }
@@ -129,11 +129,20 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
     if (initiatingUser && initiatingUser.id === linkUpUserObj.id) {
         return <>
+            {/* <Card
+                direction={{ sm: 'row' }}
+                colorScheme='blue'
+                // variant={}
+                > */}
             <li className="myCreatedTeeTime" key={id}>
+                {/* <CardHeader */}
+
+                {/* > */}
+
                 <div>
-                    <div>
+                    <h4>
                         {courseName}
-                    </div>
+                    </h4>
                     <div className="teeTimeDate">
                         {date}
                     </div>
@@ -142,6 +151,9 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         {time}
                     </div>
                 </div>
+                {/* </CardHeader>
+                    <CardBody> */}
+
                 <div className="weatherContainer">
                     <ul className="weatherInfoList">
 
@@ -154,6 +166,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         <li key={windString} className="weatherInfo">{windString}</li>
                     </ul>
                 </div>
+                <div className="otherPlayersContainer"></div>
                 <div className="buttonBlock">
                     {/* <button className="scorecardButton">Scorecard</button> */}
 
@@ -175,8 +188,10 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         }
                     }>Delete</button>
                 </div>
-
+                {/* </CardBody> */}
             </li>
+            {/* </Card> */}
+
         </>
 
     }
@@ -187,9 +202,9 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                     <div>
                         {initiatingUser?.name}
                     </div>
-                    <div>
+                    <h4>
                         {courseName}
-                    </div>
+                    </h4>
                     <div className="teeTimeDate">
                         {date}
                     </div>
@@ -209,6 +224,8 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         <li>{windString}</li>
                     </ul>
                 </div>
+                <div className="otherPlayersContainer"></div>
+
                 <div className="buttonBlock">
                     {/* <button className="scorecardButton">Scorecard</button> */}
                     <button className="joinTeeTimeButton" onClick={

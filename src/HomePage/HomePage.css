@@ -14,18 +14,29 @@
 
 .listOfTeeTimes {
     list-style: none;
-    padding: 0;
+    padding: 10px 20px;
+    border: 2px solid rgba(0, 255, 0, 0.282);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    filter: drop-shadow(0 30px 10px rgba(0,0,0,0.125));
+
  
 }
 
 
 .myTeeTimesContainer {
-    width: 70%;
+    width: 90%;
+    min-width: 620px;
 }
 .openTeeTimesContainer {
-    width: 70%;
+    width: 90%;
+    min-width: 620px;
+
 }
 
+.teeTimeHeaderTitle {
+    color: #CCFAFF;
+}
 
 
 

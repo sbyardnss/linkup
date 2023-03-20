@@ -1,4 +1,4 @@
-.joinTeeTimeButton {
+/* .joinTeeTimeButton {
 
     background-color: purple;
 
@@ -13,7 +13,7 @@
     font-style: oblique;
     box-shadow: 0px 2px 1px 2px rgb(63, 63, 63);
 
-}
+} */
 
 .teeTimeListItem {
     display: flex;
@@ -23,7 +23,7 @@
     background-color: aqua;
 }
 
-.teeTimeButton {
+/* .teeTimeButton {
 
     background-color: rgb(37, 120, 41);
     padding: .5em 0;
@@ -38,7 +38,7 @@
     box-shadow: 0px 2px 1px 2px rgb(78, 78, 78);
 
 
-}
+} */
 
 button:active {
     background: #b38080;
@@ -57,26 +57,105 @@ button:active {
     margin-right: 1em;
 
 }
+.teeTimeButton {
+  align-items: center;
+  appearance: button;
+  background-color: #0276FF;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue",sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.teeTimeButton:active {
+  background-color: #006AE8;
+}
+
+.teeTimeButton:hover {
+  background-color: #1C84FF;
+}
+.joinTeeTimeButton {
+    width: 90px;
+    align-items: center;
+    justify-content: center;
+    appearance: button;
+    background-color: #d902ff;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue",sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .joinTeeTimeButton:active {
+    background-color: #8b00e8;
+  }
+  
+  .joinTeeTimeButton:hover {
+    background-color: #f41cff;
+  }
 
 .myCreatedTeeTime {
     display: flex;
     padding: 1em;
     justify-content: space-between;
-    background-color: aqua;
+    /* backdrop-filter: blur(16px) saturate(180%); */
+    background-color: rgba(13, 103, 103, 0.908);
+    /* color: rgb(222, 222, 222); */
+    color: #CCFAFF;
     min-width: 600px;
     margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.586);
+    border-radius: 8px;
 
 
 
 }
 
+
 .myJoinedTeeTime {
     display: flex;
     padding: 1em;
     justify-content: space-between;
-    background-color: rgb(150, 250, 170);
+    /* backdrop-filter: blur(16px) saturate(180%); */
+    background-color: rgba(81, 13, 103, 0.909);
+    /* color: rgb(222, 222, 222); */
+    color: #CCFAFF;
     min-width: 600px;
     margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.255);
+    border-radius: 8px;
 
 }
 
@@ -84,9 +163,14 @@ button:active {
     display: flex;
     padding: 1em;
     justify-content: space-between;
-    background-color: rgb(217, 183, 249);
+    /* backdrop-filter: blur(16px) saturate(180%); */
+    background-color: #00555e;
+    /* color: rgb(211, 211, 211); */
+    color: #CCFAFF;
     min-width: 600px;
     margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.255);
+    border-radius: 8px;
 
 
 }
@@ -101,15 +185,15 @@ button:active {
     /* top: 10%; */
 
     border: 2px solid gray;
-    box-shadow: 0px 1px 1px 1px rgb(78, 78, 78);
+    /* box-shadow: 0px 1px 1px 1px rgb(78, 78, 78); */
     padding: 4px;
     border-radius: 4px;
-    background-color: rgb(150, 250, 170, .5);
+    background-color: rgb(150, 250, 170, .2);
 }
 
 .scorecardButton {
     background-color: rgb(37, 44, 120);
-    color: white;
+    color: #CCFAFF;
     margin-left: 10px;
     border: 1px solid black;
     border-radius: 4px;
