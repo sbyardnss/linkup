@@ -155,11 +155,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                     </ul>
                 </div>
                 <div className="buttonBlock">
-                    <button className="scorecardButton" onClick={
-                        () => {
-
-                        }
-                    }>Scorecard</button>
+                    {/* <button className="scorecardButton">Scorecard</button> */}
 
                     <button key={id} className="teeTimeButton" onClick={
                         () => {
@@ -214,7 +210,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                     </ul>
                 </div>
                 <div className="buttonBlock">
-                    <button className="scorecardButton">Scorecard</button>
+                    {/* <button className="scorecardButton">Scorecard</button> */}
                     <button className="joinTeeTimeButton" onClick={
                         () => {
                             if (window.confirm("are you sure?")) {

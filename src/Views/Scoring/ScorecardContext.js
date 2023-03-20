@@ -14,7 +14,11 @@ export const ScorecardProvider = (props) => {
     const [activeMatchCourse, setActiveMatchCourse] = useState({})
     const [selectedMatch, setSelectedMatch] = useState(0)
     const [matchConfirmed, setMatchConfirmed] = useState(false)
+    const [updateCard, setUpdateCard] = useState(false)
     const { courses } = useContext(TeeTimeContext)
+    const localLinkUpUser = localStorage.getItem("linkUp_user") 
+    const linkUpUserObj = JSON.parse(localLinkUpUser) 
+    const loggedInUserMatch = userMatchesForThisMatch?.find(userMatch => userMatch.userId === linkUpUserObj.id)
 
 
     useEffect(
@@ -33,7 +37,6 @@ export const ScorecardProvider = (props) => {
             getAllMatches()
             .then(
                 (data) => {
-                        console.log(data)
                         setAllMatches(data)
                     }
                 )
@@ -60,7 +63,7 @@ export const ScorecardProvider = (props) => {
                     }
                 )
         },
-        []
+        [updateCard]
     )
     useEffect(
         () => {
@@ -82,7 +85,7 @@ export const ScorecardProvider = (props) => {
     return (
         <ScorecardContext.Provider value={{
             matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, setUserMatchesForThisMatch, activeMatch, setActiveMatch,
-            selectedMatch, setSelectedMatch, matchConfirmed, setMatchConfirmed, activeMatchCourse
+            selectedMatch, setSelectedMatch, matchConfirmed, setMatchConfirmed, activeMatchCourse, updateCard, setUpdateCard, loggedInUserMatch
         }}>
             {props.children}
         </ScorecardContext.Provider>

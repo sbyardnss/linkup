@@ -12,7 +12,7 @@
 }
 .selectHole {
     margin: 0 60px;
-    width: 60px;
+    width: fit-content;
     height: 60px;
 }
 
@@ -27,4 +27,29 @@
     margin-left: 100px;
 }
 
+.scoringButton {
+    height:60px;
+    width: 60px;
+}
+.scoringButtonsContainer {
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.holeInfoHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10%;
+    margin-bottom: 18%;
+}
 
+.activeUserButton {
+    height:60px;
+    width: 60px;
+    background-color: cadetblue;
+    box-shadow: 2px 2px 2px cadetblue;
+}
+.inactiveUserButton {
+    height:60px;
+    width: 60px;
+}

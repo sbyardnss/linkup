@@ -34,7 +34,7 @@ export const WeatherProvider = (props) => {
     // console.log(hourlyTemp)//works
 
     const hourlyPrecipitation = weather14Day.hourly?.precipitation_probability
-    // console.log(hourlyPrecipitation)//works
+    console.log(weather14Day)//works
     return (
         <WeatherContext.Provider value={{
             weather14Day, rainChance14Day, next14Dates, weatherHourArrayForIndex,

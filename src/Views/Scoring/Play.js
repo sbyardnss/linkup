@@ -19,6 +19,7 @@ export const Play = () => {
             <select onChange={
                 (evt) => {
                     const selectedMatchId = parseInt(evt.target.value)
+                    // console.log(selectedMatchId)
                     setSelectedMatch(selectedMatchId)
                     // console.log(selectedMatchId)
                 }

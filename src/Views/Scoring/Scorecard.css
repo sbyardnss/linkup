@@ -50,3 +50,6 @@ th, td {
 .playerHead {
     background-color: bisque;
 }
+.userRow {
+    border-bottom: 1px solid gray;
+}
