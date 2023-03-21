@@ -47,7 +47,7 @@ export const Play = () => {
                                 const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                                 
                                 return <>
-                                    <option key={teeTime.id} id={teeTime?.matchId} value={teeTime?.matchId}>
+                                    <option key={teeTime?.id} id={teeTime?.matchId} value={teeTime?.matchId}>
                                         {matchingCourse.name}
                                          --
                                             {
