@@ -16,7 +16,7 @@ export const Play = () => {
 
     return <>
         <main id="holeScoreContainer">
-            <select onChange={
+            <select id="matchSelectorDropdown" onChange={
                 (evt) => {
                     const selectedMatchId = parseInt(evt.target.value)
                     // console.log(selectedMatchId)

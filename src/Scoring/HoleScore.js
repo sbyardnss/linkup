@@ -15,11 +15,11 @@ export const HoleScore = ({ matchId }) => {
         notes: ""
     })
     // console.log(matchId)
-    const localLinkUpUser = localStorage.getItem("linkUp_user") 
+    const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const [userMatchToScoreFor, setUserMatchToScoreFor] = useState(0)
- 
+
     const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)
     const currentHoleInfo = onlyLoggedInUserHoleScores.find(holeScore => holeScore.courseHoleId === selectedHole)
 
@@ -44,6 +44,7 @@ export const HoleScore = ({ matchId }) => {
 
             return <>
                 <main id="holeScoreContainer">
+
                     <section id="holeScoreHeader">
                         <div className="matchInfo">
                             <div>{activeMatchCourse?.name}</div>
@@ -81,7 +82,7 @@ export const HoleScore = ({ matchId }) => {
                         <section>
                             <div className="holeInfoHeader">
                                 <h2>Hole {selectedHole}</h2>
-                                <button onClick={
+                                <button className="scoringSubmitButton" onClick={
                                     () => {
                                         addUserHoleScore(newHoleScoreObjForAPI)
                                         setSelectedHole(selectedHole + 1)
@@ -125,17 +126,7 @@ export const HoleScore = ({ matchId }) => {
                             }></input>
 
                         </section>
-                    </article>
-
-                    <section className="scorecardSection">
-                        <div>
-                            <h2>Scorecard</h2>
-                            {/* <select id="selectUserToScoreFor" onChange={
-                                (evt) => {
-                                    setUserMatchToScoreFor(evt.target.value)
-                                }
-                            }>
-                                <option value="0">select user</option> */}
+                        <div className="userButtonsContainer">
                             {
                                 userMatchesForThisMatch.map(userMatch => {
                                     const matchingUser = users.find(user => user.id === userMatch.userId)
@@ -152,13 +143,26 @@ export const HoleScore = ({ matchId }) => {
                                                 setUserMatchToScoreFor(parseInt(evt.target.value))
                                                 // setUserMatchToScoreFor(userMatch.id)
                                             }
-                                        }>{matchingUser.name}</button> 
+                                        }>{matchingUser.name}</button>
                                     }
 
 
 
                                 })
                             }
+
+                        </div>
+                    </article>
+
+                    <section className="scorecardSection">
+                        <div>
+                            <h2>Scorecard</h2>
+                            {/* <select id="selectUserToScoreFor" onChange={
+                                (evt) => {
+                                    setUserMatchToScoreFor(evt.target.value)
+                                }
+                            }>
+                                <option value="0">select user</option> */}
                             {/* </select> */}
                         </div>
                         <Scorecard
