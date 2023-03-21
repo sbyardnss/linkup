@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllMatchUserHoleScores, getAllScoreCards, getUserMatchesForThisMatch, getAllMatches } from "../../ApiManager";
-import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider";
+import { getAllMatchUserHoleScores, getAllScoreCards, getUserMatchesForThisMatch, getAllMatches } from "../ApiManager";
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider";
 
 export const ScorecardContext = createContext()
 

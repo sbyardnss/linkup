@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    
 }
 
 .userListContainer {
@@ -120,7 +121,7 @@
     /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
     margin-bottom: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.586);
+    border: 1px solid rgba(126, 2, 2, 0.308);
     border-radius: 8px;
     align-items: center;
 
@@ -130,11 +131,15 @@
 .listOfOtherUsers {
     list-style: none;
     padding: 10px 20px;
-    border: 2px solid rgba(0, 255, 0, 0.282);
+    border: 1px solid rgba(0, 255, 0, 0.282);
     border-radius: 10px;
     backdrop-filter: blur(40px);
     filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
-    width: 40%;
+    background-color: #0d676764;
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+
+    width: 60%;
+    min-width: 400px;
 
 
 }

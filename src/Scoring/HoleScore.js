@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from "react"
-import { MyTeeTime } from "../../TeeTime/MyTeeTime"
-import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider"
-import { WeatherContext } from "../../Weather/WeatherProvider"
+import { MyTeeTime } from "../TeeTime/MyTeeTime"
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
+import { WeatherContext } from "../Weather/WeatherProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
-import { addUserHoleScore, setMatchToConfirmed } from "../../ApiManager"
+import { addUserHoleScore, setMatchToConfirmed } from "../ApiManager"
 import "./HoleScore.css"
 export const HoleScore = ({ matchId }) => {
     const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, setMatchConfirmed, activeMatchCourse, updateCard, setUpdateCard, loggedInUserMatch } = useContext(ScorecardContext)

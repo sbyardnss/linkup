@@ -15,10 +15,12 @@
 .listOfTeeTimes {
     list-style: none;
     padding: 10px 20px;
-    border: 2px solid rgba(0, 255, 0, 0.282);
+    border: 1px solid rgba(0, 255, 0, 0.282);
     border-radius: 10px;
-    backdrop-filter: blur(40px);
-    filter: drop-shadow(0 30px 10px rgba(0,0,0,0.125));
+    backdrop-filter: blur(10px);
+    background-color: #0d676764;
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
 
  
 }

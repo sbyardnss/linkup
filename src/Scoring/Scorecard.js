@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getAllScoreCards, getUserMatchesForThisMatch } from "../../ApiManager"
-import { TeeTimeContext } from "../../TeeTime/TeeTimeProvider"
+import { getAllScoreCards, getUserMatchesForThisMatch } from "../ApiManager"
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./Scorecard.css"
 import { ScorecardContext } from "./ScorecardContext"
 

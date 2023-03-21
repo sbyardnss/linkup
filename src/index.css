@@ -47,4 +47,7 @@
     background-image: url("./images/aerial-view-of-golf-course-1896098.jpg");
     background-size: cover;
   }
+  textarea {
+    resize: none;
+  }
 }
