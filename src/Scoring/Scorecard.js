@@ -6,7 +6,7 @@ import "./Scorecard.css"
 import { ScorecardContext } from "./ScorecardContext"
 
 
-export const Scorecard = ({holes, scores }) => {
+export const Scorecard = ({ holes, scores }) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
     const { userMatchesForThisMatch, matchUserHoleScores } = useContext(ScorecardContext)
     const [scorecards, setScorecards] = useState([])
@@ -20,11 +20,12 @@ export const Scorecard = ({holes, scores }) => {
 
     return <>
         <main id="scorecardContainer">
-            {/* <h2>scorecards</h2> */}
-            <table className="fullMatchScorecard">
-                <tbody className="tableBody">
-                    <tr id="tableHead">
-                        <th className="playerHead">player</th>
+            
+            <div class="table-container">
+                {/* <table class="unfixed-table"> */}
+                <thead>
+                    <tr className="tableHeaderRow">
+                        <th>player</th>
                         <th className="holeScore">1</th>
                         <th className="holeScore">2</th>
                         <th className="holeScore">3</th>
@@ -46,32 +47,36 @@ export const Scorecard = ({holes, scores }) => {
                         <th className="frontNineScore">Front 9</th>
                         <th className="backNineScore">Back 9</th>
                         <th className="totalScore">Total</th>
-
-
-
                     </tr>
+                </thead>
+                <tbody>
 
+                    {
+                        userMatchesForThisMatch?.map(userMatch => {
+                            const matchingUser = users?.find(user => user.id === userMatch.userId)
+                            const userMatchUserHoleScores = matchUserHoleScores?.filter(userHoleScore => userHoleScore.matchUserId === userMatch.id)
+                            // console.log(userMatchUserHoleScores)
+                            return <>
+                                <tr className="userRow">
+                                    <td>{matchingUser.name}</td>
+                                    {
+                                        userMatchUserHoleScores?.map(score => {
+                                            const emptyCellCompensation = 18 - userMatchUserHoleScores.length 
+                                            const compensationArray = []
+                                            compensationArray.fill()
+                                            console.log(compensationArray)
+                                            return <td>{score.strokes}</td>
+
+                                        })
+                                    }
+                                </tr>
+                            </>
+                        })
+                    }
                 </tbody>
-                {
-                    userMatchesForThisMatch?.map(userMatch => {
-                        const matchingUser = users?.find(user => user.id === userMatch.userId)
-                        const userMatchUserHoleScores = matchUserHoleScores?.filter(userHoleScore => userHoleScore.matchUserId === userMatch.id)
-                        // console.log(userMatchUserHoleScores)
-                        return <>
-                            <tbody key={userMatch.userId}>
-                            <tr className="userRow">
-                                <td>{matchingUser.name}</td>
-                                {
-                                    userMatchUserHoleScores.map(score => {
-                                        return <td>{score.strokes}</td>
-                                    })
-                                }
-                            </tr>
-                            </tbody>
-                        </>
-                    })
-                }
-            </table>
-        </main>
+                {/* </table> */}
+            </div>
+        </main >
     </>
+
 }

@@ -44,42 +44,45 @@ export const HoleScore = ({ matchId }) => {
 
             return <>
                 <main id="holeScoreContainer">
+                    <div className="holeScoreArticle">
 
-                    <section id="holeScoreHeader">
-                        <div className="matchInfo">
-                            <div>{activeMatchCourse?.name}</div>
-                        </div>
-                        <div >
-                            <select className="selectHole" onChange={
-                                (evt) => {
-                                    setSelectedHole(evt.target.value)
+                        <section id="holeScoreHeader">
+                            <div className="matchInfo">
+                                <h3>{activeMatchCourse?.name}</h3>
+                            </div>
 
-                                    const copy = { ...currentHoleData }
-                                    copy.strokes = 0
-                                    copy.notes = ""
-                                    updateCurrentHoleData(copy)
 
-                                }
-                            }>
-                                <option value={0}>need to go back?</option>
-                                {
-                                    holeNumbers.map(hole => {
-                                        return <option value={hole}>{hole}</option>
-                                    })
-                                }
-                            </select>
+                            <div className="holeSelectExitMatch">
+                                <select className="selectHole" onChange={
+                                    (evt) => {
+                                        setSelectedHole(evt.target.value)
 
-                        </div>
+                                        const copy = { ...currentHoleData }
+                                        copy.strokes = 0
+                                        copy.notes = ""
+                                        updateCurrentHoleData(copy)
 
-                        <button className="exitMatchButton" onClick={
-                            () => {
-                                setSelectedMatch(0)
-                            }
-                        }>Exit match</button>
-                    </section>
+                                    }
+                                }>
+                                    <option value={0}>select hole</option>
+                                    {
+                                        holeNumbers.map(hole => {
+                                            return <option value={hole}>{hole}</option>
+                                        })
+                                    }
+                                </select>
 
-                    <article className="holeScoreArticle">
-                        <section>
+
+                                <button className="exitMatchButton" onClick={
+                                    () => {
+                                        setSelectedMatch(0)
+                                    }
+                                }>Exit match</button>
+                            </div>
+
+                        </section>
+
+                        <section className="scoringSection">
                             <div className="holeInfoHeader">
                                 <h2>Hole {selectedHole}</h2>
                                 <button className="scoringSubmitButton" onClick={
@@ -117,7 +120,7 @@ export const HoleScore = ({ matchId }) => {
                                     }
                                 }>MAX</button>
                             </div>
-                            <input type="text" value={currentHoleData.notes} placeholder="any notes?" onChange={
+                            <input className="holeMsgInput" type="text" value={currentHoleData.notes} placeholder="any notes?" onChange={
                                 (evt) => {
                                     const copy = { ...currentHoleData }
                                     copy.notes = evt.target.value
@@ -152,11 +155,11 @@ export const HoleScore = ({ matchId }) => {
                             }
 
                         </div>
-                    </article>
+                    </div>
 
                     <section className="scorecardSection">
                         <div>
-                            <h2>Scorecard</h2>
+                            {/* <h2>Scorecard</h2> */}
                             {/* <select id="selectUserToScoreFor" onChange={
                                 (evt) => {
                                     setUserMatchToScoreFor(evt.target.value)
@@ -165,7 +168,7 @@ export const HoleScore = ({ matchId }) => {
                                 <option value="0">select user</option> */}
                             {/* </select> */}
                         </div>
-                        <Scorecard
+                        <Scorecard id="scorecardItem"
                             holes={holeNumbers}
                         />
                     </section>

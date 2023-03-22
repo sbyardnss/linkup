@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import { Scorecard } from "../Scoring/Scorecard"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../Weather/WeatherProvider"
@@ -33,6 +34,7 @@ export const UserProfile = () => {
     const currentYear = currentDate.getFullYear()
     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
     const currentDateParsed = Date.parse(currentDateString)
+    const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
     return <>
         <main id="profileContainer">

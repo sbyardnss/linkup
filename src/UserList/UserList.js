@@ -8,6 +8,8 @@ import "./UserList.css"
 export const UserList = () => {
     const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends } = useContext(TeeTimeContext)
     const [userFriends, setUserFriends] = useState([])
+    const [search, updateSearch] = useState("")
+    const [filtered, setFiltered] = useState()
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
@@ -33,13 +35,32 @@ export const UserList = () => {
         },
         [userFriends]
     )
-
+    // useEffect(
+    //     () => {
+    //         if (search !== "") {
+    //             const filteredUsers = users.filter(user => {
+    //                 return user.name.includes(search)
+    //             })
+    //         }
+    //         else {
+    //             setFiltered(users)
+    //         }
+    //     },
+    //     [search]
+    // )
 
     // console.log(activeUserFriends)
     return <>
         <main id="fullUserList">
 
             <section className="userListContainer">
+                <section className="userSearchBar">
+                    <input type="text"placeholder="find users" onChange={
+                        (evt) => {
+                            updateSearch(evt.target.value)
+                        }
+                    }></input>
+                </section>
                 <ul className="listOfOtherUsers">
                     {
                         users.map(

@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getActiveUserMatchesWithMatchInfo, getAllCourses, getAllMatches, getAllUsers, getAllUserFriendsForActiveUser } from "../ApiManager"
 export const TeeTimeContext = createContext()
@@ -15,10 +15,12 @@ export const TeeTimeProvider = (props) => {
     const [friendChange, setFriendChange] = useState(false)
     const navigate = useNavigate()
 
+  
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
+    
 
     useEffect(
         () => {

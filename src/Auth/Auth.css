@@ -12,12 +12,44 @@
     background-position-y: center;
     height: 100vh;
 }
-
+#registerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(81, 177, 110); */
+    /* background-image: url(https://res.cloudinary.com/usga/image/upload/c_fill,dpr_2.0,g_face,q_70,w_800/v1/usga/images/course-care/ftgexpertsexplain/2019/7-green-final-1540x866.jpg); */
+    /* background-size: 100%; */
+    background-repeat: no-repeat;
+    background-size: 250%;
+    background-position-x: -8em;
+    background-position-y: center;
+    height: 100vh;
+}
 #loginBox {
-    margin-top: auto;
+    /* margin-top: auto;
     margin-bottom: auto;
     width: 25%;
-    text-align: center;
+    text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.form--login {
+    height: 400px;
+    width: 300px;
+    border: 1px solid #0D6767;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+    backdrop-filter: blur(50px);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
 }
 
 #loginLogo {
@@ -28,10 +60,13 @@
     display: flex;
     flex-direction: column;
     padding: 1em;
-    background-color: aliceblue;
-    border: 1px solid gray;
-    border-radius: 5px;
+    align-items: center;
+    /* background-color: aliceblue; */
+    /* border: 1px solid gray;
     
+    border-radius: 5px; */
+    border: none;
+
 }
 
 /* #pleaseSignIn {
@@ -40,11 +75,104 @@
 
 .form-control {
     margin-bottom: 1em;
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-right: auto;
+    border: 0px;
 }
 
 .link--register {
-    margin-top: 1em;   
-    color: white; 
+    margin-top: 1em;
+    color: white;
+}
+.loginLabels {
+    color: #ccfaff;
+    align-self: start;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.registerFieldset {
+    border: none;
+}
+.buttonFieldset {
+    border: none;
+    display: flex;
+}
+.cancelRegister {
+    align-items: center;
+    appearance: button;
+    background-color: #97009c41;
+    border: 2px solid #92009c;
+    border-radius: 8px;
+    /* border-style: none; */
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    /* color: #004c54; */
+    color: #e2fcff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue",sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin-left: 20px;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    
+  }
+  
+  .cancelRegister:active {
+    background-color: #e800d1;
+  }
+  
+  .cancelRegister:hover {
+    background-color: #ff1cf7;
+  }
+  
+.signInButton {
+
+    align-items: center;
+    appearance: button;
+    background-color: #9c0060;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    justify-self: center;
+}
+
+.signInButton:active {
+    background-color: #e80055;
+}
+
+.signInButton:hover {
+    background-color: #ff1c5c;
 }
 
 .bottom {
