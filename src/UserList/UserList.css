@@ -143,3 +143,22 @@
 
 
 }
+
+.userSearchBar {
+  display: flex;
+  margin: 20px 0;
+}
+#searchBarItself {
+  margin-left: 10px;
+  border-radius: 4px;
+  border:none;
+  padding: .5em;
+  font-size: medium;
+}
+#searchBarItself:active {
+  border-style: none;
+}
+#searchIcon {
+  height: 2em;
+  filter: opacity(50%)
+}
