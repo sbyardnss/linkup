@@ -12,9 +12,12 @@ export const NavBar = () => {
         if(navMenu.current && !navMenu.current.contains(e.target)) {
             document.getElementById("active").checked = false
         }
-        else {
-            document.getElementById("active").checked = true
+        //why does adding the conditional work here??!!! this function now allows me to close the menu if and only if the user clicks outside of the menu or manually closes it with the icon
+        if(!navMenu.current && document.getElementById("active").contains(e.target)) {
+            document.getElementById("active").checked = false
+
         }
+        
     }
     document.addEventListener(`click`, closeOpenMenus)
     return (
@@ -32,16 +35,32 @@ export const NavBar = () => {
                 }
             }><img className="invert" src={require = ('https://freesvg.org/img/abstract-user-flat-4.png')} /></Link>
             <div id="linkContainer">
-                <div>
-                    <input ref={navMenu} type="checkbox" id="active" />
+                <div ref={navMenu}>
+                    <input  type="checkbox" id="active" />
                     <label htmlFor="active" className="menu-btn"><span></span></label>
                     <label htmlFor="inactive" className="close"></label>
-                    <div className="wrapper">
+                    <div id="menuWrapper" className="wrapper">
                         <ul>
-                            <li className="navListItem"><Link className="navigation_link" to="/play">Play</Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" >New Tee Time</Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/userList" >Make Friends</Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/addCourse" >Add Course</Link></li>
+                            <li className="navListItem"><Link className="navigation_link" to="/play" onClick={
+                                () => {
+                                    document.getElementById("active").checked = false
+                                }
+                            }>Play</Link></li>
+                            <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" onClick={
+                                () => {
+                                    document.getElementById("active").checked = false
+                                }
+                            }>New Tee Time</Link></li>
+                            <li className="navListItem"><Link className="navigation_link" to="/userList" onClick={
+                                () => {
+                                    document.getElementById("active").checked = false
+                                }
+                            }>Make Friends</Link></li>
+                            <li className="navListItem"><Link className="navigation_link" to="/addCourse" onClick={
+                                () => {
+                                    document.getElementById("active").checked = false
+                                }
+                            }>Add Course</Link></li>
                             {/* <li></li> */}
                             <li className="navListItem"><Link className="navigation_logout" to="" onClick={() => {
                                 localStorage.removeItem("linkUp_user")
