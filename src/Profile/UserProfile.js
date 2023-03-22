@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import { deleteFriend } from "../ApiManager"
 import { Scorecard } from "../Scoring/Scorecard"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
@@ -8,7 +9,7 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
+    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profile, updateProfile] = useState({})
 
@@ -38,69 +39,98 @@ export const UserProfile = () => {
 
     return <>
         <main id="profileContainer">
-            <section className="profile__info">
-                <div>
-                    <div id="profileHeader">
-                        <h2>{currentUser?.name}</h2>
-                        <button className="editProfileButton">Edit</button>
+            <article id="profileTop">
+
+                <section className="profile__info">
+                    <div>
+                        <div id="profileHeader">
+                            <h2>{currentUser?.name}</h2>
+                            <button className="editProfileButton">Edit</button>
+                        </div>
                     </div>
-                    <div>Friends:
-                        <ul className="listOfFriends">
-                            {
-                                activeUserFriends.map(userFriend => {
-                                    const friendObj = users.find(user => user.id === userFriend.friendId)
-                                    return <>
-                                        <li>{friendObj.name}</li>
-                                    </>
-                                })
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section className="teeTimesContainer">
-                <h3>My Tee Times</h3>
-                <ul className="listOfFutureTeeTimes">
-                    {
-                        sortedOnlyMyUserMatches.map(teeTime => {
-                            if (next14Dates) {
-                                //string values for teeTime date
-                                const [month, day, year] = teeTime?.match?.date.split("/")
+                    <div id="profileFriendsAndMatches">
 
-                                //numeric values for teeTime date
-                                const intYear = parseInt(year)
-                                const intMonth = parseInt(month)
-                                const intDay = parseInt(day)
-                                const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-                                const teeTimeDateParsed = Date.parse(teeTimeDateString)
+                        <div className="sideNav">
+                            <div>
+                                <ul className="listOfFriends">
+                                    <h4>Friends</h4>
+                                    {
+                                        activeUserFriends.map(userFriend => {
+                                            const friendObj = users.find(user => user.id === userFriend.friendId)
+
+                                            return <>
+                                                <li className="friendListItem">
+                                                    {friendObj.name}
+                                                    <button className="removeFriendButton" onClick={
+
+                                                        () => {
+                                                            deleteFriend(userFriend.id)
+                                                            //CODE BELOW FOR REQUESTING POTENTIAL ONLY
+                                                            // const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
+                                                            // const copy = otherSideOfDeletedRequest
+                                                            // copy.confirmed = false
+                                                            // changeFriendStatus(copy, otherSideOfDeletedRequest.id)
+                                                            setFriendChange(!friendChange)
+
+                                                        }
+                                                    }>Remove</button>
+                                                </li>
+                                            </>
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="futureTeeTimesContainer">
+
+                            <ul className="listOfFutureTeeTimes">
+                                <h3>My Tee Times</h3>
+                                {
+                                    sortedOnlyMyUserMatches.map(teeTime => {
+                                        if (next14Dates) {
+                                            //string values for teeTime date
+                                            const [month, day, year] = teeTime?.match?.date.split("/")
+
+                                            //numeric values for teeTime date
+                                            const intYear = parseInt(year)
+                                            const intMonth = parseInt(month)
+                                            const intDay = parseInt(day)
+                                            const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                                            const teeTimeDateParsed = Date.parse(teeTimeDateString)
 
 
-                                const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                                const matchingScorecardId = teeTime.scorecardId
-                                if (teeTimeDateParsed >= currentDateParsed) {
-                                    return <>
-                                        <div className="userProfileMatches">
-                                            <MyTeeTime key={teeTime.id}
-                                                id={teeTime.id}
-                                                courseId={matchingCourse.id}
-                                                courseName={matchingCourse.name}
-                                                date={teeTime.match.date}
-                                                time={teeTime.match.time}
-                                                matchId={teeTime.matchId}
-                                                scorecardId={matchingScorecardId}
-                                            />
+                                            const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                            const matchingScorecardId = teeTime.scorecardId
+                                            if (teeTimeDateParsed >= currentDateParsed) {
+                                                return <>
+                                                    <div className="userProfileMatches">
+                                                        <MyTeeTime key={teeTime.id}
+                                                            id={teeTime.id}
+                                                            courseId={matchingCourse.id}
+                                                            courseName={matchingCourse.name}
+                                                            date={teeTime.match.date}
+                                                            time={teeTime.match.time}
+                                                            matchId={teeTime.matchId}
+                                                            scorecardId={matchingScorecardId}
+                                                        />
 
-                                        </div>
-                                    </>
+                                                    </div>
+                                                </>
+                                            }
+
+
+                                        }
+                                    })
                                 }
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </article>
+            <section className="pastTeeTimesContainer">
 
-
-                            }
-                        })
-                    }
-                </ul>
-                <h3>Past Tee Times:</h3>
                 <ul className="listOfPastTeeTimes">
+                    <h3>Past Tee Times:</h3>
                     {
                         sortedOnlyMyUserMatches.map(teeTime => {
                             if (next14Dates) {

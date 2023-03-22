@@ -9,19 +9,19 @@ import { ScorecardContext } from "./ScorecardContext"
 export const Scorecard = ({ holes, scores }) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
     const { userMatchesForThisMatch, matchUserHoleScores } = useContext(ScorecardContext)
-    const [scorecards, setScorecards] = useState([])
-    const [allMatchScoreCards, setAllMatchScoreCards] = useState([])
-    const [scorecardsForThisMatch, setScorecardsForThisMatch] = useState([])
     const matchId = useParams()
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     // console.log(matchUserHoleScores)
+    const frontNineTotal = 0;
+    const backNineTotal = 0;
+    const matchTotal = 0;
 
     return <>
         <main id="scorecardContainer">
-            
-            <div class="table-container">
+
+            <div className="table-container">
                 {/* <table class="unfixed-table"> */}
                 <thead>
                     <tr className="tableHeaderRow">
@@ -56,15 +56,20 @@ export const Scorecard = ({ holes, scores }) => {
                             const matchingUser = users?.find(user => user.id === userMatch.userId)
                             const userMatchUserHoleScores = matchUserHoleScores?.filter(userHoleScore => userHoleScore.matchUserId === userMatch.id)
                             // console.log(userMatchUserHoleScores)
+                            if(userMatchUserHoleScores.length >= 9) {
+                                const frontNineArray = userMatchUserHoleScores.filter(holeScore => {
+                                    return holeScore.courseHoleId <= 9
+                                })
+                                console.log(frontNineArray)
+                            }
                             return <>
                                 <tr className="userRow">
                                     <td>{matchingUser.name}</td>
                                     {
                                         userMatchUserHoleScores?.map(score => {
-                                            const emptyCellCompensation = 18 - userMatchUserHoleScores.length 
+                                            const emptyCellCompensation = 18 - userMatchUserHoleScores.length
                                             const compensationArray = []
                                             compensationArray.fill()
-                                            console.log(compensationArray)
                                             return <td>{score.strokes}</td>
 
                                         })

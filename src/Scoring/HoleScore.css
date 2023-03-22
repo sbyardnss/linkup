@@ -155,7 +155,7 @@
     .holeInfoHeader {
         display: flex;
         justify-content: space-around;
-        width: 80%;
+        width: 100%;
         margin-top: 10%;
         margin-bottom: 40px;
         /* border: 2px solid orange; */
@@ -164,7 +164,8 @@
     }
 
     h2,
-    h3 {
+    h3,
+    h4 {
         color: #ccfaff
     }
 
@@ -214,6 +215,42 @@
 
     .scoringButton:hover {
         background-color: #1C84FF;
+    }
+    .scoringButtonSelected {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #009c4e;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 6px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringButtonSelected:active {
+        background-color: #006AE8;
+    }
+
+    .scoringButtonSelected:hover {
+        background-color: #12c18a;
     }
 
     .userButtonsContainer {
@@ -324,6 +361,40 @@
 
     .scoringSubmitButton:hover {
         background-color: #ff1c5c;
+    }
+    .finishHoleButton {
+        align-items: center;
+        appearance: button;
+        background-color: #009c46;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .finishHoleButton:active {
+        background-color: #00cde8bc;
+    }
+
+    .finishHoleButton:hover {
+        background-color: #1cff91b5;
     }
 }
 

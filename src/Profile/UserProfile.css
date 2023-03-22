@@ -9,13 +9,43 @@
     /* width: 70%; */
 }
 
-.profile__info {
-    width: 70%;
+#profileTop {
+    display: flex;
+}
 
+.profile__info {
+    border: 1px solid rgba(0, 255, 0, 0.282);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background-color: #0d676764;
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+    /* border: 1px solid rgba(255, 255, 255, 0.357); */
+
+}
+
+#profileFriendsAndMatches {
+    display: flex;
+    list-style: none;
+    width: fit-content;
+    padding: 10px 20px;
+    
+    margin-bottom: 60px;
 }
 
 .teeTimesContainer {
     width: 70%;
+    border: 2px solid orange;
+}
+
+.futureTeeTimesContainer {
+    float: left;
+    zoom: .9;
+    /* position: relative; */
+    /* top: 40%; */
+    left: 15%;
+    
+    height: inherit;
 }
 
 .pastTeeTime {
@@ -39,41 +69,85 @@
     display: flex;
     flex-direction: column;
 }
+
 .listOfPastTeeTimes {
-    padding: 0;
+    list-style: none;
+    padding: 10px 20px;
+    border: 1px solid rgba(0, 255, 0, 0.282);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background-color: #0d676764;
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+
 }
+
 .pastTeeTimeInfo {
     margin-right: 100px;
 }
+
 .listOfFutureTeeTimes {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+    width: fit-content;
+    padding: 10px 20px;
+    border: 1px solid rgba(0, 255, 0, 0.282);
+    /* border-radius: 0 10px 10px 0; */
+    /* backdrop-filter: blur(10px); */
+    background-color: #0d676764;
+    /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
+    margin-left: 2%;
+    margin-right: 2%;
     margin-bottom: 60px;
+    margin-top: 18px;
 }
+
 .editProfileButton {
-    position: relative;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    padding: .25em .25em;
-    border: 1px solid black;
-    border-radius: 4px;
     width: 60px;
-    font-size: large;
-    font-weight: normal;
-    font-style: oblique;
- 
-}
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #00949c;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue",sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .editProfileButton:active {
+    background-color: #00b2e8;
+  }
+  
+  .editProfileButton:hover {
+    background-color: #1c8eff;
+  }
 
 #profileHeader {
     display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 
 .profileScorecardButton {
-    
+
     background-color: rgb(37, 44, 120);
     color: white;
     margin-left: 10px;
@@ -85,8 +159,9 @@
     font-weight: normal;
     font-style: oblique;
     box-shadow: 0px 2px 1px 2px rgb(78, 78, 78);
-    
+
 }
+
 .profileButtonBlock {
     display: flex;
     justify-content: flex-end;
@@ -96,4 +171,84 @@
     margin-bottom: auto;
     margin-right: 1em;
 
+}
+
+.listOfFriends {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: inherit;
+    list-style: none;
+    padding: 0;
+    /* border: 1px solid rgba(0, 255, 0, 0.282); */
+    /* border-radius: 10px 0 0 10px; */
+    /* backdrop-filter: blur(10px); */
+    background-color: #2c2d3264; 
+    /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
+    /* margin-bottom: 60px; */
+}
+
+.friendListItem {
+    display: flex;
+    padding: 1em;
+    justify-content: space-between;
+    width: 190px;
+    margin: 10px;
+    /* backdrop-filter: blur(16px) saturate(180%); */
+    background-color: rgba(13, 103, 103, 0.908);
+    /* color: rgb(222, 222, 222); */
+    color: #CCFAFF;
+    /* margin-bottom: 12px; */
+    border: 1px solid rgba(126, 2, 2, 0.308);
+    border-radius: 8px;
+    align-items: center;
+}
+
+.removeFriendButton {
+    width: 55px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #9c0060;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 70%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.removeFriendButton:active {
+    background-color: #e80055;
+}
+
+.removeFriendButton:hover {
+    background-color: #ff1c5c;
+}
+
+.sideNav {
+    /* position: fixed; */
+    /* right: 10%; */
+    /* z-index: 3; */
+}
+
+ul h4 {
+    color: #ccfaff;
+    justify-self: start;
 }

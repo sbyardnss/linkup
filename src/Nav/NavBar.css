@@ -5,7 +5,7 @@
       flex-wrap: nowrap;
       /* justify-content: space-between; */
       align-items: center;
-      border-bottom: 1px solid lightblue;
+      /* border-bottom: 1px solid lightblue; */
       padding: 0.5em 0 0.5em 1em;
       margin-bottom: 2em;
       position: fixed;
@@ -21,6 +21,7 @@
   #logoSpace {
       display: flex;
       align-items: center;
+      
   }
   .profileLink {
       margin-left: auto;
@@ -274,7 +275,7 @@
       flex-wrap: nowrap;
       /* justify-content: space-between; */
       align-items: center;
-      border-bottom: 1px solid lightblue;
+      /* border-bottom: 1px solid lightblue; */
       padding: 0.5em 0 0.5em 1.5em;
       margin-bottom: 2em;
       position: fixed;

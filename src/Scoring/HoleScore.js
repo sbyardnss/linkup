@@ -14,6 +14,7 @@ export const HoleScore = ({ matchId }) => {
         strokes: 0,
         notes: ""
     })
+    const [strokes, setStrokes] = useState(0)
     // console.log(matchId)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -23,7 +24,7 @@ export const HoleScore = ({ matchId }) => {
     const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)
     const currentHoleInfo = onlyLoggedInUserHoleScores.find(holeScore => holeScore.courseHoleId === selectedHole)
 
-    const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     // useEffect(
     //     () => {
     //             const userMatchNumberforInitialScoring = loggedInUserMatch?.id//this useEffect is not setting the initial value to what i want yet
@@ -34,14 +35,13 @@ export const HoleScore = ({ matchId }) => {
 
     const newHoleScoreObjForAPI = {
         matchUserId: parseInt(userMatchToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-        strokes: currentHoleData.strokes,
-        courseHoleId: selectedHole,
+        strokes: parseInt(strokes),
+        courseHoleId: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
     if (activeMatch) {
 
         if (activeMatch.confirmed === true) {
-
             return <>
                 <main id="holeScoreContainer">
                     <div className="holeScoreArticle">
@@ -58,7 +58,7 @@ export const HoleScore = ({ matchId }) => {
                                         setSelectedHole(evt.target.value)
 
                                         const copy = { ...currentHoleData }
-                                        copy.strokes = 0
+                                        setStrokes(0)
                                         copy.notes = ""
                                         updateCurrentHoleData(copy)
 
@@ -87,38 +87,81 @@ export const HoleScore = ({ matchId }) => {
                                 <h2>Hole {selectedHole}</h2>
                                 <button className="scoringSubmitButton" onClick={
                                     () => {
-                                        addUserHoleScore(newHoleScoreObjForAPI)
-                                        setSelectedHole(selectedHole + 1)
+                                        if (newHoleScoreObjForAPI.matchUserId !== 0) {
 
-                                        currentHoleData.notes = ""
-                                        currentHoleData.strokes = 0
-                                        setUpdateCard(!updateCard)
+                                            addUserHoleScore(newHoleScoreObjForAPI)
+                                            currentHoleData.notes = ""
+                                            // currentHoleData.strokes = 0
+                                            setStrokes(0)
+                                            setUpdateCard(!updateCard)
+                                        }
 
                                     }
                                 }>Submit</button>
+                                <button className="finishHoleButton" onClick={
+                                    () => {
+                                        if (newHoleScoreObjForAPI.matchUserId !== 0) {
+
+                                            setSelectedHole(selectedHole + 1)
+                                        }
+
+                                    }
+                                }>Finish Hole</button>
                             </div>
-                            strokes: {currentHoleData.strokes}
+                            {/* strokes: {currentHoleData.strokes} */}
+                            <h4>strokes: {strokes}</h4>
+
                             <div className="scoringButtonsContainer">
 
 
                                 {
                                     possibleScoreValuesWithoutMax.map(score => {
-                                        return <button className="scoringButton" value={score} onClick={
-                                            (evt) => {
-                                                const copy = { ...currentHoleData }
-                                                copy.strokes = parseInt(evt.target.value)
-                                                updateCurrentHoleData(copy)
+                                        if (strokes) {
+                                            if (score === parseInt(strokes)) {
+
+                                                return <button className="scoringButtonSelected" value={score} onClick={
+                                                    (evt) => {
+                                                        // const copy = { ...currentHoleData }
+                                                        // copy.strokes = parseInt(evt.target.value)
+                                                        // updateCurrentHoleData(copy)
+                                                        setStrokes(evt.target.value)
+                                                    }
+                                                }>{score}</button>
+
                                             }
-                                        }>{score}</button>
+                                            else {
+                                                return <button className="scoringButton" value={score} onClick={
+                                                    (evt) => {
+                                                        // const copy = { ...currentHoleData }
+                                                        // copy.strokes = parseInt(evt.target.value)
+                                                        // updateCurrentHoleData(copy)
+                                                        setStrokes(evt.target.value)
+                                                    }
+                                                }>{score}</button>
+
+                                            }
+
+                                        }
+                                        else {
+                                            return <button className="scoringButton" value={score} onClick={
+                                                (evt) => {
+                                                    // const copy = { ...currentHoleData }
+                                                    // copy.strokes = parseInt(evt.target.value)
+                                                    // updateCurrentHoleData(copy)
+                                                    setStrokes(evt.target.value)
+                                                }
+                                            }>{score}</button>
+                                        }
                                     })
                                 }
-                                <button className="scoringButton" value={10} onClick={
+                                {/* <button className="scoringButton" value={10} onClick={
                                     (evt) => {
-                                        const copy = { ...currentHoleData }
-                                        copy.strokes = parseInt(evt.target.value)
-                                        updateCurrentHoleData(copy)
+                                        // const copy = { ...currentHoleData }
+                                        // copy.strokes = parseInt(evt.target.value)
+                                        // updateCurrentHoleData(copy)
+                                        setStrokes(parseInt(evt.target.value))
                                     }
-                                }>MAX</button>
+                                }>MAX</button> */}
                             </div>
                             <input className="holeMsgInput" type="text" value={currentHoleData.notes} placeholder="any notes?" onChange={
                                 (evt) => {
@@ -141,8 +184,7 @@ export const HoleScore = ({ matchId }) => {
                                     else {
                                         return <button className="inactiveUserButton" value={userMatch.id} onClick={
                                             (evt) => {
-                                                console.log(evt.target.value)
-                                                console.log(userMatchToScoreFor)
+
                                                 setUserMatchToScoreFor(parseInt(evt.target.value))
                                                 // setUserMatchToScoreFor(userMatch.id)
                                             }

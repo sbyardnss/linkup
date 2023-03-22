@@ -89,6 +89,12 @@
         background: hsl(180, 50%, 70%);
         z-index: 3;
         left: 0;
+        height: 40px;
+        width: 200px;
+        
+    }
+    tr {
+        border: 1px solid gray;
     }
 }
 
