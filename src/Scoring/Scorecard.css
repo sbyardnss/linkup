@@ -13,6 +13,7 @@
     }
 
     .table-container {
+        display: flex;
         position: relative;
         max-height: 300px;
         width: 60vw;
@@ -95,6 +96,9 @@
     }
     tr {
         border: 1px solid gray;
+    }
+    #frontNineScoreCell {
+        z-index: 2;
     }
 }
 

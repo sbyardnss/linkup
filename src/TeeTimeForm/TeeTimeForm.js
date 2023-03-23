@@ -26,9 +26,12 @@ export const TeeTimeForm = () => {
         message: newMatch.message,
         confirmed: false
     }
-
+    let newMatchId = lastMatchInMatches?.id + 1
+    if(!lastMatchInMatches){
+        newMatchId = 1
+    }
     const userMatchObjToSendToApi = {
-        matchId: lastMatchInMatches?.id + 1,
+        matchId: newMatchId,
         userId: linkUpUserObj.id,
         isInitiator: true,
         totalStrokes: 0

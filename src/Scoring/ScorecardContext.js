@@ -1,12 +1,11 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllMatchUserHoleScores, getAllScoreCards, getUserMatchesForThisMatch, getAllMatches } from "../ApiManager";
+import { getAllMatchUserHoleScores, getUserMatchesForThisMatch, getAllMatches } from "../ApiManager";
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider";
 
 export const ScorecardContext = createContext()
 
 export const ScorecardProvider = (props) => {
-    const [scorecards, setScorecards] = useState([])
     const [matchUserHoleScores, setMatchUserHoleScores] = useState([])
     const [allMatches, setAllMatches] = useState([])
     const [userMatchesForThisMatch, setUserMatchesForThisMatch] = useState([])
@@ -43,17 +42,7 @@ export const ScorecardProvider = (props) => {
         },
         [matchConfirmed]
     )
-    useEffect(
-        () => {
-            getAllScoreCards()
-                .then(
-                    (data) => {
-                        setScorecards(data)
-                    }
-                )
-        },
-        []
-    )
+    
     useEffect(
         () => {
             getAllMatchUserHoleScores()

@@ -57,7 +57,7 @@ export const UserProfile = () => {
                                     {
                                         activeUserFriends.map(userFriend => {
                                             const friendObj = users.find(user => user.id === userFriend.friendId)
-
+                                            console.log(userFriend)
                                             return <>
                                                 <li className="friendListItem">
                                                     {friendObj.name}
@@ -71,6 +71,7 @@ export const UserProfile = () => {
                                                             // copy.confirmed = false
                                                             // changeFriendStatus(copy, otherSideOfDeletedRequest.id)
                                                             setFriendChange(!friendChange)
+
 
                                                         }
                                                     }>Remove</button>

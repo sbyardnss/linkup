@@ -11,10 +11,10 @@ export const getAllCourses = () => {
         .then(res => res.json())
 }
 
-export const getAllCourseHoles = () => {
-    return fetch(`http://localhost:8088/courseHoles`)
-        .then(res => res.json())
-}
+// export const getAllCourseHoles = () => {
+//     return fetch(`http://localhost:8088/courseHoles`)
+//         .then(res => res.json())
+// }
 
 // export async function getAllMatches() {
 //     const response = await fetch(`http://localhost:8088/matches`)
@@ -46,10 +46,10 @@ export const getAllUserFriendsForActiveUser = () => {
     return fetch(`http://localhost:8088/userFriends?&userId=${linkUpUserObj.id}`)
         .then(res => res.json())
 }
-export const getAllScoreCards = () => {
-    return fetch(`http://localhost:8088/scorecards`)
-        .then(res => res.json())
-}
+// export const getAllScoreCards = () => {
+//     return fetch(`http://localhost:8088/scorecards`)
+//         .then(res => res.json())
+// }
 
 //get all userMatches with scorecards for paticularMatch 
 export const getUserMatchesForThisMatch = (matchId) => {
