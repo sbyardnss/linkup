@@ -1,8 +1,7 @@
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-
+import profileIcon from "../images/abstract-user-flat-4.png"
 import "./NavBar.css"
-
 
 export const NavBar = () => {
     const navigate = useNavigate()
@@ -33,7 +32,7 @@ export const NavBar = () => {
                 () => {
                     document.getElementById("active").replace("active", "inactive")
                 }
-            }><img className="invert" src={require = ('https://freesvg.org/img/abstract-user-flat-4.png')} /></Link>
+            }><img className="invert" src={profileIcon} /></Link>
             <div id="linkContainer">
                 <div ref={navMenu}>
                     <input  type="checkbox" id="active" />

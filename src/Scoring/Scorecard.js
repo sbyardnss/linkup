@@ -19,99 +19,100 @@ export const Scorecard = ({ holes, scores }) => {
 
             <div className="table-container">
                 <div>
+                    <table id="fullScorecardTable">
+                        <thead>
+                            <tr className="tableHeaderRow">
+                                <th>player</th>
+                                <th className="frontNineScore">Front 9</th>
+                                <th className="backNineScore">Back 9</th>
+                                <th className="totalScore">Total</th>
+                                <th className="holeScore"> -1- </th>
+                                <th className="holeScore"> -2- </th>
+                                <th className="holeScore"> -3- </th>
+                                <th className="holeScore"> -4- </th>
+                                <th className="holeScore"> -5- </th>
+                                <th className="holeScore"> -6- </th>
+                                <th className="holeScore"> -7- </th>
+                                <th className="holeScore"> -8- </th>
+                                <th className="holeScore"> -9- </th>
+                                <th className="holeScore">10 </th>
+                                <th className="holeScore">11 </th>
+                                <th className="holeScore">12 </th>
+                                <th className="holeScore">13 </th>
+                                <th className="holeScore">14 </th>
+                                <th className="holeScore">15 </th>
+                                <th className="holeScore">16 </th>
+                                <th className="holeScore">17 </th>
+                                <th className="holeScore">18 </th>
 
-                    <thead>
-                        <tr className="tableHeaderRow">
-                            <th>player</th>
-                            <th className="frontNineScore">Front 9</th>
-                            <th className="backNineScore">Back 9</th>
-                            <th className="totalScore">Total</th>
-                            <th className="holeScore">1</th>
-                            <th className="holeScore">2</th>
-                            <th className="holeScore">3</th>
-                            <th className="holeScore">4</th>
-                            <th className="holeScore">5</th>
-                            <th className="holeScore">6</th>
-                            <th className="holeScore">7</th>
-                            <th className="holeScore">8</th>
-                            <th className="holeScore">9</th>
-                            <th className="holeScore">10</th>
-                            <th className="holeScore">11</th>
-                            <th className="holeScore">12</th>
-                            <th className="holeScore">13</th>
-                            <th className="holeScore">14</th>
-                            <th className="holeScore">15</th>
-                            <th className="holeScore">16</th>
-                            <th className="holeScore">17</th>
-                            <th className="holeScore">18</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        {
-                            userMatchesForThisMatch?.map(userMatch => {
-                                const matchingUser = users?.find(user => user.id === userMatch.userId)
-                                const userMatchUserHoleScores = matchUserHoleScores?.filter(userHoleScore => userHoleScore.matchUserId === userMatch.id)
+                            {
+                                userMatchesForThisMatch?.map(userMatch => {
+                                    const matchingUser = users?.find(user => user.id === userMatch.userId)
+                                    const userMatchUserHoleScores = matchUserHoleScores?.filter(userHoleScore => userHoleScore.matchUserId === userMatch.id)
 
-                                const frontNineArray = userMatchUserHoleScores.filter(holeScore => {
-                                    return holeScore.courseHoleId <= 9
-                                })
-
-                                const frontNineScore = () => {
-                                    let userScore = 0
-                                    frontNineArray.map(score => {
-                                        userScore += score?.strokes
+                                    const frontNineArray = userMatchUserHoleScores.filter(holeScore => {
+                                        return holeScore.courseHoleId <= 9
                                     })
 
-                                    return userScore
-                                }
-                                const backNineArray = userMatchUserHoleScores.filter(holeScore => {
-                                    return holeScore.courseHoleId > 9
-                                })
-                                const backNineScore = () => {
-                                    let userScore = 0
-                                    backNineArray.map(score => {
-                                        userScore += score?.strokes
+                                    const frontNineScore = () => {
+                                        let userScore = 0
+                                        frontNineArray.map(score => {
+                                            userScore += score?.strokes
+                                        })
+
+                                        return userScore
+                                    }
+                                    const backNineArray = userMatchUserHoleScores.filter(holeScore => {
+                                        return holeScore.courseHoleId > 9
                                     })
+                                    const backNineScore = () => {
+                                        let userScore = 0
+                                        backNineArray.map(score => {
+                                            userScore += score?.strokes
+                                        })
 
-                                    return userScore
-                                }
-                                const totalScore = frontNineScore() + backNineScore()
-                                return <>
-                                    <tr className="userRow">
-                                        <td>{matchingUser.name}</td>
-                                        <td>{frontNineScore()}</td>
-                                        <td>{backNineScore()}</td>
-                                        <td>{totalScore}</td>
-                                        {
-                                            frontNineArray?.map(score => {
-                                                
-                                                return <td>{score.strokes}</td>
+                                        return userScore
+                                    }
+                                    const totalScore = frontNineScore() + backNineScore()
+                                    return <>
+                                        <tr className="userRow">
+                                            <td>{matchingUser.name}</td>
+                                            <td>{frontNineScore()}</td>
+                                            <td>{backNineScore()}</td>
+                                            <td>{totalScore}</td>
+                                            {
+                                                frontNineArray?.map(score => {
 
-                                            })
-                                        }
-                                        {
-                                            backNineArray?.map(score => {
-                                                
-                                                return <td>{score.strokes}</td>
+                                                    return <td>{score.strokes}</td>
 
-                                            })
-                                        }
-                                        {/* <td id="frontNineScoreCell">{frontNineScore()}</td> */}
-                                    </tr>
+                                                })
+                                            }
+                                            {
+                                                backNineArray?.map(score => {
 
-                                </>
-                            })
-                        }
-                    </tbody>
+                                                    return <td>{score.strokes}</td>
+
+                                                })
+                                            }
+                                            {/* <td id="frontNineScoreCell">{frontNineScore()}</td> */}
+                                        </tr>
+
+                                    </>
+                                })
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 {/* <div>
 
-                    <thead>
-                        <th className="frontNineScore">Front 9</th>
-                        <th className="backNineScore">Back 9</th>
-                        <th className="totalScore">Total</th>
+<thead>
+<th className="frontNineScore">Front 9</th>
+<th className="backNineScore">Back 9</th>
+<th className="totalScore">Total</th>
                     </thead>
                     <tbody>
                         {

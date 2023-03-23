@@ -204,3 +204,15 @@ export const setMatchToConfirmed = (matchReplacement, matchId) => {
         .then(res => res.json())
 
 }
+
+export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
+    return fetch(`http://localhost:8088/matchUserHoleScores/${holeScoreId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(scoreObjReplacement)
+    })
+        .then(res => res.json())
+
+}

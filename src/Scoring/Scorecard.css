@@ -11,7 +11,10 @@
         width: fit-content;
 
     }
-
+    #fullScorecardTable {
+        
+        border-collapse: collapse;
+    }
     .table-container {
         display: flex;
         position: relative;
@@ -19,6 +22,7 @@
         width: 60vw;
         overflow: scroll;
         background-color: #ccfaff;
+        
     }
 
     .fullMatchScorecard {
@@ -26,16 +30,20 @@
 
         /* width: 40%; */
     }
-
+    .holeScore {
+        
+    }
     .tableHeader {
         width: 200px;
         text-align: start;
         background-color: brown;
         color: white;
+        
     }
 
     .tableBody {
         width: 50%;
+        
     }
 
     .fullMatchScorecard {
@@ -44,23 +52,26 @@
         background-color: whitesmoke;
         padding: 10px;
         margin-left: 20px;
+        
         /* width: 40%; */
     }
 
     #tableHead {
         margin-bottom: 10px;
         border-bottom: 2px solid rgb(16, 113, 24);
+        
     }
 
     th,
     td {
-        padding: 4px;
+        padding: 8px;
         border: 1px solid gray;
     }
 
     .frontNineScore,
     .backNineScore {
         background-color: cadetblue;
+        
     }
 
     .totalScore {
@@ -69,6 +80,7 @@
 
     .playerHead {
         background-color: bisque;
+        
     }
 
     .userRow {
@@ -81,6 +93,7 @@
         top: 0;
         z-index: 2;
         background: hsl(20, 50%, 70%);
+        
         /* width: fit-content; */
     }
 
@@ -89,9 +102,12 @@
         position: sticky;
         background: hsl(180, 50%, 70%);
         z-index: 3;
-        left: 0;
+        margin:none;
+        /* border: 2px solid gray; */
+        left: 0%;
         height: 40px;
         width: 200px;
+        
         
     }
     tr {

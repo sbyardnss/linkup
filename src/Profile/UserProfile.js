@@ -1,3 +1,4 @@
+import { color } from "framer-motion"
 import { useState, useEffect, useContext } from "react"
 import { deleteFriend } from "../ApiManager"
 import { Scorecard } from "../Scoring/Scorecard"
@@ -11,13 +12,18 @@ import "./UserProfile.css"
 export const UserProfile = () => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
+    const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
-
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const currentUser = users.find(user => user.id === linkUpUserObj.id)
-
-
+    useEffect(
+        () => {
+            updateProfile(currentUser)
+        },
+        [profileEdit]
+    )
+    console.log(profile)
     const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId === linkUpUserObj.id
     })
@@ -37,6 +43,61 @@ export const UserProfile = () => {
     const currentDateParsed = Date.parse(currentDateString)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
+    const updatedUserForAPI = {
+        name: profile?.name,
+        email: profile?.email,
+        password: profile?.password
+    }
+
+    const updateProfileSection = () => {
+        if (profileEdit) {
+            return <>
+                <section id="updateProfileSection">
+                    <h4>update profile</h4>
+                    <label className="editProfileInputLabel" htmlFor="name">name</label>
+                    <input type="text" value={profile?.name} onChange={
+                        (evt) => {
+                            const copy = { ...currentUser }
+                            copy.name = evt.target.value
+                            updateProfile(copy)
+                        }
+                    }></input>
+                    <label className="editProfileInputLabel" htmlFor="email">email</label>
+                    <input type="text" value={profile?.email} onChange={
+                        (evt) => {
+                            const copy = { ...currentUser }
+                            copy.email = evt.target.value
+                            updateProfile(copy)
+                        }
+                    }></input>
+                    <label className="editProfileInputLabel" htmlFor="password">password</label>
+                    <input type="text" value={profile?.password} onChange={
+                        (evt) => {
+                            const copy = { ...currentUser }
+                            copy.password = evt.target.value
+                            updateProfile(copy)
+                        }
+                    }></input>
+                    <div id="submitCancelProfileChanges">
+                        <button className="cancelProfileEditButton" onClick={
+                            () => {
+                                // submitChanges(false)
+                            }
+                        }>submit</button>
+                        <button className="cancelProfileEditButton" onClick={
+                            () => {
+                                editProfile(false)
+                            }
+                        }>cancel</button>
+                    </div>
+                </section>
+
+            </>
+        }
+        else {
+            return null
+        }
+    }
     return <>
         <main id="profileContainer">
             <article id="profileTop">
@@ -44,8 +105,17 @@ export const UserProfile = () => {
                 <section className="profile__info">
                     <div>
                         <div id="profileHeader">
-                            <h2>{currentUser?.name}</h2>
-                            <button className="editProfileButton">Edit</button>
+                            <div>
+
+                                <h2>{currentUser?.name}</h2>
+                                <h4>{currentUser?.email}</h4>
+                            </div>
+                            {updateProfileSection()}
+                            <button className="editProfileButton" onClick={
+                                () => {
+                                    editProfile(true)
+                                }
+                            }>Edit</button>
                         </div>
                     </div>
                     <div id="profileFriendsAndMatches">
@@ -57,7 +127,6 @@ export const UserProfile = () => {
                                     {
                                         activeUserFriends.map(userFriend => {
                                             const friendObj = users.find(user => user.id === userFriend.friendId)
-                                            console.log(userFriend)
                                             return <>
                                                 <li className="friendListItem">
                                                     {friendObj.name}
