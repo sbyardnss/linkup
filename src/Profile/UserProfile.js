@@ -1,6 +1,6 @@
 import { color } from "framer-motion"
 import { useState, useEffect, useContext } from "react"
-import { deleteFriend } from "../ApiManager"
+import { deleteFriend, updateUser } from "../ApiManager"
 import { Scorecard } from "../Scoring/Scorecard"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
@@ -10,7 +10,7 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange } = useContext(TeeTimeContext)
+    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange, profileUpdated, setProfileUpdated } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
@@ -23,7 +23,6 @@ export const UserProfile = () => {
         },
         [profileEdit]
     )
-    console.log(profile)
     const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
         return uME.userId === linkUpUserObj.id
     })
@@ -79,9 +78,12 @@ export const UserProfile = () => {
                         }
                     }></input>
                     <div id="submitCancelProfileChanges">
-                        <button className="cancelProfileEditButton" onClick={
+                        <button type="submit" className="cancelProfileEditButton" onClick={
                             () => {
-                                // submitChanges(false)
+                                updateUser(updatedUserForAPI, linkUpUserObj.id)
+                                setProfileUpdated(!profileUpdated)
+                                editProfile(false)
+
                             }
                         }>submit</button>
                         <button className="cancelProfileEditButton" onClick={

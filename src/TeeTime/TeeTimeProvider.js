@@ -13,6 +13,7 @@ export const TeeTimeProvider = (props) => {
     const [joinMatch, joinInitiated] = useState([false])
     const [matchCreated, setMatchCreated] = useState(false)
     const [friendChange, setFriendChange] = useState(false)
+    const [profileUpdated, setProfileUpdated] = useState(false)
     const navigate = useNavigate()
 
   
@@ -32,7 +33,7 @@ export const TeeTimeProvider = (props) => {
                 )
 
         },
-        []
+        [profileUpdated]
     )
     useEffect(
         () => {
@@ -133,7 +134,7 @@ export const TeeTimeProvider = (props) => {
     return (
         <TeeTimeContext.Provider value={{
             deleteItem, deleteInitiated, joinMatch, joinInitiated, users, courses, matches, userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, navigate,
-            sortedOthersUserMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed
+            sortedOthersUserMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated
         }}>
             {props.children}
         </TeeTimeContext.Provider>

@@ -84,10 +84,17 @@ export const Scorecard = ({ holes, scores }) => {
                                             <td>{frontNineScore()}</td>
                                             <td>{backNineScore()}</td>
                                             <td>{totalScore}</td>
+                                            
                                             {
                                                 frontNineArray?.map(score => {
+                                                    if (score.strokes === 0) {
+                                                        return <td className="didNotFinish">{score.strokes}</td>
+                                                        
+                                                    }
+                                                    else {
 
-                                                    return <td>{score.strokes}</td>
+                                                        return <td>{score.strokes}</td>
+                                                    }
 
                                                 })
                                             }

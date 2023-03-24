@@ -11,7 +11,6 @@ export const HoleScore = ({ matchId }) => {
     const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
     const [selectedHole, setSelectedHole] = useState(1)
     const [currentHoleData, updateCurrentHoleData] = useState({
-        strokes: 0,
         notes: ""
     })
     const [strokes, setStrokes] = useState(0)
@@ -29,15 +28,27 @@ export const HoleScore = ({ matchId }) => {
         notes: currentHoleData.notes
     }
     //this function was for a potential autofill for users that didnt finish a hole
-    // const holeScoresForThisHole = () => {
-    //     const holeScoresForThisHole = []
-    //     const holeScoreFinder = userMatchesForThisMatch.map(userMatch => {
-    //         const targetHoleScore = matchUserHoleScores.find(holeScore => holeScore.matchUserId === userMatch.id)
-    //         holeScoresForThisHole.push(targetHoleScore)
-    //     })
-    //     return holeScoresForThisHole
-    // }
-
+    const holeScoresForThisHole = () => {
+        const holeScoresForThisHole = []
+        const holeScoreFinder = userMatchesForThisMatch.map(userMatch => {
+            const targetHoleScore = matchUserHoleScores.find(holeScore => holeScore.matchUserId === userMatch.id && holeScore.courseHoleId === selectedHole)
+            holeScoresForThisHole.push(targetHoleScore)
+        })
+        return holeScoresForThisHole
+    }
+    const nextHole = () => {
+        setSelectedHole(selectedHole + 1)
+    }
+    // useEffect(
+    //     () => {
+    //         const holeScoreCount = holeScoresForThisHole()
+    //         if (holeScoreCount.length === userMatchesForThisMatch.length) {
+    //             nextHole()
+    //         }
+    //     },
+    //     [activeMatch]
+    // )
+    console.log(holeScoresForThisHole())
     if (activeMatch) {
         if (activeMatch.confirmed === true) {
             return <>
@@ -81,7 +92,7 @@ export const HoleScore = ({ matchId }) => {
                                     () => {
                                         if (newHoleScoreObjForAPI.matchUserId !== 0) {
                                             const alreadyScoredThisUserForThisHole = matchUserHoleScores.find(holeScore => holeScore.courseHoleId === parseInt(selectedHole) && holeScore.matchUserId === userMatchToScoreFor)
-                                            console.log(alreadyScoredThisUserForThisHole)
+                                            // console.log(alreadyScoredThisUserForThisHole)
                                             if (alreadyScoredThisUserForThisHole) {
 
                                                 if (window.confirm("You already scored this user. Would you like to update it?")) {
@@ -104,26 +115,32 @@ export const HoleScore = ({ matchId }) => {
                                 }>Submit</button>
                                 <button className="finishHoleButton" onClick={
                                     () => {
-                                        // const strokesForThisHolePerUser = holeScoresForThisHole()
+                                        const strokesForThisHolePerUser = holeScoresForThisHole()
 
-                                        // const userMatchesThatDidNotFinish = userMatchesForThisMatch.filter(userMatch => {
-                                        //     let didNotFinishArray = []
-                                        //     if (!strokesForThisHolePerUser.find(holeScore => holeScore?.matchUserId === userMatch.id)) {
-                                        //         didNotFinishArray.push(userMatch)
-                                        //     }
-                                        //     else {
-                                        //         return undefined
-                                        //     }
-                                        //     return didNotFinishArray
-                                        // })
-                                        // {
-                                        //     userMatchesThatDidNotFinish.map(noFinish => {
-                                        //         setUserMatchToScoreFor(parseInt(noFinish.id))
-                                        //         setStrokes(parseInt(12))
-                                        //         updateCurrentHoleData("did not finish")
-                                        //         addUserHoleScore(newHoleScoreObjForAPI)
-                                        //     })
-                                        // }
+                                        {
+                                            userMatchesForThisMatch.map(userMatch => {
+                                                let didNotFinishArray = []
+                                                const userMatchStrokes = strokesForThisHolePerUser.find(holeScore => holeScore?.matchUserId === userMatch.id)
+                                                if (userMatchStrokes === undefined) {
+                                                    const unfinishedHoleScoreForAPI = {
+                                                        matchUserId: userMatch.id, //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
+                                                        strokes: 0,
+                                                        courseHoleId: parseInt(selectedHole),
+                                                        notes: "did not finish"
+                                                    }
+                                                    // didNotFinishArray.push(userMatch)
+                                                    addUserHoleScore(unfinishedHoleScoreForAPI)
+
+
+                                                }
+                                                else {
+                                                    return undefined
+                                                }
+                                            })
+                                        }
+                                        
+                                        setUpdateCard(!updateCard)
+
                                         setUserMatchToScoreFor(0)
                                         currentHoleData.notes = ""
                                         setStrokes(0)
