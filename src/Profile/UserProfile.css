@@ -26,6 +26,8 @@
 
 #profileFriendsAndMatches {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
     width: fit-content;
     padding: 10px 20px;
@@ -40,7 +42,7 @@
 
 .futureTeeTimesContainer {
     float: left;
-    zoom: .9;
+    /* zoom: .9; */
     /* position: relative; */
     /* top: 40%; */
     left: 15%;
@@ -96,8 +98,8 @@
     background-color: #0d676764;
     /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
     box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
-    margin-left: 2%;
-    margin-right: 2%;
+    /* margin-left: 2%; */
+    /* margin-right: 2%; */
     margin-bottom: 60px;
     margin-top: 18px;
 }
@@ -296,4 +298,11 @@
 ul h4 {
     color: #ccfaff;
     justify-self: start;
+}
+
+
+.friendsAndMessages {
+    display: flex;
+    justify-content: start;
+    width: 100%;
 }

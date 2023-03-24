@@ -25,6 +25,67 @@
         cursor: pointer;
 
     }
+    .placeItemsSideBySide{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+    .matchSelect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .matchSelection {
+        height: fit-content;
+        width: 150%;
+        font-size: 16px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: start;
+        border-radius: 12px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        box-sizing: border-box;
+        margin-top: 40px;
+        padding: 20px;
+    }
+    .matchSelectionButton {
+        align-items: center;
+        appearance: button;
+        background-color: #9c0060;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .matchSelectionButton:active {
+        background-color: #e80055;
+    }
+
+    .matchSelectionButton:hover {
+        background-color: #ff1c5c;
+    }
 
     .holeScoreArticle {
         width: 50vw;
@@ -216,6 +277,7 @@
     .scoringButton:hover {
         background-color: #1C84FF;
     }
+
     .scoringButtonSelected {
         height: 60px;
         width: 60px;
@@ -362,6 +424,7 @@
     .scoringSubmitButton:hover {
         background-color: #ff1c5c;
     }
+
     .finishHoleButton {
         align-items: center;
         appearance: button;
@@ -408,7 +471,8 @@
         flex-direction: column;
         max-width: 100vw;
         overflow: hidden;
-      }
+    }
+
     #holeScoreContainer {
 
         width: 100vw;
@@ -499,9 +563,11 @@
         align-items: center;
         /* overflow: scroll; */
     }
+
     .holeMsgInput {
         width: 200px;
     }
+
     .scorecardSection {
         display: flex;
         flex-direction: column;

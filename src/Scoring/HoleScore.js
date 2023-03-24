@@ -50,7 +50,7 @@ export const HoleScore = ({ matchId }) => {
     // )
     console.log(holeScoresForThisHole())
     if (activeMatch) {
-        if (activeMatch.confirmed === true) {
+        // if (activeMatch.confirmed === true) {
             return <>
                 <main id="holeScoreContainer">
                     <div className="holeScoreArticle">
@@ -213,34 +213,34 @@ export const HoleScore = ({ matchId }) => {
                     </section>
                 </main>
             </>
-        }
-        else {
-            return <>
-                <main id="holeScoreContainer">
-                    <section id="holeScoreHeader">
-                        <div className="matchInfo">
-                            <div>{activeMatchCourse?.name}</div>
-                        </div>
-                        <div>
-                            <button onClick={
-                                () => {
-                                    const copy = { ...activeMatch }
-                                    copy.confirmed = true
-                                    setMatchToConfirmed(copy, activeMatch.id)
-                                        .then(() => setMatchConfirmed(true))
-                                }
-                            }>Start Match</button>
-                            <button onClick={
-                                () => {
-                                    setSelectedMatch(0)
-                                }
-                            }>cancel</button>
-                        </div>
+        // }
+        // else {
+        //     return <>
+        //         <main id="holeScoreContainer">
+        //             <section id="holeScoreHeader">
+        //                 <div className="matchInfo">
+        //                     <div>{activeMatchCourse?.name}</div>
+        //                 </div>
+        //                 <div>
+        //                     <button onClick={
+        //                         () => {
+        //                             const copy = { ...activeMatch }
+        //                             copy.confirmed = true
+        //                             setMatchToConfirmed(copy, activeMatch.id)
+        //                                 .then(() => setMatchConfirmed(true))
+        //                         }
+        //                     }>Start Match</button>
+        //                     <button onClick={
+        //                         () => {
+        //                             setSelectedMatch(0)
+        //                         }
+        //                     }>cancel</button>
+        //                 </div>
 
-                    </section>
-                </main>
-            </>
+        //             </section>
+        //         </main>
+        //     </>
 
-        }
+        // }
     }
 }

@@ -24,7 +24,7 @@ export const TeeTimeForm = () => {
         date: newMatch.date,
         time: newMatch.time,
         message: newMatch.message,
-        confirmed: false
+        // confirmed: false
     }
     let newMatchId = lastMatchInMatches?.id + 1
     if(!lastMatchInMatches){

@@ -46,6 +46,10 @@ export const getAllUserFriendsForActiveUser = () => {
     return fetch(`http://localhost:8088/userFriends?&userId=${linkUpUserObj.id}`)
         .then(res => res.json())
 }
+export const getAllMessages = () => {
+    return fetch(`http://localhost:8088/messages`)
+        .then(res => res.json())
+}
 // export const getAllScoreCards = () => {
 //     return fetch(`http://localhost:8088/scorecards`)
 //         .then(res => res.json())
@@ -148,6 +152,16 @@ export const addUserHoleScore = (newHoleScoreObj) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(newHoleScoreObj)
+    })
+        .then(res => res.json())
+}
+export const sendNewMessage = (newMsgObj) => {
+    return fetch(`http://localhost:8088/messages`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMsgObj)
     })
         .then(res => res.json())
 }

@@ -1,6 +1,7 @@
 import { color } from "framer-motion"
 import { useState, useEffect, useContext } from "react"
 import { deleteFriend, updateUser } from "../ApiManager"
+import { Messages } from "../Messages/Messages"
 import { Scorecard } from "../Scoring/Scorecard"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
@@ -122,7 +123,7 @@ export const UserProfile = () => {
                     </div>
                     <div id="profileFriendsAndMatches">
 
-                        <div className="sideNav">
+                        <div className="friendsAndMessages">
                             <div>
                                 <ul className="listOfFriends">
                                     <h4>Friends</h4>
@@ -152,6 +153,7 @@ export const UserProfile = () => {
                                     }
                                 </ul>
                             </div>
+                                <Messages/>
                         </div>
                         <div className="futureTeeTimesContainer">
 
