@@ -55,7 +55,7 @@ export const UserProfile = () => {
                 <section id="updateProfileSection">
                     <h4>update profile</h4>
                     <label className="editProfileInputLabel" htmlFor="name">name</label>
-                    <input type="text" value={profile?.name} onChange={
+                    <input className="editProfileInput" type="text" value={profile?.name} onChange={
                         (evt) => {
                             const copy = { ...currentUser }
                             copy.name = evt.target.value
@@ -63,7 +63,7 @@ export const UserProfile = () => {
                         }
                     }></input>
                     <label className="editProfileInputLabel" htmlFor="email">email</label>
-                    <input type="text" value={profile?.email} onChange={
+                    <input className="editProfileInput" type="text" value={profile?.email} onChange={
                         (evt) => {
                             const copy = { ...currentUser }
                             copy.email = evt.target.value
@@ -71,7 +71,7 @@ export const UserProfile = () => {
                         }
                     }></input>
                     <label className="editProfileInputLabel" htmlFor="password">password</label>
-                    <input type="text" value={profile?.password} onChange={
+                    <input className="editProfileInput" type="text" value={profile?.password} onChange={
                         (evt) => {
                             const copy = { ...currentUser }
                             copy.password = evt.target.value
@@ -124,6 +124,9 @@ export const UserProfile = () => {
                     <div id="profileFriendsAndMatches">
 
                         <div className="friendsAndMessages">
+                            <div>
+
+                            </div>
                             <div>
                                 <ul className="listOfFriends">
                                     <h4>Friends</h4>

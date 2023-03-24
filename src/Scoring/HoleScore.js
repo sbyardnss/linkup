@@ -39,16 +39,7 @@ export const HoleScore = ({ matchId }) => {
     const nextHole = () => {
         setSelectedHole(selectedHole + 1)
     }
-    // useEffect(
-    //     () => {
-    //         const holeScoreCount = holeScoresForThisHole()
-    //         if (holeScoreCount.length === userMatchesForThisMatch.length) {
-    //             nextHole()
-    //         }
-    //     },
-    //     [activeMatch]
-    // )
-    console.log(holeScoresForThisHole())
+    
     if (activeMatch) {
         // if (activeMatch.confirmed === true) {
             return <>
@@ -148,7 +139,7 @@ export const HoleScore = ({ matchId }) => {
                                     }
                                 }>Finish Hole</button>
                             </div>
-                            <h4>strokes: {strokes}</h4>
+                            <h2>strokes: {strokes}</h2>
                             <div className="scoringButtonsContainer">
                                 {
                                     possibleScoreValuesWithoutMax.map(score => {

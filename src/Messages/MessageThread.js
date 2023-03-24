@@ -3,7 +3,8 @@ import { getAllMessages, sendNewMessage } from "../ApiManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./Messages.css"
 
-export const Messages = () => {
+
+export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const [readMessages, setReadMessages] = useState([])
@@ -98,51 +99,4 @@ export const Messages = () => {
             </>
         }
     }
-    return <>
-
-        <article id="messagesContainer">
-
-            <div id="receivedMessages">
-                <div id="msgsHeader">
-                    <h4>New Messages</h4>
-                    <div>
-
-                        {NewMessage()}
-                    </div>
-
-                </div>
-                {
-                    unreadMessages.map(msg => {
-                        const msgSender = users?.find(user => user.id === msg.userId)
-                        return <>
-                            <section className="individualMsg">
-                                <div>
-                                    <div>From: {msgSender?.name}</div>
-                                    <div>{msg?.message}</div>
-                                </div>
-                                <button className="markReadButton">mark read</button>
-                            </section>
-                        </>
-                    })
-                }
-                {
-                    readMessages.map(msg => {
-                        const msgSender = users?.find(user => user.id === msg.userId)
-                        return <>
-                            <section className="individualMsg">
-                                <div>
-                                    <div>From: {msgSender?.name}</div>
-                                    <div>{msg?.message}</div>
-                                </div>
-                                <button className="markReadButton">delete</button>
-                            </section>
-                        </>
-                    })
-                }
-            </div>
-
-        </article>
-    </>
-
-
 }
