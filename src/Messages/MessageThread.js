@@ -1,15 +1,19 @@
 import { useContext, useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { getAllMessages, sendNewMessage } from "../ApiManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
-import "./Messages.css"
+import { Chat } from "./Chat"
+import "./MessagesThread.css"
 
 
 export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-    const [readMessages, setReadMessages] = useState([])
-    const [unreadMessages, setUnReadMessages] = useState([])
+    // const [readMessages, setReadMessages] = useState([])
+    // const [unreadMessages, setUnReadMessages] = useState([])
+    const [myMessages, setMyMessages] = useState([])
     const [createMsg, setCreateMsg] = useState(false)
+    const [currentChatRecipientUser, setCurrentChat] = useState({})
     const [newMsg, updateNewMsg] = useState({
         message: "",
         recipientId: 0
@@ -21,10 +25,12 @@ export const MessageThread = () => {
             getAllMessages()
                 .then(
                     (data) => {
-                        const myReadMessages = data.filter(msg => msg.recipientId === linkUpUserObj.id && msg.read === true)
-                        setReadMessages(myReadMessages)
-                        const myUnreadMessages = data.filter(msg => msg.recipientId === linkUpUserObj.id && msg.read === false)
-                        setUnReadMessages(myUnreadMessages)
+                        // const myReadMessages = data.filter(msg => msg.recipientId === linkUpUserObj.id && msg.read === true)
+                        // setReadMessages(myReadMessages)
+                        // const myUnreadMessages = data.filter(msg => msg.recipientId === linkUpUserObj.id && msg.read === false)
+                        // setUnReadMessages(myUnreadMessages)
+                        const myMsgData = data.filter(msg => msg.friendId === linkUpUserObj.id || msg.userId === linkUpUserObj.id)
+                        setMyMessages(myMsgData)
                     }
                 )
         },
@@ -99,4 +105,30 @@ export const MessageThread = () => {
             </>
         }
     }
+
+    return <>
+        <main id="messagesPageContainer">
+            <ul id="chatList">
+                {
+                    activeUserFriends.map(friend => {
+                        const friendlyUserObj = users.find(user => user.id === friend.friendId)
+                        return <>
+                            <li className="chatListItem" onClick={
+                                () => {
+                                    
+                                    setCurrentChat(friendlyUserObj)
+                                }
+                            }>
+                                {friendlyUserObj?.name}
+
+                            </li>
+                        </>
+                    })
+                }
+            </ul>
+            <article id="chatContainer">
+                <Chat currentChatRecipient={currentChatRecipientUser} />
+            </article>
+        </main>
+    </>
 }

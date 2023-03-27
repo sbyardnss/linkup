@@ -5,12 +5,27 @@
     justify-content: space-evenly;
     background-attachment: scroll;
     margin-top: 100px;
-
-    /* width: 70%; */
+    
+    width: 90%;
 }
-
+.headerLabels {
+    margin-left: 1em;
+}
 #profileTop {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+    min-width: fit-content;
+    /* added after removal of profile info section */
+    border: 1px solid rgba(0, 255, 0, 0.282);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background-color: #0d676764;
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
 }
 
 .profile__info {
@@ -20,34 +35,52 @@
     background-color: #0d676764;
     filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
     box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+    width: inherit;
     /* border: 1px solid rgba(255, 255, 255, 0.357); */
+    /* min-width: 84%; */
 
 }
 
 #profileFriendsAndMatches {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     list-style: none;
-    width: fit-content;
     padding: 10px 20px;
 
     margin-bottom: 60px;
 }
-
+.pastTeeTimesContainer {
+    width: 90%;
+    
+}
 .teeTimesContainer {
     width: 70%;
     border: 2px solid orange;
 }
 
 .futureTeeTimesContainer {
+    display: flex;
+    
     float: left;
     /* zoom: .9; */
     /* position: relative; */
     /* top: 40%; */
+    /* width: 100%; */
+    /* min-width: 25em; */
     left: 15%;
-
+    margin-left: 1em;
     height: inherit;
+    border: 1px solid rgba(0, 255, 0, 0.282);
+  
+    background-color: #0d676764;
+}
+.userProfileMatches {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pastTeeTime {
@@ -58,7 +91,7 @@
     background-color: #38a169;
     /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
-    min-width: 600px;
+    min-width: fit-content;
     margin-bottom: 12px;
     border: 1px solid rgba(255, 255, 255, 0.357);
     border-radius: 8px;
@@ -89,19 +122,22 @@
 }
 
 .listOfFutureTeeTimes {
+    
     list-style: none;
-    width: fit-content;
-    padding: 10px 20px;
-    border: 1px solid rgba(0, 255, 0, 0.282);
+    /* width: inherit; */
+    padding: 0;
+    margin: 0;
+    zoom: .9;
+    /* border: 1px solid rgba(0, 255, 0, 0.282); */
     /* border-radius: 0 10px 10px 0; */
     /* backdrop-filter: blur(10px); */
-    background-color: #0d676764;
+    /* background-color: #0d676764; */
     /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
     box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
     /* margin-left: 2%; */
     /* margin-right: 2%; */
-    margin-bottom: 60px;
-    margin-top: 18px;
+    /* margin-bottom: 60px;
+    margin-top: 18px; */
 }
 
 .editProfileButton {
@@ -200,6 +236,7 @@
 #profileHeader {
     display: flex;
     justify-content: space-between;
+    width: inherit;
     padding: 20px;
 }
 
@@ -237,7 +274,7 @@
     align-items: center;
     height: inherit;
     list-style: none;
-    margin: none;
+    margin: 0;
     padding: 0;
     /* border: 1px solid rgba(0, 255, 0, 0.282); */
     /* border-radius: 10px 0 0 10px; */
@@ -246,13 +283,14 @@
     /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
     box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
     /* margin-bottom: 60px; */
+    min-width: 15em;
 }
 
 .friendListItem {
     display: flex;
     padding: 1em;
     justify-content: space-between;
-    width: 190px;
+    width: 186px;
     margin: 10px;
     /* backdrop-filter: blur(16px) saturate(180%); */
     background-color: rgba(13, 103, 103, 0.908);
@@ -264,9 +302,9 @@
     align-items: center;
 }
 
-.removeFriendButton {
-    width: 55px;
-    height: 20px;
+.friendMessagesButton {
+    width: 7em;
+    height: 3em;
     justify-content: center;
     align-items: center;
     appearance: button;
@@ -293,11 +331,11 @@
     touch-action: manipulation;
 }
 
-.removeFriendButton:active {
+.friendMessagesButton:active {
     background-color: #e80055;
 }
 
-.removeFriendButton:hover {
+.friendMessagesButton:hover {
     background-color: #ff1c5c;
 }
 

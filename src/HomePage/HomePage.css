@@ -1,48 +1,88 @@
+@media screen and (min-width:641px) {
 
 
-#homepageContainer {
-    
+    #homepageContainer {
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* background-color: rgb(81, 177, 110); */
-    /* background-attachment: fixed, scroll; */
-    margin-top: 80px;
 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        margin-top: 80px;
+        width: 90%;
+
+    }
+
+    .listOfTeeTimes {
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        background-color: #0d676764;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+
+
+    }
+
+
+    .myTeeTimesContainer {
+        width: 90%;
+        min-width: 620px;
+    }
+
+    .openTeeTimesContainer {
+        width: 90%;
+        min-width: 620px;
+
+    }
+
+    .teeTimeHeaderTitle {
+        color: #CCFAFF;
+    }
 }
+@media screen and (min-width:320px) and (max-width:640px) {
+    #homepageContainer {
 
-.listOfTeeTimes {
-    list-style: none;
-    padding: 10px 20px;
-    border: 1px solid rgba(0, 255, 0, 0.282);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    background-color: #0d676764;
-    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
-    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
 
- 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        zoom: .8;
+        margin-top: 80px;
+
+    }
+
+    .listOfTeeTimes {
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        background-color: #0d676764;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+
+
+    }
+
+
+    .myTeeTimesContainer {
+        width: 90%;
+        min-width: 620px;
+    }
+
+    .openTeeTimesContainer {
+        width: 90%;
+        min-width: 620px;
+
+    }
+
+    .teeTimeHeaderTitle {
+        color: #CCFAFF;
+    }
 }
-
-
-.myTeeTimesContainer {
-    width: 90%;
-    min-width: 620px;
-}
-.openTeeTimesContainer {
-    width: 90%;
-    min-width: 620px;
-
-}
-
-.teeTimeHeaderTitle {
-    color: #CCFAFF;
-}
-
-
-
-
-
-
-

@@ -102,31 +102,29 @@ export const UserProfile = () => {
         }
     }
     return <>
-        <main id="profileContainer">
+        <div id="profileContainer">
             <article id="profileTop">
 
-                <section className="profile__info">
+                {/* <section className="profile__info"> */}
+                <div id="profileHeader">
                     <div>
-                        <div id="profileHeader">
-                            <div>
 
-                                <h2>{currentUser?.name}</h2>
-                                <h4>{currentUser?.email}</h4>
-                            </div>
-                            {updateProfileSection()}
-                            <button className="editProfileButton" onClick={
-                                () => {
-                                    editProfile(true)
-                                }
-                            }>Edit</button>
-                        </div>
+                        <h2>{currentUser?.name}</h2>
+                        <h4>{currentUser?.email}</h4>
                     </div>
-                    <div id="profileFriendsAndMatches">
+                    {updateProfileSection()}
+                    <button className="editProfileButton" onClick={
+                        () => {
+                            editProfile(true)
+                        }
+                    }>Edit</button>
+                </div>
 
-                        <div className="friendsAndMessages">
-                            <div>
+                <div id="profileFriendsAndMatches">
 
-                            </div>
+                    <div className="friendsAndMessages">
+                        <div>
+
                             <div>
                                 <ul className="listOfFriends">
                                     <h4>Friends</h4>
@@ -136,7 +134,7 @@ export const UserProfile = () => {
                                             return <>
                                                 <li className="friendListItem">
                                                     {friendObj.name}
-                                                    <button className="removeFriendButton" onClick={
+                                                    {/* <button className="removeFriendButton" onClick={
 
                                                         () => {
                                                             deleteFriend(userFriend.id)
@@ -149,19 +147,26 @@ export const UserProfile = () => {
 
 
                                                         }
-                                                    }>Remove</button>
+                                                    }>Remove</button> */}
+                                                    <button className="friendMessagesButton" onClick={
+                                                        () => {
+                                                            navigate("/Messages")
+                                                        }
+                                                    }>Messages</button>
                                                 </li>
                                             </>
                                         })
                                     }
                                 </ul>
                             </div>
-                                <Messages/>
+                            {/* <div>
+                                <Messages />
+                            </div> */}
                         </div>
                         <div className="futureTeeTimesContainer">
 
                             <ul className="listOfFutureTeeTimes">
-                                <h3>My Tee Times</h3>
+                                <h3 className="headerLabels">My Tee Times</h3>
                                 {
                                     sortedOnlyMyUserMatches.map(teeTime => {
                                         if (next14Dates) {
@@ -201,10 +206,13 @@ export const UserProfile = () => {
                                 }
                             </ul>
                         </div>
+                        {/* <Messages/> */}
                     </div>
-                </section>
+
+                </div>
+                {/* </section> */}
             </article>
-            <section className="pastTeeTimesContainer">
+            <article className="pastTeeTimesContainer">
 
                 <ul className="listOfPastTeeTimes">
                     <h3>Past Tee Times:</h3>
@@ -265,10 +273,10 @@ export const UserProfile = () => {
                     }
                 </ul>
 
-            </section>
+            </article>
 
 
 
-        </main>
+        </div>
     </>
 }

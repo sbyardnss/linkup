@@ -8,7 +8,7 @@ import { HoleScore } from "../Scoring/HoleScore"
 import { Play } from "../Scoring/Play"
 import { Scorecard } from "../Scoring/Scorecard"
 import { ScorecardProvider } from "../Scoring/ScorecardContext.js"
-import { ScorecardList } from "../Scoring/ScorecardList"
+import { MessageThread } from "../Messages/MessageThread"
 
 export const ApplicationViews = () => {
 
@@ -41,6 +41,8 @@ export const ApplicationViews = () => {
 				<Route path="userList" element={<UserList />} />
 				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={<TeeTimeForm />} />
+				<Route path="messages" element={<MessageThread />} />
+
 
 
 

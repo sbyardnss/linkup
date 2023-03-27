@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1em;
-    margin: .5em 0;
+    /* margin: .5em 0; */
     background-color: aqua;
 }
 
@@ -74,7 +74,8 @@ button:active {
     font-family: "RM Neue", sans-serif;
     font-size: 100%;
     line-height: 1.15;
-    margin: 0;
+    /* margin: 0; */
+    margin-left: 1em;
     padding: 10px 21px;
     text-align: center;
     text-transform: none;
@@ -110,7 +111,9 @@ button:active {
     font-family: "RM Neue", sans-serif;
     font-size: 100%;
     line-height: 1.15;
-    margin: 0;
+    /* margin: 0; */
+    margin-left: 1em;
+
     padding: 10px 21px;
     text-align: center;
     text-transform: none;
@@ -172,8 +175,10 @@ button:active {
     background-color: rgba(13, 103, 103, 0.908);
     /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
-    min-width: 600px;
-    margin-bottom: 12px;
+    /* min-width: 600px; */
+    /* width: 90%; */
+   
+    margin: .5em;
     border: 1px solid rgba(255, 255, 255, 0.357);
     border-radius: 8px;
 
@@ -190,8 +195,10 @@ button:active {
     background-color: rgba(81, 13, 103, 0.909);
     /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
-    min-width: 600px;
-    margin-bottom: 12px;
+    /* min-width: 600px; */
+    /* width: 90%; */
+    margin: .5em;
+
     border: 1px solid rgba(255, 255, 255, 0.255);
     border-radius: 8px;
 
@@ -205,8 +212,8 @@ button:active {
     background-color: #00555e;
     /* color: rgb(211, 211, 211); */
     color: #CCFAFF;
-    min-width: 600px;
-    margin-bottom: 12px;
+    /* width: 90%; */
+    margin: .5em;
     border: 1px solid rgba(255, 255, 255, 0.255);
     border-radius: 8px;
 

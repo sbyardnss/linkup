@@ -28,6 +28,7 @@
 }
 #receivedMessages {
     width: inherit;
+    min-width: 25em;
     padding: 10px;
 }
 
