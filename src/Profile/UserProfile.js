@@ -150,7 +150,7 @@ export const UserProfile = () => {
                                                     }>Remove</button> */}
                                                     <button className="friendMessagesButton" onClick={
                                                         () => {
-                                                            navigate("/Messages")
+                                                            navigate("/messages")
                                                         }
                                                     }>Messages</button>
                                                 </li>

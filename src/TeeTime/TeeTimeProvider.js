@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getActiveUserMatchesWithMatchInfo, getAllCourses, getAllMatches, getAllUsers, getAllUserFriendsForActiveUser } from "../ApiManager"
+import { getActiveUserMatchesWithMatchInfo, getAllCourses, getAllMatches, getAllUsers, getAllUserFriendsForActiveUser, getAllMessages } from "../ApiManager"
 export const TeeTimeContext = createContext()
 
 export const TeeTimeProvider = (props) => {
@@ -14,6 +14,7 @@ export const TeeTimeProvider = (props) => {
     const [matchCreated, setMatchCreated] = useState(false)
     const [friendChange, setFriendChange] = useState(false)
     const [profileUpdated, setProfileUpdated] = useState(false)
+
     const navigate = useNavigate()
 
   
@@ -81,6 +82,7 @@ export const TeeTimeProvider = (props) => {
         },
         [deleteItem, joinMatch, matchCreated, friendChange]
     )
+    
 
 
     const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {

@@ -27,6 +27,14 @@
     margin-right: auto;
 }
 
+.activeChatListItem {
+    border: 1px solid lime;
+    background-color: aliceblue;
+    cursor: pointer;
+    margin-right: auto;
+
+}
+
 #chatContainer {
     width: 58%;
     border: 1px solid pink;
@@ -35,8 +43,29 @@
     height: 80vh;
     background-color: #00949c;
 }
+
 #chatThread {
-    
+    display: block;
+}
+
+.receivedChatMsgItem {
+    background-color: #9c0060;
+    color: white;
+    width: fit-content;
+    padding: .5em;
+    border-radius: 10px;
+    margin: 1em;
+    margin-right: auto;
+}
+
+.sentChatMsgItem {
+    background-color: #00532f;
+    color: white;
+    width: fit-content;
+    padding: .5em;
+    border-radius: 10px;
+    margin: 1em;
+    margin-left: auto;
 }
 
 #chatInterface {
@@ -47,6 +76,9 @@
     display: flex;
     justify-content: space-around;
     margin: 1em 0;
+    border: 0;
+    border-style: none;
+    padding: 0;
 }
 
 #chatTextInput {
