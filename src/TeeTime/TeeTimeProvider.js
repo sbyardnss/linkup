@@ -14,7 +14,7 @@ export const TeeTimeProvider = (props) => {
     const [matchCreated, setMatchCreated] = useState(false)
     const [friendChange, setFriendChange] = useState(false)
     const [profileUpdated, setProfileUpdated] = useState(false)
-
+    const [chatUser, setChatUser] = useState(0)
     const navigate = useNavigate()
 
   
@@ -136,7 +136,7 @@ export const TeeTimeProvider = (props) => {
     return (
         <TeeTimeContext.Provider value={{
             deleteItem, deleteInitiated, joinMatch, joinInitiated, users, courses, matches, userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, navigate,
-            sortedOthersUserMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated
+            sortedOthersUserMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated, chatUser, setChatUser
         }}>
             {props.children}
         </TeeTimeContext.Provider>

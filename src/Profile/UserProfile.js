@@ -11,10 +11,13 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange, profileUpdated, setProfileUpdated } = useContext(TeeTimeContext)
+    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange, profileUpdated, setProfileUpdated, setChatUser } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
+    const [futureTimes, setFutureTimes] = useState([])
+    const [pastTimes, setPastTimes] = useState([])
+
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const currentUser = users.find(user => user.id === linkUpUserObj.id)
@@ -105,7 +108,6 @@ export const UserProfile = () => {
         <div id="profileContainer">
             <article id="profileTop">
 
-                {/* <section className="profile__info"> */}
                 <div id="profileHeader">
                     <div>
 
@@ -134,23 +136,10 @@ export const UserProfile = () => {
                                             return <>
                                                 <li className="friendListItem">
                                                     {friendObj.name}
-                                                    {/* <button className="removeFriendButton" onClick={
-
-                                                        () => {
-                                                            deleteFriend(userFriend.id)
-                                                            //CODE BELOW FOR REQUESTING POTENTIAL ONLY
-                                                            // const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
-                                                            // const copy = otherSideOfDeletedRequest
-                                                            // copy.confirmed = false
-                                                            // changeFriendStatus(copy, otherSideOfDeletedRequest.id)
-                                                            setFriendChange(!friendChange)
-
-
-                                                        }
-                                                    }>Remove</button> */}
                                                     <button className="friendMessagesButton" onClick={
                                                         () => {
                                                             navigate("/messages")
+                                                            setChatUser(friendObj?.id)
                                                         }
                                                     }>Messages</button>
                                                 </li>
@@ -159,16 +148,16 @@ export const UserProfile = () => {
                                     }
                                 </ul>
                             </div>
-                            {/* <div>
-                                <Messages />
-                            </div> */}
+                            
                         </div>
                         <div className="futureTeeTimesContainer">
 
                             <ul className="listOfFutureTeeTimes">
                                 <h3 className="headerLabels">My Tee Times</h3>
+                                
                                 {
                                     sortedOnlyMyUserMatches.map(teeTime => {
+
                                         if (next14Dates) {
                                             //string values for teeTime date
                                             const [month, day, year] = teeTime?.match?.date.split("/")
@@ -184,6 +173,7 @@ export const UserProfile = () => {
                                             const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                                             const matchingScorecardId = teeTime.scorecardId
                                             if (teeTimeDateParsed >= currentDateParsed) {
+
                                                 return <>
                                                     <div className="userProfileMatches">
                                                         <MyTeeTime key={teeTime.id}
@@ -206,11 +196,9 @@ export const UserProfile = () => {
                                 }
                             </ul>
                         </div>
-                        {/* <Messages/> */}
                     </div>
 
                 </div>
-                {/* </section> */}
             </article>
             <article className="pastTeeTimesContainer">
 
@@ -240,7 +228,7 @@ export const UserProfile = () => {
                                     return <>
                                         <li className="pastTeeTime">
                                             <div className="pastTeeTimeInfo">
-                                                <div>{matchingCourse.name}</div>
+                                                <div>{matchingCourse?.name}</div>
                                                 <div>{teeTime.match.date}</div>
                                                 <div>{teeTime.match.time}</div>
                                             </div>
@@ -258,7 +246,6 @@ export const UserProfile = () => {
                                             <div className="profileButtonBlock">
                                                 <button className="profileScorecardButton" onClick={
                                                     () => {
-                                                        console.log(teeTime.matchId)
                                                         navigate(`/scorecards/${teeTime.matchId}`)
                                                     }
                                                 }>Scorecard</button>

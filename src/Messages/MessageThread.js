@@ -14,23 +14,19 @@ export const MessageThread = () => {
     const [currentChatRecipientUser, setCurrentChat] = useState({})
     const [msgSent, setMessageSent] = useState(false)
 
-    // const {currentChatUserId} = useParams()
 
     const [newMsg, updateNewMsg] = useState({
         message: "",
         recipientId: 0
     })
-    const { users, activeUserFriends } = useContext(TeeTimeContext)
+    const { users, activeUserFriends, chatUser, setChatUser } = useContext(TeeTimeContext)
 
     useEffect(
         () => {
             getAllMessages()
                 .then(
                     (data) => {
-                        // const myReadMessages = data.filter(msg => msg.recipientId === linkUpUserObj.id && msg.read === true)
-                        // setReadMessages(myReadMessages)
-                        // const myUnreadMessages = data.filter(msg => msg.recipientId === linkUpUserObj.id && msg.read === false)
-                        // setUnReadMessages(myUnreadMessages)
+                        
                         const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
                         setMyMessages(myMsgData)
                     }
@@ -38,7 +34,7 @@ export const MessageThread = () => {
         },
         [msgSent]
     )
-
+   
 
     //items from former chat module below
 
@@ -47,7 +43,7 @@ export const MessageThread = () => {
 
 
 
-    const msgsForCurrentChat = myMessages.filter(msg => msg.recipientId === newMsg.recipientId || msg.userId === newMsg.recipientId)
+    const msgsForCurrentChat = myMessages.filter(msg => msg.recipientId === chatUser || msg.userId === chatUser)
 
 
     const newMsgForAPI = {
@@ -58,81 +54,6 @@ export const MessageThread = () => {
         read: false
     }
 
-    //chat module items above
-
-
-
-
-
-    // const newMsgObjForApi = {
-    //     userId: linkUpUserObj.id,
-    //     recipientId: newMsg.recipientId,
-    //     message: newMsg.message,
-    //     read: false
-    // }
-    // const NewMessage = () => {
-    //     if (createMsg) {
-
-    //         return <>
-
-
-
-    //             <section id="newMsgContainer">
-
-    //                 <div className="newMsgInput">
-    //                     <select className="recipientSelector" value={newMsg.recipientId} onChange={
-    //                         (evt) => {
-    //                             const copy = { ...newMsg }
-    //                             copy.recipientId = evt.target.value
-    //                             updateNewMsg(copy)
-    //                         }
-    //                     }>
-    //                         <option key={0} value={0}>select user</option>
-    //                         {
-    //                             users.map(user => {
-    //                                 if (user.id !== linkUpUserObj.id) {
-    //                                     return <>
-    //                                         <option key={user.id} value={user.id}>{user.name}</option>
-    //                                     </>
-    //                                 }
-    //                             })
-    //                         }
-
-
-
-    //                     </select>
-    //                 </div>
-    //                 <div className="newMsgInput">
-    //                     <textarea id="messageSection" value={newMsg.message} className="message__section" placeholder="Message" onChange={
-    //                         (evt) => {
-    //                             const copy = { ...newMsg }
-    //                             copy.message = evt.target.value
-    //                             updateNewMsg(copy)
-    //                         }
-    //                     }></textarea>
-    //                 </div>
-
-
-
-    //                 <div id="newMsgButtonBlock">
-    //                     <button onClick={() => {
-    //                         sendNewMessage(newMsgObjForApi)
-    //                         const copy = { ...newMsg }
-    //                         copy.message = ""
-    //                         copy.recipientId = 0
-    //                         updateNewMsg(copy)
-    //                     }} className="msgButton" >Send</button>
-    //                     <button className="teeTimeCancelButton" onClick={() => setCreateMsg(false)}>Cancel</button>
-    //                 </div>
-    //             </section>
-    //         </>
-    //     }
-    //     else {
-    //         return <>
-    //             <button className="msgButton" onClick={() => setCreateMsg(true)}>NewMessage</button>
-    //         </>
-    //     }
-    // }
     const handleChange = e => {
         const copy = { ...newMsg }
         copy.message = e.target.value
@@ -166,6 +87,7 @@ export const MessageThread = () => {
                                         const copy = { ...newMsg }
                                         copy.recipientId = friendlyUserObj.id
                                         updateNewMsg(copy)
+                                        setChatUser(friendlyUserObj.id)
                                     }
                                 }>
                                     {friendlyUserObj?.name}

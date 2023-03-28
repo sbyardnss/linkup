@@ -23,11 +23,9 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
 
 
-    // console.log(time)//2:00 pm
-    // console.log(date)//03/17/2023
+
     const timeBuilder = (time) => {
         const [timeString,] = time.split(" ")
-        // console.log(timeString)//4:00
         let [hours, minutes] = timeString.split(":")
         if (parseInt(hours) < 12) {
             hours = parseInt(hours) + 12
@@ -38,16 +36,12 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
     const [month, day, year] = date.split("/")
     const dateString = `${year}-${month}-${day}`
-    // console.log(dateString)//2023-03-20
     const exactHourString = `${dateString}${timeBuilder(time)}`
-    // console.log(exactHourString)//2023-03-17T14:00
     //find index number for hourly weather arrays
     const hourIndex = weatherHourArrayForIndex.findIndex(hour => hour === exactHourString)
-    // console.log(hourIndex)//works
     const precipitationHour = hourlyPrecipitation[hourIndex]//works
     const windHour = hourlyWindspeed[hourIndex]//works
     const tempHour = hourlyTemp[hourIndex]//works
-    // console.log(tempHour)
     let precipitationString = ""
     let windString = ""
     let tempString = ""
@@ -72,42 +66,13 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
         tempString = "Temp data not yet available"
 
     }
-    //old daily value for weather
-    // {
-    //     next14Dates.map((date, indexOfDate) => {
 
-    //         const [year, month, day] = date.split("-")
-    //         const forCastYear = parseInt(year)
-    //         const forCastMonth = parseInt(month)
-    //         const forCastDay = parseInt(day)
-    //         const forCastDate = `${forCastMonth}-${forCastDay}-${forCastYear}`
-    //         const parsedForCastDate = Date.parse(forCastDate)
-    //         if (parsedForCastDate === teeTimeDateParsed) {
-    //             rainChance = rainChance14Day[indexOfDate]
-    //         }
-    //         else {
-    //             rainChance = ""
-    //         }
-    //         if (rainChance) {
-    //             weatherInfoString = `${rainChance}% chance of rain`
-    //         }
-    //         if (rainChance === 0) {
-    //             weatherInfoString = "0% chance of rain"
-    //         }
-    //         if (rainChance === null) {
-    //             weatherInfoString = "too early for weather data"
-    //         }
-    //     })
-
-    // }
 
 
     if (teeTimeDateParsed >= dateTwoWeeksOut || tempHour === null || windHour === null || precipitationHour === null) {
         weatherInfoString += "too early for weather data"
     }
-    // else {
-    //     weatherInfoString = weatherData
-    // }
+
 
     //find all userMatches corresponding to a match that you initiated. this is for the delete button
     let allMatchingUserMatches = []
@@ -125,24 +90,46 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
     const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
 
+    const listOfOtherPlayersOnMatch = () => {
 
+        if (matchingUserMatches.length > 0) {
+
+            return <>
+                <div className="otherPlayersContainer">
+                    {
+                        matchingUserMatches.map(userMatch => {
+                            const matchingPlayer = users.find(user => user.id === userMatch.userId && userMatch.userId !== linkUpUserObj.id)
+
+                            return <>
+                                <div className="otherJoinedPlayer">{matchingPlayer?.name}</div>
+                            </>
+                        })
+                    }
+
+                </div>
+            </>
+        }
+        else {
+            return <>
+                <h5>no other players yet</h5>
+            </>
+        }
+
+
+
+    }
 
     if (initiatingUser && initiatingUser.id === linkUpUserObj.id) {
         return <>
-            {/* <Card
-                direction={{ sm: 'row' }}
-                colorScheme='blue'
-                // variant={}
-                > */}
-            <li className="myCreatedTeeTime" key={id}>
-                {/* <CardHeader */}
 
-                {/* > */}
+            <li className="myCreatedTeeTime" key={id}>
+
 
                 <div>
-                    <h4>
+
+                    <h5>
                         {courseName}
-                    </h4>
+                    </h5>
                     <div className="teeTimeDate">
                         {date}
                     </div>
@@ -151,24 +138,23 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         {time}
                     </div>
                 </div>
-                {/* </CardHeader>
-                    <CardBody> */}
 
-                <div className="weatherContainer">
-                    <ul className="weatherInfoList">
+                <div>
 
-                        {/* <div className="tooEarlyWarning">{weatherInfoString}</div> */}
-                        {/* <div>Rain: {precipitationHour}% chance</div>
-                        <div>Temp: {tempHour}°F</div>
-                    <div> WindSpeed: {windHour}mph</div> */}
-                        <li key={precipitationString} className="weatherInfo">{precipitationString}</li>
-                        <li key={tempString} className="weatherInfo">{tempString}</li>
-                        <li key={windString} className="weatherInfo">{windString}</li>
-                    </ul>
+                    <div className="weatherContainer">
+                        <ul className="weatherInfoList">
+
+
+                            <li key={precipitationString} className="weatherInfo">{precipitationString}</li>
+                            <li key={tempString} className="weatherInfo">{tempString}</li>
+                            <li key={windString} className="weatherInfo">{windString}</li>
+                        </ul>
+                    </div>
+                    {listOfOtherPlayersOnMatch()}
                 </div>
-                <div className="otherPlayersContainer"></div>
+
+
                 <div className="buttonBlock">
-                    {/* <button className="scorecardButton">Scorecard</button> */}
 
                     <button key={id} className="teeTimeButton" onClick={
                         () => {
@@ -188,9 +174,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         }
                     }>Delete</button>
                 </div>
-                {/* </CardBody> */}
             </li>
-            {/* </Card> */}
 
         </>
 
@@ -199,9 +183,6 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
         return <>
             <li key={id} className="myJoinedTeeTime">
                 <div>
-                    <div>
-                        {initiatingUser?.name}
-                    </div>
                     <h4>
                         {courseName}
                     </h4>
@@ -213,21 +194,19 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                         {time}
                     </div>
                 </div>
-                <div className="weatherContainer">
-                    <ul className="weatherInfoList">
-                        {/* {weatherInfoString} */}
-                        {/* <div>Rain: {precipitationHour}% chance</div>
-                        <div>Temp: {tempHour}°F</div>
-                        <div> WindSpeed: {windHour}mph</div> */}
-                        <li>{precipitationString}</li>
-                        <li>{tempString}</li>
-                        <li>{windString}</li>
-                    </ul>
+                <div>
+                    <div className="weatherContainer">
+                        <ul className="weatherInfoList">
+
+                            <li>{precipitationString}</li>
+                            <li>{tempString}</li>
+                            <li>{windString}</li>
+                        </ul>
+                    </div>
+                    {listOfOtherPlayersOnMatch()}
                 </div>
-                <div className="otherPlayersContainer"></div>
 
                 <div className="buttonBlock">
-                    {/* <button className="scorecardButton">Scorecard</button> */}
                     <button className="bailTeeTimeButton" onClick={
                         () => {
                             if (window.confirm("are you sure?")) {

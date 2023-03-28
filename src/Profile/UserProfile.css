@@ -54,6 +54,7 @@
 }
 .pastTeeTimesContainer {
     width: 90%;
+    min-width: 849.09px;
     
 }
 .teeTimesContainer {
@@ -63,13 +64,7 @@
 
 .futureTeeTimesContainer {
     display: flex;
-    
     float: left;
-    /* zoom: .9; */
-    /* position: relative; */
-    /* top: 40%; */
-    /* width: 100%; */
-    /* min-width: 25em; */
     left: 15%;
     margin-left: 1em;
     height: inherit;
@@ -87,9 +82,7 @@
     display: flex;
     padding: 1em;
     justify-content: space-between;
-    /* backdrop-filter: blur(16px) saturate(180%); */
     background-color: #38a169;
-    /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
     min-width: fit-content;
     margin-bottom: 12px;
@@ -124,20 +117,10 @@
 .listOfFutureTeeTimes {
     
     list-style: none;
-    /* width: inherit; */
+    min-width: 609px;
     padding: 0;
     margin: 0;
     zoom: .9;
-    /* border: 1px solid rgba(0, 255, 0, 0.282); */
-    /* border-radius: 0 10px 10px 0; */
-    /* backdrop-filter: blur(10px); */
-    /* background-color: #0d676764; */
-    /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
-    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
-    /* margin-left: 2%; */
-    /* margin-right: 2%; */
-    /* margin-bottom: 60px;
-    margin-top: 18px; */
 }
 
 .editProfileButton {
@@ -276,13 +259,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    /* border: 1px solid rgba(0, 255, 0, 0.282); */
-    /* border-radius: 10px 0 0 10px; */
-    /* backdrop-filter: blur(10px); */
     background-color: #2c2d3264;
-    /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
-    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
-    /* margin-bottom: 60px; */
     min-width: 15em;
 }
 
@@ -292,11 +269,8 @@
     justify-content: space-between;
     width: 186px;
     margin: 10px;
-    /* backdrop-filter: blur(16px) saturate(180%); */
     background-color: rgba(13, 103, 103, 0.908);
-    /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
-    /* margin-bottom: 12px; */
     border: 1px solid rgba(126, 2, 2, 0.308);
     border-radius: 8px;
     align-items: center;

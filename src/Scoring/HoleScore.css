@@ -232,12 +232,12 @@
         color: #ccfaff
     }
 
-    .activeUserButton {
+    /* .activeUserButton {
         height: 60px;
         width: 60px;
         background-color: cadetblue;
         box-shadow: 2px 2px 2px cadetblue;
-    }
+    } */
 
     /* .inactiveUserButton {
     height: 60px;
@@ -359,8 +359,8 @@
     }
 
     .activeUserButton {
-        height: 80px;
-        width: 80px;
+        height: 60px;
+        width: 60px;
         align-items: center;
         justify-content: center;
         appearance: button;

@@ -105,7 +105,6 @@ export const Scorecard = ({ holes, scores }) => {
 
                                                 })
                                             }
-                                            {/* <td id="frontNineScoreCell">{frontNineScore()}</td> */}
                                         </tr>
 
                                     </>
@@ -114,27 +113,7 @@ export const Scorecard = ({ holes, scores }) => {
                         </tbody>
                     </table>
                 </div>
-                {/* <div>
-
-<thead>
-<th className="frontNineScore">Front 9</th>
-<th className="backNineScore">Back 9</th>
-<th className="totalScore">Total</th>
-                    </thead>
-                    <tbody>
-                        {
-                            userMatchesForThisMatch.map(userMatch => {
-                                return <>
-                                    <tr>
-                                        <td>{frontNineTotal}</td>
-                                    </tr>
-                                </>
-
-                            })
-                        }
-                    </tbody>
-                </div> */}
-                {/* </table> */}
+                
             </div>
         </main >
     </>
