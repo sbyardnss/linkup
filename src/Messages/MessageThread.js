@@ -12,6 +12,7 @@ export const MessageThread = () => {
     const [myMessages, setMyMessages] = useState([])
     const [createMsg, setCreateMsg] = useState(false)
     const [currentChatRecipientUser, setCurrentChat] = useState({})
+    const [msgSent, setMessageSent] = useState(false)
 
     // const {currentChatUserId} = useParams()
 
@@ -35,7 +36,7 @@ export const MessageThread = () => {
                     }
                 )
         },
-        []
+        [msgSent]
     )
 
 
@@ -132,7 +133,20 @@ export const MessageThread = () => {
     //         </>
     //     }
     // }
-
+    const handleChange = e => {
+        const copy = { ...newMsg }
+        copy.message = e.target.value
+        updateNewMsg(copy)
+    }
+    const handlekeyDown = e => {
+        if (e.key === 'Enter') {
+            sendNewMessage(newMsgForAPI)
+            setMessageSent(!msgSent)
+            const copy = { ...newMsg }
+            copy.message = ""
+            updateNewMsg(copy)
+        }
+    }
     return <>
         <main id="messagesPageContainer">
             <ul id="chatList">
@@ -149,7 +163,7 @@ export const MessageThread = () => {
                             return <>
                                 <li className="chatListItem" onClick={
                                     () => {
-                                        const copy = {...newMsg}
+                                        const copy = { ...newMsg }
                                         copy.recipientId = friendlyUserObj.id
                                         updateNewMsg(copy)
                                     }
@@ -171,12 +185,20 @@ export const MessageThread = () => {
                             const timeString = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit' }).format(msg.time)
                             if (msg.recipientId === linkUpUserObj.id) {
                                 return <>
-                                    <div className="receivedChatMsgItem">{msg.message}</div>
+                                    <div className="receivedChatMsgItem">
+                                        <div>{msg.message}</div>
+                                        <div className="msgDateAndTime">{timeString}</div>
+                                        <div className="msgDateAndTime">{dateString}</div>
+                                    </div>
                                 </>
                             }
                             else {
                                 return <>
-                                    <div className="sentChatMsgItem">{msg.message}</div>
+                                    <div className="sentChatMsgItem">
+                                        <div>{msg.message}</div>
+                                        <div className="msgDateAndTime">{timeString}</div>
+                                        <div className="msgDateAndTime">{dateString}</div>
+                                    </div>
                                 </>
                             }
                         })
@@ -184,22 +206,19 @@ export const MessageThread = () => {
                 </section>
                 <div id="chatInterface">
 
-                        <input type="text"
-                            id="chatTextInput"
-                            value={newMsg.message}
-                            onChange={
-                                (e) => {
-                                    const copy = {...newMsg}
-                                        copy.message = e.target.value
-                                        updateNewMsg(copy)
-                                    }
-                                    
-                            }
-                        />
-                        <button id="chatSendButton" onClick={() => {
+                    <input type="text"
+                        id="chatTextInput"
+                        value={newMsg.message}
+                        onChange={handleChange}
+                        onKeyDown={handlekeyDown}
+                    />
+                    <button id="chatSendButton"
+                        onClick={() => {
                             sendNewMessage(newMsgForAPI)
+                            setMessageSent(!msgSent)
+                        }}
 
-                        }}>send</button>
+                    >send</button>
                 </div>
             </article>
         </main>

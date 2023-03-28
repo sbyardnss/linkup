@@ -67,6 +67,10 @@
     margin: 1em;
     margin-left: auto;
 }
+.msgDateAndTime {
+    font-size: small;
+    opacity: 60%;
+}
 
 #chatInterface {
     position: absolute;
