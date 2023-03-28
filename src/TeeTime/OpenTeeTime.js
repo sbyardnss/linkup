@@ -4,6 +4,7 @@ import { sendUserMatch } from "../ApiManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import "./TeeTime.css"
 import { TeeTimeContext } from "./TeeTimeProvider"
+import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 
 export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) => {
     const { rainChance14Day, next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
@@ -84,6 +85,7 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
         weatherInfoString += "too early for weather data"
     }
 
+    const maxPlayerCount = [0, 1, 2, 3]
 
     const listOfOtherPlayersOnMatch = () => {
         if (matchingUserMatches.length > 0) {
@@ -91,13 +93,34 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
             return <>
                 <div className="otherPlayersContainer">
 
-                    {
+                    {/* {
                         matchingUserMatches.map(userMatch => {
                             const matchingPlayer = users.find(user => user.id === userMatch.userId)
 
                             return <>
                                 <div className="otherJoinedPlayer">{matchingPlayer?.name}</div>
                             </>
+                        })
+                    } */}
+                    {
+                        maxPlayerCount.map(count => {
+                            const matchingPlayer = users.find(user => user.id === matchingUserMatches[count]?.userId)
+                            if (matchingPlayer?.id === linkUpUserObj.id) {
+                                return <>
+                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1} - Me</div>
+                                </>
+
+                            }
+                            else if (matchingPlayer === undefined) {
+                                return <>
+                                    <div className="otherJoinedPlayer">-- Open Slot --</div>
+                                </>
+                            }
+                            else {
+                                return <>
+                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1}--{matchingPlayer?.name}</div>
+                                </>
+                            }
                         })
                     }
                 </div>
@@ -142,34 +165,39 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
 
         return <>
             <li key={matchId} className="joinableTeeTimes">
-                <div>
-
-                    <h5>
+                <div className="teeTimeLogistics">
+                    <h3 className="teeTimeCourseTag">
                         {courseName}
-                    </h5>
-                    <div className="teeTimeDate">
-                        {date}
-                    </div>
-                    <div>
-                        {time}
+                    </h3>
+                    <div className="teeTimeDateAndTime">
+                        <div className="teeTimeDate">
+                            {date}
+                        </div>
+                        <div>
+
+                            {time}
+                        </div>
                     </div>
                 </div>
+                <div className="playersAndWeather">
 
-                <div>
-                    <div className="weatherContainer">
-                        <ul className="weatherInfoList">
-                            <div>
-                                <li className="weatherInfo">{precipitationString}</li>
-                                <li className="weatherInfo">{tempString}</li>
-                                <li className="weatherInfo">{windString}</li>
-                            </div>
-                        </ul>
-                    </div>
                     {listOfOtherPlayersOnMatch()}
-                </div>
+                    <div className="weatherAndButton">
 
-                <div className="buttonBlock">
-                    {isMatchFull()}
+                        <div className="weatherContainer">
+                            <ul className="weatherInfoList">
+                                <div>
+                                    <li className="weatherInfo">{precipitationString}</li>
+                                    <li className="weatherInfo">{tempString}</li>
+                                    <li className="weatherInfo">{windString}</li>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div className="buttonBlock">
+                            {isMatchFull()}
+                        </div>
+                    </div>
                 </div>
             </li>
         </>

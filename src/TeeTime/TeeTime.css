@@ -20,9 +20,9 @@ button:active {
     display: flex;
     position: relative;
 
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 1em;
+    /* margin-top: auto; */
+    /* margin-bottom: auto; */
+    /* margin-right: 1em; */
 
 }
 
@@ -79,7 +79,7 @@ button:active {
     font-size: 100%;
     line-height: 1.15;
     /* margin: 0; */
-    margin-left: 1em;
+    margin-left: auto;
 
     padding: 10px 21px;
     text-align: center;
@@ -116,7 +116,7 @@ button:active {
     font-family: "RM Neue", sans-serif;
     font-size: 100%;
     line-height: 1.15;
-    margin: 0;
+    margin-left: auto;
     padding: 10px 21px;
     text-align: center;
     text-transform: none;
@@ -135,53 +135,45 @@ button:active {
 }
 
 .myCreatedTeeTime {
-    display: flex;
+    display: block;
     padding: 1em;
-    justify-content: space-between;
-    /* backdrop-filter: blur(16px) saturate(180%); */
     background-color: rgba(13, 103, 103, 0.908);
-    /* color: rgb(222, 222, 222); */
     color: #CCFAFF;
-    /* min-width: 600px; */
-    /* width: 90%; */
-   
-    margin: .5em;
+    margin: auto;
+    margin-bottom: 1em;
     border: 1px solid rgba(255, 255, 255, 0.357);
     border-radius: 8px;
-
+    min-width: fit-content;
 
 
 }
 
 
 .myJoinedTeeTime {
-    display: flex;
+    display: block;
     padding: 1em;
-    justify-content: space-between;
     background-color: rgba(81, 13, 103, 0.909);
     color: #CCFAFF;
-    margin: .5em;
-
+    margin: auto;
+    margin-bottom: 1em;
     border: 1px solid rgba(255, 255, 255, 0.255);
     border-radius: 8px;
-
+    min-width: fit-content;
 }
 
 .joinableTeeTimes {
-    display: flex;
+    display: block;
     padding: 1em;
-    justify-content: space-between;
     background-color: #00555e;
     color: #CCFAFF;
-    margin: .5em;
+    margin: auto;
+    margin-bottom: 1em;
     border: 1px solid rgba(255, 255, 255, 0.255);
     border-radius: 8px;
-
-
 }
 
 .teeTimeDate {
-    margin-right: 100px;
+    text-align: right;
 }
 
 .weatherContainer {
@@ -226,11 +218,51 @@ button:active {
 
 .otherPlayersContainer {
     background-color: rgb(245, 245, 245, .2);
-    width: 100px;
+    /* width: 100px; */
     padding: .25em;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
 
 }
+
 .otherJoinedPlayer {
     font-size: medium;
+    display: flex;
+    align-items: center;
+    margin: .1em 0;
+    width: 200px;
+}
+
+#playericon {
+    height: 1.5em;
+    margin-right: 1em;
+}
+
+.teeTimeCourseTag {
+    margin: 0 0 .5em 0;
+
+}
+
+.teeTimeDateAndTime {
+    /* margin-bottom: .5em; */
+    margin-left: auto;
+    text-align: end;
+}
+
+.weatherAndButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1em;
+}
+.teeTimeLogistics {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+.playersAndWeather {
+    display: flex;
+    justify-content: space-between;
 }

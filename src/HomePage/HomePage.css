@@ -29,18 +29,22 @@
 
 
     .myTeeTimesContainer {
-        width: 90%;
-        min-width: 620px;
+        width: 60%;
+        max-width: 600px;
+        min-width: fit-content;
     }
 
     .openTeeTimesContainer {
-        width: 90%;
-        min-width: 620px;
+        width: 60%;
+        max-width: 600px;
+
+        min-width: fit-content;
 
     }
 
     .teeTimeHeaderTitle {
         color: #CCFAFF;
+        /* margin-left: .5em; */
     }
 }
 @media screen and (min-width:320px) and (max-width:640px) {

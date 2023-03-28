@@ -36,20 +36,35 @@ export const HoleScore = ({ matchId }) => {
         })
         return holeScoresForThisHole
     }
-    
+    //set selected hole to next unfinished hole. CANT SEEM TO GET IT TO WORK
+    /*
+    const userHoleScoresForThisHole = matchUserHoleScores.filter(holeScore => {
+        const userMatchForHoleScore = userMatchesForThisMatch.find(userMatch => userMatch.id === holeScore.matchUserId)
+        if (userMatchForHoleScore) {
+            return true
+        }
+        else {
+            return false
+        }
+    })
     useEffect(
         () => {
-            // const nextHole = () => {
-            //     if (holeScoresForThisHole().length === userMatchesForThisMatch.length) {
+            if (userHoleScoresForThisHole) {
 
-            //         setSelectedHole(selectedHole + 1)
-            //     }
-            // }
-            // nextHole()
-
+                const lengthOfCurrentHoleScores = userHoleScoresForThisHole.length
+                const lastHoleScoreIndexAtTheMoment = userHoleScoresForThisHole[lengthOfCurrentHoleScores - 1]
+                const checkIfHoleWasFinished = userHoleScoresForThisHole.filter(holeScore => holeScore.courseHoleId === lastHoleScoreIndexAtTheMoment?.courseHoleId)
+                if (checkIfHoleWasFinished.length === 4) {
+                    setSelectedHole(lastHoleScoreIndexAtTheMoment?.courseHoleId + 1)
+                }
+                else {
+                    setSelectedHole(lastHoleScoreIndexAtTheMoment?.courseHoleId)
+                }
+            }
         },
-        []
+        [matchUserHoleScores]
     )
+    */
 
     if (activeMatch) {
         // if (activeMatch.confirmed === true) {
@@ -100,7 +115,6 @@ export const HoleScore = ({ matchId }) => {
                                             if (window.confirm("You already scored this user. Would you like to update it?")) {
                                                 updateHoleScore(newHoleScoreObjForAPI, alreadyScoredThisUserForThisHole.id)
                                                 currentHoleData.notes = ""
-                                                // currentHoleData.strokes = 0
                                                 setStrokes(0)
                                                 setUpdateCard(!updateCard)
                                             }
@@ -108,7 +122,6 @@ export const HoleScore = ({ matchId }) => {
                                         else {
                                             addUserHoleScore(newHoleScoreObjForAPI)
                                             currentHoleData.notes = ""
-                                            // currentHoleData.strokes = 0
                                             setStrokes(0)
                                             setUpdateCard(!updateCard)
                                         }
