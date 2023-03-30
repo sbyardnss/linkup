@@ -11,10 +11,12 @@
         width: fit-content;
 
     }
+
     #fullScorecardTable {
-        
+
         border-collapse: collapse;
     }
+
     .table-container {
         display: flex;
         position: relative;
@@ -22,7 +24,7 @@
         width: 60vw;
         overflow: scroll;
         background-color: #ccfaff;
-        
+
     }
 
     .fullMatchScorecard {
@@ -30,18 +32,18 @@
 
         /* width: 40%; */
     }
-   
+
     .tableHeader {
         width: 200px;
         text-align: start;
         background-color: brown;
         color: white;
-        
+
     }
 
     .tableBody {
         width: 50%;
-        
+
     }
 
     .fullMatchScorecard {
@@ -50,14 +52,14 @@
         background-color: whitesmoke;
         padding: 10px;
         margin-left: 20px;
-        
+
         /* width: 40%; */
     }
 
     #tableHead {
         margin-bottom: 10px;
         border-bottom: 2px solid rgb(16, 113, 24);
-        
+
     }
 
     th,
@@ -70,7 +72,7 @@
     .frontNineScore,
     .backNineScore {
         background-color: cadetblue;
-        
+
     }
 
     .totalScore {
@@ -79,7 +81,7 @@
 
     .playerHead {
         background-color: bisque;
-        
+
     }
 
     .userRow {
@@ -92,7 +94,7 @@
         top: 0;
         z-index: 2;
         background: hsl(20, 50%, 70%);
-        
+
         /* width: fit-content; */
     }
 
@@ -101,21 +103,24 @@
         position: sticky;
         background: hsl(180, 50%, 70%);
         z-index: 3;
-        margin:none;
+        margin: none;
         left: 0%;
         height: 40px;
         width: 200px;
-        
-        
+
+
     }
+
     tr {
         border: 1px solid gray;
     }
+
     #frontNineScoreCell {
         z-index: 2;
     }
 }
-.didNotFinish{
+
+.didNotFinish {
     background-color: rgb(242, 92, 92);
 }
 
@@ -134,12 +139,18 @@
 
     }
 
+    #fullScorecardTable {
+
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+    
     .fullMatchScorecard {
         border: 1px solid black;
-
+        
         /* width: 40%; */
     }
-
+    
     .tableHeader {
         width: fit-content;
         text-align: start;
@@ -147,9 +158,10 @@
         color: white;
         height: fit-content;
     }
-
+    
     .tableBody {
         width: 50%;
+
     }
 
     .fullMatchScorecard {
@@ -168,9 +180,8 @@
 
     th,
     td {
-        padding: 4px;
+        padding: 6px;
         border: 1px solid gray;
-        width: fit-content;
     }
 
     .frontNineScore,
@@ -190,8 +201,8 @@
         border-bottom: 1px solid gray;
     }
 
-    th .holeScore {
-        width: 100px;
+    .holeScore {
+        width: 10em;
     }
 
     .unfixed-table {
@@ -214,7 +225,6 @@
         top: 0;
         z-index: 2;
         background: hsl(20, 50%, 70%);
-        /* width: fit-content; */
     }
 
     /* thead th:first-child {

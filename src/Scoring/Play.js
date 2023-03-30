@@ -97,7 +97,7 @@ export const Play = () => {
                                             <div className="placeItemsSideBySide">
                                                 <div>
                                     
-                                                    {matchingCourse.name}
+                                                    {matchingCourse?.name}
 
                                                     {
                                                         otherUserMatchesForGivenMatch.map(userMatch => {

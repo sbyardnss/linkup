@@ -88,10 +88,10 @@ export const HoleScore = ({ matchId }) => {
                                     }
                                 }
                             }>
-                                <option value={0} >select hole</option>
+                                <option className="selectHoleOption" value={0} >select hole</option>
                                 {
                                     holeNumbers.map(hole => {
-                                        return <option value={hole}>{hole}</option>
+                                        return <option className="selectHoleOption" value={hole}>{hole}</option>
                                     })
                                 }
                             </select>

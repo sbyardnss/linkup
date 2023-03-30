@@ -178,8 +178,8 @@ export const UserProfile = () => {
                                                     <div className="userProfileMatches">
                                                         <MyTeeTime key={teeTime.id}
                                                             id={teeTime.id}
-                                                            courseId={matchingCourse.id}
-                                                            courseName={matchingCourse.name}
+                                                            courseId={matchingCourse?.id}
+                                                            courseName={matchingCourse?.name}
                                                             date={teeTime.match.date}
                                                             time={teeTime.match.time}
                                                             matchId={teeTime.matchId}

@@ -14,6 +14,9 @@ export const Scorecard = ({ holes, scores }) => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
+    const frontNineHoleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const backNineHoleNumbers = [10, 11, 12, 13, 14, 15, 16, 17, 18]
+
     return <>
         <main id="scorecardContainer">
 
@@ -23,10 +26,10 @@ export const Scorecard = ({ holes, scores }) => {
                         <thead>
                             <tr className="tableHeaderRow">
                                 <th>player</th>
-                                <th className="frontNineScore">Front 9</th>
+                                {/* <th className="frontNineScore">Front 9</th>
                                 <th className="backNineScore">Back 9</th>
-                                <th className="totalScore">Total</th>
-                                <th className="holeScore"> -1- </th>
+                                <th className="totalScore">Total</th> */}
+                                <th className="holeScore" width="100px"> -1- </th>
                                 <th className="holeScore"> -2- </th>
                                 <th className="holeScore"> -3- </th>
                                 <th className="holeScore"> -4- </th>
@@ -35,6 +38,8 @@ export const Scorecard = ({ holes, scores }) => {
                                 <th className="holeScore"> -7- </th>
                                 <th className="holeScore"> -8- </th>
                                 <th className="holeScore"> -9- </th>
+                                <th className="frontNineScore">Front 9</th>
+
                                 <th className="holeScore">10 </th>
                                 <th className="holeScore">11 </th>
                                 <th className="holeScore">12 </th>
@@ -44,6 +49,9 @@ export const Scorecard = ({ holes, scores }) => {
                                 <th className="holeScore">16 </th>
                                 <th className="holeScore">17 </th>
                                 <th className="holeScore">18 </th>
+                                <th className="backNineScore">Back 9</th>
+                                <th className="totalScore">Total</th>
+
 
                             </tr>
                         </thead>
@@ -81,10 +89,26 @@ export const Scorecard = ({ holes, scores }) => {
                                     return <>
                                         <tr className="userRow">
                                             <td>{matchingUser.name}</td>
+                                            {
+                                                frontNineHoleNumbers.map(holeNumber => {
+                                                    const matchingUserScore = userMatchUserHoleScores?.find(holeScore => holeScore.courseHoleId === holeNumber)
+                                                    return <>
+                                                        <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
+                                                    </>
+                                                })
+                                            }
                                             <td>{frontNineScore()}</td>
+                                            {
+                                                backNineHoleNumbers.map(holeNumber => {
+                                                    const matchingUserScore = userMatchUserHoleScores?.find(holeScore => holeScore.courseHoleId === holeNumber)
+                                                    return <>
+                                                        <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
+                                                    </>
+                                                })
+                                            }
                                             <td>{backNineScore()}</td>
                                             <td>{totalScore}</td>
-                                            
+{/*                                             
                                             {
                                                 frontNineArray?.map(score => {
                                                     if (score.strokes === 0) {
@@ -104,7 +128,8 @@ export const Scorecard = ({ holes, scores }) => {
                                                     return <td>{score.strokes}</td>
 
                                                 })
-                                            }
+                                            } */}
+
                                         </tr>
 
                                     </>
