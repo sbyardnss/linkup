@@ -310,31 +310,7 @@ export const UserProfile = () => {
                                             </li>
                                         </>
                                     }
-                                    {/* <li className="pastTeeTime">
-                                            <div className="pastTeeTimeInfo">
-                                                <div>{matchingCourse?.name}</div>
-                                                <div>{teeTime.match.date}</div>
-                                                <div>{teeTime.match.time}</div>
-                                            </div>
-
-                                            <div className="listOfPlayersOnMatch">Other Players:
-                                                {
-                                                    otherUserMatchesForGivenMatch.map(userMatch => {
-                                                        const matchPlayer = users.find(user => user.id === userMatch.userId)
-                                                        return <>
-                                                            <div>{matchPlayer.name}</div>
-                                                        </>
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="profileButtonBlock">
-                                                <button className="profileScorecardButton" onClick={
-                                                    () => {
-                                                        setSelectedMatch(teeTime?.matchId)
-                                                    }
-                                                }>Scorecard</button>
-                                            </div>
-                                        </li> */}
+                                    
                                 }
 
 
