@@ -80,17 +80,22 @@
 
 .pastTeeTime {
     display: flex;
+    flex-direction: column;
     padding: 1em;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     background-color: #38a169;
     color: #CCFAFF;
-    min-width: fit-content;
+    /* min-width: fit-content; */
     margin-bottom: 12px;
     border: 1px solid rgba(255, 255, 255, 0.357);
     border-radius: 8px;
-
-
-
+}
+.pastTeeTimeInfo {
+    display: flex;
+    justify-content: space-between;
+}
+#profileScoreCardContainer {
+    color: black;
 }
 
 .listOfPlayersOnMatch {

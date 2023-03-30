@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../Weather/WeatherProvider"
@@ -11,65 +11,16 @@ export const Play = () => {
     const { next14Dates } = useContext(WeatherContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-
+    useEffect(
+        () => {
+            setSelectedMatch(0)
+        },
+        []
+    )
     if (!selectedMatch) {
 
         return <>
             <main id="holeScoreContainer">
-                {/* <select id="matchSelectorDropdown" onChange={
-                    (evt) => {
-                        const selectedMatchId = parseInt(evt.target.value)
-                        // console.log(selectedMatchId)
-                        setSelectedMatch(selectedMatchId)
-                        // console.log(selectedMatchId)
-                    }
-                }>
-                    <option key="0" value="0">Which Match are you playing?</option>
-                    {
-                        sortedOnlyMyUserMatches.map(teeTime => {
-
-                            const otherUserMatchesForGivenMatch = userMatchesWithMatchInfo.filter(userMatch => {
-                                return userMatch.matchId === teeTime.matchId
-                            })
-
-                            //string values for teeTime date
-                            const [month, day, year] = teeTime?.match?.date.split("/")
-
-                            //numeric values for teeTime date
-                            const intYear = parseInt(year)
-                            const intMonth = parseInt(month)
-                            const intDay = parseInt(day)
-                            const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-                            const teeTimeDateParsed = Date.parse(teeTimeDateString)
-                            if (teeTimeDateParsed >= currentDateParsed) {
-                                if (next14Dates) {
-
-                                    const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-
-                                    return <>
-                                        <option key={teeTime?.id} id={teeTime?.matchId} value={teeTime?.matchId}>
-                                            {matchingCourse.name}
-                                            --
-                                            {
-                                                otherUserMatchesForGivenMatch.map(userMatch => {
-                                                    const matchPlayer = users.find(user => user.id === userMatch.userId)
-                                                    if (matchPlayer.id !== linkUpUserObj.id) {
-                                                        return (
-                                                            " " + matchPlayer?.name + "     "
-                                                        )
-                                                    }
-                                                })
-                                            }
-                                            --  {teeTime.match.date}
-
-                                        </option>
-                                    </>
-                                }
-                            }
-                        })
-                    }
-
-                </select> */}
                 <section className="matchSelect">
                     {
                         sortedOnlyMyUserMatches.map(teeTime => {

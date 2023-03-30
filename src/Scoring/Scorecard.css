@@ -26,6 +26,13 @@
         background-color: #ccfaff;
 
     }
+    .profileTable-container {
+        position: relative;
+        max-height: 300px;
+        width: inherit;
+        overflow: scroll;
+        background-color: #ccfaff;
+    }
 
     .fullMatchScorecard {
         border: 1px solid black;
@@ -118,11 +125,11 @@
     #frontNineScoreCell {
         z-index: 2;
     }
+    .didNotFinish {
+        background-color: rgb(242, 92, 92);
+    }
 }
 
-.didNotFinish {
-    background-color: rgb(242, 92, 92);
-}
 
 @media screen and (max-width: 640px) {
 
@@ -215,6 +222,14 @@
         position: relative;
         max-height: 300px;
         width: 500px;
+        overflow: scroll;
+        background-color: #ccfaff;
+    }
+    /* scrolling table on profile */
+    .profileTable-container {
+        position: relative;
+        max-height: 300px;
+        width: inherit;
         overflow: scroll;
         background-color: #ccfaff;
     }

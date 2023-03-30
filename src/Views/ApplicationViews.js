@@ -37,7 +37,11 @@ export const ApplicationViews = () => {
 					</ScorecardProvider>
 				} />
 
-				<Route path="profile" element={<UserProfile />} />
+				<Route path="profile" element={
+					<ScorecardProvider>
+						<UserProfile />
+					</ScorecardProvider>
+				} />
 				<Route path="userList" element={<UserList />} />
 				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={<TeeTimeForm />} />

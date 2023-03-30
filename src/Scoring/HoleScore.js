@@ -13,7 +13,7 @@ export const HoleScore = ({ matchId }) => {
     const [currentHoleData, updateCurrentHoleData] = useState({
         notes: ""
     })
-    const [strokes, setStrokes] = useState(0)
+    const [strokes, setStrokes] = useState("")
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
@@ -23,7 +23,7 @@ export const HoleScore = ({ matchId }) => {
     const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     const newHoleScoreObjForAPI = {
         matchUserId: parseInt(userMatchToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-        strokes: parseInt(strokes),
+        strokes: strokes,
         courseHoleId: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
@@ -79,10 +79,10 @@ export const HoleScore = ({ matchId }) => {
                         <div className="holeSelectExitMatch">
                             <select value={selectedHole} className="selectHole" onChange={
                                 (evt) => {
-                                    if (evt.target.value !== "0") {
+                                    if (evt.target.value !== "") {
                                         setSelectedHole(evt.target.value)
                                         const copy = { ...currentHoleData }
-                                        setStrokes(0)
+                                        setStrokes("")
                                         copy.notes = ""
                                         updateCurrentHoleData(copy)
                                     }
@@ -115,14 +115,14 @@ export const HoleScore = ({ matchId }) => {
                                             if (window.confirm("You already scored this user. Would you like to update it?")) {
                                                 updateHoleScore(newHoleScoreObjForAPI, alreadyScoredThisUserForThisHole.id)
                                                 currentHoleData.notes = ""
-                                                setStrokes(0)
+                                                setStrokes("")
                                                 setUpdateCard(!updateCard)
                                             }
                                         }
                                         else {
                                             addUserHoleScore(newHoleScoreObjForAPI)
                                             currentHoleData.notes = ""
-                                            setStrokes(0)
+                                            setStrokes("")
                                             setUpdateCard(!updateCard)
                                         }
                                     }
@@ -139,7 +139,7 @@ export const HoleScore = ({ matchId }) => {
                                             if (userMatchStrokes === undefined) {
                                                 const unfinishedHoleScoreForAPI = {
                                                     matchUserId: userMatch.id, //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-                                                    strokes: 0,
+                                                    strokes: "DNF",
                                                     courseHoleId: parseInt(selectedHole),
                                                     notes: "did not finish"
                                                 }
@@ -158,7 +158,7 @@ export const HoleScore = ({ matchId }) => {
 
                                     setUserMatchToScoreFor(0)
                                     currentHoleData.notes = ""
-                                    setStrokes(0)
+                                    setStrokes("")
                                     setSelectedHole(parseInt(selectedHole) + 1)
                                 }
                             }>Finish Hole</button>
@@ -171,7 +171,7 @@ export const HoleScore = ({ matchId }) => {
                                         if (score === parseInt(strokes)) {
                                             return <button className="scoringButtonSelected" value={score} onClick={
                                                 (evt) => {
-                                                    setStrokes(evt.target.value)
+                                                    setStrokes(evt.target.value.toString())
                                                 }
                                             }>{score}</button>
                                         }
@@ -222,8 +222,9 @@ export const HoleScore = ({ matchId }) => {
                 </div>
                 <section className="scorecardSection">
 
-                    <Scorecard id="scorecardItem"
-                        holes={holeNumbers}
+                    <Scorecard
+                        profileOrPlayTable={"table-container"}
+                        profileOrPlayContainer={"scorecardContainer"}
                     />
                 </section>
             </main>

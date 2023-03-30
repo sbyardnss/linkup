@@ -6,10 +6,9 @@ import "./Scorecard.css"
 import { ScorecardContext } from "./ScorecardContext"
 
 
-export const Scorecard = ({ holes, scores }) => {
+export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer }) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
     const { userMatchesForThisMatch, matchUserHoleScores } = useContext(ScorecardContext)
-    const matchId = useParams()
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -18,9 +17,9 @@ export const Scorecard = ({ holes, scores }) => {
     const backNineHoleNumbers = [10, 11, 12, 13, 14, 15, 16, 17, 18]
 
     return <>
-        <main id="scorecardContainer">
+        <main id={profileOrPlayContainer}>
 
-            <div className="table-container">
+            <div className={profileOrPlayTable}>
                 <div>
                     <table id="fullScorecardTable">
                         <thead>
@@ -63,24 +62,26 @@ export const Scorecard = ({ holes, scores }) => {
                                     const userMatchUserHoleScores = matchUserHoleScores?.filter(userHoleScore => userHoleScore.matchUserId === userMatch.id)
 
                                     const frontNineArray = userMatchUserHoleScores.filter(holeScore => {
-                                        return holeScore.courseHoleId <= 9
+                                        return holeScore.courseHoleId <= 9 && holeScore.strokes !== 'DNF'
                                     })
 
                                     const frontNineScore = () => {
                                         let userScore = 0
+
                                         frontNineArray.map(score => {
-                                            userScore += score?.strokes
+                                            userScore += parseInt(score?.strokes)
+
                                         })
 
                                         return userScore
                                     }
                                     const backNineArray = userMatchUserHoleScores.filter(holeScore => {
-                                        return holeScore.courseHoleId > 9
+                                        return holeScore.courseHoleId > 9 && holeScore.strokes !== 'DNF'
                                     })
                                     const backNineScore = () => {
                                         let userScore = 0
                                         backNineArray.map(score => {
-                                            userScore += score?.strokes
+                                            userScore += parseInt(score?.strokes)
                                         })
 
                                         return userScore
@@ -92,6 +93,11 @@ export const Scorecard = ({ holes, scores }) => {
                                             {
                                                 frontNineHoleNumbers.map(holeNumber => {
                                                     const matchingUserScore = userMatchUserHoleScores?.find(holeScore => holeScore.courseHoleId === holeNumber)
+                                                    if (matchingUserScore?.strokes === "DNF") {
+                                                        return <>
+                                                            <td key={"hole" + holeNumber} className="didNotFinish">{matchingUserScore?.strokes}</td>
+                                                        </>
+                                                    }
                                                     return <>
                                                         <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
                                                     </>
@@ -108,7 +114,7 @@ export const Scorecard = ({ holes, scores }) => {
                                             }
                                             <td>{backNineScore()}</td>
                                             <td>{totalScore}</td>
-{/*                                             
+                                            {/*                                             
                                             {
                                                 frontNineArray?.map(score => {
                                                     if (score.strokes === 0) {
@@ -138,7 +144,7 @@ export const Scorecard = ({ holes, scores }) => {
                         </tbody>
                     </table>
                 </div>
-                
+
             </div>
         </main >
     </>
