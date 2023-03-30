@@ -27,6 +27,8 @@ button:active {
 }
 
 .teeTimeButton {
+    width: 90px;
+    justify-content: center;
     align-items: center;
     appearance: button;
     background-color: #9c0060;
@@ -42,7 +44,7 @@ button:active {
     font-family: "RM Neue", sans-serif;
     font-size: 100%;
     line-height: 1.15;
-    margin-left: 1em;
+    margin-left: auto;
     padding: 10px 21px;
     text-align: center;
     text-transform: none;

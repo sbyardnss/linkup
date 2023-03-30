@@ -1,8 +1,6 @@
-import { useContext, useState, useEffect, useRef } from "react"
-import { useParams } from "react-router-dom"
+import { useContext, useState, useEffect } from "react"
 import { getAllMessages, sendNewMessage } from "../ApiManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
-import { Chat } from "./Chat"
 import "./MessagesThread.css"
 
 
@@ -34,7 +32,14 @@ export const MessageThread = () => {
         },
         [msgSent]
     )
-   
+    useEffect(
+        () => {
+            const copy = {...newMsg}
+            copy.recipientId = chatUser
+            updateNewMsg(copy)
+        },
+        [chatUser]
+    )
 
     //items from former chat module below
 
@@ -74,7 +79,7 @@ export const MessageThread = () => {
                 {
                     activeUserFriends.map(friend => {
                         const friendlyUserObj = users.find(user => user.id === friend.friendId)
-                        if (friendlyUserObj?.id === newMsg.recipientId) {
+                        if (friendlyUserObj?.id === chatUser) {
                             return <>
                                 <li className="activeChatListItem">{friendlyUserObj?.name}</li>
                             </>

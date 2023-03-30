@@ -175,16 +175,23 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                             </ul>
                         </div>
                         <div className="buttonBlock">
-                            <button className="bailTeeTimeButton" onClick={
+                            <button key={id} className="teeTimeButton" onClick={
                                 () => {
                                     if (window.confirm("are you sure?")) {
-                                        deleteUserMatch(id).then(() => {
 
+                                        deleteTeeTime(matchId)
+                                        {
+                                            allMatchingUserMatches.map(userMatch => {
+                                                deleteUserMatch(userMatch.id)
+                                            })
                                             deleteInitiated(!deleteItem)
-                                        })
+                                        }
+                                    }
+                                    else {
+                                        return null
                                     }
                                 }
-                            }>Bail</button>
+                            }>Delete</button>
                         </div>
                     </div>
                 </div>
