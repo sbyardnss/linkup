@@ -3,6 +3,26 @@ import { getAllMessages, sendNewMessage } from "../ApiManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
 
+export const UnreadMsgCount = () => {
+    const localLinkUpUser = localStorage.getItem("linkUp_user")
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const [myMessages, setMyMessages] = useState([])
+    useEffect(
+        () => {
+            getAllMessages()
+                .then(
+                    (data) => {
+
+                        const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
+                        setMyMessages(myMsgData)
+                    }
+                )
+        },
+        []
+    )
+    const unreadMsgs = myMessages.filter(msg => msg.read === false && msg.recipientId === linkUpUserObj.id)
+    return unreadMsgs.length
+}
 
 export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
@@ -24,7 +44,7 @@ export const MessageThread = () => {
             getAllMessages()
                 .then(
                     (data) => {
-                        
+
                         const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
                         setMyMessages(myMsgData)
                     }
@@ -34,7 +54,7 @@ export const MessageThread = () => {
     )
     useEffect(
         () => {
-            const copy = {...newMsg}
+            const copy = { ...newMsg }
             copy.recipientId = chatUser
             updateNewMsg(copy)
         },
@@ -51,7 +71,7 @@ export const MessageThread = () => {
 
     const msgsForCurrentChat = myMessages.filter(msg => msg.recipientId === chatUser || msg.userId === chatUser)
 
-
+    
     const newMsgForAPI = {
         userId: linkUpUserObj.id,
         recipientId: newMsg.recipientId,
@@ -72,6 +92,18 @@ export const MessageThread = () => {
             const copy = { ...newMsg }
             copy.message = ""
             updateNewMsg(copy)
+        }
+    }
+    const isChatUserSelected = () => {
+        if (chatUser) {
+            return <>
+                <div id="chatHeader">{chatUserObj?.name}</div>
+            </>
+        }
+        else {
+            return <>
+                <div id="chatHeader">select chat</div>
+            </>
         }
     }
     return <>
@@ -106,7 +138,7 @@ export const MessageThread = () => {
             </ul>
             <article id="chatContainer">
                 <section id="chatThread">
-                    <div id="chatHeader">{chatUserObj?.name}</div>
+                    {isChatUserSelected()}
                     {
                         msgsForCurrentChat.map(msg => {
 

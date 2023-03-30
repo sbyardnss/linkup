@@ -46,9 +46,15 @@ export const Play = () => {
 
                                         <div className="matchSelection" key={teeTime?.id} id={teeTime?.matchId} value={teeTime?.matchId}>
                                             <div className="placeItemsSideBySide">
+
                                                 <div>
-                                    
-                                                    {matchingCourse?.name}
+                                                    <div className="matchSelectionCourse">
+                                                        {matchingCourse?.name}
+                                                    </div>
+
+                                                    <div>{teeTime.match.date}</div>
+                                                </div>
+                                                <div className="matchSelectionOtherPlayers">
 
                                                     {
                                                         otherUserMatchesForGivenMatch.map(userMatch => {
@@ -60,8 +66,8 @@ export const Play = () => {
                                                             }
                                                         })
                                                     }
-                                                    <div>{teeTime.match.date}</div>
                                                 </div>
+
                                                 <button className="matchSelectionButton" onClick={
                                                     (evt) => {
                                                         // const selectedMatchId = parseInt(evt.target.value)

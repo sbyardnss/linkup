@@ -189,6 +189,8 @@
     td {
         padding: 6px;
         border: 1px solid gray;
+        text-align: center;
+
     }
 
     .frontNineScore,
@@ -260,5 +262,8 @@
         background: hsl(180, 50%, 70%);
         z-index: 3;
         left: 0;
+    }
+    .didNotFinish {
+        background-color: rgb(242, 92, 92);
     }
 }

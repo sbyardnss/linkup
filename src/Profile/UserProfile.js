@@ -280,8 +280,8 @@ export const UserProfile = () => {
                                             <li className="pastTeeTime">
                                                 <div className="pastTeeTimeHeader">
 
-                                                <div className="pastTeeTimeCourse">{matchingCourse?.name}</div>
                                                     <div className="pastTeeTimeInfo">
+                                                        <div className="pastTeeTimeCourse">{matchingCourse?.name}</div>
                                                         <div className="pastTeeTimeInfo">
                                                             <div>{teeTime.match.date}</div>
                                                             <div>{teeTime.match.time}</div>

@@ -2,6 +2,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import profileIcon from "../images/abstract-user-flat-4.png"
 import "./NavBar.css"
+import { UnreadMsgCount } from "../Messages/MessageThread"
 
 export const NavBar = () => {
     const navigate = useNavigate()
@@ -19,6 +20,7 @@ export const NavBar = () => {
         
     }
     document.addEventListener(`click`, closeOpenMenus)
+    
     return (
         <header className="navigation">
             <div id="logoSpace">
@@ -45,6 +47,11 @@ export const NavBar = () => {
                                     document.getElementById("active").checked = false
                                 }
                             }>Play</Link></li>
+                            <li className="navListItem"><Link className="navigation_link" to="/messages" onClick={
+                                () => {
+                                    document.getElementById("active").checked = false
+                                }
+                            }>Messages <span id="newMsgCount">{UnreadMsgCount()}</span></Link></li>
                             <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" onClick={
                                 () => {
                                     document.getElementById("active").checked = false

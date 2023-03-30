@@ -267,6 +267,11 @@
        transition-delay: .6s;
       transform: translateX(-100px);
     }
+    #newMsgCount {
+      background-color: red;
+      padding: .25em;
+      border-radius: 50%;;
+    }
 }
 
 

@@ -38,10 +38,20 @@
         flex-direction: column;
         align-items: center;
     }
+    .matchSelectionCourse {
+        font-size: larger;
+        margin-right: 1em;
+        width: 200px;
+    }
+    .matchSelectionOtherPlayers {
+        width: 120px;
+        margin-right: 1em;
+    }
 
     .matchSelection {
-        height: fit-content;
-        width: 150%;
+        display: flex;
+        height: 120px;
+        width: 100%;
         font-size: 16px;
         background-color: #008c9c;
         color: #ccfaff;
@@ -128,7 +138,7 @@
         text-align: center;
         font-family: "RM Neue", sans-serif;
         font-size: 100%;
-        border-radius: 12px;
+        border-radius: 8px;
         border-style: none;
         box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
         backdrop-filter: blur(50px);
@@ -165,8 +175,8 @@
     .exitMatchButton {
         align-items: center;
         appearance: button;
-        background-color: #97009c41;
-        border: 2px solid #92009c;
+        background-color: #97009c99;
+        border: 1px solid #92009c;
         border-radius: 8px;
         /* border-style: none; */
         box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
@@ -200,10 +210,7 @@
         background-color: #ff1cf7;
     }
 
-    /* .scoringButton {
-    height: 60px;
-    width: 60px;
-} */
+
 
     .scoringButtonsContainer {
         width: 400px;
@@ -232,17 +239,7 @@
         color: #ccfaff
     }
 
-    /* .activeUserButton {
-        height: 60px;
-        width: 60px;
-        background-color: cadetblue;
-        box-shadow: 2px 2px 2px cadetblue;
-    } */
 
-    /* .inactiveUserButton {
-    height: 60px;
-    width: 60px;
-} */
     .scoringButton {
         height: 60px;
         width: 60px;
@@ -516,10 +513,20 @@
         flex-direction: column;
         align-items: center;
     }
+    .matchSelectionCourse {
+        font-size: larger;
+        margin-right: 1em;
+        width: 200px;
+    }
+    .matchSelectionOtherPlayers {
+        width: 120px;
+        margin-right: 1em;
+    }
 
     .matchSelection {
-        height: fit-content;
-        width: 150%;
+        display: flex;
+        height: 120px;
+        width: 100%;
         font-size: 16px;
         background-color: #008c9c;
         color: #ccfaff;
@@ -610,7 +617,7 @@
         font-family: "RM Neue", sans-serif;
         font-size: xx-large;
         font-weight: 900;
-        border-radius: 12px;
+        border-radius: 8px;
         border-style: none;
         box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
         backdrop-filter: blur(50px);
@@ -657,8 +664,8 @@
     .exitMatchButton {
         align-items: center;
         appearance: button;
-        background-color: #97009c41;
-        border: 2px solid #92009c;
+        background-color: #97009c90;
+        border: 1px solid #92009c;
         border-radius: 8px;
         /* border-style: none; */
         box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
@@ -724,17 +731,8 @@
         color: #ccfaff
     }
 
-    .activeUserButton {
-        height: 60px;
-        width: 60px;
-        background-color: cadetblue;
-        box-shadow: 2px 2px 2px cadetblue;
-    }
+   
 
-    /* .inactiveUserButton {
-    height: 60px;
-    width: 60px;
-} */
     .scoringButton {
         height: 80px;
         width: 80px;
