@@ -28,7 +28,7 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer }) => {
                                 {/* <th className="frontNineScore">Front 9</th>
                                 <th className="backNineScore">Back 9</th>
                                 <th className="totalScore">Total</th> */}
-                                <th className="holeScore" width="100px"> -1- </th>
+                                <th className="holeScore"> -1- </th>
                                 <th className="holeScore"> -2- </th>
                                 <th className="holeScore"> -3- </th>
                                 <th className="holeScore"> -4- </th>

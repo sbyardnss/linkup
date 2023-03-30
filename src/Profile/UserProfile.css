@@ -90,9 +90,20 @@
     border: 1px solid rgba(255, 255, 255, 0.357);
     border-radius: 8px;
 }
-.pastTeeTimeInfo {
+.pastTeeTimeHeader {
     display: flex;
+    margin-bottom: 1em;
+}
+.pastTeeTimeCourse {
+    width: 300px;
+    margin-right: 3em;
+}
+.pastTeeTimeInfo {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    margin-right: 2em;
 }
 #profileScoreCardContainer {
     color: black;
@@ -101,6 +112,7 @@
 .listOfPlayersOnMatch {
     display: flex;
     flex-direction: column;
+    width: 200px;
 }
 
 .listOfPastTeeTimes {
@@ -115,9 +127,7 @@
 
 }
 
-.pastTeeTimeInfo {
-    margin-right: 100px;
-}
+
 
 .listOfFutureTeeTimes {
     
@@ -249,9 +259,9 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
-
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-left: auto;
+    /* margin-top: auto;
+    margin-bottom: auto; */
     margin-right: 1em;
 
 }

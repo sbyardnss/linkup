@@ -40,6 +40,7 @@ export const MessageThread = () => {
         },
         [chatUser]
     )
+    const chatUserObj = users.find(user => user.id === chatUser)
 
     //items from former chat module below
 
@@ -105,6 +106,7 @@ export const MessageThread = () => {
             </ul>
             <article id="chatContainer">
                 <section id="chatThread">
+                    <div id="chatHeader">{chatUserObj?.name}</div>
                     {
                         msgsForCurrentChat.map(msg => {
 

@@ -237,10 +237,10 @@ export const UserProfile = () => {
                                     if (selectedMatch === teeTime.matchId) {
                                         return <>
                                             <li className="pastTeeTime">
-                                                <div className="pastTeeTimeInfo">
+                                                <div className="pastTeeTimeHeader">
 
+                                                    <div className="pastTeeTimeCourse">{matchingCourse?.name}</div>
                                                     <div className="pastTeeTimeInfo">
-                                                        <div>{matchingCourse?.name}</div>
                                                         <div>{teeTime.match.date}</div>
                                                         <div>{teeTime.match.time}</div>
                                                     </div>
@@ -278,28 +278,34 @@ export const UserProfile = () => {
 
                                         return <>
                                             <li className="pastTeeTime">
-                                                <div className="pastTeeTimeInfo">
-                                                    <div>{matchingCourse?.name}</div>
-                                                    <div>{teeTime.match.date}</div>
-                                                    <div>{teeTime.match.time}</div>
-                                                </div>
+                                                <div className="pastTeeTimeHeader">
 
-                                                <div className="listOfPlayersOnMatch">Other Players:
-                                                    {
-                                                        otherUserMatchesForGivenMatch.map(userMatch => {
-                                                            const matchPlayer = users.find(user => user.id === userMatch.userId)
-                                                            return <>
-                                                                <div>{matchPlayer.name}</div>
-                                                            </>
-                                                        })
-                                                    }
-                                                </div>
-                                                <div className="profileButtonBlock">
-                                                    <button className="profileScorecardButton" onClick={
-                                                        () => {
-                                                            setSelectedMatch(teeTime?.matchId)
+                                                <div className="pastTeeTimeCourse">{matchingCourse?.name}</div>
+                                                    <div className="pastTeeTimeInfo">
+                                                        <div className="pastTeeTimeInfo">
+                                                            <div>{teeTime.match.date}</div>
+                                                            <div>{teeTime.match.time}</div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className="listOfPlayersOnMatch">Other Players:
+                                                        {
+                                                            otherUserMatchesForGivenMatch.map(userMatch => {
+                                                                const matchPlayer = users.find(user => user.id === userMatch.userId && user.id !== linkUpUserObj.id)
+                                                                return <>
+                                                                    <div>{matchPlayer?.name}</div>
+                                                                </>
+                                                            })
                                                         }
-                                                    }>Scorecard</button>
+                                                    </div>
+                                                    <div className="profileButtonBlock">
+                                                        <button className="profileScorecardButton" onClick={
+                                                            () => {
+                                                                setSelectedMatch(teeTime?.matchId)
+                                                            }
+                                                        }>Scorecard</button>
+                                                    </div>
                                                 </div>
                                             </li>
                                         </>

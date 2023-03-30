@@ -2,50 +2,78 @@
     margin-top: 80px;
     width: 90%;
     display: flex;
+    justify-content: space-around;
     padding: 1em;
 }
 
 
 #chatList {
-    border: 1px solid orange;
-    position: fixed;
-    left: 10%;
+    border: 1px solid #0D6767;
+    border-radius: 4px;
+    /* position: fixed; */
+    /* left: 5%; */
     overflow: scroll;
     height: 40%;
     width: 20%;
-    background-color: #00949c;
+    background: #0d674c;
     list-style: none;
     align-items: start;
-    padding: 0;
+    padding: 1em;
     margin: 0;
-
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+    backdrop-filter: blur(50px);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    overflow: scroll;
 }
 
 .chatListItem {
     border: 1px solid lime;
+    padding: .5em;
     cursor: pointer;
     margin-right: auto;
+    color: #ccfaff;
+    margin-bottom: 1em;
+    border-radius: 4px;
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+
 }
 
 .activeChatListItem {
     border: 1px solid lime;
+    border-radius: 4px;
     background-color: aliceblue;
+    padding: .5em;
     cursor: pointer;
     margin-right: auto;
+    margin-bottom: 1em;
 
 }
 
 #chatContainer {
-    width: 58%;
-    border: 1px solid pink;
-    position: fixed;
-    right: 10%;
+    width: 70%;
+    border-radius: 4px;
+    /* position: fixed; */
+    /* right: 10%; */
     height: 80vh;
-    background-color: #00949c;
+    box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+    backdrop-filter: blur(50px);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    border: 1px solid rgba(0, 255, 0, 0.282);
+    background-color: #0d676764;
 }
-
 #chatThread {
     display: block;
+}
+#chatHeader {
+    height: fit-content;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: .5em;
+    color: #ccfaff;
+    font-weight: bold;
+    font-size: x-large;
+    
 }
 
 .receivedChatMsgItem {
@@ -67,6 +95,7 @@
     margin: 1em;
     margin-left: auto;
 }
+
 .msgDateAndTime {
     font-size: small;
     opacity: 60%;
