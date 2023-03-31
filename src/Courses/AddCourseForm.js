@@ -32,7 +32,7 @@ export const AddCourseForm = () => {
 
     const newCourseObjToSendToAPI = {
         name: newCourse.name,
-        image: newCourse.url,
+        url: newCourse.url,
         address: newCourse.address,
         phoneNumber: newCourse.phoneNumber
     }
