@@ -1,148 +1,184 @@
 #fullUserList {
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 60%;
+  border: 1px solid rgba(0, 255, 0, 0.282);
+  border-radius: 10px;
+  backdrop-filter: blur(40px);
+  filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+  background-color: #0d676764;
+  box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+  padding: 1em 1em 0 1em;
+  height: fit-content;
 }
+
 #homepageUserList {
-  width: 100%;
+  width: fit-content;
+  zoom: .8;
+  margin-top: 1em;
+  border: 1px solid rgba(0, 255, 0, 0.282);
+  border-radius: 10px;
+  backdrop-filter: blur(40px);
+  filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+  background-color: #0d676764;
+  box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+
+}
+
+.homePageUserListContainer {
+  width: fit-content;
+
 }
 
 .userListContainer {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
 
 
 .addFriendButton {
-    width: 80px;
-    justify-content: center;
-    align-items: center;
-    appearance: button;
-    background-color: #008c9c;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-    font-family: "RM Neue",sans-serif;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    padding: 10px 21px;
-    text-align: center;
-    text-transform: none;
-    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  
-  .addFriendButton:active {
-    background-color: #006AE8;
-  }
-  
-  .addFriendButton:hover {
-    background-color: #1C84FF;
-  }
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+  appearance: button;
+  background-color: #008c9c;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue", sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.addFriendButton:active {
+  background-color: #006AE8;
+}
+
+.addFriendButton:hover {
+  background-color: #1C84FF;
+}
 
 .cancelRequestButton {
-    /* margin-left: auto; */
-    /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-    background-color: rgb(37, 120, 41);
-    padding: .5em 0;
-    color: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    margin-left: 20px;
-    width: 90px;
-    font-size: large;
-    font-weight: normal;
-    font-style: oblique;
+  /* margin-left: auto; */
+  /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
+  background-color: rgb(37, 120, 41);
+  padding: .5em 0;
+  color: white;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-left: 20px;
+  width: 90px;
+  font-size: large;
+  font-weight: normal;
+  font-style: oblique;
 
 }
 
 .deleteFriendButton {
-    width: 80px;
-    justify-content: center;
-    align-items: center;
-    appearance: button;
-    background-color: #9c0060;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-    font-family: "RM Neue",sans-serif;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    padding: 10px 21px;
-    text-align: center;
-    text-transform: none;
-    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  
-  .deleteFriendButton:active {
-    background-color: #e80055;
-  }
-  
-  .deleteFriendButton:hover {
-    background-color: #ff1c5c;
-  }
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+  appearance: button;
+  background-color: #9c0060;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue", sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.deleteFriendButton:active {
+  background-color: #e80055;
+}
+
+.deleteFriendButton:hover {
+  background-color: #ff1c5c;
+}
 
 .addFriendButtonBlock {
-    display: block;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 1em;
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1em;
 }
 
 
 .userListItem {
-    display: flex;
-    padding: 1em;
-    justify-content: space-between;
-    /* backdrop-filter: blur(16px) saturate(180%); */
-    background-color: rgba(13, 103, 103, 0.908);
-    /* color: rgb(222, 222, 222); */
-    color: #CCFAFF;
-    margin-bottom: 12px;
-    border: 1px solid rgba(126, 2, 2, 0.308);
-    border-radius: 8px;
-    align-items: center;
+  display: flex;
+  padding: 1em;
+  justify-content: space-between;
+  /* backdrop-filter: blur(16px) saturate(180%); */
+  background-color: rgba(13, 103, 103, 0.908);
+  /* color: rgb(222, 222, 222); */
+  color: #CCFAFF;
+  margin-bottom: 12px;
+  border: 1px solid rgba(126, 2, 2, 0.308);
+  border-radius: 8px;
+  align-items: center;
+
+
+}
+
+.homepageListOfOtherUsers {
+  list-style: none;
+  padding: 10px 20px;
+  
+  max-height: 400px;
+  overflow: scroll;
+  width: 60%;
+  min-width: 400px;
 
 
 }
 
 .listOfOtherUsers {
-    list-style: none;
-    padding: 10px 20px;
-    border: 1px solid rgba(0, 255, 0, 0.282);
-    border-radius: 10px;
-    backdrop-filter: blur(40px);
-    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
-    background-color: #0d676764;
-    box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+  list-style: none;
+  padding: 10px 20px;
+  width: 100%;
+  margin: 0;
+  /* border: 1px solid rgba(0, 255, 0, 0.282);
+  border-radius: 10px;
+  backdrop-filter: blur(40px);
+  filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+  background-color: #0d676764;
+  box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset; */
 
-    width: 60%;
-    min-width: 400px;
 
 
 }
@@ -150,17 +186,22 @@
 .userSearchBar {
   display: flex;
   margin: 20px 0;
+  width: 80%;
 }
+
 #searchBarItself {
   margin-left: 10px;
   border-radius: 4px;
-  border:none;
+  border: none;
   padding: .5em;
   font-size: medium;
+  width: 100%;
 }
+
 #searchBarItself:active {
   border-style: none;
 }
+
 #searchIcon {
   height: 2em;
   filter: opacity(50%)

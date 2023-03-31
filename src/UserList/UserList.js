@@ -5,7 +5,7 @@ import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./UserList.css"
 
 
-export const UserList = ({ contingentId, contingentContainer }) => {
+export const UserList = ({ contingentId, contingentContainer, contingentList }) => {
     const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends } = useContext(TeeTimeContext)
     const [userFriends, setUserFriends] = useState([])
     const [search, updateSearch] = useState("")
@@ -64,15 +64,15 @@ export const UserList = ({ contingentId, contingentContainer }) => {
         <main id={contingentId}>
 
             <section className={contingentContainer}>
-                <ul className="listOfOtherUsers">
-                    <section className="userSearchBar">
-                        <img id="searchIcon" src="https://freesvg.org/img/Search-icon.png" />
-                        <input id="searchBarItself" type="text" placeholder="find users" onChange={
-                            (evt) => {
-                                updateSearch(evt.target.value)
-                            }
-                        }></input>
-                    </section>
+                <section className="userSearchBar">
+                    <img id="searchIcon" src="https://freesvg.org/img/Search-icon.png" />
+                    <input id="searchBarItself" type="text" placeholder="find users" onChange={
+                        (evt) => {
+                            updateSearch(evt.target.value)
+                        }
+                    }></input>
+                </section>
+                <ul className={contingentList}>
                     {
                         filtered?.map(
                             user => {

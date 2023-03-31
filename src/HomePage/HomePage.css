@@ -1,4 +1,5 @@
 @import "./CustomCalendar.css";
+
 @media screen and (min-width:641px) {
 
     #homepageContainer {
@@ -11,7 +12,7 @@
         /* background-attachment: fixed, scroll; */
         justify-content: space-around;
         margin-top: 80px;
-        width: 90%;
+        width: 70%;
 
     }
 
@@ -19,20 +20,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 1em;
+        margin: 1em;
+        min-width: 350px;
+        width: 40%;
     }
-    #homepageCalendar {
-        width: 100%;
+
+    #map {
+        width: 400px;
+        height: 400px;
     }
-    .react-calendar {
-        width: 100%;
-    }
-    .joinedCalendarMatches {
-        background: rgb(13, 103, 103);
-    }
-    .openCalendarMatches {
-        color: red;
-    }
+
+
     .listOfTeeTimes {
         list-style: none;
         padding: 10px 20px;
@@ -52,7 +50,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        width:100%;
+        width: 100%;
         /* max-width: 600px; */
         min-width: fit-content;
     }
@@ -61,7 +59,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        width:100%;
+        width: 100%;
         /* max-width: 600px; */
 
         min-width: fit-content;
@@ -73,6 +71,7 @@
         /* margin-left: .5em; */
     }
 }
+
 @media screen and (min-width:320px) and (max-width:640px) {
     #homepageContainer {
 
@@ -86,6 +85,7 @@
         margin-top: 80px;
 
     }
+
     #homepageCalendarAndFriends {
         display: none;
         /* flex-direction: column;

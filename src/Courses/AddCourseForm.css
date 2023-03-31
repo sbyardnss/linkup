@@ -39,16 +39,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: fit-content;
+    margin-top: 2em;
 }
 
 .newCourseForm {
-    height: 400px;
-    width: 500px;
+    height: fit-content;
+    width: fit-content;
     border: 1px solid #0D6767;
     border-radius: 12px;
     display: flex;
-    flex-direction: column;
+    padding: 1em;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
@@ -62,6 +64,7 @@
 
 .newCourse_input {
     width: 400px;
+    
     display: block;
     margin-left: auto;
 
@@ -90,6 +93,7 @@
 #listOfAddedCourses {
     display: flex;
     justify-content: center;
+    margin-top: 4em;
 }
 
 .courseFormInput {
@@ -184,6 +188,7 @@
     background-color: #ff1cf7;
 }
 .addNewCourseButton {
+    align-self: end;
     align-items: center;
     appearance: button;
     background-color: #008c9c;

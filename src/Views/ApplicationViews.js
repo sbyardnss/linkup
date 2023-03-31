@@ -45,6 +45,7 @@ export const ApplicationViews = () => {
 				<Route path="userList" element={<UserList
 					contingentId="fullUserList"
 					contingentContainer="userListContainer"
+					contingentList="listOfOtherUsers"
 				/>} />
 				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={<TeeTimeForm />} />

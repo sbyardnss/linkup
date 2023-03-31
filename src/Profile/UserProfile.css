@@ -6,7 +6,7 @@
     background-attachment: scroll;
     margin-top: 100px;
     
-    width: 90%;
+    width: fit-content;
 }
 /* .headerLabels {
     margin-left: 1em;
