@@ -6,6 +6,9 @@
     justify-content: space-evenly;
     
 }
+#homepageUserList {
+  width: 100%;
+}
 
 .userListContainer {
     width: 70%;

@@ -42,7 +42,10 @@ export const ApplicationViews = () => {
 						<UserProfile />
 					</ScorecardProvider>
 				} />
-				<Route path="userList" element={<UserList />} />
+				<Route path="userList" element={<UserList
+					contingentId="fullUserList"
+					contingentContainer="userListContainer"
+				/>} />
 				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={<TeeTimeForm />} />
 				<Route path="messages" element={<MessageThread />} />

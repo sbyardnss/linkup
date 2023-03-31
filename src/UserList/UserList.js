@@ -5,7 +5,7 @@ import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./UserList.css"
 
 
-export const UserList = () => {
+export const UserList = ({ contingentId, contingentContainer }) => {
     const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends } = useContext(TeeTimeContext)
     const [userFriends, setUserFriends] = useState([])
     const [search, updateSearch] = useState("")
@@ -35,9 +35,9 @@ export const UserList = () => {
         },
         [userFriends]
     )
-    
-// setFiltered(users)
-    useEffect( 
+
+    // setFiltered(users)
+    useEffect(
         () => {
             setFiltered(users)
         },
@@ -48,7 +48,7 @@ export const UserList = () => {
             if (search !== "") {
                 const filteredUsers = users?.filter(user => {
                     return user.name.toLowerCase().includes(search.toLowerCase())
-                
+
                 })
                 setFiltered(filteredUsers)
             }
@@ -61,18 +61,18 @@ export const UserList = () => {
 
     // console.log(activeUserFriends)
     return <>
-        <main id="fullUserList">
+        <main id={contingentId}>
 
-            <section className="userListContainer">
+            <section className={contingentContainer}>
                 <ul className="listOfOtherUsers">
-                <section className="userSearchBar">
-                    <img id="searchIcon" src="https://freesvg.org/img/Search-icon.png"/>
-                    <input id="searchBarItself" type="text"placeholder="find users" onChange={
-                        (evt) => {
-                            updateSearch(evt.target.value)
-                        }
-                    }></input>
-                </section>
+                    <section className="userSearchBar">
+                        <img id="searchIcon" src="https://freesvg.org/img/Search-icon.png" />
+                        <input id="searchBarItself" type="text" placeholder="find users" onChange={
+                            (evt) => {
+                                updateSearch(evt.target.value)
+                            }
+                        }></input>
+                    </section>
                     {
                         filtered?.map(
                             user => {

@@ -1,13 +1,15 @@
 import { React, useContext, useEffect, useState } from "react"
+import Calendar from "react-calendar"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { OpenTeeTime } from "../TeeTime/OpenTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../Weather/WeatherProvider.js"
 import "./HomePage.css"
-
+// import 'react-calendar/dist/Calendar.css';
+import { UserList } from "../UserList/UserList"
 export const HomePage = () => {
 
-    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed} = useContext(TeeTimeContext)
+    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
 
     const { next14Dates } = useContext(WeatherContext)
 
@@ -15,7 +17,39 @@ export const HomePage = () => {
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
 
+    const datesForMatchesIHaveJoined = () => {
+        const dateArray = []
+        {
+            sortedOnlyMyUserMatches.map(userMatch => {
+                const matchingMatch = matches.find(match => userMatch.matchId === match.id)
+                const dateOfJoinedMatch = matchingMatch?.date
+                const parsedMatchingDate = Date.parse(matchingMatch?.date)
+                if (parsedMatchingDate > currentDateParsed) {
+                    dateArray.push(dateOfJoinedMatch)
+                }
+            })
+        }
+        return dateArray
+    }
+    const datesIHaveJoined = datesForMatchesIHaveJoined()
+    // console.log(datesIHaveJoined.map(date => {
+    //     return Date.parse(date)
+    // }))
+    const datesForMatchesIHaveNotJoined = () => {
+        const dateArray = []
+        {
+            sortedOthersUserMatchesThatIHaveNotJoined.map(userMatch => {
+                const matchingMatch = matches.find(match => userMatch.matchId === match.id)
+                const dateOfJoinedMatch = matchingMatch?.date
+                dateArray.push(dateOfJoinedMatch)
+            })
+        }
+        return dateArray
+    }
+    const datesIHaveNotJoined = datesForMatchesIHaveNotJoined()
+    const highlightedDate = () => {
 
+    }
 
 
     // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
@@ -144,7 +178,6 @@ export const HomePage = () => {
 
 
 
-
     // //todays generated date for comparison    PASS DOWN AS PROP
     // const currentDate = new Date();
     // const currentMonth = (currentDate.getMonth() + 1)
@@ -158,61 +191,107 @@ export const HomePage = () => {
     if (matches) {
         return <>
             <main id="homepageContainer">
-                <section className="myTeeTimesContainer">
-                    <ul className="listOfTeeTimes">
-                    <h1 className="teeTimeHeaderTitle">My Tee Times</h1>
-                        {
-                            sortedOnlyMyUserMatches.map(teeTime => {
-                                if (next14Dates) {
-                                    //string values for teeTime date
-                                    const [month, day, year] = teeTime?.match?.date.split("/")
+                <div id="homepageTeeTimes">
 
-                                    //numeric values for teeTime date
-                                    const intYear = parseInt(year)
-                                    const intMonth = parseInt(month)
-                                    const intDay = parseInt(day)
-                                    const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-                                    const teeTimeDateParsed = Date.parse(teeTimeDateString)
+                    <section className="myTeeTimesContainer">
+                        <ul className="listOfTeeTimes">
+                            <h1 className="teeTimeHeaderTitle">My Tee Times</h1>
+                            {
+                                sortedOnlyMyUserMatches.map(teeTime => {
+                                    if (next14Dates) {
+                                        //string values for teeTime date
+                                        const [month, day, year] = teeTime?.match?.date.split("/")
 
-                                    if (teeTimeDateParsed >= currentDateParsed) {
-                                        const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                        //numeric values for teeTime date
+                                        const intYear = parseInt(year)
+                                        const intMonth = parseInt(month)
+                                        const intDay = parseInt(day)
+                                        const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                                        const teeTimeDateParsed = Date.parse(teeTimeDateString)
 
-                                        // let allMatchingUserMatches = []
-                                        // const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === teeTime?.match.id)
+                                        if (teeTimeDateParsed >= currentDateParsed) {
+                                            const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
 
-                                        // const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === teeTime?.id)
-                                        // {
-                                        //     matchingUserMatches.map(userMatch => {
-                                        //         allMatchingUserMatches.push(userMatch)
-                                        //     })
-                                        // }
-                                        return <>
-                                            <MyTeeTime 
-                                                key={teeTime.id}
-                                                id={teeTime.id}
-                                                courseId={matchingCourse.id}
-                                                courseName={matchingCourse.name}
-                                                date={teeTime.match.date}
-                                                time={teeTime.match.time}
-                                                matchId={teeTime.matchId}
-                                            />
-                                        </>
+                                            // let allMatchingUserMatches = []
+                                            // const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === teeTime?.match.id)
 
+                                            // const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === teeTime?.id)
+                                            // {
+                                            //     matchingUserMatches.map(userMatch => {
+                                            //         allMatchingUserMatches.push(userMatch)
+                                            //     })
+                                            // }
+                                            return <>
+                                                <MyTeeTime
+                                                    key={teeTime.id}
+                                                    id={teeTime.id}
+                                                    courseId={matchingCourse.id}
+                                                    courseName={matchingCourse.name}
+                                                    date={teeTime.match.date}
+                                                    time={teeTime.match.time}
+                                                    matchId={teeTime.matchId}
+                                                />
+                                            </>
+
+
+                                        }
 
                                     }
+                                })
+                            }
+                        </ul>
 
-                                }
-                            })
-                        }
-                    </ul>
+                    </section>
+                    <section className="openTeeTimesContainer">
+                        <ul className="listOfTeeTimes">
+                            <h1 className="teeTimeHeaderTitle">Open Tee Times</h1>
+                            {messageToUserOrOpenMatches()}
+                        </ul>
+                    </section>
+                </div>
+                <div id="homepageCalendarAndFriends">
+                    <Calendar
+                        id="homepageCalendar"
+                        calendarType="US"
+                        tileClassName={({ date }) => {
+                            // if (datesIHaveJoined.find(x => x === date.format("MM/DD/YYYY"))) {
+                            //     return 'highlight'
+                            // }
+                            const month = date.getUTCMonth()
+                            const day = date.getDate()
 
-                </section>
-                <section className="openTeeTimesContainer">
-                    <ul className="listOfTeeTimes">
-                    <h1 className="teeTimeHeaderTitle">Open Tee Times</h1>
-                        {messageToUserOrOpenMatches()}
-                    </ul>
-                </section>
+                            const year = date.getFullYear()
+                            const parsedDateString = Date.parse(`${month}/${day}/${year}`)
+                            const testparsedDateString = `${month}/${day}/${year}`
+
+                            if (datesIHaveJoined.find(matchDate => Date.parse(date) === Date.parse(matchDate))) {
+                                return "joinedCalendarMatches"
+                            }
+                            if (datesIHaveNotJoined.find(openMatchDate => Date.parse(date) === Date.parse(openMatchDate))) {
+                                return "openCalendarMatches"
+                            }
+
+                        }}
+
+                    />
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d103043.26748433565!2d-86.7664887411744!3d36.18839845993891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1snashville%20golf%20courses!5e0!3m2!1sen!2sus!4v1680283766589!5m2!1sen!2sus"
+                        width="600"
+                        height="450"
+                        style={{ border: 0 }}
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+
+                    </iframe>
+                    <UserList
+                        contingentId="homepageUserList"
+                        contingentContainer="homepageUserListContainer"
+
+                    />
+
+                </div>
+                
             </main>
             <footer id="homePageFooter">
 
