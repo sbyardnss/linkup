@@ -99,7 +99,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                         setFriendChange(!friendChange)
 
                                                     }
-                                                }>DELETE</button>
+                                                }>Remove</button>
 
                                             </li>
                                         </>
@@ -147,7 +147,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                         addFriend(newFriendForAPI)
                                                         setFriendChange(!friendChange)
                                                     }
-                                                }>ADD</button>
+                                                }>Add</button>
 
                                             </li>
                                         </>

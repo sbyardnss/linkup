@@ -3,7 +3,7 @@
   .navigation {
       display: flex;
       flex-wrap: nowrap;
-      /* justify-content: space-between; */
+      /* justify-content: center; */
       align-items: center;
       /* border-bottom: 1px solid lightblue; */
       padding: 0.5em 0 0.5em 1em;
@@ -26,7 +26,7 @@
       
   }
   .profileLink {
-      margin-left: auto;
+      margin-left: 40px;
       margin-right: 80px;
       
       filter: opacity(40%) invert();
@@ -43,7 +43,13 @@
       /* filter:saturate(50%); */
   }
   
-  
+  #navbarUnreadMsgNotification {
+    margin-left: auto;
+    color: whitesmoke;
+    background-color: red;
+    border-radius: 4px;
+    padding: .25em;
+  }
   .navigation__name {
       font-size: 1.5rem;
       padding-left: 0.5rem;

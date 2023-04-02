@@ -24,10 +24,53 @@
         min-width: 350px;
         width: 40%;
     }
+    #calendarContainer {
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        background-color: #0d676764;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+    }
+    #calendarKey {
+        display: flex;
+        /* flex-direction: column; */
+        width: 100%;
+        background-color: #CCFAFF;
+        height: fit-content;
+        justify-content: space-between;
+        align-items: start;
+        /* padding: 1em; */
+    }
+    .calendarKeyItem {
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width:30%;
+        margin: .5em;
+
+    }
+    .colorCodePurple {
+        height: 1em;
+        width: 1em;
+        background: rgb(81, 13, 103);
+        border: 1px solid #ccfaff;
+        
+    }
+    .colorCodeGreen {
+        height: 1em;
+        width: 1em;
+        background: rgb(13, 103, 103);
+        border: 1px solid #ccfaff;
+
+    }
 
     #map {
         width: 400px;
         height: 400px;
+
     }
 
 

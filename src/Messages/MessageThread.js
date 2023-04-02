@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { getAllMessages, sendNewMessage } from "../ApiManager"
+import { getAllMessages, sendNewMessage, setMsgsToRead } from "../ApiManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
 
@@ -21,7 +21,9 @@ export const UnreadMsgCount = () => {
         []
     )
     const unreadMsgs = myMessages.filter(msg => msg.read === false && msg.recipientId === linkUpUserObj.id)
-    return unreadMsgs.length
+    if (unreadMsgs) {
+        return unreadMsgs.length
+    }
 }
 
 export const MessageThread = () => {
@@ -31,6 +33,7 @@ export const MessageThread = () => {
     const [createMsg, setCreateMsg] = useState(false)
     const [currentChatRecipientUser, setCurrentChat] = useState({})
     const [msgSent, setMessageSent] = useState(false)
+    const [msgsRead, setMsgsRead] = useState(false)
 
 
     const [newMsg, updateNewMsg] = useState({
@@ -50,7 +53,7 @@ export const MessageThread = () => {
                     }
                 )
         },
-        [msgSent]
+        [msgSent, msgsRead]
     )
     useEffect(
         () => {
@@ -71,7 +74,7 @@ export const MessageThread = () => {
 
     const msgsForCurrentChat = myMessages.filter(msg => msg.recipientId === chatUser || msg.userId === chatUser)
 
-    
+
     const newMsgForAPI = {
         userId: linkUpUserObj.id,
         recipientId: newMsg.recipientId,
@@ -106,29 +109,59 @@ export const MessageThread = () => {
             </>
         }
     }
+
+
     return <>
         <main id="messagesPageContainer">
             <ul id="chatList">
                 {
                     activeUserFriends.map(friend => {
                         const friendlyUserObj = users.find(user => user.id === friend.friendId)
+                        const newMsgs = myMessages.filter(msg => msg.userId === friend.friendId && msg.read === false && msg.recipientId === linkUpUserObj.id)
+                        const newMsgsFromThisUser = () => {
+                            if (newMsgs.length !== 0) {
+                                return <>
+                                    <div className="msgsPageNotification">
+                                        {newMsgs.length}
+                                    </div>
+                                </>
+                            }
+
+                        }
                         if (friendlyUserObj?.id === chatUser) {
                             return <>
-                                <li className="activeChatListItem">{friendlyUserObj?.name}</li>
+                                <li className="activeChatListItem">
+                                    <div>
+                                        {friendlyUserObj?.name}
+                                    </div>
+                                    {newMsgsFromThisUser(friend)}
+
+                                </li>
                             </>
 
                         }
+
+
                         else {
                             return <>
                                 <li className="chatListItem" onClick={
                                     () => {
+                                        {
+                                            newMsgs.map(msg => {
+                                                const copy = { ...msg }
+                                                copy.read = true
+                                                setMsgsToRead(copy, msg.id)
+                                                setMsgsRead(!msgsRead)
+                                            })
+                                        }
                                         const copy = { ...newMsg }
                                         copy.recipientId = friendlyUserObj.id
                                         updateNewMsg(copy)
                                         setChatUser(friendlyUserObj.id)
+
                                     }
                                 }>
-                                    {friendlyUserObj?.name}
+                                    {friendlyUserObj?.name} {newMsgsFromThisUser(friend)}
 
                                 </li>
                             </>

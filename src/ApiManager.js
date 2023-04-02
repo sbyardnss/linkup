@@ -242,3 +242,15 @@ export const updateUser = (userObjReplacement, userId) => {
         .then(res => res.json())
 
 }
+
+export const setMsgsToRead = (msgObjReplacement, msgId) => {
+    return fetch(`http://localhost:8088/messages/${msgId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(msgObjReplacement)
+    })
+        .then(res => res.json())
+
+}

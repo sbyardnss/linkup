@@ -15,8 +15,8 @@ export const HomePage = () => {
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-    
-    
+
+
 
 
     const datesForMatchesIHaveJoined = () => {
@@ -153,8 +153,7 @@ export const HomePage = () => {
                         if (teeTimeDateParsed >= currentDateParsed) {
 
                             if (next14Dates) {
-                                // const [todaysYear, todaysMonth, todaysDay] = next14Dates[0].split("-")
-                                // if (day >= todaysDay && month >= todaysMonth && year >= todaysYear) {
+
 
                                 return <>
                                     <OpenTeeTime key={teeTime.id}
@@ -180,13 +179,7 @@ export const HomePage = () => {
 
 
 
-    // //todays generated date for comparison    PASS DOWN AS PROP
-    // const currentDate = new Date();
-    // const currentMonth = (currentDate.getMonth() + 1)
-    // const currentDayOfMonth = currentDate.getDate()
-    // const currentYear = currentDate.getFullYear()
-    // const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
-    // const currentDateParsed = Date.parse(currentDateString)
+
 
 
 
@@ -252,44 +245,46 @@ export const HomePage = () => {
                     </section>
                 </div>
                 <div id="homepageCalendarAndFriends">
-                    <Calendar
-                        id="homepageCalendar"
-                        calendarType="US"
-                        tileClassName={({ date }) => {
-                            // if (datesIHaveJoined.find(x => x === date.format("MM/DD/YYYY"))) {
-                            //     return 'highlight'
-                            // }
-                            const month = date.getUTCMonth()
-                            const day = date.getDate()
+                    <div id="calendarContainer">
+                        <Calendar
+                            id="homepageCalendar"
+                            calendarType="US"
+                            tileClassName={({ date }) => {
+                                // if (datesIHaveJoined.find(x => x === date.format("MM/DD/YYYY"))) {
+                                //     return 'highlight'
+                                // }
+                                const month = date.getUTCMonth()
+                                const day = date.getDate()
 
-                            const year = date.getFullYear()
-                            const parsedDateString = Date.parse(`${month}/${day}/${year}`)
-                            const testparsedDateString = `${month}/${day}/${year}`
+                                const year = date.getFullYear()
+                                const parsedDateString = Date.parse(`${month}/${day}/${year}`)
+                                const testparsedDateString = `${month}/${day}/${year}`
 
-                            if (datesIHaveJoined.find(matchDate => Date.parse(date) === Date.parse(matchDate))) {
-                                return "joinedCalendarMatches"
-                            }
-                            if (datesIHaveNotJoined.find(openMatchDate => Date.parse(date) === Date.parse(openMatchDate))) {
-                                return "openCalendarMatches"
-                            }
+                                if (datesIHaveJoined.find(matchDate => Date.parse(date) === Date.parse(matchDate))) {
+                                    return "joinedCalendarMatches"
+                                }
+                                if (datesIHaveNotJoined.find(openMatchDate => Date.parse(date) === Date.parse(openMatchDate))) {
+                                    return "openCalendarMatches"
+                                }
 
-                        }}
+                            }}
 
-                    />
-                    {/* <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d25761.454848870017!2d-86.73093753939281!3d36.186458835272994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sgolf%20courses%20nashville!5e0!3m2!1sen!2sus!4v1680290632728!5m2!1sen!2sus"
-                        id="map"
-                        // width="600"
-                        // height="450"
-                        origin={navigator.geolocation.getCurrentPosition(success, error)}
-                        style={{ border: 0 }}
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
+                        />
+                        <div id="calendarKey">
+                            <div className="calendarKeyItem">
+                                <div>Joined</div>
+                                <span className="colorCodeGreen"></span>
 
-                    </iframe> */}
+                            </div>
+                            <div className="calendarKeyItem">
+                                <div>Open</div>
+                                <span className="colorCodePurple"> </span>
 
-                    {/* <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d103042.95658791726!2d-86.76648883190104!3d36.18863475606187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1snashville%20grocery%20stores!5e0!3m2!1sen!2sus!4v1680284097496!5m2!1sen!2sus" width="600" height="450" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
+                            </div>
+                        </div>
+                    </div>
+
+
                     <UserList
                         contingentId="homepageUserList"
                         contingentContainer="homepageUserListContainer"

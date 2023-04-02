@@ -9,18 +9,23 @@ export const NavBar = () => {
     const navMenu = useRef(null)
     //close open menu
     const closeOpenMenus = (e) => {
-        if(navMenu.current && !navMenu.current.contains(e.target)) {
+        if (navMenu.current && !navMenu.current.contains(e.target)) {
             document.getElementById("active").checked = false
         }
         //why does adding the conditional work here??!!! this function now allows me to close the menu if and only if the user clicks outside of the menu or manually closes it with the icon
-        if(!navMenu.current && document.getElementById("active").contains(e.target)) {
+        if (!navMenu.current && document.getElementById("active").contains(e.target)) {
             document.getElementById("active").checked = false
 
         }
-        
+
     }
     document.addEventListener(`click`, closeOpenMenus)
-    
+    const msgCount = UnreadMsgCount()
+
+    let navBarMsgNotification = ""
+    if (msgCount) {
+        navBarMsgNotification = `${msgCount} New Messages!`
+    }
     return (
         <header className="navigation">
             <div id="logoSpace">
@@ -30,6 +35,7 @@ export const NavBar = () => {
             {/* <div className="navigation__message">
                 <button id="messageCount" onClick={() => navigate("messages")} className="notification__count"></button>
             </div> */}
+            <div id="navbarUnreadMsgNotification">{navBarMsgNotification}</div>
             <Link className="profileLink" to="/profile" onClick={
                 () => {
                     document.getElementById("active").replace("active", "inactive")
@@ -37,7 +43,7 @@ export const NavBar = () => {
             }><img className="invert" src={profileIcon} /></Link>
             <div id="linkContainer">
                 <div ref={navMenu}>
-                    <input  type="checkbox" id="active" />
+                    <input type="checkbox" id="active" />
                     <label htmlFor="active" className="menu-btn"><span></span></label>
                     <label htmlFor="inactive" className="close"></label>
                     <div id="menuWrapper" className="wrapper">
