@@ -140,7 +140,9 @@ export const UserProfile = () => {
                                             const friendObj = users.find(user => user.id === userFriend.friendId)
                                             return <>
                                                 <li className="friendListItem">
-                                                    {friendObj?.name}
+                                                    <div className="profileFriendListName">
+                                                        {friendObj?.name}
+                                                    </div>
                                                     <button className="friendMessagesButton" onClick={
                                                         () => {
                                                             navigate("/messages")
@@ -310,7 +312,7 @@ export const UserProfile = () => {
                                             </li>
                                         </>
                                     }
-                                    
+
                                 }
 
 
