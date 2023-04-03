@@ -138,6 +138,7 @@
     box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
     padding: 20px;
     max-width: 100%;
+    min-width: 90%;
 }
 
 

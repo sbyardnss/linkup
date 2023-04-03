@@ -1,14 +1,12 @@
 import { useContext, useState, useEffect } from "react"
-import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
-import { WeatherContext } from "../Weather/WeatherProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
-import { addUserHoleScore, setMatchToConfirmed, updateHoleScore } from "../ApiManager"
+import { addUserHoleScore, updateHoleScore } from "../ApiManager"
 import "./HoleScore.css"
 export const HoleScore = ({ matchId }) => {
-    const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, setMatchConfirmed, activeMatchCourse, updateCard, setUpdateCard, loggedInUserMatch } = useContext(ScorecardContext)
-    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
+    const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
+    const { users } = useContext(TeeTimeContext)
     const [selectedHole, setSelectedHole] = useState(1)
     const [currentHoleData, updateCurrentHoleData] = useState({
         notes: ""
@@ -27,7 +25,7 @@ export const HoleScore = ({ matchId }) => {
         courseHoleId: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
-    //this function was for a potential autofill for users that didnt finish a hole
+
     const holeScoresForThisHole = () => {
         const holeScoresForThisHole = []
         const holeScoreFinder = userMatchesForThisMatch.map(userMatch => {
@@ -36,38 +34,9 @@ export const HoleScore = ({ matchId }) => {
         })
         return holeScoresForThisHole
     }
-    //set selected hole to next unfinished hole. CANT SEEM TO GET IT TO WORK
-    /*
-    const userHoleScoresForThisHole = matchUserHoleScores.filter(holeScore => {
-        const userMatchForHoleScore = userMatchesForThisMatch.find(userMatch => userMatch.id === holeScore.matchUserId)
-        if (userMatchForHoleScore) {
-            return true
-        }
-        else {
-            return false
-        }
-    })
-    useEffect(
-        () => {
-            if (userHoleScoresForThisHole) {
-
-                const lengthOfCurrentHoleScores = userHoleScoresForThisHole.length
-                const lastHoleScoreIndexAtTheMoment = userHoleScoresForThisHole[lengthOfCurrentHoleScores - 1]
-                const checkIfHoleWasFinished = userHoleScoresForThisHole.filter(holeScore => holeScore.courseHoleId === lastHoleScoreIndexAtTheMoment?.courseHoleId)
-                if (checkIfHoleWasFinished.length === 4) {
-                    setSelectedHole(lastHoleScoreIndexAtTheMoment?.courseHoleId + 1)
-                }
-                else {
-                    setSelectedHole(lastHoleScoreIndexAtTheMoment?.courseHoleId)
-                }
-            }
-        },
-        [matchUserHoleScores]
-    )
-    */
+    
 
     if (activeMatch) {
-        // if (activeMatch.confirmed === true) {
         return <>
             <main id="holeScoreContainer">
                 <div className="holeScoreArticle">
@@ -143,7 +112,6 @@ export const HoleScore = ({ matchId }) => {
                                                     courseHoleId: parseInt(selectedHole),
                                                     notes: "did not finish"
                                                 }
-                                                // didNotFinishArray.push(userMatch)
                                                 addUserHoleScore(unfinishedHoleScoreForAPI)
 
 
@@ -229,34 +197,6 @@ export const HoleScore = ({ matchId }) => {
                 </section>
             </main>
         </>
-        // }
-        // else {
-        //     return <>
-        //         <main id="holeScoreContainer">
-        //             <section id="holeScoreHeader">
-        //                 <div className="matchInfo">
-        //                     <div>{activeMatchCourse?.name}</div>
-        //                 </div>
-        //                 <div>
-        //                     <button onClick={
-        //                         () => {
-        //                             const copy = { ...activeMatch }
-        //                             copy.confirmed = true
-        //                             setMatchToConfirmed(copy, activeMatch.id)
-        //                                 .then(() => setMatchConfirmed(true))
-        //                         }
-        //                     }>Start Match</button>
-        //                     <button onClick={
-        //                         () => {
-        //                             setSelectedMatch(0)
-        //                         }
-        //                     }>cancel</button>
-        //                 </div>
-
-        //             </section>
-        //         </main>
-        //     </>
-
-        // }
+        
     }
 }

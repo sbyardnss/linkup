@@ -46,21 +46,21 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     let precipitationString = ""
     let windString = ""
     let tempString = ""
-    if (precipitationHour !== null) {
+    if (precipitationHour !== null && precipitationHour !== undefined) {
         precipitationString = `Rain: ${precipitationHour}% chance`
     }
     else {
         precipitationString = " Precipitation data not yet available"
 
     }
-    if (windString !== null) {
+    if (windString !== null && windHour !== undefined) {
         windString = `WindSpeed: ${windHour}mph`
     }
     else {
         windString = "Wind data not yet available"
 
     }
-    if (tempString !== null) {
+    if (tempString !== null && tempHour !== undefined) {
         tempString = `Temp: ${tempHour}°F`
     }
     else {
