@@ -9,7 +9,7 @@ import "./HomePage.css"
 import { UserList } from "../UserList/UserList"
 export const HomePage = () => {
 
-    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed } = useContext(TeeTimeContext)
+    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed, onlyOthersSortedFutureMatchesThatIHaveNotJoined } = useContext(TeeTimeContext)
 
     const { next14Dates } = useContext(WeatherContext)
 
@@ -126,18 +126,17 @@ export const HomePage = () => {
     //population of open matches based on friend status
 
 
-    
     const messageToUserOrOpenMatches = () => {
-        if (sortedOthersUserMatchesThatIHaveNotJoined.length === 0) {
+        if (onlyOthersSortedFutureMatchesThatIHaveNotJoined.length === 0) {
             return <li>
-                <h3>You really don't have any friends?</h3>
+                <h3>Make friends to access their tee times!</h3>
             </li>
         }
         else {
             return <>
                 {
 
-                    sortedOthersUserMatchesThatIHaveNotJoined.map(teeTime => {
+                    onlyOthersSortedFutureMatchesThatIHaveNotJoined.map(teeTime => {
                         //string values for teeTime date
                         const [month, day, year] = teeTime?.match?.date.split("/")
 
@@ -179,7 +178,7 @@ export const HomePage = () => {
         }
     }
 
-    
+
 
     const messageToUserOrMyMatches = () => {
         if (sortedOnlyMyUserMatches.length === 0) {

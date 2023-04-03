@@ -18,12 +18,12 @@ export const TeeTimeProvider = (props) => {
     const navigate = useNavigate()
     const [msgsRead, setMsgsRead] = useState(false)
 
-  
+
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
-    
+
 
     useEffect(
         () => {
@@ -83,7 +83,7 @@ export const TeeTimeProvider = (props) => {
         },
         [deleteItem, joinMatch, matchCreated, friendChange]
     )
-    
+
 
 
     const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
@@ -124,20 +124,41 @@ export const TeeTimeProvider = (props) => {
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
 
-     //todays generated date for comparison    PASS DOWN AS PROP
-     const currentDate = new Date();
-     const currentMonth = (currentDate.getMonth() + 1)
-     const currentDayOfMonth = currentDate.getDate()
-     const currentYear = currentDate.getFullYear()
-     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
-     const currentDateParsed = Date.parse(currentDateString)
+    //todays generated date for comparison    PASS DOWN AS PROP
+    const currentDate = new Date();
+    const currentMonth = (currentDate.getMonth() + 1)
+    const currentDayOfMonth = currentDate.getDate()
+    const currentYear = currentDate.getFullYear()
+    const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
+    const currentDateParsed = Date.parse(currentDateString)
 
+    const onlyOthersSortedFutureMatchesThatIHaveNotJoined = sortedOthersUserMatchesThatIHaveNotJoined.filter(teeTime => {
+        //string values for teeTime date
+        const [month, day, year] = teeTime?.match?.date.split("/")
+
+        //numeric values for teeTime date
+        const intYear = parseInt(year)
+        const intMonth = parseInt(month)
+        const intDay = parseInt(day)
+        const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+        const teeTimeDateParsed = Date.parse(teeTimeDateString)
+        const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+        const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === teeTime?.match.id)
+        const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
+        if (teeTimeDateParsed >= currentDateParsed) {
+            return true
+            
+        }
+        else {
+            return false
+        }
+    })
 
 
     return (
         <TeeTimeContext.Provider value={{
             deleteItem, deleteInitiated, joinMatch, joinInitiated, users, courses, matches, userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, navigate,
-            sortedOthersUserMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated, chatUser, setChatUser, msgsRead, setMsgsRead
+            sortedOthersUserMatchesThatIHaveNotJoined, onlyOthersSortedFutureMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated, chatUser, setChatUser, msgsRead, setMsgsRead
         }}>
             {props.children}
         </TeeTimeContext.Provider>

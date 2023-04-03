@@ -50,7 +50,7 @@
     flex-wrap: wrap;
     align-items: center;
     list-style: none;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     margin-bottom: 60px;
 }
 .pastTeeTimesContainer {
@@ -148,7 +148,7 @@
     min-width: fit-content;
     padding: 0 1em;
     margin: 0;
-    zoom: .9;
+    /* zoom: .9; */
 }
 
 .editProfileButton {
