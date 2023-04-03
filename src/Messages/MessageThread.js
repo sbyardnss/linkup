@@ -7,6 +7,7 @@ export const UnreadMsgCount = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const [myMessages, setMyMessages] = useState([])
+    const { msgsRead } = useContext(TeeTimeContext)
     useEffect(
         () => {
             getAllMessages()
@@ -18,7 +19,7 @@ export const UnreadMsgCount = () => {
                     }
                 )
         },
-        []
+        [msgsRead]
     )
     const unreadMsgs = myMessages.filter(msg => msg.read === false && msg.recipientId === linkUpUserObj.id)
     if (unreadMsgs) {
@@ -33,14 +34,13 @@ export const MessageThread = () => {
     const [createMsg, setCreateMsg] = useState(false)
     const [currentChatRecipientUser, setCurrentChat] = useState({})
     const [msgSent, setMessageSent] = useState(false)
-    const [msgsRead, setMsgsRead] = useState(false)
 
 
     const [newMsg, updateNewMsg] = useState({
         message: "",
         recipientId: 0
     })
-    const { users, activeUserFriends, chatUser, setChatUser } = useContext(TeeTimeContext)
+    const { users, activeUserFriends, chatUser, setChatUser, msgsRead, setMsgsRead } = useContext(TeeTimeContext)
 
     useEffect(
         () => {
@@ -134,7 +134,7 @@ export const MessageThread = () => {
                                     <div>
                                         {friendlyUserObj?.name}
                                     </div>
-                                    {newMsgsFromThisUser(friend)}
+                                    {/* {newMsgsFromThisUser(friend)} */}
 
                                 </li>
                             </>
@@ -151,9 +151,9 @@ export const MessageThread = () => {
                                                 const copy = { ...msg }
                                                 copy.read = true
                                                 setMsgsToRead(copy, msg.id)
-                                                setMsgsRead(!msgsRead)
                                             })
                                         }
+                                        setMsgsRead(!msgsRead)
                                         const copy = { ...newMsg }
                                         copy.recipientId = friendlyUserObj.id
                                         updateNewMsg(copy)

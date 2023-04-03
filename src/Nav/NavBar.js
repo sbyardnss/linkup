@@ -1,5 +1,5 @@
 import { Link, Navigate, useNavigate } from "react-router-dom"
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import profileIcon from "../images/abstract-user-flat-4.png"
 import "./NavBar.css"
 import { UnreadMsgCount } from "../Messages/MessageThread"
@@ -20,11 +20,14 @@ export const NavBar = () => {
 
     }
     document.addEventListener(`click`, closeOpenMenus)
-    const msgCount = UnreadMsgCount()
+    const msgNotification = () => {
+        const msgCount = UnreadMsgCount()
+        if (msgCount) {
+            return <>
+                <span id="newMsgCount">{msgCount}</span>
+            </>
+        }
 
-    let navBarMsgNotification = ""
-    if (msgCount) {
-        navBarMsgNotification = `${msgCount} New Messages!`
     }
     return (
         <header className="navigation">
@@ -32,58 +35,60 @@ export const NavBar = () => {
                 <Link className="navigation__icon" to="/"><img src={require = ('https://cdn-icons-png.flaticon.com/512/33/33846.png')} /></Link>
                 <h1 id="navName" className="navigation__name">LinkUp</h1>
             </div>
-            {/* <div className="navigation__message">
-                <button id="messageCount" onClick={() => navigate("messages")} className="notification__count"></button>
-            </div> */}
-            <div id="navbarUnreadMsgNotification">{navBarMsgNotification}</div>
-            <Link className="profileLink" to="/profile" onClick={
-                () => {
-                    document.getElementById("active").replace("active", "inactive")
-                }
-            }><img className="invert" src={profileIcon} /></Link>
-            <div id="linkContainer">
-                <div ref={navMenu}>
-                    <input type="checkbox" id="active" />
-                    <label htmlFor="active" className="menu-btn"><span></span></label>
-                    <label htmlFor="inactive" className="close"></label>
-                    <div id="menuWrapper" className="wrapper">
-                        <ul>
-                            <li className="navListItem"><Link className="navigation_link" to="/play" onClick={
-                                () => {
-                                    document.getElementById("active").checked = false
-                                }
-                            }>Play</Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/messages" onClick={
-                                () => {
-                                    document.getElementById("active").checked = false
-                                }
-                            }>Messages <span id="newMsgCount">{UnreadMsgCount()}</span></Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" onClick={
-                                () => {
-                                    document.getElementById("active").checked = false
-                                }
-                            }>New Tee Time</Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/userList" onClick={
-                                () => {
-                                    document.getElementById("active").checked = false
-                                }
-                            }>Make Friends</Link></li>
-                            <li className="navListItem"><Link className="navigation_link" to="/addCourse" onClick={
-                                () => {
-                                    document.getElementById("active").checked = false
-                                }
-                            }>Add Course</Link></li>
-                            {/* <li></li> */}
-                            <li className="navListItem"><Link className="navigation_logout" to="" onClick={() => {
-                                localStorage.removeItem("linkUp_user")
-                                Navigate("/", { replace: true })
-                            }}>Logout</Link>
-                            </li>
-                        </ul>
+
+            <div id="navbarRightSide">
+
+                <div id="profileIconAndHamburger">
+                    <Link className="profileLink" to="/profile" onClick={
+                        () => {
+                            document.getElementById("active").replace("active", "inactive")
+                        }
+                    }><img className="invert" src={profileIcon} /></Link>
+                </div>
+                <div id="linkContainer">
+                    <div ref={navMenu}>
+                        <input type="checkbox" id="active" />
+                        <label htmlFor="active" className="menu-btn"><span></span></label>
+                        <label htmlFor="inactive" className="close"></label>
+                        <div id="menuWrapper" className="wrapper">
+                            <ul>
+                                <li className="navListItem"><Link className="navigation_link" to="/play" onClick={
+                                    () => {
+                                        document.getElementById("active").checked = false
+                                    }
+                                }>Play</Link></li>
+                                <li className="navListItem"><Link className="navigation_link" to="/messages" onClick={
+                                    () => {
+                                        document.getElementById("active").checked = false
+                                    }
+                                }>Messages {msgNotification()}</Link></li>
+                                <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" onClick={
+                                    () => {
+                                        document.getElementById("active").checked = false
+                                    }
+                                }>New Tee Time</Link></li>
+                                <li className="navListItem"><Link className="navigation_link" to="/userList" onClick={
+                                    () => {
+                                        document.getElementById("active").checked = false
+                                    }
+                                }>Make Friends</Link></li>
+                                <li className="navListItem"><Link className="navigation_link" to="/addCourse" onClick={
+                                    () => {
+                                        document.getElementById("active").checked = false
+                                    }
+                                }>Add Course</Link></li>
+                                {/* <li></li> */}
+                                <li className="navListItem"><Link className="navigation_logout" to="" onClick={() => {
+                                    localStorage.removeItem("linkUp_user")
+                                    Navigate("/", { replace: true })
+                                }}>Logout</Link>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
 
                 </div>
-
             </div>
         </header>
     )
