@@ -134,7 +134,6 @@ export const MessageThread = () => {
                                     <div>
                                         {friendlyUserObj?.name}
                                     </div>
-                                    {/* {newMsgsFromThisUser(friend)} */}
 
                                 </li>
                             </>

@@ -1,15 +1,15 @@
-import { React, useContext, useEffect, useState } from "react"
+import { React, useContext } from "react"
 import Calendar from "react-calendar"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { OpenTeeTime } from "../TeeTime/OpenTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../Weather/WeatherProvider.js"
 import "./HomePage.css"
-// import 'react-calendar/dist/Calendar.css';
+
 import { UserList } from "../UserList/UserList"
 export const HomePage = () => {
 
-    const { users, courses, matches, userMatchesWithMatchInfo, activeUserFriends, navigate, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed, onlyOthersSortedFutureMatchesThatIHaveNotJoined } = useContext(TeeTimeContext)
+    const { users, courses, matches, userMatchesWithMatchInfo, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed, onlyOthersSortedFutureMatchesThatIHaveNotJoined } = useContext(TeeTimeContext)
 
     const { next14Dates } = useContext(WeatherContext)
 
@@ -34,9 +34,7 @@ export const HomePage = () => {
         return dateArray
     }
     const datesIHaveJoined = datesForMatchesIHaveJoined()
-    // console.log(datesIHaveJoined.map(date => {
-    //     return Date.parse(date)
-    // }))
+    
     const datesForMatchesIHaveNotJoined = () => {
         const dateArray = []
         {
@@ -49,82 +47,7 @@ export const HomePage = () => {
         return dateArray
     }
     const datesIHaveNotJoined = datesForMatchesIHaveNotJoined()
-    const highlightedDate = () => {
-
-    }
-
-
-    // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
-    //     return uME.userId === linkUpUserObj.id
-    // })
-    // //sort matches for my tee times
-    // const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) => {
-    //     const aDate = Date.parse(a.match.date)
-    //     const bDate = Date.parse(b.match.date)
-    //     return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-    // })
-
-    // //sort userMatches so that only matches initiated by friends show in open matches
-    // const userMatchesIHaveAccessTo = userMatchesWithMatchInfo.filter(userMatch => {
-    //     if (activeUserFriends.find(userFriend => userFriend.friendId === userMatch.userId && userMatch.isInitiator === true)) {
-    //         return userMatch
-    //     }
-    // })
-
-    // const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
-    //     return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
-    // })
-
-
-
-    // const onlyMyTeeTimes = () => {
-
-    //     {
-    //         onlyMyUserMatches.map(myUserMatch => {
-    //             const myMatch = matches?.find(match => match.id === myUserMatch.matchId)
-    //             myTeeTimes.push(myMatch)
-    //         })
-
-    //     }
-    // }
-    // onlyMyTeeTimes()
-    // // console.log(onlyOthersUserMatches)
-    // const onlyOpenTeeTimes = () => {
-    //     {
-    //         onlyOthersUserMatches.map(othersUserMatch => {
-    //             const haveIJoinedAlready = myTeeTimes.find(teeTime => teeTime?.id === othersUserMatch.matchId)
-    //             if (!haveIJoinedAlready) {
-    //                 const myMatch = matches?.find(match => match.id === othersUserMatch.matchId)
-    //                 othersTeeTimes.push(myMatch)
-    //             }
-
-
-
-    //         })
-
-    //     }
-    // }
-    // onlyOpenTeeTimes()
-
-    // const onlyOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatches.filter(othersUserMatch => {
-    //     const haveIJoinedAlready = onlyMyUserMatches.find(myUserMatch => myUserMatch.matchId === othersUserMatch.matchId)
-    //     if (haveIJoinedAlready) {
-    //         return false
-    //     }
-    //     else {
-    //         return true
-    //     }
-    // })
-    // const sortedOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatchesThatIHaveNotJoined.sort((a, b) => {
-    //     const aDate = Date.parse(a.match.date)
-    //     const bDate = Date.parse(b.match.date)
-    //     return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-    // })
-
-
-
-    //population of open matches based on friend status
-
+   
 
     const messageToUserOrOpenMatches = () => {
         if (onlyOthersSortedFutureMatchesThatIHaveNotJoined.length === 0) {
@@ -244,14 +167,14 @@ export const HomePage = () => {
                 <div id="homepageTeeTimes">
 
                     <section className="myTeeTimesContainer">
-                        <ul className="listOfTeeTimes">
+                        <ul className="listOfMyTeeTimes">
                             <h1 className="teeTimeHeaderTitle">My Tee Times</h1>
                             {messageToUserOrMyMatches()}
                         </ul>
 
                     </section>
                     <section className="openTeeTimesContainer">
-                        <ul className="listOfTeeTimes">
+                        <ul className="listOfOpenTeeTimes">
                             <h1 className="teeTimeHeaderTitle">Open Tee Times</h1>
                             {messageToUserOrOpenMatches()}
                         </ul>

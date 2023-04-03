@@ -130,9 +130,7 @@ export const UserProfile = () => {
                 <div id="profileFriendsAndMatches">
 
                     <div className="friendsAndMessages">
-                        <div>
-
-                            <div>
+                        
                                 <ul className="listOfFriends">
                                     <h4>Friends</h4>
                                     {
@@ -154,9 +152,7 @@ export const UserProfile = () => {
                                         })
                                     }
                                 </ul>
-                            </div>
-
-                        </div>
+                            
                         <div className="futureTeeTimesContainer">
 
                             <ul className="listOfFutureTeeTimes">

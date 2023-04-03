@@ -65,7 +65,7 @@
 
     }
 
-    .fullMatchScorecard {
+    /* .fullMatchScorecard {
         border: 1px solid rgb(13, 52, 29);
         border-collapse: collapse;
         background-color: whitesmoke;
@@ -73,7 +73,7 @@
         margin-left: 20px;
 
         /* width: 40%; */
-    }
+    /* } */
 
     #tableHead {
         margin-bottom: 10px;
@@ -157,6 +157,33 @@
         width: fit-content;
 
     }
+    #profileScorecardContainer {
+        display: flex;
+        justify-content: center;
+        /* flex-direction: column; */
+        /* align-items: center; */
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        /* margin-top: 200px; */
+        width: 100%;
+        color: black;
+    }
+
+    /* #fullScorecardTable {
+
+        border-collapse: collapse;
+    } */
+
+    .table-container {
+        display: flex;
+        position: relative;
+        max-height: 300px;
+        width: 60vw;
+        overflow: scroll;
+        background-color: #ccfaff;
+
+    }
+    
 
     #fullScorecardTable {
 

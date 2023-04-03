@@ -12,7 +12,7 @@
         /* background-attachment: fixed, scroll; */
         justify-content: space-around;
         margin-top: 80px;
-        width: 70%;
+        width: 60%;
 
     }
 
@@ -22,7 +22,7 @@
         align-items: center;
         margin: 1em;
         min-width: 350px;
-        width: 40%;
+        width: 45%;
     }
     #calendarContainer {
         /* padding: 10px 20px; */
@@ -56,14 +56,14 @@
     .colorCodePurple {
         height: 1em;
         width: 1em;
-        background: rgb(81, 13, 103);
+        background: rgb(13, 103, 47);
         border: 1px solid #ccfaff;
         
     }
     .colorCodeGreen {
         height: 1em;
         width: 1em;
-        background: rgb(13, 103, 103);
+        background-color: #006AE8;
         border: 1px solid #ccfaff;
 
     }
@@ -75,13 +75,28 @@
     }
 
 
-    .listOfTeeTimes {
+    .listOfMyTeeTimes {
         list-style: none;
         padding: 10px 20px;
         border: 1px solid rgba(0, 255, 0, 0.282);
         border-radius: 10px;
         backdrop-filter: blur(10px);
-        background-color: #0d676764;
+        background-color: #0d676775;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
+
+    }
+    .listOfOpenTeeTimes {
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        /* background-color: #0d676764; */
+        background: rgb(81, 13, 103, .65);
+
         filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
         box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
         width: 100%;
@@ -127,6 +142,7 @@
         /* background-attachment: fixed, scroll; */
         zoom: .8;
         margin-top: 100px;
+        width: 100vw;
 
     }
 
@@ -136,16 +152,34 @@
         margin-top: 1em; */
     }
 
-    .listOfTeeTimes {
+    .listOfMyTeeTimes {
+        
         list-style: none;
         padding: 10px 20px;
         border: 1px solid rgba(0, 255, 0, 0.282);
         border-radius: 10px;
         backdrop-filter: blur(10px);
-        background-color: #0d676764;
+        background-color: #0d676775;
         filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
         box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
 
+    }
+    .listOfOpenTeeTimes {
+        
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        /* background-color: #0d676764; */
+        background: rgb(81, 13, 103, .65);
+
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
 
     }
 
@@ -153,9 +187,18 @@
     .myTeeTimesContainer {
         width: 90%;
         min-width: 620px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+
     }
 
     .openTeeTimesContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         width: 90%;
         min-width: 620px;
 
