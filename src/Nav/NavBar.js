@@ -24,7 +24,7 @@ export const NavBar = () => {
         const msgCount = UnreadMsgCount()
         if (msgCount) {
             return <>
-                <span id="newMsgCount">{msgCount}</span>
+                <div id="newMsgCount">{msgCount}</div>
             </>
         }
 
