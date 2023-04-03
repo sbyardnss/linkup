@@ -5,8 +5,8 @@
     justify-content: space-evenly;
     background-attachment: scroll;
     margin-top: 100px;
-    
-    width: fit-content;
+    max-width: 80%;
+    width: 80%;
 }
 /* .headerLabels {
     margin-left: 1em;
@@ -17,10 +17,10 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 90%;
-    min-width: 750px;
-
+    width: 100%;
     min-width: fit-content;
+    max-width: 100%;
+    /* padding: 20px; */
     /* added after removal of profile info section */
     border: 1px solid rgba(0, 255, 0, 0.282);
     border-radius: 10px;
@@ -54,9 +54,14 @@
     margin-bottom: 60px;
 }
 .pastTeeTimesContainer {
-    width: 90%;
-    min-width: 750px;
+    width: 100%;
+    max-width: 100%;
     
+}
+#scoreCardOnPastTeeTime {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
 }
 .teeTimesContainer {
     width: 70%;
@@ -87,7 +92,8 @@
     /* justify-content: space-between; */
     background-color: #38a169;
     color: #CCFAFF;
-    /* min-width: fit-content; */
+    /* width: fit-content; */
+    max-width: 100%;
     margin-bottom: 12px;
     border: 1px solid rgba(255, 255, 255, 0.357);
     border-radius: 8px;
@@ -95,6 +101,7 @@
 .pastTeeTimeHeader {
     display: flex;
     align-items: center;
+    max-width: 100%;
 }
 .pastTeeTimeCourse {
     width: 200px;
@@ -110,6 +117,8 @@
 #profileScoreCardContainer {
     color: black;
     margin-top: 1em;
+    /* width: 100%;
+    overflow: scroll; */
 }
 
 .listOfPlayersOnMatch {
@@ -127,7 +136,8 @@
     background-color: #0d676764;
     filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
     box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
-
+    padding: 20px;
+    max-width: 100%;
 }
 
 
@@ -237,8 +247,10 @@
 #profileHeader {
     display: flex;
     justify-content: space-between;
-    width: inherit;
-    padding: 20px;
+    width: 80%;
+    max-width: 100%;
+    margin: 20px;
+    /* padding: 20px; */
 }
 
 

@@ -25,11 +25,14 @@
   filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
   background-color: #0d676764;
   box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
-
+  padding: 1em;
 }
 
 .homePageUserListContainer {
   width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 
 }
 
@@ -157,8 +160,8 @@
 
 .homepageListOfOtherUsers {
   list-style: none;
-  padding: 10px 20px;
-  
+  /* padding: 10px 20px; */
+  padding: 0;
   max-height: 400px;
   overflow: scroll;
   width: 60%;

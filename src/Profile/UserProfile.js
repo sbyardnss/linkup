@@ -263,7 +263,7 @@ export const UserProfile = () => {
                                                         }>exit</button>
                                                     </div>
                                                 </div>
-                                                <div id="profileScoreCardContainer">
+                                                <div id="scoreCardOnPastTeeTime">
 
                                                     <Scorecard
                                                         profileOrPlayTable={"profileTable-container"}

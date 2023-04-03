@@ -41,6 +41,7 @@
         height: fit-content;
         justify-content: space-between;
         align-items: start;
+        border-radius: 0 0 6px 6px;
         /* padding: 1em; */
     }
     .calendarKeyItem {
@@ -83,7 +84,7 @@
         background-color: #0d676764;
         filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
         box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
-        width: 60%;
+        width: 100%;
         min-width: fit-content;
 
     }
