@@ -21,7 +21,7 @@ export const UserProfile = () => {
     const [pastTimes, setPastTimes] = useState([])
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const linkUpUserObj = localLinkUpUser
     const currentUser = users.find(user => user.id === linkUpUserObj.id)
     useEffect(
         () => {

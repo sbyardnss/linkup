@@ -5,7 +5,7 @@ import "./MessagesThread.css"
 
 export const UnreadMsgCount = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const linkUpUserObj = localLinkUpUser
     const [myMessages, setMyMessages] = useState([])
     const { msgsRead } = useContext(TeeTimeContext)
     useEffect(
@@ -29,7 +29,7 @@ export const UnreadMsgCount = () => {
 
 export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const linkUpUserObj = localLinkUpUser
     const [myMessages, setMyMessages] = useState([])
     const [createMsg, setCreateMsg] = useState(false)
     const [currentChatRecipientUser, setCurrentChat] = useState({})

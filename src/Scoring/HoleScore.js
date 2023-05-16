@@ -13,7 +13,7 @@ export const HoleScore = ({ matchId }) => {
     })
     const [strokes, setStrokes] = useState("")
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const linkUpUserObj = localLinkUpUser
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const [userMatchToScoreFor, setUserMatchToScoreFor] = useState(0)
     // const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)

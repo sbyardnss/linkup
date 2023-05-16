@@ -11,7 +11,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
     const [search, updateSearch] = useState("")
     const [filtered, setFiltered] = useState([])
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const linkUpUserObj = localLinkUpUser
 
     useEffect(
         () => {

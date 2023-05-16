@@ -14,7 +14,7 @@ export const HomePage = () => {
     const { next14Dates } = useContext(WeatherContext)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    const linkUpUserObj = localLinkUpUser
 
 
 

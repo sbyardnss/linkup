@@ -15,32 +15,6 @@ export const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault()
 
-        // // return fetch(`http://localhost:8088/users?email=${email}`)
-        // return fetch(`http://localhost:8000/login`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     }
-        // })
-        // .then(res => res.json())
-        // .then(foundUsers => {
-        //     if (foundUsers.length === 1) {
-        //         const user = foundUsers[0]
-        //         localStorage.setItem("linkUp_user", JSON.stringify({
-        //             id: user.id,
-        //             name: user.name,
-        //             password: submittedPassword
-        //         }))
-        //         if (user.password === submittedPassword) {
-
-        //             navigate("/")
-        //         }
-
-        //     }
-        //     else {
-        //         window.alert("Invalid login")
-        //     }
-        // })
         const user = {
             username: username.current.value,
             password: password.current.value
