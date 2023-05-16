@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { getAllMessages, sendNewMessage, setMsgsToRead } from "../ApiManager"
+import { getAllMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
 

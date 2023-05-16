@@ -2,87 +2,63 @@ const localLinkUpUser = localStorage.getItem("linkUp_user")
 const linkUpUserObj = localLinkUpUser
 //get fetches
 export const getAllUsers = () => { //check
-    return fetch(`http://localhost:8088/users`)
+    return fetch(`http://localhost:8000/users`)
         .then(res => res.json())
 }
 
 export const getAllCourses = () => { //check
-    return fetch(`http://localhost:8088/courses`)
+    return fetch(`http://localhost:8000/courses`)
         .then(res => res.json())
 }
-
-// export const getAllCourseHoles = () => {
-//     return fetch(`http://localhost:8088/courseHoles`)
-//         .then(res => res.json())
-// }
-
-// export async function getAllMatches() {
-//     const response = await fetch(`http://localhost:8088/matches`)
-//     return response
-//         .then(res => res.json())
-// }
 export const getAllMatches = () => {
-    return fetch(`http://localhost:8088/matches`)
+    return fetch(`http://localhost:8000/matches`)
         .then(res => res.json())
 }
 export const getAllUserMatches = () => {
-    return fetch(`http://localhost:8088/userMatches`)
+    return fetch(`http://localhost:8000/userMatches`)
         .then(res => res.json())
 }
 
 export const getAllMatchUserHoleScores = () => {
-    return fetch(`http://localhost:8088/matchUserHoleScores`)
+    return fetch(`http://localhost:8000/matchUserHoleScores`)
         .then(res => res.json())
 }
 
 export const getAllUserFriends = () => {
-    return fetch(`http://localhost:8088/userFriends`)
+    return fetch(`http://localhost:8000/userFriends`)
         .then(res => res.json())
 }
 
 export const getAllUserFriendsForActiveUser = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-    return fetch(`http://localhost:8088/userFriends?&userId=${linkUpUserObj.id}`)
+    return fetch(`http://localhost:8000/userFriends?&userId=${linkUpUserObj.id}`)
         .then(res => res.json())
 }
 export const getAllMessages = () => {
-    return fetch(`http://localhost:8088/messages`)
+    return fetch(`http://localhost:8000/messages`)
         .then(res => res.json())
 }
-// export const getAllScoreCards = () => {
-//     return fetch(`http://localhost:8088/scorecards`)
-//         .then(res => res.json())
-// }
 
 //get all userMatches with scorecards for paticularMatch 
 export const getUserMatchesForThisMatch = (matchId) => {
-    return fetch(`http://localhost:8088/userMatches?&matchId=${matchId}`)
+    return fetch(`http://localhost:8000/userMatches?&matchId=${matchId}`)
         .then(res => res.json())
 }
 //external API fetches
-
-
-//old weather data fetch
-// export const getWeatherInfo = () => {
-//     return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=precipitation_probability&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
-//         .then(res => res.json())
-// }
-
-
 export const getWeatherInfo = () => {
     return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=temperature_2m,precipitation_probability,windspeed_10m&models=best_match&daily=precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)
         .then(res => res.json())
 }
-//expanded fetches
 
+//expanded fetches
 export const getActiveUserMatches = () => {
-    return fetch(`http://localhost:8088/userMatches?_expand=user&isInitiator=true`)
+    return fetch(`http://localhost:8000/userMatches?_expand=user&isInitiator=true`)
         .then(res => res.json())
 }
 
 export const getActiveUserMatchesWithMatchInfo = () => {
-    return fetch(`http://localhost:8088/userMatches?_expand=match`)
+    return fetch(`http://localhost:8000/userMatches?_expand=match`)
         .then(res => res.json())
 }
 
@@ -92,7 +68,7 @@ export const getActiveUserMatchesWithMatchInfo = () => {
 //post fetches
 
 export const sendTeeTime = (teeTimeObj) => {
-    return fetch(`http://localhost:8088/matches`, {
+    return fetch(`http://localhost:8000/matches`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -108,7 +84,7 @@ export const sendTeeTime = (teeTimeObj) => {
 }
 
 export const sendUserMatch = (userMatchObj) => {
-    return fetch(`http://localhost:8088/userMatches`, {
+    return fetch(`http://localhost:8000/userMatches`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -124,7 +100,7 @@ export const sendUserMatch = (userMatchObj) => {
 }
 
 export const sendNewCourse = (newCourseObj) => { //check
-    return fetch(`http://localhost:8088/courses`, {
+    return fetch(`http://localhost:8000/courses`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -135,7 +111,7 @@ export const sendNewCourse = (newCourseObj) => { //check
 }
 
 export const addFriend = (newFriendObj) => {
-    return fetch(`http://localhost:8088/userFriends`, {
+    return fetch(`http://localhost:8000/userFriends`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -146,7 +122,7 @@ export const addFriend = (newFriendObj) => {
 }
 
 export const addUserHoleScore = (newHoleScoreObj) => {
-    return fetch(`http://localhost:8088/matchUserHoleScores`, {
+    return fetch(`http://localhost:8000/matchUserHoleScores`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -156,7 +132,7 @@ export const addUserHoleScore = (newHoleScoreObj) => {
         .then(res => res.json())
 }
 export const sendNewMessage = (newMsgObj) => {
-    return fetch(`http://localhost:8088/messages`, {
+    return fetch(`http://localhost:8000/messages`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -169,25 +145,25 @@ export const sendNewMessage = (newMsgObj) => {
 //delete fetch
 
 export const deleteTeeTime = (teeTimeId) => {
-    return fetch(`http://localhost:8088/matches/${teeTimeId}`, {
+    return fetch(`http://localhost:8000/matches/${teeTimeId}`, {
         method: "DELETE"
     })
 }
 
 export const deleteUserMatch = (userMatchId) => {
-    return fetch(`http://localhost:8088/userMatches/${userMatchId}`, {
+    return fetch(`http://localhost:8000/userMatches/${userMatchId}`, {
         method: "DELETE"
     })
 }
 
 export const deleteCourse = (courseId) => {
-    return fetch(`http://localhost:8088/courses/${courseId}`, {
+    return fetch(`http://localhost:8000/courses/${courseId}`, {
         method: "DELETE"
     })
 }
 
 export const deleteFriend = (friendRelationshipId) => {
-    return fetch(`http://localhost:8088/userFriends/${friendRelationshipId}`, {
+    return fetch(`http://localhost:8000/userFriends/${friendRelationshipId}`, {
         method: "DELETE"
     })
 }
@@ -196,7 +172,7 @@ export const deleteFriend = (friendRelationshipId) => {
 //put fetches
 
 export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
-    return fetch(`http://localhost:8088/userFriends/${userFriendId}`, {
+    return fetch(`http://localhost:8000/userFriends/${userFriendId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -208,7 +184,7 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
 }
 
 export const setMatchToConfirmed = (matchReplacement, matchId) => {
-    return fetch(`http://localhost:8088/matches/${matchId}`, {
+    return fetch(`http://localhost:8000/matches/${matchId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -220,7 +196,7 @@ export const setMatchToConfirmed = (matchReplacement, matchId) => {
 }
 
 export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
-    return fetch(`http://localhost:8088/matchUserHoleScores/${holeScoreId}`, {
+    return fetch(`http://localhost:8000/matchUserHoleScores/${holeScoreId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -232,7 +208,7 @@ export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
 }
 
 export const updateUser = (userObjReplacement, userId) => {
-    return fetch(`http://localhost:8088/users/${userId}`, {
+    return fetch(`http://localhost:8000/users/${userId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -244,7 +220,7 @@ export const updateUser = (userObjReplacement, userId) => {
 }
 
 export const setMsgsToRead = (msgObjReplacement, msgId) => {
-    return fetch(`http://localhost:8088/messages/${msgId}`, {
+    return fetch(`http://localhost:8000/messages/${msgId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -253,4 +229,31 @@ export const setMsgsToRead = (msgObjReplacement, msgId) => {
     })
         .then(res => res.json())
 
+}
+
+
+// new python authorization fetches
+
+export const loginUser = (user) => {
+    return fetch("http://localhost:8000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+        .then(res => res.json())
+}
+
+export const registerUser = (user) => {
+    return fetch("http://127.0.0.1:8000/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+        .then(res => res.json())
 }

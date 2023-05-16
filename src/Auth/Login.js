@@ -1,40 +1,68 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Auth.css"
+import { loginUser } from "../ServerManager";
 
 export const Login = () => {
-    const [email, set] = useState("stephen@byard.com")
-    const [submittedPassword, setPassword] = useState("byard")
+    // const [email, set] = useState("stephen@byard.com")
+    // const [submittedPassword, setPassword] = useState("byard")
+    const username = useRef()
+    const password = useRef()
+    const invalidDialog = useRef()
     const navigate = useNavigate()
 
     const handleLogin = (e) => {
         e.preventDefault()
 
-        return fetch(`http://localhost:8088/users?email=${email}`)
-            .then(res => res.json())
-            .then(foundUsers => {
-                if (foundUsers.length === 1) {
-                    const user = foundUsers[0]
-                    localStorage.setItem("linkUp_user", JSON.stringify({
-                        id: user.id,
-                        name: user.name,
-                        password: submittedPassword
-                    }))
-                    if (user.password === submittedPassword) {
+        // // return fetch(`http://localhost:8088/users?email=${email}`)
+        // return fetch(`http://localhost:8000/login`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     }
+        // })
+        // .then(res => res.json())
+        // .then(foundUsers => {
+        //     if (foundUsers.length === 1) {
+        //         const user = foundUsers[0]
+        //         localStorage.setItem("linkUp_user", JSON.stringify({
+        //             id: user.id,
+        //             name: user.name,
+        //             password: submittedPassword
+        //         }))
+        //         if (user.password === submittedPassword) {
 
-                        navigate("/")
-                    }
+        //             navigate("/")
+        //         }
 
+        //     }
+        //     else {
+        //         window.alert("Invalid login")
+        //     }
+        // })
+        const user = {
+            username: username.current.value,
+            password: password.current.value
+        }
+        loginUser(user)
+            .then(res => {
+                if ("valid" in res && res.valid && "token" in res) {
+                    localStorage.setItem("linkUp_user", res.token)
+                    navigate("/")
                 }
                 else {
-                    window.alert("Invalid login")
+                    invalidDialog.current.showModal()
                 }
             })
     }
 
     return (
         <main className="container--login">
+            <dialog className="dialog dialog--auth" ref={invalidDialog}>
+                <div>Username or password was not valid.</div>
+                <button className="button--close" onClick={e => invalidDialog.current.close()}>Close</button>
+            </dialog>
             <section id="loginBox">
                 <form className="form--login" onSubmit={handleLogin}>
                     <div id="loginLogo">
@@ -43,17 +71,19 @@ export const Login = () => {
                     </div>
                     {/* <h4 id="pleaseSignIn">Please sign in</h4> */}
                     <fieldset className="centerItems">
-                        <label className="loginLabels" htmlFor="inputEmail">Email address</label>
-                        <input type="email"
-                            value={email}
-                            onChange={evt => set(evt.target.value)}
+                        <label className="loginLabels" htmlFor="inputUsername">Email address</label>
+                        <input type="username"
+                            ref={username}
+                            // value={email}
+                            // onChange={evt => set(evt.target.value)}
                             className="form-control"
-                            placeholder="Email address"
+                            placeholder="username"
                             required autoFocus />
                         <label className="loginLabels" htmlFor="inputPassword"> Password </label>
                         <input type="password"
-                            value={submittedPassword}
-                            onChange={evt => setPassword(evt.target.value)}
+                            ref={password}
+                            // value={submittedPassword}
+                            // onChange={evt => setPassword(evt.target.value)}
                             className="form-control"
                             placeholder="password"
                             required autoFocus />
