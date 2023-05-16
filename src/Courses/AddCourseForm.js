@@ -109,7 +109,7 @@ export const AddCourseForm = () => {
                             id="map"
                             // width="600"
                             // height="450"
-                            // origin={navigator.geolocation.getCurrentPosition(success, error)}
+                            origin={navigator.geolocation.getCurrentPosition(success, error)}
                             style={{ border: 0 }}
                             allowfullscreen=""
                             loading="lazy"

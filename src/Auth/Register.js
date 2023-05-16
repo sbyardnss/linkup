@@ -4,6 +4,7 @@ import "./Auth.css"
 
 export const Register = (props) => {
     const [user, setUser] = useState({
+        // username: "",
         email: "",
         name: "",
     })
@@ -61,6 +62,12 @@ export const Register = (props) => {
                            type="text" id="name" className="form-control"
                            placeholder="Enter your name" required autoFocus />
                 </fieldset>
+                {/* <fieldset className="registerFieldset">
+                    <label className="loginLabels" htmlFor="username"> Username </label>
+                    <input onChange={updateUser}
+                           type="text" id="username" className="form-control"
+                           placeholder="Enter username" required autoFocus />
+                </fieldset> */}
                 <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="email"> Email address </label>
                     <input onChange={updateUser}

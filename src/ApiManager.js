@@ -1,12 +1,12 @@
 const localLinkUpUser = localStorage.getItem("linkUp_user")
 const linkUpUserObj = JSON.parse(localLinkUpUser)
 //get fetches
-export const getAllUsers = () => {
+export const getAllUsers = () => { //check
     return fetch(`http://localhost:8088/users`)
         .then(res => res.json())
 }
 
-export const getAllCourses = () => {
+export const getAllCourses = () => { //check
     return fetch(`http://localhost:8088/courses`)
         .then(res => res.json())
 }
@@ -123,7 +123,7 @@ export const sendUserMatch = (userMatchObj) => {
         )
 }
 
-export const sendNewCourse = (newCourseObj) => {
+export const sendNewCourse = (newCourseObj) => { //check
     return fetch(`http://localhost:8088/courses`, {
         method: "POST",
         headers: {
