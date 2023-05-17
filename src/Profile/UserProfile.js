@@ -1,6 +1,6 @@
 import { color } from "framer-motion"
 import { useState, useEffect, useContext } from "react"
-import { deleteFriend, updateUser } from "../ApiManager"
+import { deleteFriend, updateUser } from "../ServerManager"
 import { Messages } from "../Messages/Messages"
 import { Scorecard } from "../Scoring/Scorecard"
 import { ScorecardContext } from "../Scoring/ScorecardContext"

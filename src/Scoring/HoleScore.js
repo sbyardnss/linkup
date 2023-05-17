@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
-import { addUserHoleScore, updateHoleScore } from "../ApiManager"
+import { addUserHoleScore, updateHoleScore } from "../ServerManager"
 import "./HoleScore.css"
 export const HoleScore = ({ matchId }) => {
     const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)

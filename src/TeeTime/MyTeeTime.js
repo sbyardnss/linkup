@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState, confirm } from "react"
 import { Link } from "react-router-dom"
-import { deleteTeeTime, deleteUserMatch } from "../ApiManager"
+import { deleteTeeTime, deleteUserMatch } from "../ServerManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import { TeeTimeContext } from "./TeeTimeProvider"
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+// import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import "./TeeTime.css"
 import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 

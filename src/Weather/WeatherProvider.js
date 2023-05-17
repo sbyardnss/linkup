@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { getWeatherInfo } from "../ApiManager";
+import { getWeatherInfo } from "../ServerManager";
 
 
 export const WeatherContext = createContext()

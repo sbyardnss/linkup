@@ -2,16 +2,28 @@ const localLinkUpUser = localStorage.getItem("linkUp_user")
 const linkUpUserObj = localLinkUpUser
 //get fetches
 export const getAllUsers = () => { //check
-    return fetch(`http://localhost:8000/users`)
+    return fetch(`http://localhost:8000/golfers`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("linkUp_user")}`
+        }
+    })
         .then(res => res.json())
 }
 
 export const getAllCourses = () => { //check
-    return fetch(`http://localhost:8000/courses`)
+    return fetch(`http://localhost:8000/courses`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("linkUp_user")}`
+        }
+    })
         .then(res => res.json())
 }
 export const getAllMatches = () => {
-    return fetch(`http://localhost:8000/matches`)
+    return fetch(`http://localhost:8000/matches`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("linkUp_user")}`
+        }
+    })
         .then(res => res.json())
 }
 export const getAllUserMatches = () => {
@@ -25,7 +37,11 @@ export const getAllMatchUserHoleScores = () => {
 }
 
 export const getAllUserFriends = () => {
-    return fetch(`http://localhost:8000/userFriends`)
+    return fetch(`http://localhost:8000/friendships`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("linkUp_user")}`
+        }
+    })
         .then(res => res.json())
 }
 
@@ -36,13 +52,21 @@ export const getAllUserFriendsForActiveUser = () => {
         .then(res => res.json())
 }
 export const getAllMessages = () => {
-    return fetch(`http://localhost:8000/messages`)
+    return fetch(`http://localhost:8000/messages`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("linkUp_user")}`
+        }
+    })
         .then(res => res.json())
 }
 
 //get all userMatches with scorecards for paticularMatch 
 export const getUserMatchesForThisMatch = (matchId) => {
-    return fetch(`http://localhost:8000/userMatches?&matchId=${matchId}`)
+    return fetch(`http://localhost:8000/golfer_matches?match_id=${matchId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("linkUp_user")}`
+        }
+    })
         .then(res => res.json())
 }
 //external API fetches

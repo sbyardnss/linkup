@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { sendTeeTime, sendUserMatch } from "../ApiManager"
+import { sendTeeTime, sendUserMatch } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./TeeTimeForm.css"
 export const TeeTimeForm = () => {

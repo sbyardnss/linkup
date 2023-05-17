@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { sendUserMatch } from "../ApiManager"
+import { sendUserMatch } from "../ServerManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import "./TeeTime.css"
 import { TeeTimeContext } from "./TeeTimeProvider"

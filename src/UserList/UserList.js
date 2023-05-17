@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { addFriend, changeFriendStatus, deleteFriend, getAllUserFriends } from "../ApiManager"
+import { addFriend, changeFriendStatus, deleteFriend, getAllUserFriends } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 
 import "./UserList.css"

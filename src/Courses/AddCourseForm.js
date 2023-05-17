@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { deleteCourse, sendNewCourse } from "../ApiManager"
+import { deleteCourse, sendNewCourse } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./AddCourseForm.css"
 
