@@ -1,133 +1,210 @@
-@import "../Nav/NavBar.css";
+@import "./CustomCalendar.css";
+
+@media screen and (min-width:641px) {
+
+    #homepageContainer {
 
 
-#homepageContainer {
-    
-    /* padding-top: 20px; */
-    /* margin-top: var(auto); */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color: rgb(81, 177, 110);
-    background-size: 250%;
-    background-attachment: scroll;
-    /* height: 100vh; */
+        display: flex;
+        /* flex-direction: column; */
+        /* align-items: center; */
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        justify-content: space-around;
+        margin-top: 80px;
+        width: 60%;
 
+    }
+
+    #homepageCalendarAndFriends {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1em;
+        min-width: 350px;
+        width: 45%;
+    }
+    #calendarContainer {
+        /* padding: 10px 20px; */
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 6px;
+        backdrop-filter: blur(10px);
+        background-color: #0d676764;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+    }
+    #calendarKey {
+        display: flex;
+        /* flex-direction: column; */
+        width: 100%;
+        background-color: #CCFAFF;
+        height: fit-content;
+        justify-content: space-between;
+        align-items: start;
+        border-radius: 0 0 6px 6px;
+        /* padding: 1em; */
+    }
+    .calendarKeyItem {
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width:30%;
+        margin: .5em;
+
+    }
+    .colorCodePurple {
+        height: 1em;
+        width: 1em;
+        background: rgb(13, 103, 47);
+        border: 1px solid #ccfaff;
+        
+    }
+    .colorCodeGreen {
+        height: 1em;
+        width: 1em;
+        background-color: #006AE8;
+        border: 1px solid #ccfaff;
+
+    }
+
+    #map {
+        width: 400px;
+        height: 400px;
+
+    }
+
+
+    .listOfMyTeeTimes {
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        background-color: #0d676775;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
+
+    }
+    .listOfOpenTeeTimes {
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        /* background-color: #0d676764; */
+        background: rgb(81, 13, 103, .65);
+
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
+
+    }
+
+
+    .myTeeTimesContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        /* max-width: 600px; */
+        min-width: fit-content;
+    }
+
+    .openTeeTimesContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        /* max-width: 600px; */
+
+        min-width: fit-content;
+
+    }
+
+    .teeTimeHeaderTitle {
+        color: #CCFAFF;
+        /* margin-left: .5em; */
+    }
 }
 
-.listOfTeeTimes {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin-left: -2em;
-    /* background-color: aliceblue; */
-    /* width: inherit; */
-}
+@media screen and (min-width:320px) and (max-width:640px) {
+    #homepageContainer {
 
 
-.myTeeTimesContainer {
-    margin-top: 80px;
-    width: 70%;
-    /* background-color: blanchedalmond; */
-}
-.openTeeTimesContainer {
-    width: 70%;
-    /* background-color: blanchedalmond; */
-}
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        zoom: .8;
+        margin-top: 100px;
+        width: 100vw;
+
+    }
+
+    #homepageCalendarAndFriends {
+        display: none;
+        /* flex-direction: column;
+        margin-top: 1em; */
+    }
+
+    .listOfMyTeeTimes {
+        
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        background-color: #0d676775;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
+
+    }
+    .listOfOpenTeeTimes {
+        
+        list-style: none;
+        padding: 10px 20px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        /* background-color: #0d676764; */
+        background: rgb(81, 13, 103, .65);
+
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.197));
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        width: 100%;
+        min-width: fit-content;
+
+    }
 
 
+    .myTeeTimesContainer {
+        width: 90%;
+        min-width: 620px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
 
+    }
 
+    .openTeeTimesContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
+        width: 90%;
+        min-width: 620px;
 
+    }
 
-
-
-
-
-
-.teeTimeListItem {
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: space-between;
-    padding: 1em;
-    margin: .5em 0;
-    background-color: aqua;
-}
-.teeTimeButton {
-     /* margin-left: auto; */
-    /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-    background-color: rgb(37, 120, 41);
-    padding: .5em 0;
-    color: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    margin-left: 20px;
-    width: 90px;
-    font-size: large;
-    font-weight: normal;
-    font-style: oblique;
-
-}
-
-.joinTeeTimeButton {
-    /* margin-left: auto;
-    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-    /* background-color: rgb(37, 120, 41); */
-    background-color: purple;
-
-    padding: .5em 0;
-    color: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    margin-left: 20px;
-    width: 90px;
-    font-size: large;
-    font-weight: normal;
-    font-style: oblique;
-}
-
-button:active {
-    background: #b38080;
-    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-    box-shadow: inset 0px 0px 5px #c1c1c1;
-    outline: none;
-}
-
-.buttonBlock {
-    display: block;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 1em;
-}
-
-.myCreatedTeeTime {
-    display: flex;
-    /* flex-direction: column; */
-    padding: 1em;
-    /* justify-content: space-between; */
-    margin: .5em 0;
-    background-color: aqua;
-}
-
-.myJoinedTeeTime {
-    display: flex;
-    /* flex-direction: column; */
-    padding: 1em;
-
-    justify-content: space-between;
-    margin: .5em 0;
-    background-color: rgb(150, 250, 170);
-}
-
-.joinableTeeTimes {
-    display: flex;
-    /* flex-direction: column; */
-    padding: 1em;
-
-    justify-content: space-between;
-    margin: .5em 0;
-    background-color: rgb(217, 183, 249);
+    .teeTimeHeaderTitle {
+        color: #CCFAFF;
+    }
 }

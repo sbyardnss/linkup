@@ -4,6 +4,7 @@ import "./Auth.css"
 
 export const Register = (props) => {
     const [user, setUser] = useState({
+        // username: "",
         email: "",
         name: "",
     })
@@ -52,29 +53,40 @@ export const Register = (props) => {
     }
 
     return (
-        <main style={{ textAlign: "center" }}>
+        <main id="registerContainer" style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for LinkUp</h1>
-                <fieldset>
-                    <label htmlFor="name"> Name </label>
+                <h3 className="h3 mb-3 font-weight-normal">Please Register for LinkUp</h3>
+                <fieldset className="registerFieldset">
+                    <label className="loginLabels" htmlFor="name"> Name </label>
                     <input onChange={updateUser}
                            type="text" id="name" className="form-control"
                            placeholder="Enter your name" required autoFocus />
                 </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
+                {/* <fieldset className="registerFieldset">
+                    <label className="loginLabels" htmlFor="username"> Username </label>
+                    <input onChange={updateUser}
+                           type="text" id="username" className="form-control"
+                           placeholder="Enter username" required autoFocus />
+                </fieldset> */}
+                <fieldset className="registerFieldset">
+                    <label className="loginLabels" htmlFor="email"> Email address </label>
                     <input onChange={updateUser}
                         type="email" id="email" className="form-control"
                         placeholder="Email address" required />
                 </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Password </label>
+                <fieldset className="registerFieldset">
+                    <label className="loginLabels" htmlFor="email"> Password </label>
                     <input onChange={updateUser}
                         type="password" id="password" className="form-control"
                         placeholder="Password" required />
                 </fieldset>
-                <fieldset>
-                    <button type="submit"> Register </button>
+                <fieldset className="buttonFieldset">
+                    <button className="signInButton" type="submit"> Register </button>
+                    <button className="cancelRegister" onClick={
+                        () => {
+                            navigate("/login/")
+                        }
+                    }>Cancel</button>
                 </fieldset>
             </form>
         </main>

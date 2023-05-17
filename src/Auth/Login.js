@@ -21,7 +21,7 @@ export const Login = () => {
                         name: user.name,
                         password: submittedPassword
                     }))
-                    if(user.password === submittedPassword) {
+                    if (user.password === submittedPassword) {
 
                         navigate("/")
                     }
@@ -41,15 +41,16 @@ export const Login = () => {
 
                         <h1>LinkUp</h1>
                     </div>
-                    <h3 id="pleaseSignIn">Please sign in</h3>
+                    {/* <h4 id="pleaseSignIn">Please sign in</h4> */}
                     <fieldset className="centerItems">
-                        {/* <label htmlFor="inputEmail"> Email address </label> */}
+                        <label className="loginLabels" htmlFor="inputEmail">Email address</label>
                         <input type="email"
                             value={email}
                             onChange={evt => set(evt.target.value)}
                             className="form-control"
                             placeholder="Email address"
                             required autoFocus />
+                        <label className="loginLabels" htmlFor="inputPassword"> Password </label>
                         <input type="password"
                             value={submittedPassword}
                             onChange={evt => setPassword(evt.target.value)}
@@ -57,14 +58,14 @@ export const Login = () => {
                             placeholder="password"
                             required autoFocus />
 
-                        <button type="submit">
+                        <button className="signInButton" type="submit">
                             Sign in
                         </button>
                     </fieldset>
+                    <section className="link--register">
+                        <Link to="/register">Not a member yet?</Link>
+                    </section>
                 </form>
-                <section className="link--register">
-                    <Link to="/register">Not a member yet?</Link>
-                </section>
             </section>
         </main>
     )

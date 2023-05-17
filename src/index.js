@@ -4,13 +4,17 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import LinkUp from './LinkUp';
 import { BrowserRouter } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    {/* <ChakraProvider> */}
       <LinkUp />
-    </BrowserRouter>
+    {/* </ChakraProvider> */}
+  </BrowserRouter>
+
   // </React.StrictMode>
 );
 

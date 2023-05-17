@@ -1,30 +1,552 @@
-#listOfCourses {
-    list-style: none;
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-    margin-left: -2em;
-    width:80%;
-    /* background-color: aliceblue; */
-    /* width: inherit; */
+@media screen and (min-width:641px) {
+
+    #addCourseContainer {
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .addNewCourseLink {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #listOfAddedCourses {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        background-color: #0d676764;
+        backdrop-filter: blur(40px);
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        padding: 20px 10px 10px 10px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+    }
+
+    #listOfCourses {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        list-style: none;
+        width: 90%;
+        min-width: 400px;
+        margin: none;
+        padding: 0px;
+    }
+
+    .newCourse {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        margin-top: 2em;
+    }
+
+    .newCourseForm {
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid #0D6767;
+        border-radius: 12px;
+        display: flex;
+        padding: 1em;
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    }
+
+    .courseFormTitle {
+        color: #cffaff;
+    }
+
+    .newCourse_input {
+        width: 400px;
+
+        display: block;
+        margin-left: auto;
+
+        margin-right: auto;
+        border: 0px;
+    }
+
+    .courseListItem {
+        display: flex;
+        padding: 1em;
+        flex-direction: column;
+        justify-content: space-between;
+        /* backdrop-filter: blur(16px) saturate(180%); */
+        background-color: rgba(13, 103, 103, 0.908);
+        /* color: rgb(222, 222, 222); */
+        color: #CCFAFF;
+        margin-right: none;
+        margin-bottom: 12px;
+        border: 1px solid rgba(126, 2, 2, 0.308);
+        border-radius: 8px;
+        align-items: center;
+        width: 40%;
+    }
+
+
+    #listOfAddedCourses {
+        display: flex;
+        justify-content: center;
+        margin-top: 4em;
+    }
+
+    .courseFormInput {
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.25;
+        width: inherit;
+        min-width: 400px;
+        margin-bottom: 30px;
+        border: 0px;
+        border-radius: 4px;
+    }
+
+    .addCourseFormButtonBlock {
+        display: flex;
+        position: relative;
+        /* padding-top: 20px; */
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 1em;
+
+    }
+
+    #addCourse {
+        align-items: center;
+        appearance: button;
+        background-color: #008c9c;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    #addCourse:active {
+        background-color: #006AE8;
+    }
+
+    #addCourse:hover {
+        background-color: #1C84FF;
+    }
+
+    #cancelAddCourse {
+        align-items: center;
+        appearance: button;
+        background-color: #008c9c41;
+        border: 2px solid #008c9c;
+        border-radius: 8px;
+        /* border-style: none; */
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        /* color: #004c54; */
+        color: #e2fcff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin-left: 20px;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+
+    }
+
+    #cancelAddCourse:active {
+        background-color: #e800d1;
+    }
+
+    #cancelAddCourse:hover {
+        background-color: #ff1cf7;
+    }
+
+    .addNewCourseButton {
+        align-self: end;
+        align-items: center;
+        appearance: button;
+        background-color: #008c9c;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 10px 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .addNewCourseButton:active {
+        background-color: #006AE8;
+    }
+
+    .addNewCourseButton:hover {
+        background-color: #1C84FF;
+    }
+
+    .deleteCourseButton {
+        width: 80px;
+        justify-content: center;
+        align-items: center;
+        appearance: button;
+        background-color: #9c0060;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin-top: 10px;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .deleteCourseButton:active {
+        background-color: #e80055;
+    }
+
+    .deleteCourseButton:hover {
+        background-color: #ff1c5c;
+    }
+
+    .courseInfo {
+        margin: 10px;
+    }
+
+    .siteLink {
+        color: #f94bf3;
+    }
 }
 
-.courseListItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 400px;
-    padding: 1em;
-    margin: .5em 0;
-    background-color: aqua;
-}
+@media screen and (min-width:320px) and (max-width:640px) {
+    #addCourseContainer {
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 
-#addCourseContainer {
-    margin-top: 80px;
-    
-}
+    .addNewCourseLink {
+        display: flex;
+        flex-direction: column;
+    }
 
-#listOfAddedCourses {
-    display: flex;
-    justify-content: center;
+    #listOfAddedCourses {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        background-color: #0d676764;
+        backdrop-filter: blur(40px);
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
+        padding: 20px 10px 10px 10px;
+        border: 1px solid rgba(0, 255, 0, 0.282);
+        border-radius: 10px;
+    }
+
+    #listOfCourses {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        list-style: none;
+        width: 90%;
+        min-width: 400px;
+        margin: none;
+        padding: 0px;
+    }
+
+    .newCourse {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        margin-top: 2em;
+    }
+
+    .newCourseForm {
+        height: fit-content;
+        width: fit-content;
+        border: 1px solid #0D6767;
+        border-radius: 12px;
+        display: flex;
+        padding: 1em;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    }
+
+    .courseFormTitle {
+        color: #cffaff;
+    }
+
+    .newCourse_input {
+        width: 400px;
+
+        display: block;
+        margin-left: auto;
+
+        margin-right: auto;
+        border: 0px;
+    }
+
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+
+    .courseListItem {
+        display: flex;
+        padding: 1em;
+        flex-direction: column;
+        justify-content: space-between;
+        /* backdrop-filter: blur(16px) saturate(180%); */
+        background-color: rgba(13, 103, 103, 0.908);
+        /* color: rgb(222, 222, 222); */
+        color: #CCFAFF;
+        margin-right: none;
+        margin-bottom: 12px;
+        border: 1px solid rgba(126, 2, 2, 0.308);
+        border-radius: 8px;
+        align-items: center;
+        width: 40%;
+    }
+
+
+    #listOfAddedCourses {
+        display: flex;
+        justify-content: center;
+        margin-top: 4em;
+    }
+
+    .courseFormInput {
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.25;
+        width: inherit;
+        min-width: 400px;
+        margin-bottom: 30px;
+        border: 0px;
+        border-radius: 4px;
+    }
+
+    .addCourseFormButtonBlock {
+        display: flex;
+        position: relative;
+        /* padding-top: 20px; */
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 1em;
+
+    }
+
+    #addCourse {
+        align-items: center;
+        appearance: button;
+        background-color: #008c9c;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    #addCourse:active {
+        background-color: #006AE8;
+    }
+
+    #addCourse:hover {
+        background-color: #1C84FF;
+    }
+
+    #cancelAddCourse {
+        align-items: center;
+        appearance: button;
+        background-color: #008c9c41;
+        border: 2px solid #008c9c;
+        border-radius: 8px;
+        /* border-style: none; */
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        /* color: #004c54; */
+        color: #e2fcff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin-left: 20px;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+
+    }
+
+    #cancelAddCourse:active {
+        background-color: #e800d1;
+    }
+
+    #cancelAddCourse:hover {
+        background-color: #ff1cf7;
+    }
+
+    .addNewCourseButton {
+        align-self: end;
+        align-items: center;
+        appearance: button;
+        background-color: #008c9c;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 10px 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .addNewCourseButton:active {
+        background-color: #006AE8;
+    }
+
+    .addNewCourseButton:hover {
+        background-color: #1C84FF;
+    }
+
+    .deleteCourseButton {
+        width: 80px;
+        justify-content: center;
+        align-items: center;
+        appearance: button;
+        background-color: #9c0060;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin-top: 10px;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .deleteCourseButton:active {
+        background-color: #e80055;
+    }
+
+    .deleteCourseButton:hover {
+        background-color: #ff1c5c;
+    }
+
+    .courseInfo {
+        margin: 10px;
+    }
+
+    .siteLink {
+        color: #f94bf3;
+    }
+
 }

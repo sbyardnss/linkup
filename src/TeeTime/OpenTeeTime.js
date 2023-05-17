@@ -4,9 +4,10 @@ import { sendUserMatch } from "../ApiManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import "./TeeTime.css"
 import { TeeTimeContext } from "./TeeTimeProvider"
+import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 
 export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) => {
-    const { weather14Day, rainChance14Day, next14Dates } = useContext(WeatherContext)
+    const { rainChance14Day, next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
     const { joinMatch, joinInitiated, users, userMatchesWithMatchInfo } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -18,29 +19,63 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
     let rainChance = 0
     let weatherInfoString = ""
     const teeTimeDateParsed = Date.parse(date)
-    {
-        next14Dates.map((date, indexOfDate) => {
-            const [year, month, day] = date.split("-")
-            const forCastYear = parseInt(year)
-            const forCastMonth = parseInt(month)
-            const forCastDay = parseInt(day)
-            const forCastDate = `${forCastMonth}-${forCastDay}-${forCastYear}`
-            const parsedForCastDate = Date.parse(forCastDate)
-            if (parsedForCastDate === teeTimeDateParsed) {
-                rainChance = rainChance14Day[indexOfDate]
-            }
-            else {
-                rainChance = ""
-            }
-            if (rainChance) {
-                weatherInfoString = `${rainChance}% chance of rain`
-            }
-            if (rainChance === 0) {
-                weatherInfoString = "0% chance of rain"
-            }
-        })
+
+
+
+
+    //build hourly weather string here
+    const timeBuilder = (time) => {
+        const [timeString,] = time.split(" ")
+        // console.log(timeString)//4:00
+        let [hours, minutes] = timeString.split(":")
+        if (parseInt(hours) < 12) {
+            hours = parseInt(hours) + 12
+        }
+        return `T${hours}:00`
+    }
+    const [month, day, year] = date.split("/")
+    const dateString = `${year}-${month}-${day}`
+    const exactHourString = `${dateString}${timeBuilder(time)}`
+    const hourIndex = weatherHourArrayForIndex.findIndex(hour => hour === exactHourString)
+    const precipitationHour = hourlyPrecipitation[hourIndex]//works
+    const windHour = hourlyWindspeed[hourIndex]//works
+    const tempHour = hourlyTemp[hourIndex]//works
+    let precipitationString = ""
+    let windString = ""
+    let tempString = ""
+    if (precipitationHour !== null && precipitationHour !== undefined) {
+        precipitationString = `Rain: ${precipitationHour}% chance`
+    }
+    else {
+        precipitationString = " Precipitation data not yet available"
 
     }
+    if (windHour !== null && windHour !== undefined) {
+        windString = `WindSpeed: ${windHour}mph`
+    }
+    else {
+        windString = "Wind data not yet available"
+
+    }
+    if (tempHour !== null && tempHour !== undefined) {
+        tempString = `Temp: ${tempHour}°F`
+    }
+    else {
+        tempString = "Temp data not yet available"
+
+    }
+
+    //find all userMatches corresponding to a match that you initiated. this is for the delete button
+    let allMatchingUserMatches = []
+    const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
+
+    const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === matchId)
+    {
+        matchingUserMatches.map(userMatch => {
+            allMatchingUserMatches.push(userMatch)
+        })
+    }
+
 
     //establish initiating user
     const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
@@ -50,8 +85,79 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
         weatherInfoString += "too early for weather data"
     }
 
+    const maxPlayerCount = [0, 1, 2, 3]
+
+    const listOfOtherPlayersOnMatch = () => {
+        if (matchingUserMatches.length > 0) {
+
+            return <>
+                <div className="otherPlayersContainer">
+
+                    {/* {
+                        matchingUserMatches.map(userMatch => {
+                            const matchingPlayer = users.find(user => user.id === userMatch.userId)
+
+                            return <>
+                                <div className="otherJoinedPlayer">{matchingPlayer?.name}</div>
+                            </>
+                        })
+                    } */}
+                    {
+                        maxPlayerCount.map(count => {
+                            const matchingPlayer = users.find(user => user.id === matchingUserMatches[count]?.userId)
+                            if (matchingPlayer?.id === linkUpUserObj.id) {
+                                return <>
+                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1} - Me</div>
+                                </>
+
+                            }
+                            else if (matchingPlayer === undefined) {
+                                return <>
+                                    <div className="otherJoinedPlayer">-- Open Slot --</div>
+                                </>
+                            }
+                            else {
+                                return <>
+                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1}--{matchingPlayer?.name}</div>
+                                </>
+                            }
+                        })
+                    }
+                </div>
+            </>
+        }
+        else {
+            return <>
+                <h5>no other players yet</h5>
+            </>
+        }
 
 
+
+    }
+    const isMatchFull = () => {
+        if (matchingUserMatches.length === 4) {
+            return <>
+                <h4>This match is full</h4>
+            </>
+        }
+        else {
+            return <>
+                <button className="joinTeeTimeButton" onClick={
+                    () => {
+                        const userMatchObjToSendToApi = {
+                            matchId: matchId,
+                            userId: linkUpUserObj.id,
+                            isInitiator: false,
+                            totalStrokes: 0
+                        }
+                        sendUserMatch(userMatchObjToSendToApi)
+                        joinInitiated(!joinMatch)
+                    }
+                }>Join</button>
+            </>
+        }
+    }
 
 
 
@@ -59,38 +165,39 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, matchId }) =
 
         return <>
             <li key={matchId} className="joinableTeeTimes">
-                <div>
-                    <div>
-                        {initiatingUser?.name}
-                    </div>
-                    <div>
+                <div className="teeTimeLogistics">
+                    <h3 className="teeTimeCourseTag">
                         {courseName}
-                    </div>
-                    <div className="teeTimeDate">
-                        {date}
-                    </div>
-                    <div>
-                        {time}
-                    </div>
-                </div>
-                <div className="weatherContainer">
-                    <div>
-                        {weatherInfoString}
+                    </h3>
+                    <div className="teeTimeDateAndTime">
+                        <div className="teeTimeDate">
+                            {date}
+                        </div>
+                        <div>
+
+                            {time}
+                        </div>
                     </div>
                 </div>
-                <div className="buttonBlock">
-                    <button className="joinTeeTimeButton" onClick={
-                        () => {
-                            const userMatchObjToSendToApi = {
-                                matchId: matchId,
-                                userId: linkUpUserObj.id,
-                                isInitiator: false,
-                                totalStrokes: 0
-                            }
-                            sendUserMatch(userMatchObjToSendToApi)
-                            joinInitiated(!joinMatch)
-                        }
-                    }>Join</button>
+                <div className="playersAndWeather">
+
+                    {listOfOtherPlayersOnMatch()}
+                    <div className="weatherAndButton">
+
+                        <div className="weatherContainer">
+                            <ul className="weatherInfoList">
+                                <div>
+                                    <li className="weatherInfo">{precipitationString}</li>
+                                    <li className="weatherInfo">{tempString}</li>
+                                    <li className="weatherInfo">{windString}</li>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div className="buttonBlock">
+                            {isMatchFull()}
+                        </div>
+                    </div>
                 </div>
             </li>
         </>

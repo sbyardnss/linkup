@@ -1,0 +1,132 @@
+#messagesContainer {
+    display: flex;
+    margin: 1em;
+    width: inherit;
+    justify-content: start;
+    align-items: start;
+    height: inherit;
+    list-style: none;
+    padding: 0;
+    background-color: #2c2d3264;
+}
+#msgsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.newMsgContainer {
+    display: flex;
+    flex-direction: column;
+}
+#newMsgButtonBlock {
+    display: flex;
+    position: relative;
+    padding-top: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1em;
+}
+#receivedMessages {
+    width: inherit;
+    min-width: 25em;
+    padding: 10px;
+}
+
+.individualMsg {
+    display: flex;
+    padding: 1em;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    /* backdrop-filter: blur(16px) saturate(180%); */
+    background-color: rgba(13, 103, 103, 0.908);
+    /* color: rgb(222, 222, 222); */
+    color: #CCFAFF;
+    /* margin-bottom: 12px; */
+    border: 1px solid rgba(126, 2, 2, 0.308);
+    border-radius: 8px;
+    align-items: start;
+}
+.markReadButton {
+    width: 70px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #9c0060;
+    border-radius: 12px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 70%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.markReadButton:active {
+    background-color: #e80055;
+}
+
+.markReadButton:hover {
+    background-color: #ff1c5c;
+}
+
+.msgButton {
+    width: fit-content;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #00949c;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.msgButton:active {
+    background-color: #00b2e8;
+}
+
+.msgButton:hover {
+    background-color: #1c8eff;
+}
+.recipientSelector {
+    font-family: "RM Neue",sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    width: 400px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    border: 0;
+
+}
+

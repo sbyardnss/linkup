@@ -1,0 +1,965 @@
+@media screen and (min-width: 641px) {
+    #holeScoreContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        margin-top: 80px;
+
+    }
+
+    #matchSelectorDropdown {
+        height: 60px;
+        font-size: 16px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: center;
+        border-radius: 12px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        box-sizing: border-box;
+        margin-top: 40px;
+        cursor: pointer;
+
+    }
+
+    .placeItemsSideBySide {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .matchSelect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .matchSelectionCourse {
+        font-size: larger;
+        margin-right: 1em;
+        width: 200px;
+    }
+    .matchSelectionOtherPlayers {
+        width: 120px;
+        margin-right: 1em;
+    }
+
+    .matchSelection {
+        display: flex;
+        height: 120px;
+        width: 100%;
+        font-size: 16px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: start;
+        border-radius: 12px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        box-sizing: border-box;
+        margin-top: 40px;
+        padding: 20px;
+    }
+
+    .matchSelectionButton {
+        align-items: center;
+        appearance: button;
+        background-color: #9c0060;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .matchSelectionButton:active {
+        background-color: #e80055;
+    }
+
+    .matchSelectionButton:hover {
+        background-color: #ff1c5c;
+    }
+
+    .holeScoreArticle {
+        width: 50vw;
+        border: 1px solid #0D6767;
+        margin: 20px 0;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    }
+
+    #holeScoreHeader {
+        display: flex;
+        width: 80%;
+        flex-direction: column;
+        align-items: center;
+        /* border: 2px solid orange; */
+    }
+
+    .holeSelectExitMatch {
+        display: flex;
+        justify-content: space-between;
+        width: inherit;
+    }
+
+    .selectHole {
+        /* margin: 0 60px; */
+        width: 122px;
+        height: 60px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: center;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        cursor: pointer;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        box-sizing: border-box;
+    }
+
+    .selectHole :hover {
+        background-color: #09c2d6;
+
+    }
+
+    .scoringSection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .scorecardSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        
+        margin-bottom: 80px;
+    }
+
+
+
+    .exitMatchButton {
+        align-items: center;
+        appearance: button;
+        background-color: #97009c99;
+        border: 1px solid #92009c;
+        border-radius: 8px;
+        /* border-style: none; */
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        /* color: #004c54; */
+        color: #e2fcff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin-left: 20px;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 122px;
+
+    }
+
+    .exitMatchButton:active {
+        background-color: #e800d1;
+    }
+
+    .exitMatchButton:hover {
+        background-color: #ff1cf7;
+    }
+
+
+
+    .scoringButtonsContainer {
+        width: 400px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        /* border: 2px solid orange; */
+
+    }
+
+    .holeInfoHeader {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 10%;
+        margin-bottom: 40px;
+        /* border: 2px solid orange; */
+        align-items: center;
+
+    }
+
+    h2,
+    h3,
+    h4 {
+        color: #ccfaff
+    }
+
+
+    .scoringButton {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #008c9c;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 6px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringButton:active {
+        background-color: #006AE8;
+    }
+
+    .scoringButton:hover {
+        background-color: #1C84FF;
+    }
+
+    .scoringButtonSelected {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #009c4e;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 6px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringButtonSelected:active {
+        background-color: #006AE8;
+    }
+
+    .scoringButtonSelected:hover {
+        background-color: #12c18a;
+    }
+
+    .userButtonsContainer {
+        width: 400px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    .inactiveUserButton {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: rgba(81, 13, 103, 0.909);
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 20px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .05s ease-in-out, background .05s ease-in-out, opacity .05s ease-in-out, box-shadow .05s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+
+    .inactiveUserButton:hover {
+        background-color: #b01cff;
+    }
+
+    .activeUserButton {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #0291ff;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 20px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        /* transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out; */
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+
+    /* .activeUserButton:hover {
+    background-color: #1C84FF;
+  } */
+
+    .scoringSubmitButton {
+        align-items: center;
+        appearance: button;
+        background-color: #9c0060;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringSubmitButton:active {
+        background-color: #e80055;
+    }
+
+    .scoringSubmitButton:hover {
+        background-color: #ff1c5c;
+    }
+
+    .finishHoleButton {
+        align-items: center;
+        appearance: button;
+        background-color: #009c46;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .finishHoleButton:active {
+        background-color: #00cde8bc;
+    }
+
+    .finishHoleButton:hover {
+        background-color: #1cff91b5;
+    }
+}
+
+
+@media screen and (max-width:640px) {
+    /* html { */
+        /* background-image: url("./images/aerial-view-of-golf-course-1896098.jpg"); */
+        /* background-size: 100vh; */
+        /* background-repeat: no-repeat; */
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* max-width: 100vw; */
+        /* overflow: hidden; */
+    /* } */
+
+    #holeScoreContainer {
+
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* background-color: rgb(81, 177, 110); */
+        /* background-attachment: fixed, scroll; */
+        margin-top: 80px;
+
+    }
+
+    #matchSelectorDropdown {
+        height: 60px;
+        font-size: 16px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: center;
+        border-radius: 12px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        box-sizing: border-box;
+        margin-top: 40px;
+        cursor: pointer;
+
+    }
+
+    .placeItemsSideBySide {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .matchSelect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .matchSelectionCourse {
+        font-size: larger;
+        margin-right: 1em;
+        width: 200px;
+    }
+    .matchSelectionOtherPlayers {
+        width: 120px;
+        margin-right: 1em;
+    }
+
+    .matchSelection {
+        display: flex;
+        height: 120px;
+        width: 100%;
+        font-size: 16px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: start;
+        border-radius: 12px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        box-sizing: border-box;
+        margin-top: 40px;
+        padding: 20px;
+    }
+
+    .matchSelectionButton {
+        align-items: center;
+        width: 100px;
+        height: 100px;
+        appearance: button;
+        background-color: #9c0060;
+        border-radius: 20px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        /* height: 40px; */
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .matchSelectionButton:active {
+        background-color: #e80055;
+    }
+
+    .matchSelectionButton:hover {
+        background-color: #ff1c5c;
+    }
+
+    .holeScoreArticle {
+        width: 120vw;
+        border: 1px solid #0D6767;
+        margin: 20px 0;
+        border-radius: 12px;
+        background: #0D6767;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+    }
+
+    #holeScoreHeader {
+        display: flex;
+        width: 80%;
+        flex-direction: column;
+        align-items: center;
+        /* border: 2px solid orange; */
+    }
+
+    .holeSelectExitMatch {
+        display: flex;
+        justify-content: space-between;
+        width: inherit;
+    }
+
+    .selectHole {
+        /* margin: 0 60px; */
+        width: 122px;
+        height: 60px;
+        background-color: #008c9c;
+        color: #ccfaff;
+        text-align: center;
+        font-family: "RM Neue", sans-serif;
+        font-size: xx-large;
+        font-weight: 900;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
+        backdrop-filter: blur(50px);
+        cursor: pointer;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+
+        /* filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125)); */
+        box-sizing: border-box;
+    }
+    .selectHoleOption {
+        text-align: center;
+    }
+
+    /* .selectHole :hover {
+        background-color: #09c2d6;
+
+    } */
+
+    .scoringSection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* overflow: scroll; */
+    }
+
+    .holeMsgInput {
+        width: 200px;
+    }
+
+    .scorecardSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        /* border: 2px solid orange; */
+        /* zoom: .8; */
+        margin-bottom: 80px;
+        padding: 40px;
+    }
+
+
+
+    .exitMatchButton {
+        align-items: center;
+        appearance: button;
+        background-color: #97009c90;
+        border: 1px solid #92009c;
+        border-radius: 8px;
+        /* border-style: none; */
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        /* color: #004c54; */
+        color: #e2fcff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin-left: 20px;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 122px;
+
+    }
+
+    .exitMatchButton:active {
+        background-color: #e800d1;
+    }
+
+    /* .exitMatchButton:hover {
+        background-color: #ff1cf7;
+    } */
+
+    /* .scoringButton {
+    height: 60px;
+    width: 60px;
+} */
+
+    .scoringButtonsContainer {
+        width: 400px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        /* border: 2px solid orange; */
+
+    }
+
+    .holeInfoHeader {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 10%;
+        margin-bottom: 20px;
+        /* border: 2px solid orange; */
+        align-items: center;
+
+    }
+
+    h2,
+    h3,
+    h4 {
+        color: #ccfaff
+    }
+
+   
+
+    .scoringButton {
+        height: 80px;
+        width: 80px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #008c9c;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 6px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringButton:active {
+        background-color: #006AE8;
+    }
+
+    .scoringButton:hover {
+        background-color: #1C84FF;
+    }
+
+    .scoringButtonSelected {
+        height: 80px;
+        width: 80px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #009c4e;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 6px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringButtonSelected:active {
+        background-color: #006AE8;
+    }
+
+    .scoringButtonSelected:hover {
+        background-color: #12c18a;
+    }
+
+    .holeMsgInput {
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        /* width: 100; */
+        border: 0px;
+        border-radius: 4px;
+    }
+
+    .userButtonsContainer {
+        width: 400px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    .inactiveUserButton {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: rgba(81, 13, 103, 0.909);
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 20px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        transition: color .05s ease-in-out, background .05s ease-in-out, opacity .05s ease-in-out, box-shadow .05s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+
+    .inactiveUserButton:hover {
+        background-color: #b01cff;
+    }
+
+    .activeUserButton {
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        justify-content: center;
+        appearance: button;
+        background-color: #0291ff;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 20px;
+        /* padding: 10px 21px; */
+        text-align: center;
+        text-transform: none;
+        /* transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out; */
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+
+    /* .activeUserButton:hover {
+    background-color: #1C84FF;
+  } */
+
+    .scoringSubmitButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px;
+        background-color: #9c0060;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .scoringSubmitButton:active {
+        background-color: #e80055;
+    }
+
+    .scoringSubmitButton:hover {
+        background-color: #ff1c5c;
+    }
+
+    .finishHoleButton {
+        align-items: center;
+        appearance: button;
+        background-color: #009c46;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 0;
+        font-family: "RM Neue", sans-serif;
+        font-size: 100%;
+        line-height: 1.15;
+        height: 40px;
+        margin: 0;
+        padding: 10px 21px;
+        text-align: center;
+        text-transform: none;
+        transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .finishHoleButton:active {
+        background-color: #00cde8bc;
+    }
+
+    .finishHoleButton:hover {
+        background-color: #1cff91b5;
+    }
+}

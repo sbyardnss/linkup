@@ -1,43 +1,13 @@
-.joinTeeTimeButton {
-    /* margin-left: auto;
-    box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-    /* background-color: rgb(37, 120, 41); */
-    background-color: purple;
-
-    padding: .5em 0;
-    color: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    margin-left: 20px;
-    width: 90px;
-    font-size: large;
-    font-weight: normal;
-    font-style: oblique;
-}
-
 .teeTimeListItem {
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-between;
     padding: 1em;
-    margin: .5em 0;
+    /* margin: .5em 0; */
     background-color: aqua;
 }
-.teeTimeButton {
-    /* margin-left: auto; */
-   /* box-shadow: 0 8px 10px 0 rgba(67, 22, 201, 0.2), 0 4px 4px 0 rgba(0,0,0,0.19); */
-   background-color: rgb(37, 120, 41);
-   padding: .5em 0;
-   color: white;
-   border: 2px solid black;
-   border-radius: 4px;
-   margin-left: 20px;
-   width: 90px;
-   font-size: large;
-   font-weight: normal;
-   font-style: oblique;
 
-}
+
+
 button:active {
     background: #b38080;
     -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
@@ -47,51 +17,254 @@ button:active {
 }
 
 .buttonBlock {
-    display: block;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 1em;
+    display: flex;
+    position: relative;
+
+    /* margin-top: auto; */
+    /* margin-bottom: auto; */
+    /* margin-right: 1em; */
+
+}
+
+.teeTimeButton {
+    width: 90px;
+    justify-content: center;
+    align-items: center;
+    appearance: button;
+    background-color: #9c0060;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin-left: auto;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.teeTimeButton:active {
+    background-color: #e80055;
+}
+
+.teeTimeButton:hover {
+    background-color: #ff1c5c;
+}
+
+.bailTeeTimeButton {
+    width: 90px;
+    align-items: center;
+    justify-content: center;
+    appearance: button;
+    background-color: #d902ff;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    /* margin: 0; */
+    margin-left: auto;
+
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.bailTeeTimeButton:active {
+    background-color: #8b00e8;
+}
+
+.bailTeeTimeButton:hover {
+    background-color: #f41cff;
+}
+
+.joinTeeTimeButton {
+    width: 90px;
+    align-items: center;
+    justify-content: center;
+    appearance: button;
+    background-color: #008c9c;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: "RM Neue", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin-left: auto;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out, background .13s ease-in-out, opacity .13s ease-in-out, box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.joinTeeTimeButton:active {
+    background-color: #006AE8;
+}
+
+.joinTeeTimeButton:hover {
+    background-color: #1C84FF;
 }
 
 .myCreatedTeeTime {
-    display: flex;
-    /* flex-direction: column; */
+    display: block;
     padding: 1em;
-    justify-content: space-between;
-    /* align-items: start; */
-    margin: .5em 0;
-    margin-right: 200px;
-    background-color: aqua;
+    background-color: rgba(13, 103, 103, 0.908);
+    color: #CCFAFF;
+    margin: auto;
+    margin-bottom: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.357);
+    border-radius: 8px;
+    min-width: fit-content;
+
+
 }
 
-.myJoinedTeeTime {
-    display: flex;
-    /* flex-direction: column; */
-    padding: 1em;
 
-    justify-content: space-between;
-    margin: .5em 0;
-    background-color: rgb(150, 250, 170);
+.myJoinedTeeTime {
+    display: block;
+    padding: 1em;
+    background-color: rgba(81, 13, 103, 0.909);
+    color: #CCFAFF;
+    margin: auto;
+    margin-bottom: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.255);
+    border-radius: 8px;
+    min-width: fit-content;
 }
 
 .joinableTeeTimes {
-    display: flex;
-    /* flex-direction: column; */
+    display: block;
     padding: 1em;
-
-    justify-content: space-between;
-    margin: .5em 0;
-    background-color: rgb(217, 183, 249);
+    background-color: #00555e;
+    color: #CCFAFF;
+    margin: auto;
+    margin-bottom: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.255);
+    border-radius: 8px;
 }
 
 .teeTimeDate {
-    margin-right: 200px;
+    text-align: right;
 }
 
 .weatherContainer {
+    align-self: center;
     width: 200px;
+    position: relative;
+    height: fit-content;
     border: 2px solid gray;
-    padding:4px;
+    padding: 4px;
     border-radius: 4px;
-    background-color: rgb(150, 250, 170, .5);
+    background-color: rgb(150, 250, 170, .2);
+    margin-bottom: 1em;
+}
+
+.scorecardButton {
+    background-color: rgb(37, 44, 120);
+    color: #CCFAFF;
+    margin-left: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 100px;
+    font-size: large;
+    font-weight: normal;
+    font-style: oblique;
+    box-shadow: 0px 2px 1px 2px rgb(78, 78, 78);
+
+}
+
+.tooEarlyWarning {
+    background-color: #ae0707;
+    color: aliceblue;
+}
+
+/* .weatherInfo {
+    font-size: 14px;
+} */
+
+.weatherInfoList {
+    list-style-type: disc;
+    padding-left: 1.5em;
+}
+
+.otherPlayersContainer {
+    background-color: rgb(245, 245, 245, .2);
+    /* width: 100px; */
+    padding: .25em;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.otherJoinedPlayer {
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    margin: .1em 0;
+    width: 200px;
+}
+
+#playericon {
+    height: 1.5em;
+    margin-right: 1em;
+}
+
+.teeTimeCourseTag {
+    margin: 0 0 .5em 0;
+
+}
+
+.teeTimeDateAndTime {
+    /* margin-bottom: .5em; */
+    margin-left: auto;
+    text-align: end;
+}
+
+.weatherAndButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1em;
+}
+.teeTimeLogistics {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+.playersAndWeather {
+    display: flex;
+    justify-content: space-between;
 }

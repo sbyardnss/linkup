@@ -51,6 +51,7 @@ export const LinkUp = () => {
 						</div>
 					</WeatherProvider>
 				</Authorized>
+				
 			</>
 
 		} />
