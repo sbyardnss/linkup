@@ -179,13 +179,15 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                                 () => {
                                     if (window.confirm("are you sure?")) {
 
-                                        deleteTeeTime(matchId)
+                                        
                                         {
                                             allMatchingUserMatches.map(userMatch => {
                                                 deleteUserMatch(userMatch.id)
                                             })
-                                            deleteInitiated(!deleteItem)
+                                            
                                         }
+                                        deleteTeeTime(matchId)
+                                        deleteInitiated(!deleteItem)
                                     }
                                     else {
                                         return null
