@@ -12,7 +12,7 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange, profileUpdated, setProfileUpdated, setChatUser } = useContext(TeeTimeContext)
+    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate, setFriendChange, friendChange, profileUpdated, setProfileUpdated, setChatUser, currentUser } = useContext(TeeTimeContext)
     const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
@@ -22,7 +22,8 @@ export const UserProfile = () => {
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = localLinkUpUser
-    const currentUser = users.find(user => user.id === linkUpUserObj.id)
+    // const currentUser = users.find(user => user.id === linkUpUserObj.id)
+    // console.log(currentUser)
     useEffect(
         () => {
             updateProfile(currentUser)

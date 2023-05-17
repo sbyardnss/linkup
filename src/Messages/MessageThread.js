@@ -13,13 +13,12 @@ export const UnreadMsgCount = () => {
             getAllMessages()
                 .then(
                     (data) => {
-
                         const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
                         setMyMessages(myMsgData)
                     }
                 )
         },
-        [msgsRead]
+        []//msgs read was in this state watcher
     )
     const unreadMsgs = myMessages.filter(msg => msg.read === false && msg.recipientId === linkUpUserObj.id)
     if (unreadMsgs) {

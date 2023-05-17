@@ -16,7 +16,7 @@ export const ScorecardProvider = (props) => {
     const [updateCard, setUpdateCard] = useState(false)
     const { courses } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user") 
-    const linkUpUserObj = JSON.parse(localLinkUpUser) 
+    const linkUpUserObj = localLinkUpUser
     const loggedInUserMatch = userMatchesForThisMatch?.find(userMatch => userMatch.userId === linkUpUserObj.id)
 
 

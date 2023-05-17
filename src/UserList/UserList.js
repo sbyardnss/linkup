@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { addFriend, changeFriendStatus, deleteFriend, getAllUserFriends } from "../ServerManager"
+import { addFriend, changeFriendStatus, deleteFriend/*, getAllUserFriends*/ } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 
 import "./UserList.css"
@@ -13,28 +13,28 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = localLinkUpUser
 
-    useEffect(
-        () => {
-            getAllUserFriends()
-                .then(
-                    (data) => {
-                        setUserFriends(data)
-                    }
-                )
-        },
-        [friendChange]
-    )
-    useEffect(
-        () => {
-            getAllUserFriends()
-                .then(
-                    (data) => {
-                        setActiveUserFriends(data.filter(userFriend => userFriend.userId === linkUpUserObj.id))
-                    })
+    // useEffect(
+    //     () => {
+    //         getAllUserFriends()
+    //             .then(
+    //                 (data) => {
+    //                     setUserFriends(data)
+    //                 }
+    //             )
+    //     },
+    //     [friendChange]
+    // )
+    // useEffect(
+    //     () => {
+    //         getAllUserFriends()
+    //             .then(
+    //                 (data) => {
+    //                     setActiveUserFriends(data.filter(userFriend => userFriend.userId === linkUpUserObj.id))
+    //                 })
 
-        },
-        [userFriends]
-    )
+    //     },
+    //     [userFriends]
+    // )
 
     // setFiltered(users)
     useEffect(
@@ -59,7 +59,6 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
         [search]
     )
 
-    // console.log(activeUserFriends)
     return <>
         <main id={contingentId}>
 
@@ -85,7 +84,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                         return <>
                                             <li key={user.id} className="userListItem">
                                                 <h3>
-                                                    {user.name}
+                                                    {user.full_name}
                                                 </h3>
                                                 <button className="deleteFriendButton" onClick={
 
@@ -134,7 +133,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                         return <>
                                             <li key={user.id} className="userListItem">
                                                 <h3>
-                                                    {user.name}
+                                                    {user.full_name}
                                                 </h3>
                                                 <button className="addFriendButton" onClick={
                                                     () => {
