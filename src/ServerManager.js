@@ -1,6 +1,5 @@
 const localLinkUpUser = localStorage.getItem("linkUp_user")
 const linkUpUserObj = JSON.parse(localLinkUpUser)
-console.log(linkUpUserObj)
 //get fetches
 export const getAllUsers = () => { //check
     return fetch(`http://localhost:8000/golfers`, {
@@ -119,6 +118,7 @@ export const sendTeeTime = (teeTimeObj) => {
     return fetch(`http://localhost:8000/matches`, {
         method: "POST",
         headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(teeTimeObj)
@@ -126,7 +126,7 @@ export const sendTeeTime = (teeTimeObj) => {
         .then(res => res.json())
         .then(
             () => {
-                getAllMatches()
+                getMyMatches(linkUpUserObj.userId)
             }
         )
 }
@@ -135,6 +135,7 @@ export const sendUserMatch = (userMatchObj) => {
     return fetch(`http://localhost:8000/userMatches`, {
         method: "POST",
         headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(userMatchObj)

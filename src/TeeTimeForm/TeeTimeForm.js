@@ -48,9 +48,10 @@ export const TeeTimeForm = () => {
                             <input type="date" className="dateTimeSelectors" id="title" placeholder="title" onChange={
                                 (evt) => {
                                     const [year, month, day] = evt.target.value.split("-")
+                                    console.log(evt.target.value)
 
                                     const copy = { ...newMatch }
-                                    copy.date = `${month}/${day}/${year}`
+                                    copy.date = evt.target.value
                                     updateNewMatch(copy)
                                 }
                             } />
@@ -59,19 +60,19 @@ export const TeeTimeForm = () => {
                         <div  >
                             <input type="time" className="dateTimeSelectors" defaultValue={"00:00"} id="title" onChange={
                                 (evt) => {
-                                    let timeString = ""
-                                    let [hour,] = evt.target.value.split(":")
-                                    let [,minutes] = evt.target.value.split(":")
-                                    if (hour > 12) {
-                                        hour = hour - 12
-                                        timeString = hour+":"+minutes+" pm"
-                                    }
-                                    else {
-                                        timeString = hour+":"+minutes+" am"
-                                    }
-                                    
+                                    // let timeString = ""
+                                    // let [hour,] = evt.target.value.split(":")
+                                    // let [,minutes] = evt.target.value.split(":")
+                                    // if (hour > 12) {
+                                    //     hour = hour - 12
+                                    //     timeString = hour+":"+minutes+" pm"
+                                    // }
+                                    // else {
+                                    //     timeString = hour+":"+minutes+" am"
+                                    // }
+                                    console.log(evt.target.value)
                                     const copy = { ...newMatch }
-                                    copy.time = timeString
+                                    copy.time = evt.target.value
                                     updateNewMatch(copy)
                                 }
                             } />
@@ -118,7 +119,7 @@ export const TeeTimeForm = () => {
                                 if(newMatch.time && newMatch.date && newMatch.course) {
 
                                     sendTeeTime(teeTimeObjToSendToApi)
-                                    sendUserMatch(userMatchObjToSendToApi)
+                                    // sendUserMatch(userMatchObjToSendToApi)
                                     setMatchCreated(!matchCreated)
                                     navigate("/")
                                 }
