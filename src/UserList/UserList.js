@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { addFriend, changeFriendStatus, deleteFriend/*, getAllUserFriends*/ } from "../ServerManager"
+import { addFriend, changeFriendStatus, removeFriend /*deleteFriend, getAllUserFriends*/ } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 
 import "./UserList.css"
@@ -91,7 +91,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                 <button className="deleteFriendButton" onClick={
 
                                                     () => {
-                                                        deleteFriend(matchingFriendRelationship.id)
+                                                        removeFriend(user.id)
                                                         //CODE BELOW FOR REQUESTING POTENTIAL ONLY
                                                         // const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
                                                         // const copy = otherSideOfDeletedRequest
@@ -139,13 +139,13 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                 </h3>
                                                 <button className="addFriendButton" onClick={
                                                     () => {
-                                                        const newFriendForAPI = {
-                                                            userId: linkUpUserObj.id,
-                                                            friendId: user.id
-                                                            //CODE BELOW FOR REQUESTING ABILITY ONLY
-                                                            // confirmed: false
-                                                        }
-                                                        addFriend(newFriendForAPI)
+                                                        // const newFriendForAPI = {
+                                                        //     userId: linkUpUserObj.id,
+                                                        //     friendId: user.id
+                                                        //     //CODE BELOW FOR REQUESTING ABILITY ONLY
+                                                        //     // confirmed: false
+                                                        // }
+                                                        addFriend(user.id)
                                                         setFriendChange(!friendChange)
                                                     }
                                                 }>Add</button>

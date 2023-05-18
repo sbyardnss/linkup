@@ -70,6 +70,28 @@ export const getMyFriends = (userId) => {
     })
         .then(res => res.json())
 }
+export const addFriend = (userId) => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/golfers/${userId}/add_friend`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        }
+    })
+    .then(() => getMyFriends(linkUpUserObj.userId))
+}
+export const removeFriend = (userId) => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/golfers/${userId}/remove_friend`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        }
+    })
+    .then(() => getMyFriends(linkUpUserObj.userId))
+}
 
 
 //OLD BELOW DELETE AT END
@@ -177,17 +199,17 @@ export const sendNewCourse = (newCourseObj) => { //check
     })
         .then(res => res.json())
 }
-
-export const addFriend = (newFriendObj) => {
-    return fetch(`http://localhost:8000/userFriends`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newFriendObj)
-    })
-        .then(res => res.json())
-}
+// OLD ADDFRIEND FUNCTION
+// export const addFriend = (newFriendObj) => {
+//     return fetch(`http://localhost:8000/userFriends`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(newFriendObj)
+//     })
+//         .then(res => res.json())
+// }
 
 export const addUserHoleScore = (newHoleScoreObj) => {
     return fetch(`http://localhost:8000/matchUserHoleScores`, {

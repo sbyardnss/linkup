@@ -27,57 +27,57 @@ export const TeeTimeProvider = (props) => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
+    // useEffect(
+    //     () => {
+    //         Promise.all([getAllUsers, getAllCourses, getAllMatches]).then(([userData, courseData, matchData]) => {
+    //             setUsers(userData)
+    //             setCourses(courseData)
+    //             setMatches(matchData);
+    //         });
+    //     },[]
+    // )
     useEffect(
         () => {
-            Promise.all([getAllUsers, getAllCourses, getAllMatches]).then(([userData, courseData, matchData]) => {
-                setUsers(userData)
-                setCourses(courseData)
-                setMatches(matchData);
-            });
-        },[]
+            if (linkUpUserObj.token) {
+                Promise.resolve(getAllUsers())
+                    .then(
+                        (userData) => {
+                            setUsers(userData)
+                        }
+                    )
+
+            }
+        },
+        [profileUpdated, linkUpUserObj.token]
     )
-    // useEffect(
-    //     () => {
-    //         if (linkUpUserObj.token) {
-    //             Promise.resolve(getAllUsers())
-    //                 .then(
-    //                     (userData) => {
-    //                         setUsers(userData)
-    //                     }
-    //                 )
+    useEffect(
+        () => {
+            if (linkUpUserObj.token) {
+                Promise.resolve(getAllCourses())
+                    .then(
+                        (courseData) => {
+                            setCourses(courseData)
+                        }
+                    )
 
-    //         }
-    //     },
-    //     [profileUpdated, linkUpUserObj.token]
-    // )
-    // useEffect(
-    //     () => {
-    //         if (linkUpUserObj.token) {
-    //             Promise.resolve(getAllCourses())
-    //                 .then(
-    //                     (courseData) => {
-    //                         setCourses(courseData)
-    //                     }
-    //                 )
+            }
+        },
+        []
+    )
+    useEffect(
+        () => {
+            if (linkUpUserObj.token) {
+                Promise.resolve(getAllMatches())
+                    .then(
+                        (data) => {
+                            setMatches(data)
+                        }
+                    )
 
-    //         }
-    //     },
-    //     []
-    // )
-    // useEffect(
-    //     () => {
-    //         if (linkUpUserObj.token) {
-    //             Promise.resolve(getAllMatches())
-    //                 .then(
-    //                     (data) => {
-    //                         setMatches(data)
-    //                     }
-    //                 )
-
-    //         }
-    //     },
-    //     [deleteItem, matchCreated]
-    // )
+            }
+        },
+        [deleteItem, matchCreated]
+    )
 
     useEffect(
         () => {
