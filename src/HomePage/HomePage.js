@@ -22,14 +22,16 @@ export const HomePage = () => {
     const datesForMatchesIHaveJoined = () => {
         const dateArray = []
         {
-            sortedOnlyMyUserMatches.map(userMatch => {
-                const matchingMatch = matches.find(match => userMatch.matchId === match.id)
-                const dateOfJoinedMatch = matchingMatch?.date
-                const parsedMatchingDate = Date.parse(matchingMatch?.date)
-                if (parsedMatchingDate > currentDateParsed) {
-                    dateArray.push(dateOfJoinedMatch)
-                }
-            })
+            if (matches.length) {
+                sortedOnlyMyUserMatches.map(userMatch => {
+                    const matchingMatch = matches.find(match => userMatch.matchId === match.id)
+                    const dateOfJoinedMatch = matchingMatch?.date
+                    const parsedMatchingDate = Date.parse(matchingMatch?.date)
+                    if (parsedMatchingDate > currentDateParsed) {
+                        dateArray.push(dateOfJoinedMatch)
+                    }
+                })
+            }
         }
         return dateArray
     }

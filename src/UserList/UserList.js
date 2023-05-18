@@ -39,7 +39,9 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
     // setFiltered(users)
     useEffect(
         () => {
-            setFiltered(users)
+            if (users.length) {
+                setFiltered(users)
+            }
         },
         [users]
     )

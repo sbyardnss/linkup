@@ -85,11 +85,14 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather
         })
     }
 
-
     //establish initiating user
-    const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === id)
-    const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
-
+    const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === id)
+    const initiatingUser = {}
+    if (users.length) {
+        initiatingUser = users?.find(user => user.id === initiatingUserMatch?.userId)
+    }
+    console.log(userMatchesWithMatchInfo) //currently empty
+    
 
     const maxPlayerCount = [0, 1, 2, 3]
     const listOfOtherPlayersOnMatch = () => {

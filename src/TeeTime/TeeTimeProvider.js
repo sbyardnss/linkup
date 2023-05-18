@@ -81,8 +81,10 @@ export const TeeTimeProvider = (props) => {
 
     useEffect(
         () => {
-            const loggedInUser = users.find(user => user.id === linkUpUserObj.userId)
-            setCurrentUser(loggedInUser)
+            if (users.length) {
+                const loggedInUser = users.find(user => user.id === linkUpUserObj.userId)
+                setCurrentUser(loggedInUser)
+            }
         }, [users]
     )
     useEffect(
