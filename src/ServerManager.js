@@ -1,25 +1,37 @@
-const localLinkUpUser = localStorage.getItem("linkUp_user")
-const linkUpUserObj = JSON.parse(localLinkUpUser)
+const getToken = () => {
+    const localLinkUpUser = localStorage.getItem("linkUp_user")
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
+    return linkUpUserObj
+}
 //get fetches
 export const getAllUsers = () => { //check
-    return fetch(`http://localhost:8000/golfers`, {
-        headers: {
-            "Authorization": `Token ${linkUpUserObj.token}`,
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => res.json())
+    // if (linkUpUserObj?.token) {
+    const linkUpUserObj = getToken()
+        return fetch(`http://localhost:8000/golfers`, {
+            headers: {
+                "Authorization": `Token ${linkUpUserObj.token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+
+    // }
 }
 
 export const getAllCourses = () => { //check
-    return fetch(`http://localhost:8000/courses`, {
-        headers: {
-            "Authorization": `Token ${linkUpUserObj.token}`
-        }
-    })
-        .then(res => res.json())
+    // if (linkUpUserObj?.token){
+    const linkUpUserObj = getToken()
+        return fetch(`http://localhost:8000/courses`, {
+            headers: {
+                "Authorization": `Token ${linkUpUserObj.token}`
+            }
+        })
+            .then(res => res.json())
+        
+    // }
 }
 export const getAllMatches = () => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/matches`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
@@ -39,6 +51,7 @@ export const getAllMatchUserHoleScores = () => {
 }
 //NEW BELOW
 export const getMyMatches = (userId) => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/matches?my_matches=${userId}`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -48,6 +61,7 @@ export const getMyMatches = (userId) => {
         .then(res => res.json())
 }
 export const getMyFriends = (userId) => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/golfers?friends=${userId}`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -75,16 +89,19 @@ export const getMyFriends = (userId) => {
 //         .then(res => res.json())
 // }
 export const getAllMessages = () => {
-    return fetch(`http://localhost:8000/messages`, {
-        headers: {
-            "Authorization": `Token ${linkUpUserObj.token}`
-        }
-    })
-        .then(res => res.json())
+        const linkUpUserObj = getToken()
+        return fetch(`http://localhost:8000/messages`, {
+            headers: {
+                "Authorization": `Token ${linkUpUserObj.token}`
+            }
+        })
+            .then(res => res.json())
+    
 }
 
 //get all userMatches with scorecards for paticularMatch 
 export const getUserMatchesForThisMatch = (matchId) => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/golfer_matches?match_id=${matchId}`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
@@ -115,6 +132,7 @@ export const getActiveUserMatches = () => {
 //post fetches
 
 export const sendTeeTime = (teeTimeObj) => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/matches`, {
         method: "POST",
         headers: {
@@ -132,6 +150,7 @@ export const sendTeeTime = (teeTimeObj) => {
 }
 
 export const sendUserMatch = (userMatchObj) => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/userMatches`, {
         method: "POST",
         headers: {

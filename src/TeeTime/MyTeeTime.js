@@ -7,7 +7,7 @@ import { TeeTimeContext } from "./TeeTimeProvider"
 import "./TeeTime.css"
 import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 
-export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, scorecardId }) => {
+export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather }) => {
     const { rainChance14Day, next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
     const { deleteItem, deleteInitiated, users, userMatchesWithMatchInfo, navigate } = useContext(TeeTimeContext)
 
@@ -24,10 +24,9 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
 
 
-
     const timeBuilder = (time) => {
-        const [timeString,] = time.split(" ")
-        let [hours, minutes] = timeString.split(":")
+        // const [timeString,] = time.split(" ")
+        let [hours, minutes, seconds] = time.split(":")
         if (parseInt(hours) < 12) {
             hours = parseInt(hours) + 12
         }
@@ -35,8 +34,9 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     }
     // console.log(timeBuilder(time))//T16:00
 
-    const [month, day, year] = date.split("/")
-    const dateString = `${year}-${month}-${day}`
+    // const [month, day, year] = date.split("-")
+    // const dateString = `${year}-${month}-${day}`
+    const dateString = dateForWeather
     const exactHourString = `${dateString}${timeBuilder(time)}`
     //find index number for hourly weather arrays
     const hourIndex = weatherHourArrayForIndex.findIndex(hour => hour === exactHourString)
@@ -76,9 +76,9 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
     //find all userMatches corresponding to a match that you initiated. this is for the delete button
     let allMatchingUserMatches = []
-    const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
+    const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === id)
 
-    const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === matchId)
+    const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === id)
     {
         matchingUserMatches.map(userMatch => {
             allMatchingUserMatches.push(userMatch)
@@ -87,7 +87,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
 
 
     //establish initiating user
-    const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
+    const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === id)
     const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
 
 
@@ -178,7 +178,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
                                 () => {
                                     if (window.confirm("are you sure?")) {
 
-                                        deleteTeeTime(matchId)
+                                        deleteTeeTime(id)
                                         {
                                             allMatchingUserMatches.map(userMatch => {
                                                 deleteUserMatch(userMatch.id)

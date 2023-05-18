@@ -4,14 +4,16 @@ import "./Auth.css"
 
 export const Register = (props) => {
     const [user, setUser] = useState({
-        // username: "",
+        username: "",
         email: "",
-        name: "",
+        first_name: "",
+        last_name: "",
+        password: ""
     })
     let navigate = useNavigate()
 
     const registerNewUser = () => {
-        return fetch("http://localhost:8088/users", {
+        return fetch("http://localhost:8000/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -20,9 +22,12 @@ export const Register = (props) => {
         })
             .then(res => res.json())
             .then(createdUser => {
-                if (createdUser.hasOwnProperty("id")) {
+                console.log(createdUser)
+                if (createdUser.hasOwnProperty("userId")) {
                     localStorage.setItem("linkUp_user", JSON.stringify({
-                        id: createdUser.id,
+                        userId: createdUser.userId,
+                        token: createdUser.token,
+                        valid: createdUser.valid
                     }))
 
                     navigate("/")
@@ -32,7 +37,11 @@ export const Register = (props) => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-        return fetch(`http://localhost:8088/users?email=${user.email}`)
+        return fetch(`http://localhost:8000/golfers?email=${user.email}`, {
+            headers: {
+                "Authorization": "Token 159cb7e2b243c66486fcd79ec8475ced5e1a507d"
+            }
+        })
             .then(res => res.json())
             .then(response => {
                 if (response.length > 0) {
@@ -57,17 +66,23 @@ export const Register = (props) => {
             <form className="form--login" onSubmit={handleRegister}>
                 <h3 className="h3 mb-3 font-weight-normal">Please Register for LinkUp</h3>
                 <fieldset className="registerFieldset">
-                    <label className="loginLabels" htmlFor="name"> Name </label>
+                    <label className="loginLabels" htmlFor="first_name"> First name </label>
                     <input onChange={updateUser}
-                           type="text" id="name" className="form-control"
-                           placeholder="Enter your name" required autoFocus />
+                           type="text" id="first_name" className="form-control"
+                           placeholder="Enter your first name" required autoFocus />
                 </fieldset>
-                {/* <fieldset className="registerFieldset">
+                <fieldset className="registerFieldset">
+                    <label className="loginLabels" htmlFor="last_name"> Last name </label>
+                    <input onChange={updateUser}
+                           type="text" id="last_name" className="form-control"
+                           placeholder="Enter your last name" required autoFocus />
+                </fieldset>
+                <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="username"> Username </label>
                     <input onChange={updateUser}
                            type="text" id="username" className="form-control"
                            placeholder="Enter username" required autoFocus />
-                </fieldset> */}
+                </fieldset>
                 <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="email"> Email address </label>
                     <input onChange={updateUser}

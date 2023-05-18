@@ -121,7 +121,6 @@ export const HomePage = () => {
                             const intDay = parseInt(day)
                             const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
                             const teeTimeDateParsed = Date.parse(teeTimeDateString)
-                            console.log(year)
                             if (teeTimeDateParsed >= currentDateParsed) {
                                 // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
 
@@ -142,7 +141,7 @@ export const HomePage = () => {
                                         courseName={teeTime.course.name}
                                         date={teeTimeDateString}
                                         time={teeTime.time}
-                                        matchId={teeTime.id}
+                                        dateForWeather={teeTime.date}
                                     />
                                 </>
 

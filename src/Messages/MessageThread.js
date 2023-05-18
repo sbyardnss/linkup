@@ -10,13 +10,16 @@ export const UnreadMsgCount = () => {
     const { msgsRead } = useContext(TeeTimeContext)
     useEffect(
         () => {
-            getAllMessages()
-                .then(
-                    (data) => {
-                        const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
-                        setMyMessages(myMsgData)
-                    }
-                )
+            if (linkUpUserObj.token){
+                getAllMessages()
+                    .then(
+                        (data) => {
+                            const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
+                            setMyMessages(myMsgData)
+                        }
+                    )
+
+            }
         },
         []//msgs read was in this state watcher
     )
