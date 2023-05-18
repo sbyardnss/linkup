@@ -102,7 +102,6 @@ export const HomePage = () => {
     }
 
 
-
     const messageToUserOrMyMatches = () => {
         if (sortedOnlyMyUserMatches.length === 0) {
             return <li>
@@ -115,17 +114,16 @@ export const HomePage = () => {
                     sortedOnlyMyUserMatches.map(teeTime => {
                         if (next14Dates) {
                             //string values for teeTime date
-                            const [month, day, year] = teeTime?.match?.date.split("/")
-
+                            const [month, day, year] = teeTime.date.split("-")
                             //numeric values for teeTime date
                             const intYear = parseInt(year)
                             const intMonth = parseInt(month)
                             const intDay = parseInt(day)
                             const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
                             const teeTimeDateParsed = Date.parse(teeTimeDateString)
-
+                            console.log(year)
                             if (teeTimeDateParsed >= currentDateParsed) {
-                                const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
 
                                 // let allMatchingUserMatches = []
                                 // const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === teeTime?.match.id)
@@ -140,11 +138,11 @@ export const HomePage = () => {
                                     <MyTeeTime
                                         key={teeTime.id}
                                         id={teeTime.id}
-                                        courseId={matchingCourse.id}
-                                        courseName={matchingCourse.name}
-                                        date={teeTime.match.date}
-                                        time={teeTime.match.time}
-                                        matchId={teeTime.matchId}
+                                        courseId={teeTime.course.id}
+                                        courseName={teeTime.course.name}
+                                        date={teeTimeDateString}
+                                        time={teeTime.time}
+                                        matchId={teeTime.id}
                                     />
                                 </>
 

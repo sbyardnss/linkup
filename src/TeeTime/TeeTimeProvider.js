@@ -121,11 +121,11 @@ export const TeeTimeProvider = (props) => {
     // sort matches for my tee times
     
 
-    const onlyMyMatches = matches.filter(match => userMatches?.match === match.id)
+    // const onlyMyMatches = matches.filter(match => userMatches?.match === match.id)
     console.log(myJoinedMatches)
-    const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) => {
-        const aDate = Date.parse(a.match.date)
-        const bDate = Date.parse(b.match.date)
+    const sortedOnlyMyUserMatches = myJoinedMatches.sort((a, b) => {
+        const aDate = Date.parse(a.date)
+        const bDate = Date.parse(b.date)
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
 

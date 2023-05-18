@@ -69,7 +69,6 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, matchId, score
     }
 
 
-
     if (teeTimeDateParsed >= dateTwoWeeksOut || tempHour === null || windHour === null || precipitationHour === null) {
         weatherInfoString += "too early for weather data"
     }
