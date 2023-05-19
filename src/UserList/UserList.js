@@ -1,42 +1,23 @@
 import { useState, useEffect, useContext } from "react"
-import { addFriend, changeFriendStatus, removeFriend /*deleteFriend, getAllUserFriends*/ } from "../ServerManager"
+import { addFriend, changeFriendStatus, getAllUsers, removeFriend /*deleteFriend, getAllUserFriends*/ } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 
 import "./UserList.css"
 
 
 export const UserList = ({ contingentId, contingentContainer, contingentList }) => {
-    const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends } = useContext(TeeTimeContext)
-    const [userFriends, setUserFriends] = useState([])
+    const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, setUsers } = useContext(TeeTimeContext)
+    // const [userFriends, setUserFriends] = useState([])
     const [search, updateSearch] = useState("")
     const [filtered, setFiltered] = useState([])
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = localLinkUpUser
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
 
     // useEffect(
     //     () => {
-    //         getAllUserFriends()
-    //             .then(
-    //                 (data) => {
-    //                     setUserFriends(data)
-    //                 }
-    //             )
-    //     },
-    //     [friendChange]
+    //         setUserFriends(activeUserFriends)
+    //     },[activeUserFriends]
     // )
-    // useEffect(
-    //     () => {
-    //         getAllUserFriends()
-    //             .then(
-    //                 (data) => {
-    //                     setActiveUserFriends(data.filter(userFriend => userFriend.userId === linkUpUserObj.id))
-    //                 })
-
-    //     },
-    //     [userFriends]
-    // )
-
-    // setFiltered(users)
     useEffect(
         () => {
             if (users.length) {
@@ -60,6 +41,13 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
         },
         [search]
     )
+    // const handleFriendChange = () => {
+    //     if (linkUpUserObj.userId) {
+    //         getMyFriends(linkUpUserObj.userId).then((data) => {
+    //             setActiveUserFriends(data)
+    //         })
+    //     }
+    // }
 
     return <>
         <main id={contingentId}>
@@ -77,11 +65,11 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                     {
                         filtered?.map(
                             user => {
-                                if (user.id !== linkUpUserObj.id) {
-                                    const matchingFriendRelationship = activeUserFriends.find(userFriend => userFriend.friendId === user.id)
+                                if (user.id !== linkUpUserObj.userId) {
+                                    // const matchingFriendRelationship = userFriends?.find(friend => friend.id === user.id)
                                     // if (matchingFriendRelationship && matchingFriendRelationship.confirmed === true) {
                                     //USE CODE ABOVE IF YOU IMPLEMENT FRIEND REQUESTS
-                                    if (matchingFriendRelationship) {
+                                    if (user.is_friend === 1) {
 
                                         return <>
                                             <li key={user.id} className="userListItem">
@@ -89,15 +77,18 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                     {user.full_name}
                                                 </h3>
                                                 <button className="deleteFriendButton" onClick={
-
                                                     () => {
                                                         removeFriend(user.id)
+                                                            .then(() => {
+                                                                getAllUsers()
+                                                                    .then(data => setUsers(data))
+                                                            })
                                                         //CODE BELOW FOR REQUESTING POTENTIAL ONLY
                                                         // const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
                                                         // const copy = otherSideOfDeletedRequest
                                                         // copy.confirmed = false
                                                         // changeFriendStatus(copy, otherSideOfDeletedRequest.id)
-                                                        setFriendChange(!friendChange)
+                                                        // setFriendChange(!friendChange)
 
                                                     }
                                                 }>Remove</button>
@@ -105,30 +96,6 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                             </li>
                                         </>
                                     }
-
-
-
-                                    // CODE BELOW FOR REQUESTING ONLY
-                                    // else if (matchingFriendRelationship && matchingFriendRelationship.confirmed === false){
-                                    // else if (matchingFriendRelationship) {
-
-                                    //     return <>
-                                    //         <li key={user.id} className="userListItem">
-                                    //             <h3>
-                                    //                 {user.name}
-                                    //             </h3>
-                                    //             <button className="cancelRequestButton" onClick={
-
-                                    //                 () => {
-                                    //                     deleteFriend(matchingFriendRelationship.id)
-                                    //                     setFriendChange(!friendChange)
-
-                                    //                 }
-                                    //             }>cancel request</button>
-
-                                    //         </li>
-                                    //     </>
-                                    // }
 
                                     else {
 
@@ -139,14 +106,11 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                 </h3>
                                                 <button className="addFriendButton" onClick={
                                                     () => {
-                                                        // const newFriendForAPI = {
-                                                        //     userId: linkUpUserObj.id,
-                                                        //     friendId: user.id
-                                                        //     //CODE BELOW FOR REQUESTING ABILITY ONLY
-                                                        //     // confirmed: false
-                                                        // }
                                                         addFriend(user.id)
-                                                        setFriendChange(!friendChange)
+                                                            .then(() => {
+                                                                getAllUsers()
+                                                                    .then(data => setUsers(data))
+                                                            })
                                                     }
                                                 }>Add</button>
 

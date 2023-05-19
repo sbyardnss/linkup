@@ -60,16 +60,16 @@ export const getMyMatches = (userId) => {
     })
         .then(res => res.json())
 }
-export const getMyFriends = (userId) => {
-    const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/golfers?friends=${userId}`, {
-        headers: {
-            "Authorization": `Token ${linkUpUserObj.token}`,
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => res.json())
-}
+// export const getMyFriends = (userId) => {
+//     const linkUpUserObj = getToken()
+//     return fetch(`http://localhost:8000/golfers?friends=${userId}`, {
+//         headers: {
+//             "Authorization": `Token ${linkUpUserObj.token}`,
+//             "Content-Type": "application/json"
+//         }
+//     })
+//         .then(res => res.json())
+// }
 export const addFriend = (userId) => {
     const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/golfers/${userId}/add_friend`, {
@@ -79,7 +79,6 @@ export const addFriend = (userId) => {
             "Content-Type": "application/json"
         }
     })
-    .then(() => getMyFriends(linkUpUserObj.userId))
 }
 export const removeFriend = (userId) => {
     const linkUpUserObj = getToken()
@@ -90,7 +89,6 @@ export const removeFriend = (userId) => {
             "Content-Type": "application/json"
         }
     })
-    .then(() => getMyFriends(linkUpUserObj.userId))
 }
 
 

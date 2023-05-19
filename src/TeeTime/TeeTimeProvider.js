@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useRef } from "react";
 import { useLinkClickHandler, useNavigate } from "react-router-dom";
 //new to manager imports: getMyMatches, getMyFriends
-import { getAllCourses, getAllMatches, getAllUsers, getAllMessages, getMyMatches, getMyFriends } from "../ServerManager"
+import { getAllCourses, getAllMatches, getAllUsers, getAllMessages, getMyMatches, getMyFriends, removeFriend, addFriend } from "../ServerManager"
 export const TeeTimeContext = createContext()
 
 export const TeeTimeProvider = (props) => {
@@ -48,7 +48,7 @@ export const TeeTimeProvider = (props) => {
 
             }
         },
-        [profileUpdated, linkUpUserObj.token]
+        [profileUpdated]
     )
     useEffect(
         () => {
@@ -94,25 +94,28 @@ export const TeeTimeProvider = (props) => {
     )
     useEffect(
         () => {
-            getMyMatches(linkUpUserObj.userId)
-                .then(
-                    (data) => {
-                        setMyJoinedMatches(data)
-                    }
-                )
+            if (linkUpUserObj.token) {
+                Promise.resolve(getMyMatches(linkUpUserObj.userId))
+                    .then(
+                        (data) => {
+                            setMyJoinedMatches(data)
+                        }
+                    )
+            }
         },[]
     )
-    useEffect(
-        () => {
-            getMyFriends(linkUpUserObj.userId)
-                .then(
-                    (data) => {
-                        setActiveUserFriends(data)
-                    }
-                )
-        },[]
-    )
-
+    // useEffect(
+    //     () => {
+    //         if (linkUpUserObj.token) {
+    //             Promise.resolve(getMyFriends(linkUpUserObj.userId))
+    //                 .then(
+    //                     (data) => {
+    //                         setActiveUserFriends(data)
+    //                     }
+    //                 )
+    //         }
+    //     },[]
+    // )
 
 
 
@@ -137,7 +140,6 @@ export const TeeTimeProvider = (props) => {
     
 
     // const onlyMyMatches = matches.filter(match => userMatches?.match === match.id)
-    console.log(myJoinedMatches)
     const sortedOnlyMyUserMatches = myJoinedMatches.sort((a, b) => {
         const aDate = Date.parse(a.date)
         const bDate = Date.parse(b.date)
@@ -206,7 +208,8 @@ export const TeeTimeProvider = (props) => {
     return (
         <TeeTimeContext.Provider value={{
             deleteItem, deleteInitiated, joinMatch, joinInitiated, users, courses, matches, userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, navigate,
-            sortedOthersUserMatchesThatIHaveNotJoined, onlyOthersSortedFutureMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated, chatUser, setChatUser, msgsRead, setMsgsRead
+            sortedOthersUserMatchesThatIHaveNotJoined, onlyOthersSortedFutureMatchesThatIHaveNotJoined, userMatchesWithMatchInfo, sortedOnlyMyUserMatches, currentDateParsed, profileUpdated, setProfileUpdated, chatUser, setChatUser, msgsRead, setMsgsRead,
+            setUsers
         }}>
             {props.children}
         </TeeTimeContext.Provider>
