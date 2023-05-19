@@ -7,16 +7,14 @@ import { TeeTimeContext } from "./TeeTimeProvider"
 import "./TeeTime.css"
 import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 
-export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather }) => {
+export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather, creator, golfers }) => {
     const { rainChance14Day, next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
     const { deleteItem, deleteInitiated, users, userMatchesWithMatchInfo, navigate } = useContext(TeeTimeContext)
-
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
     //build weather string here
     const dateTwoWeeksOut = Date.parse(next14Dates[13])
-    let rainChance = 0
     let weatherInfoString = ""
     const teeTimeDateParsed = Date.parse(date)
     const testTeeTimeTime = "2023-03-28T12:00"
@@ -24,16 +22,14 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather
 
 
 
+    //build hourly weather string here
     const timeBuilder = (time) => {
-        // const [timeString,] = time.split(" ")
         let [hours, minutes, seconds] = time.split(":")
         if (parseInt(hours) < 12) {
             hours = parseInt(hours) + 12
         }
         return `T${hours}:00`
     }
-    // console.log(timeBuilder(time))//T16:00
-
     // const [month, day, year] = date.split("-")
     // const dateString = `${year}-${month}-${day}`
     const dateString = dateForWeather
@@ -51,83 +47,64 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather
     }
     else {
         precipitationString = " Precipitation data not yet available"
-
     }
     if (windString !== null && windHour !== undefined) {
         windString = `WindSpeed: ${windHour}mph`
     }
     else {
         windString = "Wind data not yet available"
-
     }
     if (tempString !== null && tempHour !== undefined) {
         tempString = `Temp: ${tempHour}°F`
     }
     else {
         tempString = "Temp data not yet available"
-
     }
-
 
     if (teeTimeDateParsed >= dateTwoWeeksOut || tempHour === null || windHour === null || precipitationHour === null) {
         weatherInfoString += "too early for weather data"
     }
-
-
     //find all userMatches corresponding to a match that you initiated. this is for the delete button
-    let allMatchingUserMatches = []
-    const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === id)
+    // let allMatchingUserMatches = []
+    // const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === id)
 
-    const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === id)
-    {
-        matchingUserMatches.map(userMatch => {
-            allMatchingUserMatches.push(userMatch)
-        })
-    }
+    // const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === id)
+    // {
+    //     matchingUserMatches.map(userMatch => {
+    //         allMatchingUserMatches.push(userMatch)
+    //     })
+    // }
 
     //establish initiating user
-    const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === id)
-    let initiatingUser = {}
-    if (users.length) {
-        initiatingUser = users?.find(user => user.id === initiatingUserMatch?.userId)
-    }
+    // const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === id)
+    const initiatingUser = creator
+    // if (users.length) {
+    //     initiatingUser = users?.find(user => user.id === initiatingUserMatch?.userId)
+    // }
 
     const maxPlayerCount = [0, 1, 2, 3]
     const listOfOtherPlayersOnMatch = () => {
 
-        if (matchingUserMatches.length > 0) {
+        if (golfers.length > 0) {
 
             return <>
                 <div className="otherPlayersContainer">
-                    {/* {
-                        matchingUserMatches.map(userMatch => {
-                            const matchingPlayer = users.find(user => user.id === userMatch.userId && userMatch.userId !== linkUpUserObj.id)
-                            if (matchingPlayer !== undefined) {
-                                return <>
-                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{matchingPlayer?.name}</div>
-                                </>
-
-                            }
-
-                        })
-                    } */}
                     {
                         maxPlayerCount.map(count => {
-                            const matchingPlayer = users.find(user => user.id === matchingUserMatches[count]?.userId)
-                            if (matchingPlayer?.id === linkUpUserObj.id) {
+                            // const matchingPlayer = users.find(user => user.id === matchingUserMatches[count]?.userId)
+                            if (golfers[count]?.id === linkUpUserObj.userId) {
                                 return <>
                                     <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1} - Me</div>
                                 </>
-
                             }
-                            else if (matchingPlayer === undefined) {
+                            else if (golfers[count] === undefined) {
                                 return <>
                                     <div className="otherJoinedPlayer">-- Open Slot --</div>
                                 </>
                             }
                             else {
                                 return <>
-                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1}--{matchingPlayer?.name}</div>
+                                    <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1}--{golfers.full_name}</div>
                                 </>
                             }
                         })
@@ -146,7 +123,7 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather
 
     }
 
-    if (initiatingUser && initiatingUser.id === linkUpUserObj.id) {
+    if (initiatingUser && initiatingUser.id === linkUpUserObj.userId) {
         return <>
 
             <li className="myCreatedTeeTime" key={id}>
@@ -180,12 +157,12 @@ export const MyTeeTime = ({ id, courseId, courseName, date, time, dateForWeather
                                     if (window.confirm("are you sure?")) {
 
                                         deleteTeeTime(id)
-                                        {
-                                            allMatchingUserMatches.map(userMatch => {
-                                                deleteUserMatch(userMatch.id)
-                                            })
-                                            deleteInitiated(!deleteItem)
-                                        }
+                                        // {
+                                        //     allMatchingUserMatches.map(userMatch => {
+                                        //         deleteUserMatch(userMatch.id)
+                                        //     })
+                                        //     deleteInitiated(!deleteItem)
+                                        // }
                                     }
                                     else {
                                         return null

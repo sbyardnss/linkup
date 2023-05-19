@@ -133,41 +133,40 @@ export const TeeTimeProvider = (props) => {
     // )
     
 
-    const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
-        return uME.userId === linkUpUserObj.id
-    })
+    // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
+    //     return uME.userId === linkUpUserObj.id
+    // })
     // sort matches for my tee times
     
 
-    // const onlyMyMatches = matches.filter(match => userMatches?.match === match.id)
-    const sortedOnlyMyUserMatches = myJoinedMatches.sort((a, b) => {
+    const sortedOnlyMyUserMatches = myJoinedMatches.sort((a, b) => { //KEEP FOR SERVER SIDE
         const aDate = Date.parse(a.date)
         const bDate = Date.parse(b.date)
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
-
-    const userMatchesIHaveAccessTo = userMatchesWithMatchInfo.filter(userMatch => {
-        if (activeUserFriends.find(userFriend => userFriend.friendId === userMatch.userId && userMatch.isInitiator === true)) {
-            return userMatch
+    const userMatchesIHaveAccessTo = matches.filter(match => {//KEEP FOR SERVER SIDE
+        if (currentUser.friends.find(friend => friend === match.creator.id)) {
+            return match
         }
     })
-
-    const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
-        return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
-    })
-
+    // const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
+    //     return uME.userId !== linkUpUserObj.id && uME.isInitiator === true
+    // })
 
 
 
-    const onlyOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatches.filter(othersUserMatch => {
-        const haveIJoinedAlready = onlyMyUserMatches.find(myUserMatch => myUserMatch.matchId === othersUserMatch.matchId)
-        if (haveIJoinedAlready) {
+
+    const onlyOthersUserMatchesThatIHaveNotJoined = userMatchesIHaveAccessTo.filter(match => {
+        // const haveIJoinedAlready = myJoinedMatches.find(myUserMatch => myUserMatch.matchId === match.matchId)
+        console.log(match)
+        if (match.golfers.find(golfer => golfer.id === linkUpUserObj.userId)) {
             return false
         }
         else {
             return true
         }
     })
+    console.log(onlyOthersUserMatchesThatIHaveNotJoined)
     const sortedOthersUserMatchesThatIHaveNotJoined = onlyOthersUserMatchesThatIHaveNotJoined.sort((a, b) => {
         const aDate = Date.parse(a.match.date)
         const bDate = Date.parse(b.match.date)
@@ -184,7 +183,7 @@ export const TeeTimeProvider = (props) => {
 
     const onlyOthersSortedFutureMatchesThatIHaveNotJoined = sortedOthersUserMatchesThatIHaveNotJoined.filter(teeTime => {
         //string values for teeTime date
-        const [month, day, year] = teeTime?.match?.date.split("/")
+        const [month, day, year] = teeTime?.date.split("-")
 
         //numeric values for teeTime date
         const intYear = parseInt(year)
@@ -192,7 +191,7 @@ export const TeeTimeProvider = (props) => {
         const intDay = parseInt(day)
         const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
         const teeTimeDateParsed = Date.parse(teeTimeDateString)
-        const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+        const matchingCourse = courses.find(course => course.id === teeTime?.course.id)
         const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === teeTime?.match.id)
         const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
         if (teeTimeDateParsed >= currentDateParsed) {

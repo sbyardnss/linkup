@@ -18,8 +18,6 @@ export const ApplicationViews = () => {
 			<Route path="/" element={
 				<>
 					<div id="mainHeader">
-
-
 					</div>
 					<Outlet />
 				</>

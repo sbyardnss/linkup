@@ -41,6 +41,14 @@ export const HomePage = () => {
         return dateArray
     }
     const datesIHaveNotJoined = datesForMatchesIHaveNotJoined()
+    const dateStringBuilder = (teeTime) => {
+            const [month, day, year] = teeTime.date.split("-")
+            //numeric values for teeTime date
+            const intYear = parseInt(year)
+            const intMonth = parseInt(month)
+            const intDay = parseInt(day)
+            return `${intMonth}-${intDay}-${intYear}`
+    }
     const messageToUserOrOpenMatches = () => {
         if (onlyOthersSortedFutureMatchesThatIHaveNotJoined.length === 0) {
             return <li>
@@ -52,14 +60,9 @@ export const HomePage = () => {
                 {
                     onlyOthersSortedFutureMatchesThatIHaveNotJoined.map(teeTime => {
                         //string values for teeTime date
-                        const [month, day, year] = teeTime?.match?.date.split("/")
-                        //numeric values for teeTime date
-                        const intYear = parseInt(year)
-                        const intMonth = parseInt(month)
-                        const intDay = parseInt(day)
-                        const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                        const teeTimeDateString = dateStringBuilder(teeTime)
                         const teeTimeDateParsed = Date.parse(teeTimeDateString)
-                        const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                        // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                         const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === teeTime?.match.id)
                         const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
                         if (teeTimeDateParsed >= currentDateParsed) {
@@ -67,11 +70,13 @@ export const HomePage = () => {
                                 return <>
                                     <OpenTeeTime key={teeTime.id}
                                         id={teeTime.id}
-                                        courseId={matchingCourse.id}
-                                        courseName={matchingCourse.name}
-                                        date={teeTime.match.date}
-                                        time={teeTime.match.time}
-                                        matchId={teeTime.matchId}
+                                        courseId={teeTime.course.id}
+                                        courseName={teeTime.course.name}
+                                        date={teeTimeDateString}
+                                        time={teeTime.time}
+                                        dateForWeather={teeTime.date}
+                                        creator={teeTime.creator}
+                                        golfers={teeTime.golfers}
                                     />
                                 </>
                                 // }
@@ -93,13 +98,7 @@ export const HomePage = () => {
                 {
                     sortedOnlyMyUserMatches.map(teeTime => {
                         if (next14Dates) {
-                            //string values for teeTime date
-                            const [month, day, year] = teeTime.date.split("-")
-                            //numeric values for teeTime date
-                            const intYear = parseInt(year)
-                            const intMonth = parseInt(month)
-                            const intDay = parseInt(day)
-                            const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                            const teeTimeDateString = dateStringBuilder(teeTime)
                             const teeTimeDateParsed = Date.parse(teeTimeDateString)
                             if (teeTimeDateParsed >= currentDateParsed) {
                                 // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
@@ -120,6 +119,8 @@ export const HomePage = () => {
                                         date={teeTimeDateString}
                                         time={teeTime.time}
                                         dateForWeather={teeTime.date}
+                                        creator={teeTime.creator}
+                                        golfers={teeTime.golfers}
                                     />
                                 </>
                             }

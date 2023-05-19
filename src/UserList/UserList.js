@@ -22,7 +22,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
         () => {
             if (search !== "") {
                 const filteredUsers = users?.filter(user => {
-                    return user.name.toLowerCase().includes(search.toLowerCase())
+                    return user.full_name.toLowerCase().includes(search.toLowerCase())
                 })
                 setFiltered(filteredUsers)
             }
