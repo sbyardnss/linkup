@@ -50,9 +50,9 @@ export const getAllMatchUserHoleScores = () => {
         .then(res => res.json())
 }
 //NEW BELOW
-export const getMyMatches = (userId) => {
+export const getMyMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches?my_matches=${userId}`, {
+    return fetch(`http://localhost:8000/matches/joined`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -60,16 +60,17 @@ export const getMyMatches = (userId) => {
     })
         .then(res => res.json())
 }
-// export const getMyFriends = (userId) => {
-//     const linkUpUserObj = getToken()
-//     return fetch(`http://localhost:8000/golfers?friends=${userId}`, {
-//         headers: {
-//             "Authorization": `Token ${linkUpUserObj.token}`,
-//             "Content-Type": "application/json"
-//         }
-//     })
-//         .then(res => res.json())
-// }
+export const getOpenMatches = () => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/matches/joined`, {
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+}
+
 export const addFriend = (userId) => {
     const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/golfers/${userId}/add_friend`, {
@@ -90,7 +91,26 @@ export const removeFriend = (userId) => {
         }
     })
 }
-
+export const joinTeeTime = (matchId) => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/matches/${matchId}/join_tee_time`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        }
+    })
+}
+export const leaveTeeTime = (matchId) => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/matches/${matchId}/leave_tee_time`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        }
+    })
+}
 
 //OLD BELOW DELETE AT END
 // export const getAllUserFriends = () => {

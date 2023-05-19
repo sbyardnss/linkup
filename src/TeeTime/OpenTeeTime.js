@@ -1,26 +1,21 @@
-import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { useContext } from "react"
 import { sendUserMatch } from "../ServerManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import "./TeeTime.css"
 import { TeeTimeContext } from "./TeeTimeProvider"
 import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 
-export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeather, creator, golfers }) => {
-    const { rainChance14Day, next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
-    const { joinMatch, joinInitiated, users, userMatchesWithMatchInfo } = useContext(TeeTimeContext)
+
+export const OpenTeeTime = ({ id, courseName, date, time, dateForWeather, creator, golfers }) => {
+    const { next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
+    const { joinMatch, joinInitiated } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-
-
 
     //build weather string here
     const dateTwoWeeksOut = Date.parse(next14Dates[13])
     let weatherInfoString = ""
     const teeTimeDateParsed = Date.parse(date)
-
-
-
 
     //build hourly weather string here
     const timeBuilder = (time) => {
@@ -30,8 +25,7 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeath
         }
         return `T${hours}:00`
     }
-    // const [month, day, year] = date.split("/")
-    // const dateString = `${year}-${month}-${day}`
+
     const dateString = dateForWeather
     const exactHourString = `${dateString}${timeBuilder(time)}`
     //find index number for hourly weather arrays
@@ -64,38 +58,20 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeath
     if (teeTimeDateParsed >= dateTwoWeeksOut || tempHour === null || windHour === null || precipitationHour === null) {
         weatherInfoString += "too early for weather data"
     }
-    //find all userMatches corresponding to a match that you initiated. this is for the delete button
-    // let allMatchingUserMatches = []
-    // const matchingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
 
-    // const matchingUserMatches = userMatchesWithMatchInfo.filter(userMatch => userMatch.matchId === matchId)
-    // {
-    //     matchingUserMatches.map(userMatch => {
-    //         allMatchingUserMatches.push(userMatch)
-    //     })
-    // }
-
-
-    //establish initiating user
-    // const initiatingUserMatch = userMatchesWithMatchInfo.find(userMatch => userMatch.matchId === matchId)
-    // const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
     const initiatingUser = creator
-
 
     const maxPlayerCount = [0, 1, 2, 3]
     const listOfOtherPlayersOnMatch = () => {
         if (golfers.length > 0) {
-
             return <>
                 <div className="otherPlayersContainer">
                     {
                         maxPlayerCount.map(count => {
-                            // const matchingPlayer = users.find(user => user.id === matchingUserMatches[count]?.userId)
                             if (golfers[count]?.id === linkUpUserObj.userId) {
                                 return <>
                                     <div className="otherJoinedPlayer"><img id="playericon" src={playerIcon} />{count + 1} - Me</div>
                                 </>
-
                             }
                             else if (golfers[count] === undefined) {
                                 return <>
@@ -117,9 +93,6 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeath
                 <h5>no other players yet</h5>
             </>
         }
-
-
-
     }
     const isMatchFull = () => {
         if (golfers.length === 4) {
@@ -148,7 +121,6 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeath
 
 
     if (initiatingUser) {
-
         return <>
             <li key={id} className="joinableTeeTimes">
                 <div className="teeTimeLogistics">
@@ -160,16 +132,13 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeath
                             {date}
                         </div>
                         <div>
-
                             {time}
                         </div>
                     </div>
                 </div>
                 <div className="playersAndWeather">
-
                     {listOfOtherPlayersOnMatch()}
                     <div className="weatherAndButton">
-
                         <div className="weatherContainer">
                             <ul className="weatherInfoList">
                                 <div>
@@ -179,7 +148,6 @@ export const OpenTeeTime = ({ id, courseId, courseName, date, time, dateForWeath
                                 </div>
                             </ul>
                         </div>
-
                         <div className="buttonBlock">
                             {isMatchFull()}
                         </div>

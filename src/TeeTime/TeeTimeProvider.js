@@ -104,49 +104,16 @@ export const TeeTimeProvider = (props) => {
             }
         },[]
     )
-    // useEffect(
-    //     () => {
-    //         if (linkUpUserObj.token) {
-    //             Promise.resolve(getMyFriends(linkUpUserObj.userId))
-    //                 .then(
-    //                     (data) => {
-    //                         setActiveUserFriends(data)
-    //                     }
-    //                 )
-    //         }
-    //     },[]
-    // )
-
-
-
-
-    // useEffect(
-    //     () => {
-    //         getActiveUserMatchesWithMatchInfo()
-    //             .then(
-    //                 (data) => {
-    //                     setUserMatchesWithMatchInfo(data)
-    //                 }
-    //             )
-    //     },
-    //     [deleteItem, joinMatch, matchCreated, friendChange]
-    // )
-    
-
-    // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
-    //     return uME.userId === linkUpUserObj.id
-    // })
-    // sort matches for my tee times
-    
 
     const sortedOnlyMyUserMatches = myJoinedMatches.sort((a, b) => { //KEEP FOR SERVER SIDE
         const aDate = Date.parse(a.date)
         const bDate = Date.parse(b.date)
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
+    console.log(matches)
     const userMatchesIHaveAccessTo = matches.filter(match => {//KEEP FOR SERVER SIDE
-        if (currentUser.friends.find(friend => friend === match.creator.id)) {
-            return match
+            if (currentUser?.friends?.find(friend => friend === match.creator.id)) {
+                return match
         }
     })
     // const onlyOthersUserMatches = userMatchesIHaveAccessTo.filter(uME => {
