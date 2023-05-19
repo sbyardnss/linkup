@@ -22,7 +22,6 @@ export const Register = (props) => {
         })
             .then(res => res.json())
             .then(createdUser => {
-                console.log(createdUser)
                 if (createdUser.hasOwnProperty("userId")) {
                     localStorage.setItem("linkUp_user", JSON.stringify({
                         userId: createdUser.userId,
@@ -34,7 +33,6 @@ export const Register = (props) => {
                 }
             })
     }
-
     const handleRegister = (e) => {
         e.preventDefault()
         return fetch(`http://localhost:8000/golfers?email=${user.email}`, {

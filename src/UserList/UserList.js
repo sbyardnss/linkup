@@ -1,23 +1,15 @@
 import { useState, useEffect, useContext } from "react"
-import { addFriend, changeFriendStatus, getAllUsers, removeFriend /*deleteFriend, getAllUserFriends*/ } from "../ServerManager"
+import { addFriend, getAllUsers, removeFriend } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
-
 import "./UserList.css"
 
 
 export const UserList = ({ contingentId, contingentContainer, contingentList }) => {
-    const { users, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, setUsers } = useContext(TeeTimeContext)
-    // const [userFriends, setUserFriends] = useState([])
+    const { users, setUsers } = useContext(TeeTimeContext)
     const [search, updateSearch] = useState("")
     const [filtered, setFiltered] = useState([])
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-
-    // useEffect(
-    //     () => {
-    //         setUserFriends(activeUserFriends)
-    //     },[activeUserFriends]
-    // )
     useEffect(
         () => {
             if (users.length) {
@@ -31,7 +23,6 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
             if (search !== "") {
                 const filteredUsers = users?.filter(user => {
                     return user.name.toLowerCase().includes(search.toLowerCase())
-
                 })
                 setFiltered(filteredUsers)
             }
@@ -41,17 +32,8 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
         },
         [search]
     )
-    // const handleFriendChange = () => {
-    //     if (linkUpUserObj.userId) {
-    //         getMyFriends(linkUpUserObj.userId).then((data) => {
-    //             setActiveUserFriends(data)
-    //         })
-    //     }
-    // }
-
     return <>
         <main id={contingentId}>
-
             <section className={contingentContainer}>
                 <section className="userSearchBar">
                     <img id="searchIcon" src="https://freesvg.org/img/Search-icon.png" />
@@ -66,11 +48,7 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                         filtered?.map(
                             user => {
                                 if (user.id !== linkUpUserObj.userId) {
-                                    // const matchingFriendRelationship = userFriends?.find(friend => friend.id === user.id)
-                                    // if (matchingFriendRelationship && matchingFriendRelationship.confirmed === true) {
-                                    //USE CODE ABOVE IF YOU IMPLEMENT FRIEND REQUESTS
                                     if (user.is_friend === 1) {
-
                                         return <>
                                             <li key={user.id} className="userListItem">
                                                 <h3>
@@ -83,22 +61,12 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                                 getAllUsers()
                                                                     .then(data => setUsers(data))
                                                             })
-                                                        //CODE BELOW FOR REQUESTING POTENTIAL ONLY
-                                                        // const otherSideOfDeletedRequest = userFriends.find(userFriend => userFriend.friendId === linkUpUserObj.id)
-                                                        // const copy = otherSideOfDeletedRequest
-                                                        // copy.confirmed = false
-                                                        // changeFriendStatus(copy, otherSideOfDeletedRequest.id)
-                                                        // setFriendChange(!friendChange)
-
                                                     }
                                                 }>Remove</button>
-
                                             </li>
                                         </>
                                     }
-
                                     else {
-
                                         return <>
                                             <li key={user.id} className="userListItem">
                                                 <h3>
@@ -113,16 +81,13 @@ export const UserList = ({ contingentId, contingentContainer, contingentList }) 
                                                             })
                                                     }
                                                 }>Add</button>
-
                                             </li>
                                         </>
                                     }
-
                                 }
                             }
                         )
                     }
-
                 </ul>
             </section>
         </main>
