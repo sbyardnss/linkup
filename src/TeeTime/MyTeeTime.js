@@ -126,12 +126,12 @@ export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator,
                                 () => {
                                     if (window.confirm("are you sure?")) {
                                         deleteTeeTime(id)
-                                        // {
-                                        //     allMatchingUserMatches.map(userMatch => {
-                                        //         deleteUserMatch(userMatch.id)
-                                        //     })
-                                        //     deleteInitiated(!deleteItem)
-                                        // }
+                                            .then(
+                                                () => {
+                                                    getAllMatches()
+                                                        .then(data => setMatches(data))
+                                                }
+                                            )
                                     }
                                     else {
                                         return null
@@ -178,12 +178,12 @@ export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator,
                                         //     deleteInitiated(!deleteItem)
                                         // })
                                         leaveTeeTime(id)
-                                        .then(
-                                            () => {
-                                                getAllMatches(linkUpUserObj.userId)
-                                                .then(data => setMatches(data))
-                                            }
-                                        )
+                                            .then(
+                                                () => {
+                                                    getAllMatches(linkUpUserObj.userId)
+                                                        .then(data => setMatches(data))
+                                                }
+                                            )
                                     }
                                 }
                             }>Bail</button>

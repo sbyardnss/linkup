@@ -83,7 +83,7 @@ export const TeeTimeProvider = (props) => {
             }
         }, [users]
     )
-    console.log(currentUser.friends)
+
     useEffect(
         () => {
             if (linkUpUserObj.token) {
@@ -98,43 +98,57 @@ export const TeeTimeProvider = (props) => {
     )
     const myJoinedMatchesFromMatches = []
     const openMatchesIHaveAccessTo = []
-
+    const myPastMatches = []
+    //code below gets current date an formats. probably a better way
     const currentDate = new Date();
     const currentMonth = (currentDate.getMonth() + 1)
+    // if (currentMonth < 10) {
+    //     currentMonth = '0' + currentMonth
+    // }
     const currentDayOfMonth = currentDate.getDate()
     const currentYear = currentDate.getFullYear()
     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
     const currentDateParsed = Date.parse(currentDateString)
-    
-    const myPastMatches = []
+
+    const dateStringBuilder = (teeTime) => { //builds string for comparison to current day
+        const [year, month, day] = teeTime.date.split("-")
+        //numeric values for teeTime date
+        const intYear = parseInt(year)
+        const intMonth = parseInt(month)
+        const intDay = parseInt(day)
+        return `${intMonth}-${intDay}-${intYear}`
+    }
     const matchesSortedByDate = matches.sort((a, b) => { //KEEP FOR SERVER SIDE
         const aDate = Date.parse(a.date)
         const bDate = Date.parse(b.date)
         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
     })
-    const matchesFilteredByDate = matchesSortedByDate.map(teeTime => { //sorts matches by whether the date has passed or not
-        //string values for teeTime date
-        const [month, day, year] = teeTime?.date.split("-")
-        //numeric values for teeTime date
-        const intYear = parseInt(year)
-        const intMonth = parseInt(month)
-        const intDay = parseInt(day)
-        const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-        const teeTimeDateParsed = Date.parse(teeTimeDateString)
-        if (teeTimeDateParsed >= currentDateParsed && currentUser?.friends?.find(friend => friend === teeTime.creator.id && teeTime.joined === 0)) {
-            openMatchesIHaveAccessTo.push(teeTime)
-        }
-        else if (teeTimeDateParsed >= currentDateParsed && teeTime.joined === 1) {
-            myJoinedMatchesFromMatches.push(teeTime)
-        }
-        else if (teeTimeDateParsed < currentDateParsed && teeTime.joined === 1){
-            myPastMatches.push(teeTime)
-        }
-        else {
-            return null
-        }
-    })
-    
+    const matchesFilteredByDate = (matchArr) => {
+        matchArr.map(teeTime => { //sorts matches by whether the date has passed or not
+            //string values for teeTime date
+            // const [year, month, day] = teeTime.date.split("-")
+            // //numeric values for teeTime date
+            // const intYear = parseInt(year)
+            // const intMonth = parseInt(month)
+            // const intDay = parseInt(day)
+            const teeTimeDateString = dateStringBuilder(teeTime)
+            const teeTimeDateParsed = Date.parse(teeTimeDateString)
+            if (teeTimeDateParsed >= currentDateParsed && currentUser?.friends?.find(friend => friend.id === teeTime.creator.id && teeTime.joined === 0)) {
+                openMatchesIHaveAccessTo.push(teeTime)
+            }
+            else if (teeTimeDateParsed >= currentDateParsed && teeTime.joined === 1) {
+                myJoinedMatchesFromMatches.push(teeTime)
+            }
+            else if (teeTimeDateParsed < currentDateParsed && teeTime.joined === 1) {
+                myPastMatches.push(teeTime)
+            }
+            else {
+                return null
+            }
+        })
+    }
+    matchesFilteredByDate(matchesSortedByDate)
+
     //sorter separates matches i have joined from matches i havent and checks to see if open match is available to current user
     // const matchSorter = (matchArr) => {
     //     matchArr.map(match => {
@@ -152,7 +166,7 @@ export const TeeTimeProvider = (props) => {
         <TeeTimeContext.Provider value={{
             /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, courses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
             currentDateParsed, /*profileUpdated, setProfileUpdated, */chatUser, setChatUser, /*msgsRead, setMsgsRead,*/
-            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches
+            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString
         }}>
             {props.children}
         </TeeTimeContext.Provider>

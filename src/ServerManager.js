@@ -253,8 +253,12 @@ export const sendNewMessage = (newMsgObj) => {
 //delete fetch
 
 export const deleteTeeTime = (teeTimeId) => {
+    const linkUpUserObj = getToken()
     return fetch(`http://localhost:8000/matches/${teeTimeId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`
+        }
     })
 }
 

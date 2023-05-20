@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import { deleteFriend, updateUser } from "../ServerManager"
 import { Messages } from "../Messages/Messages"
 import { Scorecard } from "../Scoring/Scorecard"
-import { ScorecardContext } from "../Scoring/ScorecardContext"
+// import { ScorecardContext } from "../Scoring/ScorecardContext"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../Weather/WeatherProvider"
@@ -13,7 +13,7 @@ import "./UserProfile.css"
 
 export const UserProfile = () => {
     const { users, courses, /*userMatchesWithMatchInfo, activeUserFriends, */navigate, /*setFriendChange, friendChange, profileUpdated, setProfileUpdated, */setChatUser, currentUser, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, setMatche, myPastMatches } = useContext(TeeTimeContext)
-    const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
+    // const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
@@ -109,91 +109,92 @@ export const UserProfile = () => {
     }
 
 
+    if (currentUser) {
 
-    return <>
-        <div id="profileContainer">
-            <article id="profileTop">
+        return <>
+            <div id="profileContainer">
+                <article id="profileTop">
 
-                <div id="profileHeader">
-                    <div>
+                    <div id="profileHeader">
+                        <div>
 
-                        <h2>{currentUser?.full_name}</h2>
-                        <h4>{currentUser?.email}</h4>
-                    </div>
-                    {updateProfileSection()}
-                    <button className="editProfileButton" onClick={
-                        () => {
-                            editProfile(true)
-                        }
-                    }>Edit</button>
-                </div>
-
-                <div id="profileFriendsAndMatches">
-
-                    <div className="friendsAndMessages">
-
-                        <ul className="listOfFriends">
-                            <h4>Friends</h4>
-                            {
-                                currentUser?.friends.map(userFriend => {
-                                    const friendObj = users.find(user => user.id === userFriend.friendId)
-                                    return <>
-                                        <li className="friendListItem">
-                                            <div className="profileFriendListName">
-                                                {friendObj?.name}
-                                            </div>
-                                            <button className="friendMessagesButton" onClick={
-                                                () => {
-                                                    navigate("/messages")
-                                                    setChatUser(friendObj?.id)
-                                                }
-                                            }>Messages</button>
-                                        </li>
-                                    </>
-                                })
+                            <h2>{currentUser?.full_name}</h2>
+                            <h4>{currentUser?.email}</h4>
+                        </div>
+                        {updateProfileSection()}
+                        <button className="editProfileButton" onClick={
+                            () => {
+                                editProfile(true)
                             }
-                        </ul>
+                        }>Edit</button>
+                    </div>
 
-                        <div className="futureTeeTimesContainer">
+                    <div id="profileFriendsAndMatches">
 
-                            <ul className="listOfFutureTeeTimes">
-                                <h3 className="headerLabels">My Tee Times</h3>
+                        <div className="friendsAndMessages">
 
+                            <ul className="listOfFriends">
+                                <h4>Friends</h4>
                                 {
-                                    myJoinedMatchesFromMatches.map(teeTime => {
+                                    currentUser.friends.map(friend => {
+                                        // const friendObj = users.find(user => user.id === userFriend.friendId)
+                                        return <>
+                                            <li className="friendListItem">
+                                                <div className="profileFriendListName">
+                                                    {friend.full_name}
+                                                </div>
+                                                <button className="friendMessagesButton" onClick={
+                                                    () => {
+                                                        navigate("/messages")
+                                                        setChatUser(friend.id)
+                                                    }
+                                                }>Messages</button>
+                                            </li>
+                                        </>
+                                    })
+                                }
+                            </ul>
 
-                                        if (next14Dates) {
-                                            //string values for teeTime date
-                                            const [month, day, year] = teeTime?.date.split("-")
+                            <div className="futureTeeTimesContainer">
 
-                                            //numeric values for teeTime date
-                                            const intYear = parseInt(year)
-                                            const intMonth = parseInt(month)
-                                            const intDay = parseInt(day)
-                                            const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-                                            const teeTimeDateParsed = Date.parse(teeTimeDateString)
+                                <ul className="listOfFutureTeeTimes">
+                                    <h3 className="headerLabels">My Tee Times</h3>
+
+                                    {
+                                        myJoinedMatchesFromMatches.map(teeTime => {
+
+                                            if (next14Dates) {
+                                                //string values for teeTime date
+                                                const [month, day, year] = teeTime?.date.split("-")
+
+                                                //numeric values for teeTime date
+                                                const intYear = parseInt(year)
+                                                const intMonth = parseInt(month)
+                                                const intDay = parseInt(day)
+                                                const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                                                const teeTimeDateParsed = Date.parse(teeTimeDateString)
 
 
-                                            // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                                            const matchingScorecardId = teeTime.scorecardId
-                                            if (teeTimeDateParsed >= currentDateParsed) {
+                                                // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                                const matchingScorecardId = teeTime.scorecardId
+                                                if (teeTimeDateParsed >= currentDateParsed) {
 
-                                                return <>
-                                                    <div className="userProfileMatches">
-                                                        <MyTeeTime
-                                                            key={teeTime.id}
-                                                            id={teeTime.id}
-                                                            courseId={teeTime.course.id}
-                                                            courseName={teeTime.course.name}
-                                                            date={teeTimeDateString}
-                                                            time={teeTime.time}
-                                                            dateForWeather={teeTime.date}
-                                                            creator={teeTime.creator}
-                                                            golfers={teeTime.golfers}
-                                                            scorecardId={matchingScorecardId}
+                                                    return <>
+                                                        <div className="userProfileMatches">
+                                                            <MyTeeTime
+                                                                key={teeTime.id}
+                                                                id={teeTime.id}
+                                                                courseId={teeTime.course.id}
+                                                                courseName={teeTime.course.name}
+                                                                date={teeTimeDateString}
+                                                                time={teeTime.time}
+                                                                dateForWeather={teeTime.date}
+                                                                creator={teeTime.creator}
+                                                                golfers={teeTime.golfers}
+                                                                scorecardId={matchingScorecardId}
 
-                                                        />
-                                                        {/* <MyTeeTime key={teeTime.id}
+                                                            />
+                                                            {/* <MyTeeTime key={teeTime.id}
                                                             id={teeTime.id}
                                                             courseId={matchingCourse?.id}
                                                             courseName={matchingCourse?.name}
@@ -203,138 +204,139 @@ export const UserProfile = () => {
                                                             scorecardId={matchingScorecardId}
                                                         /> */}
 
-                                                    </div>
-                                                </>
+                                                        </div>
+                                                    </>
+                                                }
+
+
                                             }
-
-
-                                        }
-                                    })
-                                }
-                            </ul>
+                                        })
+                                    }
+                                </ul>
+                            </div>
                         </div>
+
                     </div>
+                </article>
+                <article className="pastTeeTimesContainer">
 
-                </div>
-            </article>
-            <article className="pastTeeTimesContainer">
+                    <ul className="listOfPastTeeTimes">
+                        <h3>Past Tee Times:</h3>
+                        {
+                            myPastMatches.map(teeTime => {
 
-                <ul className="listOfPastTeeTimes">
-                    <h3>Past Tee Times:</h3>
-                    {
-                        myPastMatches.map(teeTime => {
+                                if (next14Dates) {
 
-                            if (next14Dates) {
+                                    // const otherUserMatchesForGivenMatch = userMatchesWithMatchInfo.filter(userMatch => {
+                                    //     return userMatch.matchId === teeTime.matchId
+                                    // })
+                                    //string values for teeTime date
+                                    const [month, day, year] = teeTime?.date.split("-")
 
-                                // const otherUserMatchesForGivenMatch = userMatchesWithMatchInfo.filter(userMatch => {
-                                //     return userMatch.matchId === teeTime.matchId
-                                // })
-                                //string values for teeTime date
-                                const [month, day, year] = teeTime?.date.split("-")
-
-                                //numeric values for teeTime date
-                                const intYear = parseInt(year)
-                                const intMonth = parseInt(month)
-                                const intDay = parseInt(day)
-                                const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
-                                const teeTimeDateParsed = Date.parse(teeTimeDateString)
+                                    //numeric values for teeTime date
+                                    const intYear = parseInt(year)
+                                    const intMonth = parseInt(month)
+                                    const intDay = parseInt(day)
+                                    const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                                    const teeTimeDateParsed = Date.parse(teeTimeDateString)
 
 
-                                // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                                const matchingScorecardId = teeTime.scorecardId
+                                    // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
+                                    const matchingScorecardId = teeTime.scorecardId
 
 
 
-                                // if (teeTimeDateParsed < currentDateParsed) {
-                                if (selectedMatch === teeTime.id) {
-                                    return <>
-                                        <li className="pastTeeTime">
-                                            <div className="pastTeeTimeHeader">
+                                    // if (teeTimeDateParsed < currentDateParsed) {
+                                    if (/*selectedMatch === */teeTime.id) {
+                                        return <>
+                                            <li className="pastTeeTime">
+                                                <div className="pastTeeTimeHeader">
 
-                                                <div className="pastTeeTimeCourse">{teeTime.course.name}</div>
-                                                <div className="pastTeeTimeInfo">
-                                                    <div>{teeTime.date}</div>
-                                                    <div>{teeTime.time}</div>
-                                                </div>
-
-                                                <div className="listOfPlayersOnMatch">Other Players:
-                                                    {
-                                                        teeTime.golfers.map(golfer => {
-                                                            // const matchPlayer = users.find(user => user.id === golfer.userId)
-                                                            return <>
-                                                                <div>{golfer.full_name}</div>
-                                                            </>
-                                                        })
-                                                    }
-                                                </div>
-                                                <div className="profileButtonBlock">
-                                                    <button className="profileScorecardButton" onClick={
-                                                        () => {
-                                                            setSelectedMatch(0)
-                                                        }
-                                                    }>exit</button>
-                                                </div>
-                                            </div>
-                                            <div id="scoreCardOnPastTeeTime">
-
-                                                <Scorecard
-                                                    profileOrPlayTable={"profileTable-container"}
-                                                    profileOrPlayContainer={"profileScorecardContainer"}
-                                                />
-                                            </div>
-                                        </li>
-                                    </>
-                                }
-                                else {
-
-
-                                    return <>
-                                        <li className="pastTeeTime">
-                                            <div className="pastTeeTimeHeader">
-
-                                                <div className="pastTeeTimeInfo">
                                                     <div className="pastTeeTimeCourse">{teeTime.course.name}</div>
                                                     <div className="pastTeeTimeInfo">
                                                         <div>{teeTime.date}</div>
                                                         <div>{teeTime.time}</div>
                                                     </div>
 
-                                                </div>
-
-                                                <div className="listOfPlayersOnMatch">Other Players:
-                                                    {
-                                                        teeTime.golfers.map(golfer => {
-                                                            // const matchPlayer = users.find(user => user.id === userMatch.userId && user.id !== linkUpUserObj.id)
-                                                            return <>
-                                                                <div>{golfer.full_name}</div>
-                                                            </>
-                                                        })
-                                                    }
-                                                </div>
-                                                <div className="profileButtonBlock">
-                                                    <button className="profileScorecardButton" onClick={
-                                                        () => {
-                                                            setSelectedMatch(teeTime?.matchId)
+                                                    <div className="listOfPlayersOnMatch">Other Players:
+                                                        {
+                                                            teeTime.golfers.map(golfer => {
+                                                                // const matchPlayer = users.find(user => user.id === golfer.userId)
+                                                                return <>
+                                                                    <div>{golfer.full_name}</div>
+                                                                </>
+                                                            })
                                                         }
-                                                    }>Scorecard</button>
+                                                    </div>
+                                                    <div className="profileButtonBlock">
+                                                        <button className="profileScorecardButton" onClick={
+                                                            () => {
+                                                                // setSelectedMatch(0)
+                                                            }
+                                                        }>exit</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </>
+                                                <div id="scoreCardOnPastTeeTime">
+
+                                                    {/* <Scorecard
+                                                        profileOrPlayTable={"profileTable-container"}
+                                                        profileOrPlayContainer={"profileScorecardContainer"}
+                                                    /> */}
+                                                </div>
+                                            </li>
+                                        </>
+                                    }
+                                    else {
+
+
+                                        return <>
+                                            <li className="pastTeeTime">
+                                                <div className="pastTeeTimeHeader">
+
+                                                    <div className="pastTeeTimeInfo">
+                                                        <div className="pastTeeTimeCourse">{teeTime.course.name}</div>
+                                                        <div className="pastTeeTimeInfo">
+                                                            <div>{teeTime.date}</div>
+                                                            <div>{teeTime.time}</div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className="listOfPlayersOnMatch">Other Players:
+                                                        {
+                                                            teeTime.golfers.map(golfer => {
+                                                                // const matchPlayer = users.find(user => user.id === userMatch.userId && user.id !== linkUpUserObj.id)
+                                                                return <>
+                                                                    <div>{golfer.full_name}</div>
+                                                                </>
+                                                            })
+                                                        }
+                                                    </div>
+                                                    <div className="profileButtonBlock">
+                                                        <button className="profileScorecardButton" onClick={
+                                                            () => {
+                                                                // setSelectedMatch(teeTime?.matchId)
+                                                            }
+                                                        }>Scorecard</button>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </>
+                                    }
+
+                                    // }
+
+
                                 }
+                            })
+                        }
+                    </ul>
 
-                                // }
-
-
-                            }
-                        })
-                    }
-                </ul>
-
-            </article>
+                </article>
 
 
 
-        </div>
-    </>
+            </div>
+        </>
+    }
 }

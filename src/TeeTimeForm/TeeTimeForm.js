@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { sendTeeTime, sendUserMatch } from "../ServerManager"
+import { getAllMatches, sendTeeTime, sendUserMatch } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./TeeTimeForm.css"
 export const TeeTimeForm = () => {
-    const { courses, matches, setMatchCreated, matchCreated } = useContext(TeeTimeContext)
+    const { courses, matches, setMatchCreated, matchCreated, setMatches } = useContext(TeeTimeContext)
 
 
     const [newMatch, updateNewMatch] = useState({
@@ -18,7 +18,7 @@ export const TeeTimeForm = () => {
 
     const lastMatchIndex = matches.length
     const lastMatchInMatches = matches[lastMatchIndex - 1]
-    
+
     const teeTimeObjToSendToApi = {
         courseId: parseInt(newMatch.course),
         date: newMatch.date,
@@ -27,7 +27,7 @@ export const TeeTimeForm = () => {
         // confirmed: false
     }
     let newMatchId = lastMatchInMatches?.id + 1
-    if(!lastMatchInMatches){
+    if (!lastMatchInMatches) {
         newMatchId = 1
     }
     const userMatchObjToSendToApi = {
@@ -43,43 +43,26 @@ export const TeeTimeForm = () => {
                 <form className="teeTimeForm">
                     <h2>When We Playin'?</h2>
                     <fieldset className="newTeeTime_input">
-                        
+
                         <div>
                             <input type="date" className="dateTimeSelectors" id="title" placeholder="title" onChange={
                                 (evt) => {
                                     const [year, month, day] = evt.target.value.split("-")
-                                    console.log(evt.target.value)
-
                                     const copy = { ...newMatch }
                                     copy.date = evt.target.value
                                     updateNewMatch(copy)
                                 }
                             } />
                         </div>
-
                         <div  >
                             <input type="time" className="dateTimeSelectors" defaultValue={"00:00"} id="title" onChange={
                                 (evt) => {
-                                    // let timeString = ""
-                                    // let [hour,] = evt.target.value.split(":")
-                                    // let [,minutes] = evt.target.value.split(":")
-                                    // if (hour > 12) {
-                                    //     hour = hour - 12
-                                    //     timeString = hour+":"+minutes+" pm"
-                                    // }
-                                    // else {
-                                    //     timeString = hour+":"+minutes+" am"
-                                    // }
-                                    console.log(evt.target.value)
                                     const copy = { ...newMatch }
                                     copy.time = evt.target.value
                                     updateNewMatch(copy)
                                 }
                             } />
                         </div>
-
-
-
                         <div className="newTeeTime_input">
                             <select className="courseSelector" id="courseSelect" onChange={
                                 (evt) => {
@@ -89,7 +72,6 @@ export const TeeTimeForm = () => {
                                 }
                             }>
                                 <option className="courseSelectOption" key={0} value={0}>select course</option>
-
                                 {
                                     courses.map(
                                         (course) => {
@@ -99,7 +81,6 @@ export const TeeTimeForm = () => {
                                         }
                                     )
                                 }
-
                             </select>
                         </div>
                         <div className="newTeeTime_input">
@@ -111,30 +92,27 @@ export const TeeTimeForm = () => {
                                 }
                             }></textarea>
                         </div>
-
-
-
                         <div className="teeTimeFormButtonBlock">
                             <button onClick={() => {
-                                if(newMatch.time && newMatch.date && newMatch.course) {
-
+                                if (newMatch.time && newMatch.date && newMatch.course) {
                                     sendTeeTime(teeTimeObjToSendToApi)
-                                    // sendUserMatch(userMatchObjToSendToApi)
-                                    setMatchCreated(!matchCreated)
+                                        .then(
+                                            () => {
+                                                getAllMatches()
+                                                    .then(data => setMatches(data))
+                                            }
+                                        )
                                     navigate("/")
                                 }
                                 else {
                                     alert("please fill out the form")
                                 }
-
                             }} className="teeTimeSaveButton" >Save</button>
-                            <button className="teeTimeCancelButton" onClick={()=> navigate("/")}>Cancel</button>
+                            <button className="teeTimeCancelButton" onClick={() => navigate("/")}>Cancel</button>
                         </div>
                     </fieldset>
                 </form>
             </div>
         </main>
-
-
     </>
 }
