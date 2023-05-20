@@ -8,15 +8,15 @@ import "./HomePage.css"
 import { UserList } from "../UserList/UserList"
 
 export const HomePage = () => {
-    const { users, courses, matches, userMatchesWithMatchInfo, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed, onlyOthersSortedFutureMatchesThatIHaveNotJoined } = useContext(TeeTimeContext)
+    const { users, courses, matches, userMatchesWithMatchInfo, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed, onlyOthersSortedFutureMatchesThatIHaveNotJoined, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-    const datesForMatchesIHaveJoined = () => {
+    const datesForMatchesIHaveJoined = () => {//gets dates for joined matches to add to calendar
         const dateArray = []
         {
             if (matches.length) {
-                sortedOnlyMyUserMatches.map(userMatch => {
+                myJoinedMatchesFromMatches.map(userMatch => {
                     const matchingMatch = matches.find(match => userMatch.matchId === match.id)
                     const dateOfJoinedMatch = matchingMatch?.date
                     const parsedMatchingDate = Date.parse(matchingMatch?.date)
@@ -29,10 +29,10 @@ export const HomePage = () => {
         return dateArray
     }
     const datesIHaveJoined = datesForMatchesIHaveJoined()
-    const datesForMatchesIHaveNotJoined = () => {
+    const datesForMatchesIHaveNotJoined = () => { //gets dates for open matches user has access to for calendar
         const dateArray = []
         {
-            sortedOthersUserMatchesThatIHaveNotJoined.map(userMatch => {
+            openMatchesIHaveAccessTo.map(userMatch => {
                 const matchingMatch = matches.find(match => userMatch.matchId === match.id)
                 const dateOfJoinedMatch = matchingMatch?.date
                 dateArray.push(dateOfJoinedMatch)
@@ -41,7 +41,7 @@ export const HomePage = () => {
         return dateArray
     }
     const datesIHaveNotJoined = datesForMatchesIHaveNotJoined()
-    const dateStringBuilder = (teeTime) => {
+    const dateStringBuilder = (teeTime) => { //builds string for comparison to current day
             const [month, day, year] = teeTime.date.split("-")
             //numeric values for teeTime date
             const intYear = parseInt(year)
@@ -50,7 +50,7 @@ export const HomePage = () => {
             return `${intMonth}-${intDay}-${intYear}`
     }
     const messageToUserOrOpenMatches = () => {
-        if (onlyOthersSortedFutureMatchesThatIHaveNotJoined.length === 0) {
+        if (openMatchesIHaveAccessTo.length === 0) {
             return <li>
                 <h3>Make friends to access their tee times!</h3>
             </li>
@@ -58,13 +58,13 @@ export const HomePage = () => {
         else {
             return <>
                 {
-                    onlyOthersSortedFutureMatchesThatIHaveNotJoined.map(teeTime => {
+                    openMatchesIHaveAccessTo.map(teeTime => {
                         //string values for teeTime date
                         const teeTimeDateString = dateStringBuilder(teeTime)
                         const teeTimeDateParsed = Date.parse(teeTimeDateString)
                         // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                        const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === teeTime?.match.id)
-                        const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
+                        // const initiatingUserMatch = userMatchesWithMatchInfo?.find(userMatch => userMatch.matchId === teeTime?.match.id)
+                        // const initiatingUser = users.find(user => user.id === initiatingUserMatch?.userId)
                         if (teeTimeDateParsed >= currentDateParsed) {
                             if (next14Dates) {
                                 return <>
@@ -88,7 +88,7 @@ export const HomePage = () => {
         }
     }
     const messageToUserOrMyMatches = () => {
-        if (sortedOnlyMyUserMatches.length === 0) {
+        if (myJoinedMatchesFromMatches.length === 0) {
             return <li>
                 <h3>No joined tee times</h3>
             </li>
@@ -96,7 +96,7 @@ export const HomePage = () => {
         else {
             return <>
                 {
-                    sortedOnlyMyUserMatches.map(teeTime => {
+                    myJoinedMatchesFromMatches.map(teeTime => {
                         if (next14Dates) {
                             const teeTimeDateString = dateStringBuilder(teeTime)
                             const teeTimeDateParsed = Date.parse(teeTimeDateString)

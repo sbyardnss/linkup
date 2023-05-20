@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { sendUserMatch } from "../ServerManager"
+import { getMyMatches, joinTeeTime, sendUserMatch, getAllMatches } from "../ServerManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import "./TeeTime.css"
 import { TeeTimeContext } from "./TeeTimeProvider"
@@ -8,10 +8,11 @@ import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2
 
 export const OpenTeeTime = ({ id, courseName, date, time, dateForWeather, creator, golfers }) => {
     const { next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
-    const { joinMatch, joinInitiated } = useContext(TeeTimeContext)
+    const { setMatches, setMyJoinedMatches } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
+    
     //build weather string here
     const dateTwoWeeksOut = Date.parse(next14Dates[13])
     let weatherInfoString = ""
@@ -110,8 +111,15 @@ export const OpenTeeTime = ({ id, courseName, date, time, dateForWeather, creato
                             // isInitiator: false,
                             totalStrokes: 0
                         }
-                        sendUserMatch(userMatchObjToSendToApi)
-                        joinInitiated(!joinMatch)
+                        // sendUserMatch(userMatchObjToSendToApi)
+                        // joinInitiated(!joinMatch)
+                        joinTeeTime(id)
+                        .then(
+                            () => {
+                                getAllMatches(linkUpUserObj.userId)
+                                .then(data => setMatches(data))
+                            }
+                        )
                     }
                 }>Join</button>
             </>

@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { deleteTeeTime, deleteUserMatch } from "../ServerManager"
+import { deleteTeeTime, deleteUserMatch, leaveTeeTime, getAllMatches } from "../ServerManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import { TeeTimeContext } from "./TeeTimeProvider"
 // import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
@@ -8,7 +8,7 @@ import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2
 
 export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator, golfers }) => {
     const { next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
-    const { deleteItem, deleteInitiated } = useContext(TeeTimeContext)
+    const { setMatches } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
@@ -174,9 +174,16 @@ export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator,
                             <button className="bailTeeTimeButton" onClick={
                                 () => {
                                     if (window.confirm("are you sure?")) {
-                                        deleteUserMatch(id).then(() => {
-                                            deleteInitiated(!deleteItem)
-                                        })
+                                        // deleteUserMatch(id).then(() => {
+                                        //     deleteInitiated(!deleteItem)
+                                        // })
+                                        leaveTeeTime(id)
+                                        .then(
+                                            () => {
+                                                getAllMatches(linkUpUserObj.userId)
+                                                .then(data => setMatches(data))
+                                            }
+                                        )
                                     }
                                 }
                             }>Bail</button>
