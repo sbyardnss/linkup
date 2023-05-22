@@ -43,6 +43,8 @@ export const TeeTimeProvider = (props) => {
                     .then(
                         (userData) => {
                             setUsers(userData)
+                            // const loggedInUser = userData.find(user => user.id === linkUpUserObj.userId)
+                            // setCurrentUser(loggedInUser)
                         }
                     )
             }
@@ -78,12 +80,12 @@ export const TeeTimeProvider = (props) => {
     useEffect(
         () => {
             if (users.length) {
-                const loggedInUser = users.find(user => user.id === linkUpUserObj.userId)
+                const loggedInUser = users?.find(user => user.id === linkUpUserObj.userId)
                 setCurrentUser(loggedInUser)
             }
         }, [users]
     )
-
+    // console.log(currentUser.friends)
     useEffect(
         () => {
             if (linkUpUserObj.token) {
@@ -111,7 +113,7 @@ export const TeeTimeProvider = (props) => {
     const currentDateParsed = Date.parse(currentDateString)
 
     const dateStringBuilder = (teeTime) => { //builds string for comparison to current day
-        const [year, month, day] = teeTime.date.split("-")
+        const [year, month, day] = teeTime?.date.split("-")
         //numeric values for teeTime date
         const intYear = parseInt(year)
         const intMonth = parseInt(month)
@@ -148,7 +150,6 @@ export const TeeTimeProvider = (props) => {
         })
     }
     matchesFilteredByDate(matchesSortedByDate)
-
     //sorter separates matches i have joined from matches i havent and checks to see if open match is available to current user
     // const matchSorter = (matchArr) => {
     //     matchArr.map(match => {
@@ -166,7 +167,7 @@ export const TeeTimeProvider = (props) => {
         <TeeTimeContext.Provider value={{
             /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, courses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
             currentDateParsed, /*profileUpdated, setProfileUpdated, */chatUser, setChatUser, /*msgsRead, setMsgsRead,*/
-            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString
+            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser
         }}>
             {props.children}
         </TeeTimeContext.Provider>

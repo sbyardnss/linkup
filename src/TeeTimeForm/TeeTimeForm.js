@@ -24,6 +24,7 @@ export const TeeTimeForm = () => {
         date: newMatch.date,
         time: newMatch.time,
         message: newMatch.message,
+        creator: linkUpUserObj.userId
         // confirmed: false
     }
     let newMatchId = lastMatchInMatches?.id + 1

@@ -23,7 +23,6 @@ export const Login = () => {
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
                     localStorage.setItem("linkUp_user", JSON.stringify(res))
-                    
                     navigate("/")
                 }
                 else {

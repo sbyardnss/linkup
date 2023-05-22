@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllMatchUserHoleScores, getUserMatchesForThisMatch, getAllMatches } from "../ServerManager";
+import { getAllMatchUserHoleScores, getUserMatchesForThisMatch, getAllMatches, getHoleScoresForMatch } from "../ServerManager";
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider";
 
 export const ScorecardContext = createContext()
@@ -20,17 +20,17 @@ export const ScorecardProvider = (props) => {
     const loggedInUserMatch = userMatchesForThisMatch?.find(userMatch => userMatch.userId === linkUpUserObj.id)
 
 
-    useEffect(
-        () => {
-            getUserMatchesForThisMatch(selectedMatch)
-                .then(
-                    (data) => {
-                        setUserMatchesForThisMatch(data)
-                    }
-                )
-        },
-        [selectedMatch]
-    )
+    // useEffect(
+    //     () => {
+    //         getUserMatchesForThisMatch(selectedMatch)
+    //             .then(
+    //                 (data) => {
+    //                     setUserMatchesForThisMatch(data)
+    //                 }
+    //             )
+    //     },
+    //     [selectedMatch]
+    // )
     useEffect(
         () => {
             getAllMatches()
@@ -43,16 +43,24 @@ export const ScorecardProvider = (props) => {
         [matchConfirmed]
     )
     
+    // useEffect(
+    //     () => {
+    //         getAllMatchUserHoleScores()
+    //             .then(
+    //                 (data) => {
+    //                     setMatchUserHoleScores(data)
+    //                 }
+    //             )
+    //     },
+    //     [updateCard]
+    // )
     useEffect(
         () => {
-            getAllMatchUserHoleScores()
-                .then(
-                    (data) => {
-                        setMatchUserHoleScores(data)
-                    }
-                )
-        },
-        [updateCard]
+            if (selectedMatch !== 0) {
+                getHoleScoresForMatch(selectedMatch)
+                .then(data => setMatchUserHoleScores(data))
+            }
+        },[selectedMatch]
     )
     useEffect(
         () => {

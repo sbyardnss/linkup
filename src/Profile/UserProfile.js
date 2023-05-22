@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import { deleteFriend, updateUser } from "../ServerManager"
 import { Messages } from "../Messages/Messages"
 import { Scorecard } from "../Scoring/Scorecard"
-// import { ScorecardContext } from "../Scoring/ScorecardContext"
+import { ScorecardContext } from "../Scoring/ScorecardContext"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { WeatherContext } from "../Weather/WeatherProvider"
@@ -12,24 +12,28 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, /*userMatchesWithMatchInfo, activeUserFriends, */navigate, /*setFriendChange, friendChange, profileUpdated, setProfileUpdated, */setChatUser, currentUser, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, setMatche, myPastMatches } = useContext(TeeTimeContext)
-    // const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
+    const { users, courses, /*userMatchesWithMatchInfo, activeUserFriends, */navigate, /*setFriendChange, friendChange, profileUpdated, setProfileUpdated, */setChatUser, currentUser, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, setMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
+    const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
+    const [passwordVisible, setPasswordVisible] = useState(false)
     const [futureTimes, setFutureTimes] = useState([])
     const [pastTimes, setPastTimes] = useState([])
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = localLinkUpUser
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
     // const currentUser = users.find(user => user.id === linkUpUserObj.id)
-    // console.log(currentUser)
+
+
+
     useEffect(
         () => {
             updateProfile(currentUser)
         },
         [profileEdit]
     )
+    console.log(profile)
     // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
     //     return uME.userId === linkUpUserObj.id
     // })
@@ -51,17 +55,45 @@ export const UserProfile = () => {
 
     const updatedUserForAPI = {
         name: profile?.name,
+        username: profile?.username,
         email: profile?.email,
         password: profile?.password
     }
-
+    const showPassword = (passwordVisible) => {
+        if (passwordVisible === true) {
+            return "text"
+        }
+        else {
+            return "password"
+        }
+    }
+    const showPasswordButtons = () => {
+        if (passwordVisible === true) {
+            return <>
+                <button className="cancelProfileEditButton" onClick={
+                    () => {
+                        setPasswordVisible(false)
+                    }
+                }>hide password</button>
+            </>
+        }
+        else {
+            return <>
+                <button className="cancelProfileEditButton" onClick={
+                    () => {
+                        setPasswordVisible(true)
+                    }
+                }>show password</button>
+            </>
+        }
+    }
     const updateProfileSection = () => {
         if (profileEdit) {
             return <>
                 <section id="updateProfileSection">
                     <h4>update profile</h4>
                     <label className="editProfileInputLabel" htmlFor="name">name</label>
-                    <input className="editProfileInput" type="text" value={profile?.name} onChange={
+                    <input className="editProfileInput" type="text" value={profile?.full_name} onChange={
                         (evt) => {
                             const copy = { ...currentUser }
                             copy.name = evt.target.value
@@ -77,7 +109,7 @@ export const UserProfile = () => {
                         }
                     }></input>
                     <label className="editProfileInputLabel" htmlFor="password">password</label>
-                    <input className="editProfileInput" type="text" value={profile?.password} onChange={
+                    <input className="editProfileInput" type={showPassword(passwordVisible)} value={profile?.password} onChange={
                         (evt) => {
                             const copy = { ...currentUser }
                             copy.password = evt.target.value
@@ -98,6 +130,7 @@ export const UserProfile = () => {
                                 editProfile(false)
                             }
                         }>cancel</button>
+                        {showPasswordButtons()}
                     </div>
                 </section>
 
@@ -107,8 +140,7 @@ export const UserProfile = () => {
             return null
         }
     }
-
-
+    console.log(myPastMatches)
     if (currentUser) {
 
         return <>
@@ -136,7 +168,7 @@ export const UserProfile = () => {
                             <ul className="listOfFriends">
                                 <h4>Friends</h4>
                                 {
-                                    currentUser.friends.map(friend => {
+                                    currentUser.friends?.map(friend => {
                                         // const friendObj = users.find(user => user.id === userFriend.friendId)
                                         return <>
                                             <li className="friendListItem">
@@ -164,14 +196,14 @@ export const UserProfile = () => {
                                         myJoinedMatchesFromMatches.map(teeTime => {
 
                                             if (next14Dates) {
-                                                //string values for teeTime date
-                                                const [month, day, year] = teeTime?.date.split("-")
+                                                // //string values for teeTime date
+                                                // const [month, day, year] = teeTime?.date.split("-")
 
-                                                //numeric values for teeTime date
-                                                const intYear = parseInt(year)
-                                                const intMonth = parseInt(month)
-                                                const intDay = parseInt(day)
-                                                const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                                                // //numeric values for teeTime date
+                                                // const intYear = parseInt(year)
+                                                // const intMonth = parseInt(month)
+                                                // const intDay = parseInt(day)
+                                                const teeTimeDateString = dateStringBuilder(teeTime)
                                                 const teeTimeDateParsed = Date.parse(teeTimeDateString)
 
 
@@ -192,18 +224,7 @@ export const UserProfile = () => {
                                                                 creator={teeTime.creator}
                                                                 golfers={teeTime.golfers}
                                                                 scorecardId={matchingScorecardId}
-
                                                             />
-                                                            {/* <MyTeeTime key={teeTime.id}
-                                                            id={teeTime.id}
-                                                            courseId={matchingCourse?.id}
-                                                            courseName={matchingCourse?.name}
-                                                            date={teeTime.match.date}
-                                                            time={teeTime.match.time}
-                                                            matchId={teeTime.matchId}
-                                                            scorecardId={matchingScorecardId}
-                                                        /> */}
-
                                                         </div>
                                                     </>
                                                 }
@@ -231,13 +252,13 @@ export const UserProfile = () => {
                                     //     return userMatch.matchId === teeTime.matchId
                                     // })
                                     //string values for teeTime date
-                                    const [month, day, year] = teeTime?.date.split("-")
+                                    // const [month, day, year] = teeTime?.date.split("-")
 
-                                    //numeric values for teeTime date
-                                    const intYear = parseInt(year)
-                                    const intMonth = parseInt(month)
-                                    const intDay = parseInt(day)
-                                    const teeTimeDateString = `${intMonth}-${intDay}-${intYear}`
+                                    // //numeric values for teeTime date
+                                    // const intYear = parseInt(year)
+                                    // const intMonth = parseInt(month)
+                                    // const intDay = parseInt(day)
+                                    const teeTimeDateString = dateStringBuilder(teeTime)
                                     const teeTimeDateParsed = Date.parse(teeTimeDateString)
 
 
@@ -247,7 +268,7 @@ export const UserProfile = () => {
 
 
                                     // if (teeTimeDateParsed < currentDateParsed) {
-                                    if (/*selectedMatch === */teeTime.id) {
+                                    if (selectedMatch === teeTime.id) {
                                         return <>
                                             <li className="pastTeeTime">
                                                 <div className="pastTeeTimeHeader">
@@ -271,17 +292,18 @@ export const UserProfile = () => {
                                                     <div className="profileButtonBlock">
                                                         <button className="profileScorecardButton" onClick={
                                                             () => {
-                                                                // setSelectedMatch(0)
+                                                                setSelectedMatch(0)
                                                             }
                                                         }>exit</button>
                                                     </div>
                                                 </div>
                                                 <div id="scoreCardOnPastTeeTime">
 
-                                                    {/* <Scorecard
+                                                    <Scorecard
+                                                        selectedMatch={selectedMatch}
                                                         profileOrPlayTable={"profileTable-container"}
                                                         profileOrPlayContainer={"profileScorecardContainer"}
-                                                    /> */}
+                                                    />
                                                 </div>
                                             </li>
                                         </>
@@ -315,7 +337,7 @@ export const UserProfile = () => {
                                                     <div className="profileButtonBlock">
                                                         <button className="profileScorecardButton" onClick={
                                                             () => {
-                                                                // setSelectedMatch(teeTime?.matchId)
+                                                                setSelectedMatch(teeTime.id)
                                                             }
                                                         }>Scorecard</button>
                                                     </div>
