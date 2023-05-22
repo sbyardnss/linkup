@@ -131,7 +131,6 @@ export const addHoleScore = (holeScoreObj) => {
         },
         body: JSON.stringify(holeScoreObj)
     })
-        .then(res => res.json())
 }
 export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
     const linkUpUserObj = getToken()

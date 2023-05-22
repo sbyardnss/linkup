@@ -43,15 +43,15 @@ export const HoleScore = ({ matchId }) => {
     }
 
 
-    const holeScoresForThisHole = () => {
-        const holeScoresForThisHole = []
-        const holeScoreFinder = userMatchesForThisMatch.map(userMatch => {
-            const targetHoleScore = matchUserHoleScores.find(holeScore => holeScore.matchUserId === userMatch.id && holeScore.courseHoleId === selectedHole)
-            holeScoresForThisHole.push(targetHoleScore)
-        })
-        return holeScoresForThisHole
-    }
-
+    // const holeScoresForThisHole = () => {
+    //     // const holeScoresForThisHole = []
+    //     // const holeScoreFinder = userMatchesForThisMatch.map(userMatch => {
+    //     //     const targetHoleScore = matchUserHoleScores.find(holeScore => holeScore.matchUserId === userMatch.id && holeScore.courseHoleId === selectedHole)
+    //     //     holeScoresForThisHole.push(targetHoleScore)
+    //     // })
+    //     const holeScoresForThisHole = matchUserHoleScores.filter(score => score.match === activeMatch.id && score.course_hole === selectedHole)
+    //     return holeScoresForThisHole
+    // }
 
     if (activeMatch) {
         return <>
@@ -123,22 +123,25 @@ export const HoleScore = ({ matchId }) => {
                             }>Submit</button>
                             <button className="finishHoleButton" onClick={
                                 () => {
-                                    const strokesForThisHolePerUser = holeScoresForThisHole()
+                                    const strokesForThisHolePerUser = matchUserHoleScores.filter(score => score.match === activeMatch.id && score.course_hole === selectedHole)
 
                                     {
-                                        userMatchesForThisMatch.map(userMatch => {
+                                        activeMatch.golfers.map(golfer => {
                                             let didNotFinishArray = []
-                                            const userMatchStrokes = strokesForThisHolePerUser.find(holeScore => holeScore?.matchUserId === userMatch.id)
+                                            const userMatchStrokes = strokesForThisHolePerUser.find(score => score?.golfer === golfer.id)
                                             if (userMatchStrokes === undefined) {
                                                 const unfinishedHoleScoreForAPI = {
-                                                    matchUserId: userMatch.id, //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-                                                    strokes: "DNF",
-                                                    courseHoleId: parseInt(selectedHole),
+                                                    golfer: golfer.id, //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
+                                                    match: activeMatch.id,
+                                                    strokes: 12,
+                                                    course_hole: parseInt(selectedHole),
                                                     notes: "did not finish"
                                                 }
-                                                addUserHoleScore(unfinishedHoleScoreForAPI)
-
-
+                                                addHoleScore(unfinishedHoleScoreForAPI)
+                                                    .then(() => {
+                                                        getHoleScoresForMatch(activeMatch.id)
+                                                            .then(data => setMatchUserHoleScores(data))
+                                                    })
                                             }
                                             else {
                                                 return undefined
