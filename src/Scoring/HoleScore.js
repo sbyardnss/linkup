@@ -2,39 +2,46 @@ import { useContext, useState, useEffect } from "react"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
-import { addUserHoleScore, updateHoleScore } from "../ServerManager"
+import { addUserHoleScore, updateHoleScore, addHoleScore, getHoleScoresForMatch } from "../ServerManager"
 import "./HoleScore.css"
 export const HoleScore = ({ matchId }) => {
-    const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
+    const { matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
     const { users } = useContext(TeeTimeContext)
     const [selectedHole, setSelectedHole] = useState(1)
     const [currentHoleData, updateCurrentHoleData] = useState({
-        notes: ""
+        notes: "",
+        strokes: 0
     })
-    const [strokes, setStrokes] = useState("")
+    const [strokes, setStrokes] = useState(0)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const [golferToScoreFor, setGolferToScoreFor] = useState(0)
+    const [scoresForThisMatch, setScoresForThisMatch] = useState([])
     // const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)
     // const currentHoleInfo = onlyLoggedInUserHoleScores.find(holeScore => holeScore.courseHoleId === selectedHole)
     const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    const newHoleScoreObjForAPI = {
-        matchUserId: parseInt(golferToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-        strokes: strokes,
-        courseHoleId: parseInt(selectedHole),
-        notes: currentHoleData.notes
-    }
+    // const newHoleScoreObjForAPI = {
+    //     matchUserId: parseInt(golferToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
+    //     strokes: strokes,
+    //     courseHoleId: parseInt(selectedHole),
+    //     notes: currentHoleData.notes
+    // }
     //above should now look like this
-    /*  
-    const newHoleScoreForAPI = {
-        golfer: selectedGolfer,
+
+    useEffect(
+        () => {
+            setScoresForThisMatch(matchUserHoleScores)
+        }, [matchUserHoleScores]
+    )
+    const newHoleScoreObjForAPI = {
+        golfer: golferToScoreFor,
         match: activeMatch.id,
         strokes: parseInt(strokes),
         course_hole: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
-    */
+
 
     const holeScoresForThisHole = () => {
         const holeScoresForThisHole = []
@@ -44,7 +51,7 @@ export const HoleScore = ({ matchId }) => {
         })
         return holeScoresForThisHole
     }
-    
+
 
     if (activeMatch) {
         return <>
@@ -61,7 +68,7 @@ export const HoleScore = ({ matchId }) => {
                                     if (evt.target.value !== "") {
                                         setSelectedHole(evt.target.value)
                                         const copy = { ...currentHoleData }
-                                        setStrokes("")
+                                        setStrokes(0)
                                         copy.notes = ""
                                         updateCurrentHoleData(copy)
                                     }
@@ -87,22 +94,29 @@ export const HoleScore = ({ matchId }) => {
                             <button className="scoringSubmitButton" onClick={
                                 () => {
                                     if (newHoleScoreObjForAPI.matchUserId !== 0) {
-                                        const alreadyScoredThisUserForThisHole = matchUserHoleScores.find(holeScore => holeScore.courseHoleId === parseInt(selectedHole) && holeScore.matchUserId === golferToScoreFor)
+                                        const alreadyScoredThisUserForThisHole = matchUserHoleScores.find(holeScore => holeScore.course_hole === parseInt(selectedHole) && holeScore.golfer === golferToScoreFor && holeScore.match === selectedMatch)
                                         // console.log(alreadyScoredThisUserForThisHole)
                                         if (alreadyScoredThisUserForThisHole) {
-
                                             if (window.confirm("You already scored this user. Would you like to update it?")) {
-                                                updateHoleScore(newHoleScoreObjForAPI, alreadyScoredThisUserForThisHole.id)
+                                                Promise.resolve(updateHoleScore(newHoleScoreObjForAPI, alreadyScoredThisUserForThisHole.id))
+                                                    .then(() => {
+                                                        getHoleScoresForMatch(activeMatch.id)
+                                                            .then(data => setMatchUserHoleScores(data))
+                                                    })
                                                 currentHoleData.notes = ""
-                                                setStrokes("")
-                                                setUpdateCard(!updateCard)
+                                                setStrokes(0)
                                             }
                                         }
                                         else {
-                                            addUserHoleScore(newHoleScoreObjForAPI)
-                                            currentHoleData.notes = ""
-                                            setStrokes("")
-                                            setUpdateCard(!updateCard)
+                                            // addUserHoleScore(newHoleScoreObjForAPI)
+                                            // currentHoleData.notes = ""
+                                            // setUpdateCard(!updateCard)
+                                            Promise.resolve(addHoleScore(newHoleScoreObjForAPI))
+                                                .then(() => {
+                                                    getHoleScoresForMatch(activeMatch.id)
+                                                        .then(data => setMatchUserHoleScores(data))
+                                                })
+                                            setStrokes(0)
                                         }
                                     }
                                 }
@@ -136,7 +150,7 @@ export const HoleScore = ({ matchId }) => {
 
                                     setGolferToScoreFor(0)
                                     currentHoleData.notes = ""
-                                    setStrokes("")
+                                    setStrokes(0)
                                     setSelectedHole(parseInt(selectedHole) + 1)
                                 }
                             }>Finish Hole</button>
@@ -149,7 +163,7 @@ export const HoleScore = ({ matchId }) => {
                                         if (score === parseInt(strokes)) {
                                             return <button className="scoringButtonSelected" value={score} onClick={
                                                 (evt) => {
-                                                    setStrokes(evt.target.value.toString())
+                                                    setStrokes(evt.target.value)
                                                 }
                                             }>{score}</button>
                                         }
@@ -204,10 +218,11 @@ export const HoleScore = ({ matchId }) => {
                         profileOrPlayTable={"table-container"}
                         profileOrPlayContainer={"scorecardContainer"}
                         activeMatch={activeMatch}
+                        scoresForMatch={matchUserHoleScores}
                     />
                 </section>
             </main>
         </>
-        
+
     }
 }

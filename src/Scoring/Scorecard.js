@@ -6,7 +6,7 @@ import "./Scorecard.css"
 import { ScorecardContext } from "./ScorecardContext"
 
 
-export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selectedMatch, activeMatch }) => {
+export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selectedMatch, activeMatch, scoresForMatch }) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
     const { userMatchesForThisMatch, matchUserHoleScores } = useContext(ScorecardContext)
     const [match, setMatch] = useState({})
@@ -56,59 +56,61 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 {
                                     activeMatch.golfers?.map(golferInMatch => {
-                                        const frontNineArray = matchUserHoleScores.filter(holeScore => {
-                                            return golferInMatch.id === holeScore.golfer && holeScore.course_hole <= 9 && holeScore.strokes !== 'DNF'
-                                        })
-                                        const frontNineScore = () => {
-                                            let userScore = 0
-                                            frontNineArray.map(score => {
-                                                userScore += parseInt(score?.strokes)
+                                        if (matchUserHoleScores) {
+                                            const frontNineArray = matchUserHoleScores.filter(holeScore => {
+                                                return golferInMatch.id === holeScore.golfer && holeScore.course_hole <= 9 && holeScore.strokes !== 'DNF'
                                             })
-                                            return userScore
-                                        }
-                                        const backNineArray = matchUserHoleScores.filter(holeScore => {
-                                            return golferInMatch.id === holeScore.golfer && holeScore.course_hole > 9 && holeScore.strokes !== 'DNF'
-                                        })
-                                        const backNineScore = () => {
-                                            let userScore = 0
-                                            backNineArray.map(score => {
-                                                userScore += parseInt(score?.strokes)
+                                            const frontNineScore = () => {
+                                                let userScore = 0
+                                                frontNineArray.map(score => {
+                                                    userScore += parseInt(score?.strokes)
+                                                })
+                                                return userScore
+                                            }
+                                            const backNineArray = matchUserHoleScores.filter(holeScore => {
+                                                return golferInMatch.id === holeScore.golfer && holeScore.course_hole > 9 && holeScore.strokes !== 'DNF'
                                             })
-                                            return userScore
-                                        }
-                                        const totalScore = frontNineScore() + backNineScore()
-                                        return <>
-                                            <tr className="userRow">
-                                                <td>{golferInMatch.full_name}</td>
-                                                {
-                                                    frontNineHoleNumbers.map(holeNumber => {
-                                                        const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.course_hole === holeNumber && holeScore.golfer === golferInMatch.id)
-                                                        if (matchingUserScore?.strokes === "DNF") {
+                                            const backNineScore = () => {
+                                                let userScore = 0
+                                                backNineArray.map(score => {
+                                                    userScore += parseInt(score?.strokes)
+                                                })
+                                                return userScore
+                                            }
+                                            const totalScore = frontNineScore() + backNineScore()
+                                            return <>
+                                                <tr className="userRow">
+                                                    <td>{golferInMatch.full_name}</td>
+                                                    {
+                                                        frontNineHoleNumbers.map(holeNumber => {
+                                                            const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.course_hole === holeNumber && holeScore.golfer === golferInMatch.id)
+                                                            if (matchingUserScore?.strokes === "DNF") {
+                                                                return <>
+                                                                    <td key={"hole" + holeNumber} className="didNotFinish">{matchingUserScore?.strokes}</td>
+                                                                </>
+                                                            }
                                                             return <>
-                                                                <td key={"hole" + holeNumber} className="didNotFinish">{matchingUserScore?.strokes}</td>
+                                                                <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
                                                             </>
-                                                        }
-                                                        return <>
-                                                            <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
-                                                        </>
-                                                    })
-                                                }
-                                                <td>{frontNineScore()}</td>
-                                                {
-                                                    backNineHoleNumbers.map(holeNumber => {
-                                                        const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.course_hole === holeNumber && holeScore.golfer === golferInMatch.id)
-                                                        return <>
-                                                            <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
-                                                        </>
-                                                    })
-                                                }
-                                                <td>{backNineScore()}</td>
-                                                <td>{totalScore}</td>
-                                            </tr>
-                                        </>
+                                                        })
+                                                    }
+                                                    <td>{frontNineScore()}</td>
+                                                    {
+                                                        backNineHoleNumbers.map(holeNumber => {
+                                                            const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.course_hole === holeNumber && holeScore.golfer === golferInMatch.id)
+                                                            return <>
+                                                                <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
+                                                            </>
+                                                        })
+                                                    }
+                                                    <td>{backNineScore()}</td>
+                                                    <td>{totalScore}</td>
+                                                </tr>
+                                            </>
+                                        }
                                     })
                                 }
                             </tbody>
