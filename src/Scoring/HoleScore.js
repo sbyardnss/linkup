@@ -15,16 +15,26 @@ export const HoleScore = ({ matchId }) => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-    const [userMatchToScoreFor, setUserMatchToScoreFor] = useState(0)
+    const [golferToScoreFor, setGolferToScoreFor] = useState(0)
     // const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)
     // const currentHoleInfo = onlyLoggedInUserHoleScores.find(holeScore => holeScore.courseHoleId === selectedHole)
     const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     const newHoleScoreObjForAPI = {
-        matchUserId: parseInt(userMatchToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
+        matchUserId: parseInt(golferToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
         strokes: strokes,
         courseHoleId: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
+    //above should now look like this
+    /*  
+    const newHoleScoreForAPI = {
+        golfer: selectedGolfer,
+        match: activeMatch.id,
+        strokes: parseInt(strokes),
+        course_hole: parseInt(selectedHole),
+        notes: currentHoleData.notes
+    }
+    */
 
     const holeScoresForThisHole = () => {
         const holeScoresForThisHole = []
@@ -43,7 +53,7 @@ export const HoleScore = ({ matchId }) => {
 
                     <section id="holeScoreHeader">
                         <div className="matchInfo">
-                            <h3>{activeMatch.course.name}</h3>
+                            <h3>{activeMatch.course?.name}</h3>
                         </div>
                         <div className="holeSelectExitMatch">
                             <select value={selectedHole} className="selectHole" onChange={
@@ -77,7 +87,7 @@ export const HoleScore = ({ matchId }) => {
                             <button className="scoringSubmitButton" onClick={
                                 () => {
                                     if (newHoleScoreObjForAPI.matchUserId !== 0) {
-                                        const alreadyScoredThisUserForThisHole = matchUserHoleScores.find(holeScore => holeScore.courseHoleId === parseInt(selectedHole) && holeScore.matchUserId === userMatchToScoreFor)
+                                        const alreadyScoredThisUserForThisHole = matchUserHoleScores.find(holeScore => holeScore.courseHoleId === parseInt(selectedHole) && holeScore.matchUserId === golferToScoreFor)
                                         // console.log(alreadyScoredThisUserForThisHole)
                                         if (alreadyScoredThisUserForThisHole) {
 
@@ -124,7 +134,7 @@ export const HoleScore = ({ matchId }) => {
 
                                     setUpdateCard(!updateCard)
 
-                                    setUserMatchToScoreFor(0)
+                                    setGolferToScoreFor(0)
                                     currentHoleData.notes = ""
                                     setStrokes("")
                                     setSelectedHole(parseInt(selectedHole) + 1)
@@ -172,15 +182,15 @@ export const HoleScore = ({ matchId }) => {
                     </section>
                     <div className="userButtonsContainer">
                         {
-                            activeMatch.golfers.map(golfer => {
+                            activeMatch.golfers?.map(golfer => {
                                 // const matchingUser = users.find(user => user.id === userMatch.userId)
-                                if (parseInt(userMatchToScoreFor) === parseInt(golfer.id)) {
+                                if (parseInt(golferToScoreFor) === parseInt(golfer.id)) {
                                     return <button className="activeUserButton" value={golfer.id} >{golfer.full_name}</button>
                                 }
                                 else {
                                     return <button className="inactiveUserButton" value={golfer.id} onClick={
                                         (evt) => {
-                                            setUserMatchToScoreFor(parseInt(evt.target.value))
+                                            setGolferToScoreFor(parseInt(evt.target.value))
                                         }
                                     }>{golfer.full_name}</button>
                                 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllMatchUserHoleScores, getUserMatchesForThisMatch, getAllMatches, getHoleScoresForMatch } from "../ServerManager";
+import { getAllMatchUserHoleScores, getUserMatchesForThisMatch, getAllMatches, getHoleScoresForMatch, retrieveMatch } from "../ServerManager";
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider";
 
 export const ScorecardContext = createContext()
@@ -64,8 +64,10 @@ export const ScorecardProvider = (props) => {
     )
     useEffect(
         () => {
-            const matchObj = allMatches.find(match => match.id === selectedMatch)
-            setActiveMatch(matchObj)
+            if (selectedMatch !== 0) {
+                retrieveMatch(selectedMatch)
+                .then(data => setActiveMatch(data))
+            }
         },
         [selectedMatch, allMatches]
     )

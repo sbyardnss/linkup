@@ -53,14 +53,12 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                     <th className="holeScore">18 </th>
                                     <th className="backNineScore">Back 9</th>
                                     <th className="totalScore">Total</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
                                 
                                 {
-                                    activeMatch.golfers.map(golferInMatch => {
+                                    activeMatch.golfers?.map(golferInMatch => {
                                         const frontNineArray = matchUserHoleScores.filter(holeScore => {
                                             return golferInMatch.id === holeScore.golfer && holeScore.course_hole <= 9 && holeScore.strokes !== 'DNF'
                                         })
@@ -74,7 +72,6 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                         const backNineArray = matchUserHoleScores.filter(holeScore => {
                                             return golferInMatch.id === holeScore.golfer && holeScore.course_hole > 9 && holeScore.strokes !== 'DNF'
                                         })
-
                                         const backNineScore = () => {
                                             let userScore = 0
                                             backNineArray.map(score => {
