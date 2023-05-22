@@ -5,7 +5,7 @@ import { Scorecard } from "./Scorecard"
 import { addUserHoleScore, updateHoleScore } from "../ServerManager"
 import "./HoleScore.css"
 export const HoleScore = ({ matchId }) => {
-    const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
+    const { matchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
     const { users } = useContext(TeeTimeContext)
     const [selectedHole, setSelectedHole] = useState(1)
     const [currentHoleData, updateCurrentHoleData] = useState({
@@ -13,7 +13,7 @@ export const HoleScore = ({ matchId }) => {
     })
     const [strokes, setStrokes] = useState("")
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = localLinkUpUser
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const [userMatchToScoreFor, setUserMatchToScoreFor] = useState(0)
     // const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)
@@ -43,7 +43,7 @@ export const HoleScore = ({ matchId }) => {
 
                     <section id="holeScoreHeader">
                         <div className="matchInfo">
-                            <h3>{activeMatchCourse?.name}</h3>
+                            <h3>{activeMatch.course.name}</h3>
                         </div>
                         <div className="holeSelectExitMatch">
                             <select value={selectedHole} className="selectHole" onChange={
@@ -172,17 +172,17 @@ export const HoleScore = ({ matchId }) => {
                     </section>
                     <div className="userButtonsContainer">
                         {
-                            userMatchesForThisMatch.map(userMatch => {
-                                const matchingUser = users.find(user => user.id === userMatch.userId)
-                                if (parseInt(userMatchToScoreFor) === parseInt(userMatch.id)) {
-                                    return <button className="activeUserButton" value={userMatch.id} >{matchingUser.name}</button>
+                            activeMatch.golfers.map(golfer => {
+                                // const matchingUser = users.find(user => user.id === userMatch.userId)
+                                if (parseInt(userMatchToScoreFor) === parseInt(golfer.id)) {
+                                    return <button className="activeUserButton" value={golfer.id} >{golfer.full_name}</button>
                                 }
                                 else {
-                                    return <button className="inactiveUserButton" value={userMatch.id} onClick={
+                                    return <button className="inactiveUserButton" value={golfer.id} onClick={
                                         (evt) => {
                                             setUserMatchToScoreFor(parseInt(evt.target.value))
                                         }
-                                    }>{matchingUser.name}</button>
+                                    }>{golfer.full_name}</button>
                                 }
                             })
                         }
@@ -193,6 +193,7 @@ export const HoleScore = ({ matchId }) => {
                     <Scorecard
                         profileOrPlayTable={"table-container"}
                         profileOrPlayContainer={"scorecardContainer"}
+                        activeMatch={activeMatch}
                     />
                 </section>
             </main>

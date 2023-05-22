@@ -14,12 +14,11 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const frontNineHoleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const backNineHoleNumbers = [10, 11, 12, 13, 14, 15, 16, 17, 18]
-    useEffect(
-        () => {
-            retrieveMatch(selectedMatch).then(data => setMatch(data))
-        },[selectedMatch]
-    )
-    console.log(match)
+    // useEffect(
+    //     () => {
+    //         retrieveMatch(selectedMatch).then(data => setMatch(data))
+    //     },[selectedMatch]
+    // )
     if (match) {
         return <>
             <main id={profileOrPlayContainer}>
@@ -61,7 +60,7 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                             <tbody>
                                 
                                 {
-                                    match.golfers?.map(golferInMatch => {
+                                    activeMatch.golfers.map(golferInMatch => {
                                         const frontNineArray = matchUserHoleScores.filter(holeScore => {
                                             return golferInMatch.id === holeScore.golfer && holeScore.course_hole <= 9 && holeScore.strokes !== 'DNF'
                                         })
