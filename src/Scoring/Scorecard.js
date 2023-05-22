@@ -12,12 +12,11 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
     const [match, setMatch] = useState({})
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-    console.log(activeMatch)
     const frontNineHoleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const backNineHoleNumbers = [10, 11, 12, 13, 14, 15, 16, 17, 18]
     useEffect(
         () => {
-            Promise.resolve(retrieveMatch(selectedMatch)).then(data => setMatch(data))
+            retrieveMatch(selectedMatch).then(data => setMatch(data))
         },[selectedMatch]
     )
     console.log(match)
@@ -62,30 +61,26 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                             <tbody>
                                 
                                 {
-                                    match?.golfers?.map(golferInMatch => {
-                                        // const matchingUser = users?.find(user => user.id === score.golfer)
-                                        // const matchingUserScores = matchUserHoleScores?.filter(score => score.golfer === userMatch.golfer)
+                                    match.golfers?.map(golferInMatch => {
                                         const frontNineArray = matchUserHoleScores.filter(holeScore => {
-                                            return golferInMatch.id = holeScore.golfer && holeScore.course_hole <= 9 && holeScore.strokes !== 'DNF'
+                                            return golferInMatch.id === holeScore.golfer && holeScore.course_hole <= 9 && holeScore.strokes !== 'DNF'
                                         })
                                         const frontNineScore = () => {
                                             let userScore = 0
-
                                             frontNineArray.map(score => {
                                                 userScore += parseInt(score?.strokes)
                                             })
-
                                             return userScore
                                         }
                                         const backNineArray = matchUserHoleScores.filter(holeScore => {
-                                            return holeScore.courseHoleId > 9 && holeScore.strokes !== 'DNF'
+                                            return golferInMatch.id === holeScore.golfer && holeScore.course_hole > 9 && holeScore.strokes !== 'DNF'
                                         })
+
                                         const backNineScore = () => {
                                             let userScore = 0
                                             backNineArray.map(score => {
                                                 userScore += parseInt(score?.strokes)
                                             })
-
                                             return userScore
                                         }
                                         const totalScore = frontNineScore() + backNineScore()
@@ -94,7 +89,7 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                                 <td>{golferInMatch.full_name}</td>
                                                 {
                                                     frontNineHoleNumbers.map(holeNumber => {
-                                                        const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.courseHoleId === holeNumber)
+                                                        const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.course_hole === holeNumber && holeScore.golfer === golferInMatch.id)
                                                         if (matchingUserScore?.strokes === "DNF") {
                                                             return <>
                                                                 <td key={"hole" + holeNumber} className="didNotFinish">{matchingUserScore?.strokes}</td>
@@ -108,7 +103,7 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                                 <td>{frontNineScore()}</td>
                                                 {
                                                     backNineHoleNumbers.map(holeNumber => {
-                                                        const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.courseHoleId === holeNumber)
+                                                        const matchingUserScore = matchUserHoleScores?.find(holeScore => holeScore.course_hole === holeNumber && holeScore.golfer === golferInMatch.id)
                                                         return <>
                                                             <td key={"hole" + holeNumber} className="holeScore">{matchingUserScore?.strokes}</td>
                                                         </>
@@ -116,37 +111,13 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                                 }
                                                 <td>{backNineScore()}</td>
                                                 <td>{totalScore}</td>
-                                                {/*                                             
-                                                {
-                                                    frontNineArray?.map(score => {
-                                                        if (score.strokes === 0) {
-                                                            return <td className="didNotFinish">{score.strokes}</td>
-                                                            
-                                                        }
-                                                        else {
-
-                                                            return <td>{score.strokes}</td>
-                                                        }
-
-                                                    })
-                                                }
-                                                {
-                                                    backNineArray?.map(score => {
-
-                                                        return <td>{score.strokes}</td>
-
-                                                    })
-                                                } */}
-
                                             </tr>
-
                                         </>
                                     })
                                 }
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </main >
         </>
@@ -154,5 +125,4 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
     else {
         return <h2>You didn't score your match!</h2>
     }
-
 }
