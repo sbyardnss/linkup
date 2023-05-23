@@ -77,16 +77,18 @@ export const AddCourseForm = () => {
                                     } />
                                 </div>
                                 <div className="addCourseFormButtonBlock">
-                                    <button onClick={() => {
+                                    <button onClick={(e) => {
+                                        e.preventDefault()
                                         if (newCourse.address && newCourse.name) {
                                             sendNewCourse(newCourseObjToSendToAPI)
-                                                // setAddedCourse(!addedCourse)
-                                                // .then(
-                                                //     () => {
-                                                //         getAllCourses()
-                                                //             .then(data => setCourses(data))
-                                                //     }
-                                                // )
+                                                .then(
+                                                    () => {
+                                                        getAllCourses()
+                                                            .then(data => setCourses(data))
+                                                    }
+                                                )
+                                                setAddCourse(false)
+                                            // setAddedCourse(!addedCourse)
                                         }
                                         else {
                                             alert("please fill out the form")

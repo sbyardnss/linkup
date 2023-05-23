@@ -24,7 +24,6 @@ export const UnreadMsgCount = () => {
         },
         []//msgs read was in this state watcher
     )
-    console.log(myMessages)
     const unreadMsgs = myMessages.filter(msg => msg.read === false)
     if (unreadMsgs) {
         return unreadMsgs.length
@@ -184,40 +183,42 @@ export const MessageThread = () => {
                         })
                     }
                 </ul>
-                <article id="chatContainer">
-                    <section id="chatThread">
-                        {isChatUserSelected()}
-                        {
-                            msgsForCurrentChat.map(msg => {
-                                const [msgDate, msgTime] = msg.date_time.split("T")
-                                let [hour, minute, seconds] = msgTime.split(":")
-                                let amOrPm = "am"
-                                hour > 12 ? hour = hour - 12 : hour = hour
-                                hour > 12 ? amOrPm = 'pm' : amOrPm = amOrPm
-                                const newTimeString = `${hour}:${minute} ${amOrPm}`
-                                const dateString = formatDate('en-us', msg.date_time)
-                                const timeString = newTimeString.toLocaleString('en-us', { hour: '2-digit', minute: '2-digit', hour12: false })
-                                if (msg.recipient === linkUpUserObj.userId) {
-                                    return <>
-                                        <div className="receivedChatMsgItem">
-                                            <div>{msg.message}</div>
-                                            <div className="msgDateAndTime">{timeString}</div>
-                                            <div className="msgDateAndTime">{dateString}</div>
-                                        </div>
-                                    </>
-                                }
-                                else {
-                                    return <>
-                                        <div className="sentChatMsgItem">
-                                            <div>{msg.message}</div>
-                                            <div className="msgDateAndTime">{timeString}</div>
-                                            <div className="msgDateAndTime">{dateString}</div>
-                                        </div>
-                                    </>
-                                }
-                            })
-                        }
-                    </section>
+                {/* <div> */}
+                    <article id="chatContainer">
+                        <section id="chatThread">
+                            {isChatUserSelected()}
+                            {
+                                msgsForCurrentChat.map(msg => {
+                                    const [msgDate, msgTime] = msg.date_time.split("T")
+                                    let [hour, minute, seconds] = msgTime.split(":")
+                                    let amOrPm = "am"
+                                    hour > 12 ? hour = hour - 12 : hour = hour
+                                    hour > 12 ? amOrPm = 'pm' : amOrPm = amOrPm
+                                    const newTimeString = `${hour}:${minute} ${amOrPm}`
+                                    const dateString = formatDate('en-us', msg.date_time)
+                                    const timeString = newTimeString.toLocaleString('en-us', { hour: '2-digit', minute: '2-digit', hour12: false })
+                                    if (msg.recipient === linkUpUserObj.userId) {
+                                        return <>
+                                            <div className="receivedChatMsgItem">
+                                                <div>{msg.message}</div>
+                                                <div className="msgDateAndTime">{timeString}</div>
+                                                <div className="msgDateAndTime">{dateString}</div>
+                                            </div>
+                                        </>
+                                    }
+                                    else {
+                                        return <>
+                                            <div className="sentChatMsgItem">
+                                                <div>{msg.message}</div>
+                                                <div className="msgDateAndTime">{timeString}</div>
+                                                <div className="msgDateAndTime">{dateString}</div>
+                                            </div>
+                                        </>
+                                    }
+                                })
+                            }
+                        </section>
+                    </article>
                     <div id="chatInterface">
                         <input type="text"
                             id="chatTextInput"
@@ -247,7 +248,7 @@ export const MessageThread = () => {
                             }}
                         >send</button>
                     </div>
-                </article>
+                {/* </div> */}
             </main>
         </>
     }
