@@ -22,7 +22,8 @@ export const NavBar = () => {
     document.addEventListener(`click`, closeOpenMenus)
     const msgNotification = () => {
         const msgCount = UnreadMsgCount()
-        if (msgCount) {
+        console.log(msgCount)
+        if (msgCount !== 0) {
             return <>
                 <div id="newMsgCount">{msgCount}</div>
             </>

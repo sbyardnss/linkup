@@ -165,7 +165,7 @@ export const TeeTimeProvider = (props) => {
 
     return (
         <TeeTimeContext.Provider value={{
-            /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, courses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
+            /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, courses, setCourses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
             currentDateParsed, /*profileUpdated, setProfileUpdated, */chatUser, setChatUser, /*msgsRead, setMsgsRead,*/
             setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser
         }}>

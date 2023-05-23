@@ -164,8 +164,26 @@ export const setMsgsToRead = (msgObjReplacement, msgId) => {
         },
         body: JSON.stringify(msgObjReplacement)
     })
-        .then(res => res.json())
-
+}
+export const sendNewCourse = (newCourseObj) => { //check
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/courses`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newCourseObj)
+    })
+}
+export const deleteCourse = (courseId) => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/courses/${courseId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+        }
+    })
 }
 
 //OLD BELOW DELETE AT END
@@ -277,16 +295,16 @@ export const sendTeeTime = (teeTimeObj) => {
 //         )
 // }
 
-export const sendNewCourse = (newCourseObj) => { //check
-    return fetch(`http://localhost:8000/courses`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newCourseObj)
-    })
-        .then(res => res.json())
-}
+// export const sendNewCourse = (newCourseObj) => { //check
+//     return fetch(`http://localhost:8000/courses`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(newCourseObj)
+//     })
+//         .then(res => res.json())
+// }
 // OLD ADDFRIEND FUNCTION
 // export const addFriend = (newFriendObj) => {
 //     return fetch(`http://localhost:8000/userFriends`, {
@@ -338,11 +356,11 @@ export const deleteUserMatch = (userMatchId) => {
     })
 }
 
-export const deleteCourse = (courseId) => {
-    return fetch(`http://localhost:8000/courses/${courseId}`, {
-        method: "DELETE"
-    })
-}
+// export const deleteCourse = (courseId) => {
+//     return fetch(`http://localhost:8000/courses/${courseId}`, {
+//         method: "DELETE"
+//     })
+// }
 
 export const deleteFriend = (friendRelationshipId) => {
     return fetch(`http://localhost:8000/userFriends/${friendRelationshipId}`, {
