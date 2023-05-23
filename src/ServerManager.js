@@ -153,7 +153,6 @@ export const sendNewMessage = (newMsgObj) => {
         },
         body: JSON.stringify(newMsgObj)
     })
-        .then(res => res.json())
 }
 export const setMsgsToRead = (msgObjReplacement, msgId) => {
     const linkUpUserObj = getToken()

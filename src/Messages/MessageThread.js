@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import { getAllMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
+import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter"
 
 export const UnreadMsgCount = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
@@ -31,7 +32,7 @@ export const UnreadMsgCount = () => {
 
 export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = localLinkUpUser
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
     const [myMessages, setMyMessages] = useState([])
     const [createMsg, setCreateMsg] = useState(false)
     const [currentChatRecipientUser, setCurrentChat] = useState({})
@@ -49,9 +50,13 @@ export const MessageThread = () => {
             getAllMessages()
                 .then(
                     (data) => {
-
                         const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
-                        setMyMessages(myMsgData)
+                        const sortedMyMsgData = myMsgData.sort((a, b) => {
+                            const aDate = Date.parse(a.date_time)
+                            const bDate = Date.parse(b.date_time)
+                            return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+                        })
+                        setMyMessages(sortedMyMsgData)
                     }
                 )
         },
@@ -78,10 +83,10 @@ export const MessageThread = () => {
 
 
     const newMsgForAPI = {
-        userId: linkUpUserObj.id,
-        recipientId: newMsg.recipientId,
+        sender: linkUpUserObj.userId,
+        recipient: newMsg.recipientId,
         message: newMsg.message,
-        time: Date.now(),
+        // date_time: Date.now(),
         read: false
     }
 
@@ -93,17 +98,12 @@ export const MessageThread = () => {
     const handlekeyDown = e => {
         if (e.key === 'Enter') {
             sendNewMessage(newMsgForAPI)
-            // setMessageSent(!msgSent)
             const copy = { ...newMsg }
             copy.message = ""
             updateNewMsg(copy)
-            // getAllMessages(linkUpUserObj.id)
-            //     .then(
-            //         (data) => {
-            //             console.log(data)
-            //             setMyMessages(data)
-            //         }
-            //     )
+            setMessageSent(!msgSent)
+            // getAllMessages()
+            //     .then((data) => setMyMessages(data))
         }
     }
     const isChatUserSelected = () => {
@@ -118,7 +118,6 @@ export const MessageThread = () => {
             </>
         }
     }
-
     if (currentUser) {
         return <>
             <main id="messagesPageContainer">
@@ -134,7 +133,6 @@ export const MessageThread = () => {
                                         </div>
                                     </>
                                 }
-
                             }
                             if (friend?.id === chatUser) {
                                 return <>
@@ -142,13 +140,9 @@ export const MessageThread = () => {
                                         <div>
                                             {friend.full_name}
                                         </div>
-
                                     </li>
                                 </>
-
                             }
-
-
                             else {
                                 return <>
                                     <li className="chatListItem" onClick={
@@ -168,7 +162,6 @@ export const MessageThread = () => {
                                         }
                                     }>
                                         {friend?.full_name} {newMsgsFromThisUser(friend)}
-
                                     </li>
                                 </>
                             }
@@ -180,10 +173,15 @@ export const MessageThread = () => {
                         {isChatUserSelected()}
                         {
                             msgsForCurrentChat.map(msg => {
-
-                                const dateString = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(msg.time)
-                                const timeString = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit' }).format(msg.time)
-                                if (msg.recipient === linkUpUserObj.id) {
+                                const [msgDate, msgTime] = msg.date_time.split("T")
+                                let [hour, minute, seconds] = msgTime.split(":")
+                                let amOrPm = "am"
+                                hour > 12 ? hour = hour - 12 : hour = hour
+                                hour > 12 ? amOrPm = 'pm' : amOrPm = amOrPm
+                                const newTimeString = `${hour}:${minute} ${amOrPm}`
+                                const dateString = formatDate('en-us', msg.date_time)
+                                const timeString = newTimeString.toLocaleString('en-us', { hour: '2-digit', minute: '2-digit', hour12: false })
+                                if (msg.recipient === linkUpUserObj.userId) {
                                     return <>
                                         <div className="receivedChatMsgItem">
                                             <div>{msg.message}</div>
@@ -205,7 +203,6 @@ export const MessageThread = () => {
                         }
                     </section>
                     <div id="chatInterface">
-
                         <input type="text"
                             id="chatTextInput"
                             value={newMsg.message}
@@ -216,8 +213,24 @@ export const MessageThread = () => {
                             onClick={() => {
                                 sendNewMessage(newMsgForAPI)
                                 setMessageSent(!msgSent)
-                            }}
+                                const copy = { ...newMsg }
+                                copy.message = ""
+                                updateNewMsg(copy)
+                                
+                                // getAllMessages()
+                                //     .then(
+                                //         (data) => {
+                                //             const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
+                                //             const sortedMyMsgData = myMsgData.sort((a, b) => {
+                                //                 const aDate = Date.parse(a.date_time)
+                                //                 const bDate = Date.parse(b.date_time)
+                                //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+                                //             })
+                                //             setMyMessages(sortedMyMsgData)
+                                //         }
+                                //     )
 
+                            }}
                         >send</button>
                     </div>
                 </article>

@@ -91,6 +91,7 @@
 
     #chatThread {
         display: block;
+        overflow: scroll;
     }
 
     #chatHeader {
@@ -290,6 +291,7 @@
     #chatThread {
         display: block;
         height: 100vh;
+        overflow: scroll;
     }
 
     #chatHeader {
