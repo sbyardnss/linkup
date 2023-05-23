@@ -5,16 +5,16 @@ import "./MessagesThread.css"
 
 export const UnreadMsgCount = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = localLinkUpUser
+    const linkUpUserObj = JSON.parse(localLinkUpUser)
     const [myMessages, setMyMessages] = useState([])
-    const { msgsRead } = useContext(TeeTimeContext)
+    const { msgsRead, currentUser } = useContext(TeeTimeContext)
     useEffect(
         () => {
-            if (linkUpUserObj.token){
+            if (linkUpUserObj.token) {
                 getAllMessages()
                     .then(
                         (data) => {
-                            const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
+                            const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.id || msg.recipient === linkUpUserObj.id)
                             setMyMessages(myMsgData)
                         }
                     )
@@ -42,7 +42,7 @@ export const MessageThread = () => {
         message: "",
         recipientId: 0
     })
-    const { users, activeUserFriends, chatUser, setChatUser, msgsRead, setMsgsRead } = useContext(TeeTimeContext)
+    const { users, activeUserFriends, chatUser, setChatUser, msgsRead, setMsgsRead, currentUser } = useContext(TeeTimeContext)
 
     useEffect(
         () => {
@@ -74,7 +74,7 @@ export const MessageThread = () => {
 
 
 
-    const msgsForCurrentChat = myMessages.filter(msg => msg.recipientId === chatUser || msg.userId === chatUser)
+    const msgsForCurrentChat = myMessages.filter(msg => msg.recipient === chatUser || msg.sender === chatUser)
 
 
     const newMsgForAPI = {
@@ -93,10 +93,17 @@ export const MessageThread = () => {
     const handlekeyDown = e => {
         if (e.key === 'Enter') {
             sendNewMessage(newMsgForAPI)
-            setMessageSent(!msgSent)
+            // setMessageSent(!msgSent)
             const copy = { ...newMsg }
             copy.message = ""
             updateNewMsg(copy)
+            // getAllMessages(linkUpUserObj.id)
+            //     .then(
+            //         (data) => {
+            //             console.log(data)
+            //             setMyMessages(data)
+            //         }
+            //     )
         }
     }
     const isChatUserSelected = () => {
@@ -112,110 +119,109 @@ export const MessageThread = () => {
         }
     }
 
-
-    return <>
-        <main id="messagesPageContainer">
-            <ul id="chatList">
-                {
-                    activeUserFriends.map(friend => {
-                        const friendlyUserObj = users.find(user => user.id === friend.friendId)
-                        const newMsgs = myMessages.filter(msg => msg.userId === friend.friendId && msg.read === false && msg.recipientId === linkUpUserObj.id)
-                        const newMsgsFromThisUser = () => {
-                            if (newMsgs.length !== 0) {
-                                return <>
-                                    <div className="msgsPageNotification">
-                                        {newMsgs.length}
-                                    </div>
-                                </>
-                            }
-
-                        }
-                        if (friendlyUserObj?.id === chatUser) {
-                            return <>
-                                <li className="activeChatListItem">
-                                    <div>
-                                        {friendlyUserObj?.name}
-                                    </div>
-
-                                </li>
-                            </>
-
-                        }
-
-
-                        else {
-                            return <>
-                                <li className="chatListItem" onClick={
-                                    () => {
-                                        {
-                                            newMsgs.map(msg => {
-                                                const copy = { ...msg }
-                                                copy.read = true
-                                                setMsgsToRead(copy, msg.id)
-                                            })
-                                        }
-                                        setMsgsRead(!msgsRead)
-                                        const copy = { ...newMsg }
-                                        copy.recipientId = friendlyUserObj.id
-                                        updateNewMsg(copy)
-                                        setChatUser(friendlyUserObj.id)
-
-                                    }
-                                }>
-                                    {friendlyUserObj?.name} {newMsgsFromThisUser(friend)}
-
-                                </li>
-                            </>
-                        }
-                    })
-                }
-            </ul>
-            <article id="chatContainer">
-                <section id="chatThread">
-                    {isChatUserSelected()}
+    if (currentUser) {
+        return <>
+            <main id="messagesPageContainer">
+                <ul id="chatList">
                     {
-                        msgsForCurrentChat.map(msg => {
+                        currentUser.friends?.map(friend => {
+                            const newMsgs = myMessages.filter(msg => msg.userId === friend.id && msg.read === false && msg.recipientId === linkUpUserObj.id)
+                            const newMsgsFromThisUser = () => {
+                                if (newMsgs.length !== 0) {
+                                    return <>
+                                        <div className="msgsPageNotification">
+                                            {newMsgs.length}
+                                        </div>
+                                    </>
+                                }
 
-                            const dateString = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(msg.time)
-                            const timeString = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit' }).format(msg.time)
-                            if (msg.recipientId === linkUpUserObj.id) {
-                                return <>
-                                    <div className="receivedChatMsgItem">
-                                        <div>{msg.message}</div>
-                                        <div className="msgDateAndTime">{timeString}</div>
-                                        <div className="msgDateAndTime">{dateString}</div>
-                                    </div>
-                                </>
                             }
+                            if (friend?.id === chatUser) {
+                                return <>
+                                    <li className="activeChatListItem">
+                                        <div>
+                                            {friend.full_name}
+                                        </div>
+
+                                    </li>
+                                </>
+
+                            }
+
+
                             else {
                                 return <>
-                                    <div className="sentChatMsgItem">
-                                        <div>{msg.message}</div>
-                                        <div className="msgDateAndTime">{timeString}</div>
-                                        <div className="msgDateAndTime">{dateString}</div>
-                                    </div>
+                                    <li className="chatListItem" onClick={
+                                        () => {
+                                            {
+                                                newMsgs.map(msg => {
+                                                    const copy = { ...msg }
+                                                    copy.read = true
+                                                    setMsgsToRead(copy, msg.id)
+                                                })
+                                            }
+                                            // setMsgsRead(!msgsRead)
+                                            const copy = { ...newMsg }
+                                            copy.recipientId = friend.id
+                                            updateNewMsg(copy)
+                                            setChatUser(friend.id)
+                                        }
+                                    }>
+                                        {friend?.full_name} {newMsgsFromThisUser(friend)}
+
+                                    </li>
                                 </>
                             }
                         })
                     }
-                </section>
-                <div id="chatInterface">
+                </ul>
+                <article id="chatContainer">
+                    <section id="chatThread">
+                        {isChatUserSelected()}
+                        {
+                            msgsForCurrentChat.map(msg => {
 
-                    <input type="text"
-                        id="chatTextInput"
-                        value={newMsg.message}
-                        onChange={handleChange}
-                        onKeyDown={handlekeyDown}
-                    />
-                    <button id="chatSendButton"
-                        onClick={() => {
-                            sendNewMessage(newMsgForAPI)
-                            setMessageSent(!msgSent)
-                        }}
+                                const dateString = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(msg.time)
+                                const timeString = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit' }).format(msg.time)
+                                if (msg.recipient === linkUpUserObj.id) {
+                                    return <>
+                                        <div className="receivedChatMsgItem">
+                                            <div>{msg.message}</div>
+                                            <div className="msgDateAndTime">{timeString}</div>
+                                            <div className="msgDateAndTime">{dateString}</div>
+                                        </div>
+                                    </>
+                                }
+                                else {
+                                    return <>
+                                        <div className="sentChatMsgItem">
+                                            <div>{msg.message}</div>
+                                            <div className="msgDateAndTime">{timeString}</div>
+                                            <div className="msgDateAndTime">{dateString}</div>
+                                        </div>
+                                    </>
+                                }
+                            })
+                        }
+                    </section>
+                    <div id="chatInterface">
 
-                    >send</button>
-                </div>
-            </article>
-        </main>
-    </>
+                        <input type="text"
+                            id="chatTextInput"
+                            value={newMsg.message}
+                            onChange={handleChange}
+                            onKeyDown={handlekeyDown}
+                        />
+                        <button id="chatSendButton"
+                            onClick={() => {
+                                sendNewMessage(newMsgForAPI)
+                                setMessageSent(!msgSent)
+                            }}
+
+                        >send</button>
+                    </div>
+                </article>
+            </main>
+        </>
+    }
 }

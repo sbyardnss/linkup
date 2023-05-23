@@ -2,11 +2,11 @@ import { useContext, useState, useEffect } from "react"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
-import { addUserHoleScore, updateHoleScore, addHoleScore, getHoleScoresForMatch } from "../ServerManager"
+import { updateHoleScore, addHoleScore, getHoleScoresForMatch } from "../ServerManager"
 import "./HoleScore.css"
-export const HoleScore = ({ matchId }) => {
+export const HoleScore = () => {
     const { matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
-    const { users } = useContext(TeeTimeContext)
+    // const { users } = useContext(TeeTimeContext)
     const [selectedHole, setSelectedHole] = useState(1)
     const [currentHoleData, updateCurrentHoleData] = useState({
         notes: "",
@@ -17,23 +17,8 @@ export const HoleScore = ({ matchId }) => {
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const [golferToScoreFor, setGolferToScoreFor] = useState(0)
-    const [scoresForThisMatch, setScoresForThisMatch] = useState([])
-    // const onlyLoggedInUserHoleScores = matchUserHoleScores.filter(holeScore => holeScore.matchUserId === loggedInUserMatch?.id)
-    // const currentHoleInfo = onlyLoggedInUserHoleScores.find(holeScore => holeScore.courseHoleId === selectedHole)
     const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    // const newHoleScoreObjForAPI = {
-    //     matchUserId: parseInt(golferToScoreFor), //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-    //     strokes: strokes,
-    //     courseHoleId: parseInt(selectedHole),
-    //     notes: currentHoleData.notes
-    // }
-    //above should now look like this
 
-    useEffect(
-        () => {
-            setScoresForThisMatch(matchUserHoleScores)
-        }, [matchUserHoleScores]
-    )
     const newHoleScoreObjForAPI = {
         golfer: golferToScoreFor,
         match: activeMatch.id,
@@ -41,17 +26,6 @@ export const HoleScore = ({ matchId }) => {
         course_hole: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
-
-
-    // const holeScoresForThisHole = () => {
-    //     // const holeScoresForThisHole = []
-    //     // const holeScoreFinder = userMatchesForThisMatch.map(userMatch => {
-    //     //     const targetHoleScore = matchUserHoleScores.find(holeScore => holeScore.matchUserId === userMatch.id && holeScore.courseHoleId === selectedHole)
-    //     //     holeScoresForThisHole.push(targetHoleScore)
-    //     // })
-    //     const holeScoresForThisHole = matchUserHoleScores.filter(score => score.match === activeMatch.id && score.course_hole === selectedHole)
-    //     return holeScoresForThisHole
-    // }
 
     if (activeMatch) {
         return <>
@@ -65,7 +39,8 @@ export const HoleScore = ({ matchId }) => {
                         <div className="holeSelectExitMatch">
                             <select value={selectedHole} className="selectHole" onChange={
                                 (evt) => {
-                                    if (evt.target.value !== "") {
+                                    if (evt.target.value !== "" /*"0"*/) {
+                                        console.log(evt.target.value)
                                         setSelectedHole(evt.target.value)
                                         const copy = { ...currentHoleData }
                                         setStrokes(0)
@@ -108,14 +83,12 @@ export const HoleScore = ({ matchId }) => {
                                             }
                                         }
                                         else {
-                                            // addUserHoleScore(newHoleScoreObjForAPI)
-                                            // currentHoleData.notes = ""
-                                            // setUpdateCard(!updateCard)
                                             Promise.resolve(addHoleScore(newHoleScoreObjForAPI))
                                                 .then(() => {
                                                     getHoleScoresForMatch(activeMatch.id)
                                                         .then(data => setMatchUserHoleScores(data))
                                                 })
+                                            currentHoleData.notes = ""
                                             setStrokes(0)
                                         }
                                     }
@@ -123,38 +96,36 @@ export const HoleScore = ({ matchId }) => {
                             }>Submit</button>
                             <button className="finishHoleButton" onClick={
                                 () => {
-                                    const strokesForThisHolePerUser = matchUserHoleScores.filter(score => score.match === activeMatch.id && score.course_hole === selectedHole)
-
-                                    {
-                                        activeMatch.golfers.map(golfer => {
-                                            let didNotFinishArray = []
-                                            const userMatchStrokes = strokesForThisHolePerUser.find(score => score?.golfer === golfer.id)
-                                            if (userMatchStrokes === undefined) {
-                                                const unfinishedHoleScoreForAPI = {
-                                                    golfer: golfer.id, //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
-                                                    match: activeMatch.id,
-                                                    strokes: 12,
-                                                    course_hole: parseInt(selectedHole),
-                                                    notes: "did not finish"
+                                    if (window.confirm("Finish hole?")) {
+                                        const strokesForThisHolePerUser = matchUserHoleScores.filter(score => score.match === activeMatch.id && score.course_hole === selectedHole)
+                                        {
+                                            activeMatch.golfers.map(golfer => {
+                                                let didNotFinishArray = []
+                                                const userMatchStrokes = strokesForThisHolePerUser.find(score => score?.golfer === golfer.id)
+                                                if (userMatchStrokes === undefined) {
+                                                    const unfinishedHoleScoreForAPI = {
+                                                        golfer: golfer.id, //currently the initial value is not being set to score for logged in user. we dont want users to have to select themselves initially
+                                                        match: activeMatch.id,
+                                                        strokes: 12,
+                                                        course_hole: parseInt(selectedHole),
+                                                        notes: "did not finish"
+                                                    }
+                                                    addHoleScore(unfinishedHoleScoreForAPI)
+                                                        .then(() => {
+                                                            getHoleScoresForMatch(activeMatch.id)
+                                                                .then(data => setMatchUserHoleScores(data))
+                                                        })
                                                 }
-                                                addHoleScore(unfinishedHoleScoreForAPI)
-                                                    .then(() => {
-                                                        getHoleScoresForMatch(activeMatch.id)
-                                                            .then(data => setMatchUserHoleScores(data))
-                                                    })
-                                            }
-                                            else {
-                                                return undefined
-                                            }
-                                        })
+                                                else {
+                                                    return undefined
+                                                }
+                                            })
+                                        }
+                                        setGolferToScoreFor(0)
+                                        currentHoleData.notes = ""
+                                        setStrokes(0)
+                                        setSelectedHole(parseInt(selectedHole) + 1)
                                     }
-
-                                    setUpdateCard(!updateCard)
-
-                                    setGolferToScoreFor(0)
-                                    currentHoleData.notes = ""
-                                    setStrokes(0)
-                                    setSelectedHole(parseInt(selectedHole) + 1)
                                 }
                             }>Finish Hole</button>
                         </div>
