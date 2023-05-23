@@ -6,9 +6,9 @@ import "./Scorecard.css"
 import { ScorecardContext } from "./ScorecardContext"
 
 
-export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selectedMatch, activeMatch, scoresForMatch }) => {
+export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selectedMatch, scoresForMatch }) => {
     const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
-    const { userMatchesForThisMatch, matchUserHoleScores } = useContext(ScorecardContext)
+    const { userMatchesForThisMatch, matchUserHoleScores, activeMatch } = useContext(ScorecardContext)
     const [match, setMatch] = useState({})
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)

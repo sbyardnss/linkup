@@ -43,8 +43,6 @@ export const TeeTimeProvider = (props) => {
                     .then(
                         (userData) => {
                             setUsers(userData)
-                            // const loggedInUser = userData.find(user => user.id === linkUpUserObj.userId)
-                            // setCurrentUser(loggedInUser)
                         }
                     )
             }
@@ -85,7 +83,6 @@ export const TeeTimeProvider = (props) => {
             }
         }, [users]
     )
-    // console.log(currentUser.friends)
     useEffect(
         () => {
             if (linkUpUserObj.token) {
@@ -150,18 +147,6 @@ export const TeeTimeProvider = (props) => {
         })
     }
     matchesFilteredByDate(matchesSortedByDate)
-    //sorter separates matches i have joined from matches i havent and checks to see if open match is available to current user
-    // const matchSorter = (matchArr) => {
-    //     matchArr.map(match => {
-    //         if (match.joined === 1) {
-    //             myJoinedMatchesFromMatches.push(match)
-    //         }
-    //         if (currentUser?.friends?.find(friend => friend === match.creator.id && match.joined === 0)) {
-    //             openMatchesIHaveAccessTo.push(match)
-    //         }
-    //     })
-    // }
-    // matchSorter(matchesSortedByDate)
 
     return (
         <TeeTimeContext.Provider value={{

@@ -8,10 +8,17 @@ export const AddCourseForm = () => {
     const [newCourse, updateNewCourse] = useState({})
     const [addedCourse, setAddedCourse] = useState(false)
     const [addCourse, setAddCourse] = useState(false)
+    // const [pageCourses, setPageCourses] = useState([])
     const navigate = useNavigate()
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const { courses, setCourses } = useContext(TeeTimeContext)
+
+    // useEffect(
+    //     () => {
+    //         setPageCourses(courses)
+    //     }, [courses]
+    // )
     const success = (position) => {
         console.log(position)
     }
@@ -24,9 +31,10 @@ export const AddCourseForm = () => {
         address: newCourse.address,
         phone_number: newCourse.phoneNumber
     }
-    if (addCourse) {
-        return <>
-            <main id="addCourseContainer">
+
+    const addCourseSection = (addCourse) => {
+        if (addCourse === true) {
+            return <>
                 <div className="newCourse">
                     <div className="newCourseForm">
                         <form >
@@ -72,7 +80,13 @@ export const AddCourseForm = () => {
                                     <button onClick={() => {
                                         if (newCourse.address && newCourse.name) {
                                             sendNewCourse(newCourseObjToSendToAPI)
-                                            setAddedCourse(!addedCourse)
+                                                // setAddedCourse(!addedCourse)
+                                                // .then(
+                                                //     () => {
+                                                //         getAllCourses()
+                                                //             .then(data => setCourses(data))
+                                                //     }
+                                                // )
                                         }
                                         else {
                                             alert("please fill out the form")
@@ -98,39 +112,10 @@ export const AddCourseForm = () => {
                         </iframe>
                     </div>
                 </div>
-                <section id="listOfAddedCourses">
-                    <ul id="listOfCourses">
-                        {
-                            courses.map(course => {
-                                if (course) {
-                                    return <>
-                                        <li key={course.id} className="courseListItem">
-                                            <div>
-                                                <div>{course.image}</div>
-                                                <div>{course.name}</div>
-                                                <div>{course.address}</div>
-                                                <div>{course.phoneNumber}</div>
-                                            </div>
-                                            <button className="deleteCourseButton" onClick={
-                                                () => {
-                                                    deleteCourse(course.id)
-                                                    getAllCourses()
-                                                        .then(data => setCourses(data))
-                                                }
-                                            }>Delete Course</button>
-                                        </li>
-                                    </>
-                                }
-                            })
-                        }
-                    </ul>
-                </section>
-            </main>
-        </>
-    }
-    else {
-        return <>
-            <main id="addCourseContainer">
+            </>
+        }
+        else {
+            return <>
                 <div className="newCourse">
                     <button className="addNewCourseButton" onClick={
                         () => {
@@ -138,42 +123,49 @@ export const AddCourseForm = () => {
                         }
                     }>New Course?</button>
                 </div>
-                <section id="listOfAddedCourses">
-                    <h3 className="courseFormTitle">Courses</h3>
-                    <ul id="listOfCourses">
-                        {
-                            courses.map(course => {
-                                if (course) {
-                                    return <>
-                                        <li key={course.id} className="courseListItem">
-                                            <div className="courseInfo">
-                                                <div>{course.image}</div>
-                                                <div>{course.name}</div>
-                                                <div>{course.address}</div>
-                                                <div>{course.phoneNumber}</div>
-                                                <Link className="siteLink" to={course.url} target="_blank">Website</Link>
-                                            </div>
-                                            <button className="deleteCourseButton" onClick={
-                                                () => {
-                                                    if (window.confirm("are you sure?")) {
-                                                        deleteCourse(course.id)
-                                                    }
-                                                    else {
-                                                        return null
-                                                    }
-                                                    getAllCourses()
-                                                        .then(data => setCourses(data))
-                                                }
-                                            }>Delete</button>
-                                        </li>
-                                    </>
-                                }
-                            })
-                        }
-                    </ul>
-                </section>
-            </main>
-        </>
+            </>
+        }
     }
 
+    return <>
+        <main id="addCourseContainer">
+            {addCourseSection(addCourse)}
+            <section id="listOfAddedCourses">
+                <h3 className="courseFormTitle">Courses</h3>
+                <ul id="listOfCourses">
+                    {
+                        courses.map(course => {
+                            if (course) {
+                                return <>
+                                    <li key={course.id} className="courseListItem">
+                                        <div className="courseInfo">
+                                            <div>{course.image}</div>
+                                            <div>{course.name}</div>
+                                            <div>{course.address}</div>
+                                            <div>{course.phoneNumber}</div>
+                                            <Link className="siteLink" to={course.url} target="_blank">Website</Link>
+                                        </div>
+                                        <button className="deleteCourseButton" onClick={
+                                            () => {
+                                                if (window.confirm("are you sure?")) {
+                                                    deleteCourse(course.id)
+                                                        .then(() => {
+                                                            getAllCourses()
+                                                                .then(data => setCourses(data))
+                                                        })
+                                                }
+                                                else {
+                                                    return null
+                                                }
+                                            }
+                                        }>Delete</button>
+                                    </li>
+                                </>
+                            }
+                        })
+                    }
+                </ul>
+            </section>
+        </main>
+    </>
 }
