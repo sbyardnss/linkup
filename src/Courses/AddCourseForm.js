@@ -20,10 +20,10 @@ export const AddCourseForm = () => {
     //     }, [courses]
     // )
     const success = (position) => {
-        console.log(position)
+        // console.log(position)
     }
     const error = (error) => {
-        console.log(error)
+        // console.log(error)
     }
     const newCourseObjToSendToAPI = {
         name: newCourse.name,

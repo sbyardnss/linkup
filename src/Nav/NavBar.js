@@ -15,20 +15,16 @@ export const NavBar = () => {
         //why does adding the conditional work here??!!! this function now allows me to close the menu if and only if the user clicks outside of the menu or manually closes it with the icon
         if (!navMenu.current && document.getElementById("active").contains(e.target)) {
             document.getElementById("active").checked = false
-
         }
-
     }
     document.addEventListener(`click`, closeOpenMenus)
-    const msgNotification = () => {
+    const msgNotification = () => { // functionality removed due to lack of fluidity. 
         const msgCount = UnreadMsgCount()
-        console.log(msgCount)
         if (msgCount !== 0) {
             return <>
                 <div id="newMsgCount">{msgCount}</div>
             </>
         }
-
     }
     return (
         <header className="navigation">
@@ -62,7 +58,7 @@ export const NavBar = () => {
                                     () => {
                                         document.getElementById("active").checked = false
                                     }
-                                }>Messages {msgNotification()}</Link></li>
+                                }>Messages {/*msgNotification()*/}</Link></li>
                                 <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" onClick={
                                     () => {
                                         document.getElementById("active").checked = false

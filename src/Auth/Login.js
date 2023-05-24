@@ -5,8 +5,6 @@ import "./Auth.css"
 import { loginUser } from "../ServerManager";
 
 export const Login = () => {
-    // const [email, set] = useState("stephen@byard.com")
-    // const [submittedPassword, setPassword] = useState("byard")
     const username = useRef()
     const password = useRef()
     const invalidDialog = useRef()
@@ -43,25 +41,19 @@ export const Login = () => {
 
                         <h1>LinkUp</h1>
                     </div>
-                    {/* <h4 id="pleaseSignIn">Please sign in</h4> */}
                     <fieldset className="centerItems">
-                        <label className="loginLabels" htmlFor="inputUsername">Email address</label>
+                        <label className="loginLabels" htmlFor="inputUsername">Username</label>
                         <input type="username"
                             ref={username}
-                            // value={email}
-                            // onChange={evt => set(evt.target.value)}
                             className="form-control"
                             placeholder="username"
                             required autoFocus />
                         <label className="loginLabels" htmlFor="inputPassword"> Password </label>
                         <input type="password"
                             ref={password}
-                            // value={submittedPassword}
-                            // onChange={evt => setPassword(evt.target.value)}
                             className="form-control"
                             placeholder="password"
                             required autoFocus />
-
                         <button className="signInButton" type="submit">
                             Sign in
                         </button>

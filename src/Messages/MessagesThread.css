@@ -281,9 +281,15 @@
         align-items: center;
 
     } */
-
+    #chatAndInterfaceContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
     #chatContainer {
-        width: 70%;
+        width: 90%;
         border-radius: 4px;
         /* position: fixed; */
         /* right: 10%; */
@@ -339,10 +345,10 @@
     }
 
     #chatInterface {
-        position: absolute;
+        /* position: absolute; */
         bottom: 0%;
         left: 0%;
-        width: 70%;
+        width: 90%;
         display: flex;
         justify-content: space-around;
         margin: 1em 0;

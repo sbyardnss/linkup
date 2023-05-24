@@ -1,27 +1,19 @@
 import { useState, useEffect, createContext, useRef } from "react";
-import { useLinkClickHandler, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //new to manager imports: getMyMatches, getMyFriends
-import { getAllCourses, getAllMatches, getAllUsers, getAllMessages, getMyMatches, getMyFriends, removeFriend, addFriend } from "../ServerManager"
+import { getAllCourses, getAllMatches, getAllUsers } from "../ServerManager"
 export const TeeTimeContext = createContext()
 
 export const TeeTimeProvider = (props) => {
     const [users, setUsers] = useState([])
     const [courses, setCourses] = useState([])
     const [matches, setMatches] = useState([])
-    // const [userMatchesWithMatchInfo, setUserMatchesWithMatchInfo] = useState([])
-    // const [activeUserFriends, setActiveUserFriends] = useState([])
-    // const [deleteItem, deleteInitiated] = useState(false)
-    // const [joinMatch, joinInitiated] = useState([false])
-    // const [matchCreated, setMatchCreated] = useState(false)
-    // const [friendChange, setFriendChange] = useState(false)
-    // const [profileUpdated, setProfileUpdated] = useState(false)
     const [chatUser, setChatUser] = useState(0)
     const navigate = useNavigate()
     const [msgsRead, setMsgsRead] = useState(false)
     //state variables below added for server conversion
     const [currentUser, setCurrentUser] = useState({})
-    const [userMatches, setUserMatches] = useState([])
-    const [myJoinedMatches, setMyJoinedMatches] = useState([])
+    // const [myJoinedMatches, setMyJoinedMatches] = useState([])
 
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
@@ -83,27 +75,24 @@ export const TeeTimeProvider = (props) => {
             }
         }, [users]
     )
-    useEffect(
-        () => {
-            if (linkUpUserObj.token) {
-                Promise.resolve(getMyMatches(linkUpUserObj.userId))
-                    .then(
-                        (data) => {
-                            setMyJoinedMatches(data)
-                        }
-                    )
-            }
-        }, []
-    )
+    // useEffect(
+    //     () => {
+    //         if (linkUpUserObj.token) {
+    //             Promise.resolve(getMyMatches(linkUpUserObj.userId))
+    //                 .then(
+    //                     (data) => {
+    //                         setMyJoinedMatches(data)
+    //                     }
+    //                 )
+    //         }
+    //     }, []
+    // )
     const myJoinedMatchesFromMatches = []
     const openMatchesIHaveAccessTo = []
     const myPastMatches = []
     //code below gets current date an formats. probably a better way
     const currentDate = new Date();
     const currentMonth = (currentDate.getMonth() + 1)
-    // if (currentMonth < 10) {
-    //     currentMonth = '0' + currentMonth
-    // }
     const currentDayOfMonth = currentDate.getDate()
     const currentYear = currentDate.getFullYear()
     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
@@ -124,12 +113,6 @@ export const TeeTimeProvider = (props) => {
     })
     const matchesFilteredByDate = (matchArr) => {
         matchArr.map(teeTime => { //sorts matches by whether the date has passed or not
-            //string values for teeTime date
-            // const [year, month, day] = teeTime.date.split("-")
-            // //numeric values for teeTime date
-            // const intYear = parseInt(year)
-            // const intMonth = parseInt(month)
-            // const intDay = parseInt(day)
             const teeTimeDateString = dateStringBuilder(teeTime)
             const teeTimeDateParsed = Date.parse(teeTimeDateString)
             if (teeTimeDateParsed >= currentDateParsed && currentUser?.friends?.find(friend => friend.id === teeTime.creator.id && teeTime.joined === 0)) {
@@ -150,8 +133,7 @@ export const TeeTimeProvider = (props) => {
 
     return (
         <TeeTimeContext.Provider value={{
-            /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, setUsers, courses, setCourses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
-            currentDateParsed, /*profileUpdated, setProfileUpdated, */chatUser, setChatUser, msgsRead, setMsgsRead,
+            users, setUsers, courses, setCourses, matches, navigate,currentDateParsed, chatUser, setChatUser, msgsRead, setMsgsRead,
             setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser
         }}>
             {props.children}
