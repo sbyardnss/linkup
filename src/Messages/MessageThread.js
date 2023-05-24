@@ -57,25 +57,25 @@ export const MessageThread = () => {
     //             setMyMessages(sortedMyMsgData)
     //         })
     // }
-    // useEffect(
-    //     () => {
-    //         getAllMessages()
-    //             .then(
-    //                 (data) => {
-    //                     const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
-    //                     const sortedMyMsgData = myMsgData.sort((a, b) => {
-    //                         const aDate = Date.parse(a.date_time)
-    //                         const bDate = Date.parse(b.date_time)
-    //                         return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-    //                     })
-    //                     setMyMessages(sortedMyMsgData)
-    //                     scrollToBottom("chatThread")
-    //                 }
-    //             )
-    //     },
-    //     // [msgSent, msgsRead]
-    //     []
-    // )
+    useEffect(
+        () => {
+            getAllMessages()
+                .then(
+                    (data) => {
+                        const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
+                        const sortedMyMsgData = myMsgData.sort((a, b) => {
+                            const aDate = Date.parse(a.date_time)
+                            const bDate = Date.parse(b.date_time)
+                            return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+                        })
+                        setMyMessages(sortedMyMsgData)
+                        scrollToBottom("chatThread")
+                    }
+                )
+        },
+        // [msgSent, msgsRead]
+        []
+    )
     useEffect(
         () => {
             const copy = { ...newMsg }
@@ -121,7 +121,7 @@ export const MessageThread = () => {
                 }
             )
     }
-    resetMessages()
+    // resetMessages()
 
     const handleChange = e => {
         const copy = { ...newMsg }
@@ -147,7 +147,9 @@ export const MessageThread = () => {
             //             setMyMessages(sortedMyMsgData)
             //         }
             //     )
-            resetMessages()
+            if (copy.message === "") {
+                resetMessages()
+            }
         }
     }
     const isChatUserSelected = () => {
