@@ -75,9 +75,14 @@
         box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
         background-color: red;
     } */
-
-    #chatContainer {
+    #chatAndInterfaceContainer {
         width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    #chatContainer {
+        width: 100%;
         border-radius: 4px;
         /* position: fixed; */
         /* right: 10%; */
@@ -132,10 +137,10 @@
     }
 
     #chatInterface {
-        position: absolute;
+        /* position: absolute; */
         bottom: 0%;
         left: 0%;
-        width: 70%;
+        /* width: inherit; */
         display: flex;
         justify-content: space-around;
         margin: 1em 0;
@@ -145,10 +150,11 @@
     }
 
     #chatTextInput {
-        width: 80%;
+        width: 100%;
         padding: .5em;
         border-radius: 4px;
         border: none;
+        margin-right: 1em;
 
     }
 

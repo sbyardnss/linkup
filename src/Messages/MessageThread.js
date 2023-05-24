@@ -183,7 +183,7 @@ export const MessageThread = () => {
                         })
                     }
                 </ul>
-                {/* <div> */}
+                <div id="chatAndInterfaceContainer">
                     <article id="chatContainer">
                         <section id="chatThread">
                             {isChatUserSelected()}
@@ -248,7 +248,7 @@ export const MessageThread = () => {
                             }}
                         >send</button>
                     </div>
-                {/* </div> */}
+                </div>
             </main>
         </>
     }
