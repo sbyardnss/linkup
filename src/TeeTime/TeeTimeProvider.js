@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //new to manager imports: getMyMatches, getMyFriends
-import { getAllCourses, getAllMatches, getAllUsers } from "../ServerManager"
+import { getAllCourses, getAllMatches, getAllUsers, getUnreadMessages } from "../ServerManager"
 export const TeeTimeContext = createContext()
 
 export const TeeTimeProvider = (props) => {
@@ -11,9 +11,10 @@ export const TeeTimeProvider = (props) => {
     const [chatUser, setChatUser] = useState(0)
     const navigate = useNavigate()
     const [msgsRead, setMsgsRead] = useState(false)
+
     //state variables below added for server conversion
     const [currentUser, setCurrentUser] = useState({})
-
+    const [unreadMsgs, setUnreadMsgs] = useState([])
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -65,6 +66,12 @@ export const TeeTimeProvider = (props) => {
             }
         },
         []
+    )
+    useEffect( //grabbing only unread messages for count on navbar and messages component
+        () => {
+            getUnreadMessages()
+            .then(data => setUnreadMsgs(data))
+        },[]
     )
     useEffect(
         () => {

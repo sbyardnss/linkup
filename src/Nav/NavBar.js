@@ -1,11 +1,13 @@
 import { Link, Navigate, useNavigate } from "react-router-dom"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import profileIcon from "../images/abstract-user-flat-4.png"
 import "./NavBar.css"
 import { UnreadMsgCount } from "../Messages/MessageThread"
+import { getUnreadMessages } from "../ServerManager"
 
 export const NavBar = () => {
     const navMenu = useRef(null)
+    const [unreadMsgCount, setUnreadMsgCount] = useState(0)
     //close open menu
     const closeOpenMenus = (e) => {
         if (navMenu.current && !navMenu.current.contains(e.target)) {
@@ -17,14 +19,21 @@ export const NavBar = () => {
         }
     }
     document.addEventListener(`click`, closeOpenMenus)
-    const msgNotification = () => { // functionality removed due to lack of fluidity. 
-        const msgCount = UnreadMsgCount()
-        if (msgCount !== 0) {
+    
+    useEffect(
+        () => {
+            getUnreadMessages()
+            .then(data => setUnreadMsgCount(data.length))
+        },[]
+    )
+    const msgNotification = () => { 
+        if (unreadMsgCount !== 0) {
             return <>
-                <div id="newMsgCount">{msgCount}</div>
+                <div id="newMsgCount">{unreadMsgCount}</div>
             </>
         }
     }
+    console.log(msgNotification())
     return (
         <header className="navigation">
             <div id="logoSpace">
@@ -55,7 +64,7 @@ export const NavBar = () => {
                                     () => {
                                         document.getElementById("active").checked = false
                                     }
-                                }>Messages {/*msgNotification()*/}</Link></li>
+                                }>Messages {msgNotification()}</Link></li>
                                 <li className="navListItem"><Link className="navigation_link" to="/createTeeTime" onClick={
                                     () => {
                                         document.getElementById("active").checked = false

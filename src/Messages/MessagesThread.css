@@ -31,6 +31,7 @@
     .chatListItem {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         border: 1px solid lime;
         padding: .5em;
         cursor: pointer;
@@ -56,25 +57,18 @@
     }
 
     .msgsPageNotification {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background: red;
         color: rebeccapurple;
-        width: 1em;
+        height: 2em;
+        width: 2em;
         border-radius: 50%;
         text-align: center;
         color: whitesmoke;
     }
 
-    /* .chatListItemWithNewMessages {
-        border: 1px solid lime;
-        padding: .5em;
-        cursor: pointer;
-        margin-right: auto;
-        color: #ccfaff;
-        margin-bottom: 1em;
-        border-radius: 4px;
-        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
-        background-color: red;
-    } */
     #chatAndInterfaceContainer {
         width: 70%;
         display: flex;
@@ -268,19 +262,6 @@
         color: whitesmoke;
     }
 
-    /* .chatListItemWithNewMessages {
-        border: 1px solid lime;
-        padding: .5em;
-        cursor: pointer;
-        margin-right: auto;
-        color: #ccfaff;
-        margin-bottom: 1em;
-        border-radius: 4px;
-        box-shadow: rgba(255, 255, 255, 0.26) 0px 4px 4px inset;
-        background-color: red;
-        align-items: center;
-
-    } */
     #chatAndInterfaceContainer {
         width: 100%;
         display: flex;

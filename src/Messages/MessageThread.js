@@ -4,31 +4,6 @@ import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter"
 
-export const UnreadMsgCount = () => {
-    const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
-    const [myMessages, setMyMessages] = useState([])
-    useEffect(
-        () => {
-            if (linkUpUserObj.token) {
-                getAllMessages()
-                    .then(
-                        (data) => {
-                            const myMsgData = data.filter(msg => msg.recipient === linkUpUserObj.userId)
-                            setMyMessages(myMsgData)
-                        }
-                    )
-            }
-        },
-        []
-    )
-    const unreadMsgs = myMessages.filter(msg => msg.read === false)
-    if (unreadMsgs) {
-        return unreadMsgs.length
-    }
-}
-
-
 export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
