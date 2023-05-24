@@ -1,12 +1,10 @@
 import { useContext, useState, useEffect } from "react"
-import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import { ScorecardContext } from "./ScorecardContext"
 import { Scorecard } from "./Scorecard"
 import { updateHoleScore, addHoleScore, getHoleScoresForMatch } from "../ServerManager"
 import "./HoleScore.css"
 export const HoleScore = () => {
-    const { matchUserHoleScores, setMatchUserHoleScores, userMatchesForThisMatch, activeMatch, selectedMatch, setSelectedMatch, activeMatchCourse, updateCard, setUpdateCard } = useContext(ScorecardContext)
-    // const { users } = useContext(TeeTimeContext)
+    const { matchUserHoleScores, setMatchUserHoleScores, activeMatch, selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const [selectedHole, setSelectedHole] = useState(1)
     const [currentHoleData, updateCurrentHoleData] = useState({
         notes: "",
@@ -18,7 +16,11 @@ export const HoleScore = () => {
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     const [golferToScoreFor, setGolferToScoreFor] = useState(0)
     const possibleScoreValuesWithoutMax = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
+    useEffect(
+        () => {
+            setGolferToScoreFor(linkUpUserObj.userId)
+        }, []
+    )
     const newHoleScoreObjForAPI = {
         golfer: golferToScoreFor,
         match: activeMatch.id,
@@ -26,12 +28,10 @@ export const HoleScore = () => {
         course_hole: parseInt(selectedHole),
         notes: currentHoleData.notes
     }
-
     if (activeMatch) {
         return <>
             <main id="holeScoreContainer">
                 <div className="holeScoreArticle">
-
                     <section id="holeScoreHeader">
                         <div className="matchInfo">
                             <h3>{activeMatch.course?.name}</h3>
@@ -40,7 +40,6 @@ export const HoleScore = () => {
                             <select value={selectedHole} className="selectHole" onChange={
                                 (evt) => {
                                     if (evt.target.value !== "" /*"0"*/) {
-                                        console.log(evt.target.value)
                                         setSelectedHole(evt.target.value)
                                         const copy = { ...currentHoleData }
                                         setStrokes(0)
@@ -70,7 +69,6 @@ export const HoleScore = () => {
                                 () => {
                                     if (newHoleScoreObjForAPI.matchUserId !== 0) {
                                         const alreadyScoredThisUserForThisHole = matchUserHoleScores.find(holeScore => holeScore.course_hole === parseInt(selectedHole) && holeScore.golfer === golferToScoreFor && holeScore.match === selectedMatch)
-                                        // console.log(alreadyScoredThisUserForThisHole)
                                         if (alreadyScoredThisUserForThisHole) {
                                             if (window.confirm("You already scored this user. Would you like to update it?")) {
                                                 Promise.resolve(updateHoleScore(newHoleScoreObjForAPI, alreadyScoredThisUserForThisHole.id))
@@ -83,13 +81,15 @@ export const HoleScore = () => {
                                             }
                                         }
                                         else {
-                                            Promise.resolve(addHoleScore(newHoleScoreObjForAPI))
-                                                .then(() => {
-                                                    getHoleScoresForMatch(activeMatch.id)
-                                                        .then(data => setMatchUserHoleScores(data))
-                                                })
-                                            currentHoleData.notes = ""
-                                            setStrokes(0)
+                                            if (selectedHole < 19) {
+                                                Promise.resolve(addHoleScore(newHoleScoreObjForAPI))
+                                                    .then(() => {
+                                                        getHoleScoresForMatch(activeMatch.id)
+                                                            .then(data => setMatchUserHoleScores(data))
+                                                    })
+                                                currentHoleData.notes = ""
+                                                setStrokes(0)
+                                            }
                                         }
                                     }
                                 }
@@ -110,21 +110,25 @@ export const HoleScore = () => {
                                                         course_hole: parseInt(selectedHole),
                                                         notes: "did not finish"
                                                     }
-                                                    addHoleScore(unfinishedHoleScoreForAPI)
-                                                        .then(() => {
-                                                            getHoleScoresForMatch(activeMatch.id)
-                                                                .then(data => setMatchUserHoleScores(data))
-                                                        })
+                                                    if (selectedHole < 18) {
+                                                        addHoleScore(unfinishedHoleScoreForAPI)
+                                                            .then(() => {
+                                                                getHoleScoresForMatch(activeMatch.id)
+                                                                    .then(data => setMatchUserHoleScores(data))
+                                                            })
+                                                    }
                                                 }
                                                 else {
                                                     return undefined
                                                 }
                                             })
                                         }
-                                        setGolferToScoreFor(0)
-                                        currentHoleData.notes = ""
+                                        if (selectedHole < 18) {
+                                            setSelectedHole(parseInt(selectedHole) + 1)
+                                        }
+                                        setGolferToScoreFor(linkUpUserObj.userId)
                                         setStrokes(0)
-                                        setSelectedHole(parseInt(selectedHole) + 1)
+                                        currentHoleData.notes = ""
                                     }
                                 }
                             }>Finish Hole</button>
@@ -152,7 +156,6 @@ export const HoleScore = () => {
                                     else {
                                         return <button className="scoringButton" value={score} onClick={
                                             (evt) => {
-
                                                 setStrokes(evt.target.value)
                                             }
                                         }>{score}</button>
@@ -171,7 +174,6 @@ export const HoleScore = () => {
                     <div className="userButtonsContainer">
                         {
                             activeMatch.golfers?.map(golfer => {
-                                // const matchingUser = users.find(user => user.id === userMatch.userId)
                                 if (parseInt(golferToScoreFor) === parseInt(golfer.id)) {
                                     return <button className="activeUserButton" value={golfer.id} >{golfer.full_name}</button>
                                 }
@@ -187,7 +189,6 @@ export const HoleScore = () => {
                     </div>
                 </div>
                 <section className="scorecardSection">
-
                     <Scorecard
                         profileOrPlayTable={"table-container"}
                         profileOrPlayContainer={"scorecardContainer"}
@@ -197,6 +198,5 @@ export const HoleScore = () => {
                 </section>
             </main>
         </>
-
     }
 }

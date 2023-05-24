@@ -1,11 +1,10 @@
 import { Link, Navigate, useNavigate } from "react-router-dom"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import profileIcon from "../images/abstract-user-flat-4.png"
 import "./NavBar.css"
 import { UnreadMsgCount } from "../Messages/MessageThread"
 
 export const NavBar = () => {
-    const navigate = useNavigate()
     const navMenu = useRef(null)
     //close open menu
     const closeOpenMenus = (e) => {
@@ -32,9 +31,7 @@ export const NavBar = () => {
                 <Link className="navigation__icon" to="/"><img src={require = ('https://cdn-icons-png.flaticon.com/512/33/33846.png')} /></Link>
                 <h1 id="navName" className="navigation__name">LinkUp</h1>
             </div>
-
             <div id="navbarRightSide">
-
                 <div id="profileIconAndHamburger">
                     <Link className="profileLink" to="/profile" onClick={
                         () => {
@@ -74,7 +71,6 @@ export const NavBar = () => {
                                         document.getElementById("active").checked = false
                                     }
                                 }>Add Course</Link></li>
-                                {/* <li></li> */}
                                 <li className="navListItem"><Link className="navigation_logout" to="" onClick={() => {
                                     localStorage.removeItem("linkUp_user")
                                     Navigate("/", { replace: true })
@@ -82,9 +78,7 @@ export const NavBar = () => {
                                 </li>
                             </ul>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </header>

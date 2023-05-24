@@ -8,7 +8,6 @@ export const UnreadMsgCount = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const [myMessages, setMyMessages] = useState([])
-    const { msgsRead, currentUser } = useContext(TeeTimeContext)
     useEffect(
         () => {
             if (linkUpUserObj.token) {

@@ -13,7 +13,6 @@ export const TeeTimeProvider = (props) => {
     const [msgsRead, setMsgsRead] = useState(false)
     //state variables below added for server conversion
     const [currentUser, setCurrentUser] = useState({})
-    // const [myJoinedMatches, setMyJoinedMatches] = useState([])
 
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
@@ -75,18 +74,6 @@ export const TeeTimeProvider = (props) => {
             }
         }, [users]
     )
-    // useEffect(
-    //     () => {
-    //         if (linkUpUserObj.token) {
-    //             Promise.resolve(getMyMatches(linkUpUserObj.userId))
-    //                 .then(
-    //                     (data) => {
-    //                         setMyJoinedMatches(data)
-    //                     }
-    //                 )
-    //         }
-    //     }, []
-    // )
     const myJoinedMatchesFromMatches = []
     const openMatchesIHaveAccessTo = []
     const myPastMatches = []

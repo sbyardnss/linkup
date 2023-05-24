@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteCourse, getAllCourses, sendNewCourse } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
@@ -6,19 +6,12 @@ import "./AddCourseForm.css"
 
 export const AddCourseForm = () => {
     const [newCourse, updateNewCourse] = useState({})
-    const [addedCourse, setAddedCourse] = useState(false)
     const [addCourse, setAddCourse] = useState(false)
-    // const [pageCourses, setPageCourses] = useState([])
     const navigate = useNavigate()
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const { courses, setCourses } = useContext(TeeTimeContext)
 
-    // useEffect(
-    //     () => {
-    //         setPageCourses(courses)
-    //     }, [courses]
-    // )
     const success = (position) => {
         // console.log(position)
     }
@@ -31,7 +24,6 @@ export const AddCourseForm = () => {
         address: newCourse.address,
         phone_number: newCourse.phoneNumber
     }
-
     const addCourseSection = (addCourse) => {
         if (addCourse === true) {
             return <>
@@ -88,14 +80,12 @@ export const AddCourseForm = () => {
                                                     }
                                                 )
                                                 setAddCourse(false)
-                                            // setAddedCourse(!addedCourse)
                                         }
                                         else {
                                             alert("please fill out the form")
                                         }
                                     }} id="addCourse" >Save</button>
                                     <button id="cancelAddCourse" onClick={() => {
-                                        // navigate("/")
                                         setAddCourse(false)
                                     }}>Cancel</button>
                                 </div>
@@ -128,7 +118,6 @@ export const AddCourseForm = () => {
             </>
         }
     }
-
     return <>
         <main id="addCourseContainer">
             {addCourseSection(addCourse)}
