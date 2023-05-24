@@ -34,6 +34,7 @@ export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const [myMessages, setMyMessages] = useState([])
+    const [displayedMsgs, setDisplayedMsgs] = useState([])
     const [createMsg, setCreateMsg] = useState(false)
     const [currentChatRecipientUser, setCurrentChat] = useState({})
     const [msgSent, setMessageSent] = useState(false)
@@ -57,37 +58,60 @@ export const MessageThread = () => {
     //             setMyMessages(sortedMyMsgData)
     //         })
     // }
+    const resetMessages = () => {
+        getAllMessages()
+            .then(
+                (data) => {
+                    const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId )
+                    const sortedMyMsgData = myMsgData.sort((a, b) => {
+                        const aDate = Date.parse(a.date_time)
+                        const bDate = Date.parse(b.date_time)
+                        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+                    })
+                    setMyMessages(sortedMyMsgData)
+                    // scrollToBottom("chatThread")
+                }
+            )
+    }
     useEffect(
         () => {
-            getAllMessages()
-                .then(
-                    (data) => {
-                        const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
-                        const sortedMyMsgData = myMsgData.sort((a, b) => {
-                            const aDate = Date.parse(a.date_time)
-                            const bDate = Date.parse(b.date_time)
-                            return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-                        })
-                        setMyMessages(sortedMyMsgData)
-                        scrollToBottom("chatThread")
-                    }
-                )
+            // getAllMessages()
+            //     .then(
+            //         (data) => {
+            //             const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
+            //             const sortedMyMsgData = myMsgData.sort((a, b) => {
+            //                 const aDate = Date.parse(a.date_time)
+            //                 const bDate = Date.parse(b.date_time)
+            //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+            //             })
+            //             setMyMessages(sortedMyMsgData)
+            //             scrollToBottom("chatThread")
+            //         }
+            //     )
+            resetMessages()
         },
         // [msgSent, msgsRead]
         []
     )
     useEffect(
         () => {
-            const copy = { ...newMsg }
-            copy.recipientId = chatUser
-            updateNewMsg(copy)
-        },
-        [chatUser]
+            const msgsForCurrentChat = myMessages.filter(msg => msg.recipient === chatUser || msg.sender === chatUser)
+            setDisplayedMsgs(msgsForCurrentChat)
+            scrollToBottom("chatThread")
+
+        },[myMessages]
     )
+    // useEffect(
+    //     () => {
+    //         const copy = { ...newMsg }
+    //         copy.recipientId = chatUser
+    //         updateNewMsg(copy)
+    //     },
+    //     [chatUser]
+    // )
     const chatUserObj = users.find(user => user.id === chatUser)
 
 
-    const msgsForCurrentChat = myMessages.filter(msg => msg.recipient === chatUser || msg.sender === chatUser)
 
 
     const newMsgForAPI = {
@@ -106,21 +130,6 @@ export const MessageThread = () => {
     //         scrollTop: element.scrollHeight
     //     }, 500);
     // }
-    const resetMessages = () => {
-        getAllMessages()
-            .then(
-                (data) => {
-                    const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
-                    const sortedMyMsgData = myMsgData.sort((a, b) => {
-                        const aDate = Date.parse(a.date_time)
-                        const bDate = Date.parse(b.date_time)
-                        return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-                    })
-                    setMyMessages(sortedMyMsgData)
-                    scrollToBottom("chatThread")
-                }
-            )
-    }
     // resetMessages()
 
     const handleChange = e => {
@@ -130,26 +139,25 @@ export const MessageThread = () => {
     }
     const handlekeyDown = e => {
         if (e.key === 'Enter') {
-            sendNewMessage(newMsgForAPI)
-            const copy = { ...newMsg }
-            copy.message = ""
-            updateNewMsg(copy)
-            // setMessageSent(!msgSent)
-            // getAllMessages()
-            //     .then(
-            //         (data) => {
-            //             const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
-            //             const sortedMyMsgData = myMsgData.sort((a, b) => {
-            //                 const aDate = Date.parse(a.date_time)
-            //                 const bDate = Date.parse(b.date_time)
-            //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-            //             })
-            //             setMyMessages(sortedMyMsgData)
-            //         }
-            //     )
-            if (copy.message === "") {
+            sendNewMessage(newMsgForAPI).then(()=> {
+                const copy = { ...newMsg }
+                copy.message = ""
+                updateNewMsg(copy)
+                // setMessageSent(!msgSent)
+                // getAllMessages()
+                //     .then(
+                //         (data) => {
+                //             const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
+                //             const sortedMyMsgData = myMsgData.sort((a, b) => {
+                //                 const aDate = Date.parse(a.date_time)
+                //                 const bDate = Date.parse(b.date_time)
+                //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+                //             })
+                //             setMyMessages(sortedMyMsgData)
+                //         }
+                //     )
                 resetMessages()
-            }
+            })
         }
     }
     const isChatUserSelected = () => {
@@ -170,7 +178,7 @@ export const MessageThread = () => {
                 <ul id="chatList">
                     {
                         currentUser.friends?.map(friend => {
-                            const newMsgs = myMessages.filter(msg => msg.sender === friend.id && msg.read === false && msg.recipient === linkUpUserObj.userId)
+                            const newMsgs = displayedMsgs.filter(msg => msg.sender === friend.id && msg.read === false && msg.recipient === linkUpUserObj.userId)
                             const newMsgsFromThisUser = () => {
                                 if (newMsgs.length !== 0) {
                                     return <>
@@ -217,7 +225,7 @@ export const MessageThread = () => {
                                             copy.recipient = friend.id
                                             updateNewMsg(copy)
                                             setChatUser(friend.id)
-                                            resetMessages()
+                                            // resetMessages()
                                         }
                                     }>
                                         {friend?.full_name} {newMsgsFromThisUser(friend)}
@@ -232,7 +240,7 @@ export const MessageThread = () => {
                         <section id="chatThread">
                             {isChatUserSelected()}
                             {
-                                msgsForCurrentChat.map(msg => {
+                                displayedMsgs.map(msg => {
                                     const [msgDate, msgTime] = msg.date_time.split("T")
                                     let [hour, minute, seconds] = msgTime.split(":")
                                     let amOrPm = "am"
@@ -272,24 +280,26 @@ export const MessageThread = () => {
                         />
                         <button id="chatSendButton"
                             onClick={() => {
-                                sendNewMessage(newMsgForAPI)
-                                // setMessageSent(!msgSent)
-                                const copy = { ...newMsg }
-                                copy.message = ""
-                                updateNewMsg(copy)
-                                // getAllMessages()
-                                //     .then(
-                                //         (data) => {
-                                //             const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
-                                //             const sortedMyMsgData = myMsgData.sort((a, b) => {
-                                //                 const aDate = Date.parse(a.date_time)
-                                //                 const bDate = Date.parse(b.date_time)
-                                //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-                                //             })
-                                //             setMyMessages(sortedMyMsgData)
-                                //         }
-                                //     )
-                                resetMessages()
+                                sendNewMessage(newMsgForAPI).then(() => {
+                                    // setMessageSent(!msgSent)
+                                    const copy = { ...newMsg }
+                                    copy.message = ""
+                                    updateNewMsg(copy)
+                                    // getAllMessages()
+                                    //     .then(
+                                    //         (data) => {
+                                    //             const myMsgData = data.filter(msg => msg.userId === linkUpUserObj.id || msg.recipientId === linkUpUserObj.id)
+                                    //             const sortedMyMsgData = myMsgData.sort((a, b) => {
+                                    //                 const aDate = Date.parse(a.date_time)
+                                    //                 const bDate = Date.parse(b.date_time)
+                                    //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+                                    //             })
+                                    //             setMyMessages(sortedMyMsgData)
+                                    //         }
+                                    //     )
+                                    resetMessages()
+
+                                })
                             }}
                         >send</button>
                     </div>
