@@ -1,6 +1,6 @@
 import { color } from "framer-motion"
 import { useState, useEffect, useContext } from "react"
-import { deleteFriend, updateUser } from "../ServerManager"
+import { deleteFriend, getAllUsers, updateUser } from "../ServerManager"
 import { Scorecard } from "../Scoring/Scorecard"
 import { ScorecardContext } from "../Scoring/ScorecardContext"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
@@ -11,7 +11,7 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, courses, /*userMatchesWithMatchInfo, activeUserFriends, */navigate, /*setFriendChange, friendChange, profileUpdated, setProfileUpdated, */setChatUser, currentUser, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, setMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
+    const { users, setUsers, courses, /*userMatchesWithMatchInfo, activeUserFriends, */navigate, /*setFriendChange, friendChange, profileUpdated, setProfileUpdated, */setChatUser, currentUser, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, setMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
     const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
@@ -32,7 +32,6 @@ export const UserProfile = () => {
         },
         [profileEdit]
     )
-    console.log(profile)
     // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
     //     return uME.userId === linkUpUserObj.id
     // })
@@ -53,7 +52,8 @@ export const UserProfile = () => {
     const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
     const updatedUserForAPI = {
-        name: profile?.name,
+        first_name: profile?.first_name,
+        last_name: profile?.last_name,
         username: profile?.username,
         email: profile?.email,
         password: profile?.password
@@ -91,11 +91,27 @@ export const UserProfile = () => {
             return <>
                 <section id="updateProfileSection">
                     <h4>update profile</h4>
-                    <label className="editProfileInputLabel" htmlFor="name">name</label>
-                    <input className="editProfileInput" type="text" value={profile?.full_name} onChange={
+                    <label className="editProfileInputLabel" htmlFor="first_name">first name</label>
+                    <input className="editProfileInput" type="text" value={profile?.first_name} onChange={
                         (evt) => {
                             const copy = { ...currentUser }
-                            copy.name = evt.target.value
+                            copy.first_name = evt.target.value
+                            updateProfile(copy)
+                        }
+                    }></input>
+                    <label className="editProfileInputLabel" htmlFor="last_name">last name</label>
+                    <input className="editProfileInput" type="text" value={profile?.last_name} onChange={
+                        (evt) => {
+                            const copy = { ...currentUser }
+                            copy.last_name = evt.target.value
+                            updateProfile(copy)
+                        }
+                    }></input>
+                    <label className="editProfileInputLabel" htmlFor="username">username</label>
+                    <input className="editProfileInput" type="text" value={profile?.username} onChange={
+                        (evt) => {
+                            const copy = { ...currentUser }
+                            copy.username = evt.target.value
                             updateProfile(copy)
                         }
                     }></input>
@@ -118,10 +134,10 @@ export const UserProfile = () => {
                     <div id="submitCancelProfileChanges">
                         <button type="submit" className="cancelProfileEditButton" onClick={
                             () => {
-                                updateUser(updatedUserForAPI, linkUpUserObj.id)
+                                updateUser(updatedUserForAPI, linkUpUserObj.userId)
                                 // setProfileUpdated(!profileUpdated)
                                 editProfile(false)
-
+                                getAllUsers().then(data => setUsers(data))
                             }
                         }>submit</button>
                         <button className="cancelProfileEditButton" onClick={

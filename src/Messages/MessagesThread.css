@@ -97,6 +97,7 @@
     #chatThread {
         display: block;
         overflow: scroll;
+        height: inherit;
     }
 
     #chatHeader {

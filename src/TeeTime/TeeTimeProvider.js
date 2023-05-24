@@ -17,7 +17,7 @@ export const TeeTimeProvider = (props) => {
     // const [profileUpdated, setProfileUpdated] = useState(false)
     const [chatUser, setChatUser] = useState(0)
     const navigate = useNavigate()
-    // const [msgsRead, setMsgsRead] = useState(false)
+    const [msgsRead, setMsgsRead] = useState(false)
     //state variables below added for server conversion
     const [currentUser, setCurrentUser] = useState({})
     const [userMatches, setUserMatches] = useState([])
@@ -150,8 +150,8 @@ export const TeeTimeProvider = (props) => {
 
     return (
         <TeeTimeContext.Provider value={{
-            /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, courses, setCourses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
-            currentDateParsed, /*profileUpdated, setProfileUpdated, */chatUser, setChatUser, /*msgsRead, setMsgsRead,*/
+            /*deleteItem, deleteInitiated, joinMatch, joinInitiated, */users, setUsers, courses, setCourses, matches, /*userMatchesWithMatchInfo, matchCreated, setMatchCreated, friendChange, setFriendChange, activeUserFriends, setActiveUserFriends, */navigate,
+            currentDateParsed, /*profileUpdated, setProfileUpdated, */chatUser, setChatUser, msgsRead, setMsgsRead,
             setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser
         }}>
             {props.children}

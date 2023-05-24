@@ -45,6 +45,18 @@ export const MessageThread = () => {
     })
     const { users, activeUserFriends, chatUser, setChatUser, msgsRead, setMsgsRead, currentUser } = useContext(TeeTimeContext)
 
+    // const updateMessages = () => {
+    //     Promise.resolve(getAllMessages())
+    //         .then((data) => {
+    //             const myMsgData = data.filter(msg => msg.sender === linkUpUserObj.userId || msg.recipient === linkUpUserObj.userId)
+    //             const sortedMyMsgData = myMsgData.sort((a, b) => {
+    //                 const aDate = Date.parse(a.date_time)
+    //                 const bDate = Date.parse(b.date_time)
+    //                 return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
+    //             })
+    //             setMyMessages(sortedMyMsgData)
+    //         })
+    // }
     useEffect(
         () => {
             getAllMessages()
@@ -57,6 +69,7 @@ export const MessageThread = () => {
                             return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
                         })
                         setMyMessages(sortedMyMsgData)
+                        scrollToBottom("chatThread")
                     }
                 )
         },
@@ -82,7 +95,16 @@ export const MessageThread = () => {
         message: newMsg.message,
         read: 0
     }
-
+    const scrollToBottom = (id) => {
+        const element = document.getElementById(`${id}`)
+        element.scrollTop = element.scrollHeight
+    }
+    // const scrollToBottom = (id) => {
+    //     const element = (`#${id}`);
+    //     element.animate({
+    //         scrollTop: element.scrollHeight
+    //     }, 500);
+    // }
     const handleChange = e => {
         const copy = { ...newMsg }
         copy.message = e.target.value
@@ -167,9 +189,10 @@ export const MessageThread = () => {
                                                             return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
                                                         })
                                                         setMyMessages(sortedMyMsgData)
+                                                        UnreadMsgCount()
                                                     }
                                                 )
-                                            // setMsgsRead(!msgsRead)
+                                            setMsgsRead(!msgsRead)
                                             const copy = { ...newMsg }
                                             copy.recipient = friend.id
                                             updateNewMsg(copy)

@@ -185,6 +185,17 @@ export const deleteCourse = (courseId) => {
         }
     })
 }
+export const updateUser = (userObjReplacement, userId) => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/golfers/${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${linkUpUserObj.token}`,
+        },
+        body: JSON.stringify(userObjReplacement)
+    })
+}
 
 //OLD BELOW DELETE AT END
 // export const getAllUserFriends = () => {
@@ -397,17 +408,17 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
 
 
 
-export const updateUser = (userObjReplacement, userId) => {
-    return fetch(`http://localhost:8000/users/${userId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userObjReplacement)
-    })
-        .then(res => res.json())
+// export const updateUser = (userObjReplacement, userId) => {
+//     return fetch(`http://localhost:8000/users/${userId}`, {
+//         method: "PUT",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(userObjReplacement)
+//     })
+//         .then(res => res.json())
 
-}
+// }
 
 // export const setMsgsToRead = (msgObjReplacement, msgId) => {
 //     return fetch(`http://localhost:8000/messages/${msgId}`, {
