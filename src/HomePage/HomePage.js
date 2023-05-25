@@ -48,7 +48,7 @@ export const HomePage = () => {
                         if (teeTimeDateParsed >= currentDateParsed) {
                             if (next14Dates) {
                                 return <>
-                                    <OpenTeeTime key={teeTime.id}
+                                    <OpenTeeTime key={`${teeTime.id}--${teeTime.date}`}
                                         id={teeTime.id}
                                         courseId={teeTime.course.id}
                                         courseName={teeTime.course.name}
@@ -82,8 +82,8 @@ export const HomePage = () => {
                             const teeTimeDateParsed = Date.parse(teeTimeDateString)
                             if (teeTimeDateParsed >= currentDateParsed) {
                                 return <>
-                                    <MyTeeTime
-                                        key={teeTime.id}
+                                    <MyTeeTime 
+                                        key={`${teeTime.id}--${teeTime.date}`}
                                         id={teeTime.id}
                                         courseId={teeTime.course.id}
                                         courseName={teeTime.course.name}
