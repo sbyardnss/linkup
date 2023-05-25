@@ -1,24 +1,15 @@
-import { useState, useEffect, useContext } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { getAllScoreCards, getUserMatchesForThisMatch, retrieveMatch } from "../ServerManager"
-import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
+import { useState, useContext } from "react"
 import "./Scorecard.css"
 import { ScorecardContext } from "./ScorecardContext"
 
 
-export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selectedMatch, scoresForMatch }) => {
-    const { users, courses, userMatchesWithMatchInfo, activeUserFriends, navigate } = useContext(TeeTimeContext)
-    const { userMatchesForThisMatch, matchUserHoleScores, activeMatch } = useContext(ScorecardContext)
+export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer }) => {
+    const { matchUserHoleScores, activeMatch } = useContext(ScorecardContext)
     const [match, setMatch] = useState({})
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     const frontNineHoleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const backNineHoleNumbers = [10, 11, 12, 13, 14, 15, 16, 17, 18]
-    // useEffect(
-    //     () => {
-    //         retrieveMatch(selectedMatch).then(data => setMatch(data))
-    //     },[selectedMatch]
-    // )
     if (match) {
         return <>
             <main id={profileOrPlayContainer}>
@@ -28,9 +19,6 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                             <thead>
                                 <tr className="tableHeaderRow">
                                     <th>player</th>
-                                    {/* <th className="frontNineScore">Front 9</th>
-                                    <th className="backNineScore">Back 9</th>
-                                    <th className="totalScore">Total</th> */}
                                     <th className="holeScore"> -1- </th>
                                     <th className="holeScore"> -2- </th>
                                     <th className="holeScore"> -3- </th>
@@ -41,7 +29,6 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                     <th className="holeScore"> -8- </th>
                                     <th className="holeScore"> -9- </th>
                                     <th className="frontNineScore">Front 9</th>
-
                                     <th className="holeScore">10 </th>
                                     <th className="holeScore">11 </th>
                                     <th className="holeScore">12 </th>
@@ -56,7 +43,6 @@ export const Scorecard = ({ profileOrPlayTable, profileOrPlayContainer, selected
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {
                                     activeMatch.golfers?.map(golferInMatch => {
                                         if (matchUserHoleScores) {

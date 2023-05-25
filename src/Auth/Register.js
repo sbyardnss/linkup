@@ -11,7 +11,6 @@ export const Register = (props) => {
         password: ""
     })
     let navigate = useNavigate()
-
     const registerNewUser = () => {
         return fetch("http://localhost:8000/register", {
             method: "POST",
@@ -28,7 +27,6 @@ export const Register = (props) => {
                         token: createdUser.token,
                         valid: createdUser.valid
                     }))
-
                     navigate("/")
                 }
             })
@@ -52,13 +50,11 @@ export const Register = (props) => {
                 }
             })
     }
-
     const updateUser = (evt) => {
-        const copy = {...user}
+        const copy = { ...user }
         copy[evt.target.id] = evt.target.value
         setUser(copy)
     }
-
     return (
         <main id="registerContainer" style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
@@ -66,20 +62,20 @@ export const Register = (props) => {
                 <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="first_name"> First name </label>
                     <input onChange={updateUser}
-                           type="text" id="first_name" className="form-control"
-                           placeholder="Enter your first name" required autoFocus />
+                        type="text" id="first_name" className="form-control"
+                        placeholder="Enter your first name" required autoFocus />
                 </fieldset>
                 <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="last_name"> Last name </label>
                     <input onChange={updateUser}
-                           type="text" id="last_name" className="form-control"
-                           placeholder="Enter your last name" required autoFocus />
+                        type="text" id="last_name" className="form-control"
+                        placeholder="Enter your last name" required autoFocus />
                 </fieldset>
                 <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="username"> Username </label>
                     <input onChange={updateUser}
-                           type="text" id="username" className="form-control"
-                           placeholder="Enter username" required autoFocus />
+                        type="text" id="username" className="form-control"
+                        placeholder="Enter username" required autoFocus />
                 </fieldset>
                 <fieldset className="registerFieldset">
                     <label className="loginLabels" htmlFor="email"> Email address </label>

@@ -196,7 +196,15 @@ export const getAllMessages = () => {
         .then(res => res.json())
 
 }
-
+export const getUnreadMessages = () => {
+    const linkUpUserObj = getToken()
+    return fetch(`http://localhost:8000/messages/unread`, {
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`
+        }
+    })
+        .then(res => res.json())
+}
 //get all userMatches with scorecards for paticularMatch 
 //NEW VERSION
 export const getHoleScoresForMatch = (matchId) => {

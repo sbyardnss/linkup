@@ -2,66 +2,19 @@ import { useContext } from "react"
 import { deleteTeeTime, deleteUserMatch, leaveTeeTime, getAllMatches } from "../ServerManager"
 import { WeatherContext } from "../Weather/WeatherProvider"
 import { TeeTimeContext } from "./TeeTimeProvider"
-// import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import "./TeeTime.css"
 import playerIcon from "../images/johnny_automatic_NPS_map_pictographs_part_33 2.png"
 
 export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator, golfers }) => {
-    const { next14Dates, weatherHourArrayForIndex, hourlyWindspeed, hourlyTemp, hourlyPrecipitation } = useContext(WeatherContext)
+    const { weatherData } = useContext(WeatherContext)
     const { setMatches } = useContext(TeeTimeContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-
-    //build weather string here
-    const dateTwoWeeksOut = Date.parse(next14Dates[13])
-    let weatherInfoString = ""
-    const teeTimeDateParsed = Date.parse(date)
-
-    //build hourly weather string here
-    const timeBuilder = (time) => {
-        let [hours, minutes, seconds] = time.split(":")
-        if (parseInt(hours) < 12) {
-            hours = parseInt(hours) + 12
-        }
-        return `T${hours}:00`
-    }
-
-    const dateString = dateForWeather
-    const exactHourString = `${dateString}${timeBuilder(time)}`
-    //find index number for hourly weather arrays
-    const hourIndex = weatherHourArrayForIndex.findIndex(hour => hour === exactHourString)
-    const precipitationHour = hourlyPrecipitation[hourIndex]//works
-    const windHour = hourlyWindspeed[hourIndex]//works
-    const tempHour = hourlyTemp[hourIndex]//works
-    let precipitationString = ""
-    let windString = ""
-    let tempString = ""
-    if (precipitationHour !== null && precipitationHour !== undefined) {
-        precipitationString = `Rain: ${precipitationHour}% chance`
-    }
-    else {
-        precipitationString = " Precipitation data not yet available"
-    }
-    if (windString !== null && windHour !== undefined) {
-        windString = `WindSpeed: ${windHour}mph`
-    }
-    else {
-        windString = "Wind data not yet available"
-    }
-    if (tempString !== null && tempHour !== undefined) {
-        tempString = `Temp: ${tempHour}°F`
-    }
-    else {
-        tempString = "Temp data not yet available"
-    }
-
-    if (teeTimeDateParsed >= dateTwoWeeksOut || tempHour === null || windHour === null || precipitationHour === null) {
-        weatherInfoString += "too early for weather data"
-    }
-
+    
+    const [precipitationString, windString, tempString, weatherInfoString] = weatherData(date, time, dateForWeather)
     const initiatingUser = creator
-
     const maxPlayerCount = [0, 1, 2, 3]
+
     const listOfOtherPlayersOnMatch = () => {
         if (golfers.length > 0) {
             return <>
@@ -94,7 +47,6 @@ export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator,
             </>
         }
     }
-
     if (initiatingUser && initiatingUser.id === linkUpUserObj.userId) {
         return <>
             <li className="myCreatedTeeTime" key={id}>
@@ -174,9 +126,6 @@ export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator,
                             <button className="bailTeeTimeButton" onClick={
                                 () => {
                                     if (window.confirm("are you sure?")) {
-                                        // deleteUserMatch(id).then(() => {
-                                        //     deleteInitiated(!deleteItem)
-                                        // })
                                         leaveTeeTime(id)
                                             .then(
                                                 () => {
@@ -193,5 +142,4 @@ export const MyTeeTime = ({ id, courseName, date, time, dateForWeather, creator,
             </li>
         </>
     }
-
 }

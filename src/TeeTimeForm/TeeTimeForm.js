@@ -1,17 +1,16 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { getAllMatches, sendTeeTime, sendUserMatch } from "../ServerManager"
+import { getAllMatches, sendTeeTime } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./TeeTimeForm.css"
 export const TeeTimeForm = () => {
-    const { courses, matches, setMatchCreated, matchCreated, setMatches } = useContext(TeeTimeContext)
+    const { courses, matches, setMatches } = useContext(TeeTimeContext)
 
 
     const [newMatch, updateNewMatch] = useState({
 
         message: ""
     })
-    const [newUserMatch, updateNewUserMatch] = useState({})
     const navigate = useNavigate()
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -25,18 +24,12 @@ export const TeeTimeForm = () => {
         time: newMatch.time,
         message: newMatch.message,
         creator: linkUpUserObj.userId
-        // confirmed: false
     }
     let newMatchId = lastMatchInMatches?.id + 1
     if (!lastMatchInMatches) {
         newMatchId = 1
     }
-    const userMatchObjToSendToApi = {
-        matchId: newMatchId,
-        userId: linkUpUserObj.id,
-        isInitiator: true,
-        totalStrokes: 0
-    }
+
     return <>
         <main id="createTeeTimeContainer">
 

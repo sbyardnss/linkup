@@ -8,7 +8,7 @@ import "./HomePage.css"
 import { UserList } from "../UserList/UserList"
 
 export const HomePage = () => {
-    const { users, courses, matches, dateStringBuilder, userMatchesWithMatchInfo, sortedOthersUserMatchesThatIHaveNotJoined, sortedOnlyMyUserMatches, currentDateParsed, currentDateString, onlyOthersSortedFutureMatchesThatIHaveNotJoined, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo } = useContext(TeeTimeContext)
+    const { matches, dateStringBuilder, currentDateParsed, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo } = useContext(TeeTimeContext)
     const { next14Dates } = useContext(WeatherContext)
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -31,6 +31,7 @@ export const HomePage = () => {
     }
     const datesIHaveJoined = dateComparisonForCalendar(myJoinedMatchesFromMatches)
     const datesIHaveNotJoined = dateComparisonForCalendar(openMatchesIHaveAccessTo)
+
     const messageToUserOrOpenMatches = () => {
         if (openMatchesIHaveAccessTo.length === 0) {
             return <li>

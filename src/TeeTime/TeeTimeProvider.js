@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //new to manager imports: getMyMatches, getMyFriends
-import { getAllCourses, getAllMatches, getAllUsers } from "../ServerManager"
+import { getAllCourses, getAllMatches, getAllUsers, getUnreadMessages } from "../ServerManager"
 export const TeeTimeContext = createContext()
 
 export const TeeTimeProvider = (props) => {
@@ -11,10 +11,11 @@ export const TeeTimeProvider = (props) => {
     const [chatUser, setChatUser] = useState(0)
     const navigate = useNavigate()
     const [msgsRead, setMsgsRead] = useState(false)
+
     //state variables below added for server conversion
     const [currentUser, setCurrentUser] = useState({})
-    // const [myJoinedMatches, setMyJoinedMatches] = useState([])
-
+    const [unreadMsgs, setUnreadMsgs] = useState([])
+    const [unreadMsgCount, setUnreadMsgCount] = useState(0)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -67,6 +68,12 @@ export const TeeTimeProvider = (props) => {
         },
         []
     )
+    useEffect( //grabbing only unread messages for count on navbar and messages component
+        () => {
+            getUnreadMessages()
+            .then(data => setUnreadMsgCount(data.length))
+        },[chatUser]
+    )
     useEffect(
         () => {
             if (users.length) {
@@ -75,18 +82,6 @@ export const TeeTimeProvider = (props) => {
             }
         }, [users]
     )
-    // useEffect(
-    //     () => {
-    //         if (linkUpUserObj.token) {
-    //             Promise.resolve(getMyMatches(linkUpUserObj.userId))
-    //                 .then(
-    //                     (data) => {
-    //                         setMyJoinedMatches(data)
-    //                     }
-    //                 )
-    //         }
-    //     }, []
-    // )
     const myJoinedMatchesFromMatches = []
     const openMatchesIHaveAccessTo = []
     const myPastMatches = []
@@ -134,7 +129,8 @@ export const TeeTimeProvider = (props) => {
     return (
         <TeeTimeContext.Provider value={{
             users, setUsers, courses, setCourses, matches, navigate,currentDateParsed, chatUser, setChatUser, msgsRead, setMsgsRead,
-            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser
+            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser, setUnreadMsgs,
+            unreadMsgCount, setUnreadMsgCount
         }}>
             {props.children}
         </TeeTimeContext.Provider>

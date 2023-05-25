@@ -11,18 +11,15 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { users, setUsers, courses, /*userMatchesWithMatchInfo, activeUserFriends, */navigate, /*setFriendChange, friendChange, profileUpdated, setProfileUpdated, */setChatUser, currentUser, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, setMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
+    const { setUsers, navigate, setChatUser, currentUser, myJoinedMatchesFromMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
     const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
     const [passwordVisible, setPasswordVisible] = useState(false)
-    const [futureTimes, setFutureTimes] = useState([])
-    const [pastTimes, setPastTimes] = useState([])
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
-    // const currentUser = users.find(user => user.id === linkUpUserObj.id)
 
 
 
@@ -32,25 +29,12 @@ export const UserProfile = () => {
         },
         [profileEdit]
     )
-    // const onlyMyUserMatches = userMatchesWithMatchInfo.filter(uME => {
-    //     return uME.userId === linkUpUserObj.id
-    // })
-
-    // const sortedOnlyMyUserMatches = onlyMyUserMatches.sort((a, b) => {
-    //     const aDate = Date.parse(a.match.date)
-    //     const bDate = Date.parse(b.match.date)
-    //     return aDate < bDate ? -1 : aDate > bDate ? +1 : 0
-    // })
-
-
     const currentDate = new Date();
     const currentMonth = (currentDate.getMonth() + 1)
     const currentDayOfMonth = currentDate.getDate()
     const currentYear = currentDate.getFullYear()
     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
     const currentDateParsed = Date.parse(currentDateString)
-    const holeNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-
     const updatedUserForAPI = {
         first_name: profile?.first_name,
         last_name: profile?.last_name,
@@ -135,7 +119,6 @@ export const UserProfile = () => {
                         <button type="submit" className="cancelProfileEditButton" onClick={
                             () => {
                                 updateUser(updatedUserForAPI, linkUpUserObj.userId)
-                                // setProfileUpdated(!profileUpdated)
                                 editProfile(false)
                                 getAllUsers().then(data => setUsers(data))
                             }
@@ -148,23 +131,18 @@ export const UserProfile = () => {
                         {showPasswordButtons()}
                     </div>
                 </section>
-
             </>
         }
         else {
             return null
         }
     }
-    console.log(myPastMatches)
     if (currentUser) {
-
         return <>
             <div id="profileContainer">
                 <article id="profileTop">
-
                     <div id="profileHeader">
                         <div>
-
                             <h2>{currentUser?.full_name}</h2>
                             <h4>{currentUser?.email}</h4>
                         </div>
@@ -175,16 +153,12 @@ export const UserProfile = () => {
                             }
                         }>Edit</button>
                     </div>
-
                     <div id="profileFriendsAndMatches">
-
                         <div className="friendsAndMessages">
-
                             <ul className="listOfFriends">
                                 <h4>Friends</h4>
                                 {
                                     currentUser.friends?.map(friend => {
-                                        // const friendObj = users.find(user => user.id === userFriend.friendId)
                                         return <>
                                             <li className="friendListItem">
                                                 <div className="profileFriendListName">
@@ -201,31 +175,16 @@ export const UserProfile = () => {
                                     })
                                 }
                             </ul>
-
                             <div className="futureTeeTimesContainer">
-
                                 <ul className="listOfFutureTeeTimes">
                                     <h3 className="headerLabels">My Tee Times</h3>
-
                                     {
                                         myJoinedMatchesFromMatches.map(teeTime => {
-
                                             if (next14Dates) {
-                                                // //string values for teeTime date
-                                                // const [month, day, year] = teeTime?.date.split("-")
-
-                                                // //numeric values for teeTime date
-                                                // const intYear = parseInt(year)
-                                                // const intMonth = parseInt(month)
-                                                // const intDay = parseInt(day)
                                                 const teeTimeDateString = dateStringBuilder(teeTime)
                                                 const teeTimeDateParsed = Date.parse(teeTimeDateString)
-
-
-                                                // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
                                                 const matchingScorecardId = teeTime.scorecardId
                                                 if (teeTimeDateParsed >= currentDateParsed) {
-
                                                     return <>
                                                         <div className="userProfileMatches">
                                                             <MyTeeTime
@@ -243,61 +202,32 @@ export const UserProfile = () => {
                                                         </div>
                                                     </>
                                                 }
-
-
                                             }
                                         })
                                     }
                                 </ul>
                             </div>
                         </div>
-
                     </div>
                 </article>
                 <article className="pastTeeTimesContainer">
-
                     <ul className="listOfPastTeeTimes">
                         <h3>Past Tee Times:</h3>
                         {
                             myPastMatches.map(teeTime => {
-
                                 if (next14Dates) {
-
-                                    // const otherUserMatchesForGivenMatch = userMatchesWithMatchInfo.filter(userMatch => {
-                                    //     return userMatch.matchId === teeTime.matchId
-                                    // })
-                                    //string values for teeTime date
-                                    // const [month, day, year] = teeTime?.date.split("-")
-
-                                    // //numeric values for teeTime date
-                                    // const intYear = parseInt(year)
-                                    // const intMonth = parseInt(month)
-                                    // const intDay = parseInt(day)
-                                    const teeTimeDateString = dateStringBuilder(teeTime)
-                                    const teeTimeDateParsed = Date.parse(teeTimeDateString)
-
-
-                                    // const matchingCourse = courses.find(course => course.id === teeTime?.match.courseId)
-                                    const matchingScorecardId = teeTime.scorecardId
-
-
-
-                                    // if (teeTimeDateParsed < currentDateParsed) {
                                     if (selectedMatch === teeTime.id) {
                                         return <>
                                             <li className="pastTeeTime">
                                                 <div className="pastTeeTimeHeader">
-
                                                     <div className="pastTeeTimeCourse">{teeTime.course.name}</div>
                                                     <div className="pastTeeTimeInfo">
                                                         <div>{teeTime.date}</div>
                                                         <div>{teeTime.time}</div>
                                                     </div>
-
                                                     <div className="listOfPlayersOnMatch">Other Players:
                                                         {
                                                             teeTime.golfers.map(golfer => {
-                                                                // const matchPlayer = users.find(user => user.id === golfer.userId)
                                                                 return <>
                                                                     <div>{golfer.full_name}</div>
                                                                 </>
@@ -313,7 +243,6 @@ export const UserProfile = () => {
                                                     </div>
                                                 </div>
                                                 <div id="scoreCardOnPastTeeTime">
-
                                                     <Scorecard
                                                         selectedMatch={selectedMatch}
                                                         profileOrPlayTable={"profileTable-container"}
@@ -324,25 +253,19 @@ export const UserProfile = () => {
                                         </>
                                     }
                                     else {
-
-
                                         return <>
                                             <li className="pastTeeTime">
                                                 <div className="pastTeeTimeHeader">
-
                                                     <div className="pastTeeTimeInfo">
                                                         <div className="pastTeeTimeCourse">{teeTime.course.name}</div>
                                                         <div className="pastTeeTimeInfo">
                                                             <div>{teeTime.date}</div>
                                                             <div>{teeTime.time}</div>
                                                         </div>
-
                                                     </div>
-
                                                     <div className="listOfPlayersOnMatch">Other Players:
                                                         {
                                                             teeTime.golfers.map(golfer => {
-                                                                // const matchPlayer = users.find(user => user.id === userMatch.userId && user.id !== linkUpUserObj.id)
                                                                 return <>
                                                                     <div>{golfer.full_name}</div>
                                                                 </>
@@ -360,19 +283,11 @@ export const UserProfile = () => {
                                             </li>
                                         </>
                                     }
-
-                                    // }
-
-
                                 }
                             })
                         }
                     </ul>
-
                 </article>
-
-
-
             </div>
         </>
     }

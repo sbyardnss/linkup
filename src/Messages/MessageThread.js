@@ -1,34 +1,8 @@
-import { useContext, useState, useEffect } from "react"
-import { getAllMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
+import { useContext, useState, useEffect, useRef } from "react"
+import { getAllMessages, getUnreadMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter"
-
-export const UnreadMsgCount = () => {
-    const localLinkUpUser = localStorage.getItem("linkUp_user")
-    const linkUpUserObj = JSON.parse(localLinkUpUser)
-    const [myMessages, setMyMessages] = useState([])
-    const { msgsRead, currentUser } = useContext(TeeTimeContext)
-    useEffect(
-        () => {
-            if (linkUpUserObj.token) {
-                getAllMessages()
-                    .then(
-                        (data) => {
-                            const myMsgData = data.filter(msg => msg.recipient === linkUpUserObj.userId)
-                            setMyMessages(myMsgData)
-                        }
-                    )
-            }
-        },
-        []
-    )
-    const unreadMsgs = myMessages.filter(msg => msg.read === false)
-    if (unreadMsgs) {
-        return unreadMsgs.length
-    }
-}
-
 
 export const MessageThread = () => {
     const localLinkUpUser = localStorage.getItem("linkUp_user")
@@ -39,7 +13,7 @@ export const MessageThread = () => {
         message: "",
         recipient: 0
     })
-    const { users, chatUser, setChatUser, currentUser } = useContext(TeeTimeContext)
+    const { users, chatUser, setChatUser, currentUser, setUnreadMsgCount } = useContext(TeeTimeContext)
 
     const resetMessages = () => {
         getAllMessages()
@@ -74,10 +48,19 @@ export const MessageThread = () => {
         message: newMsg.message,
         read: 0
     }
-    const scrollToBottom = (id) => { //NOT WORKING. REMOVED FROM CODE FOR LACK OF FUNCTION
-        const element = document.getElementById(`${id}`)
-        element.scrollTop = element.scrollHeight
+    // const scrollToBottom = (id) => {
+    //     const element = document.getElementById(`${id}`)
+    //     element.scrollTop = element.scrollHeight
+    // }
+    //new scroll to bottom 
+    const messagesEndRef = useRef(null)
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({behavior: "auto"})
     }
+    useEffect(() => {
+        scrollToBottom()
+    }, [displayedMsgs])
+
     const handleChange = e => {
         const copy = { ...newMsg }
         copy.message = e.target.value
@@ -123,7 +106,9 @@ export const MessageThread = () => {
                             }
                             if (friend?.id === chatUser) {
                                 return <>
-                                    <li className="activeChatListItem">
+                                    <li className="activeChatListItem"
+                                        // onClick={() => scrollToBottom("chatThread")}
+                                    >
                                         <div>
                                             {friend.full_name}
                                         </div>
@@ -134,13 +119,11 @@ export const MessageThread = () => {
                                 return <>
                                     <li className="chatListItem" onClick={
                                         () => {
-                                            {
-                                                newMsgs.map(msg => {
-                                                    const copy = { ...msg }
-                                                    copy.read = true
-                                                    setMsgsToRead(copy, msg.id)
-                                                })
-                                            }
+                                            newMsgs.map(msg => {
+                                                const copy = { ...msg }
+                                                copy.read = true
+                                                setMsgsToRead(copy, msg.id)
+                                            })
                                             getAllMessages()
                                                 .then(
                                                     (data) => {
@@ -152,11 +135,15 @@ export const MessageThread = () => {
                                                         })
                                                         setMyMessages(sortedMyMsgData)
                                                     }
-                                                )
+                                                ).then(() => {
+                                                    getUnreadMessages()
+                                                        .then(data => setUnreadMsgCount(data.length))
+                                                })
                                             const copy = { ...newMsg }
                                             copy.recipient = friend.id
                                             updateNewMsg(copy)
                                             setChatUser(friend.id)
+                                            // scrollToBottom("chatThread")
                                         }
                                     }>
                                         {friend?.full_name} {newMsgsFromThisUser(friend)}
@@ -168,7 +155,7 @@ export const MessageThread = () => {
                 </ul>
                 <div id="chatAndInterfaceContainer">
                     <article id="chatContainer">
-                        <section id="chatThread">
+                        <section id="chatThread" >
                             {isChatUserSelected()}
                             {
                                 displayedMsgs.map(msg => {
@@ -200,6 +187,7 @@ export const MessageThread = () => {
                                     }
                                 })
                             }
+                            <div ref={messagesEndRef}/>
                         </section>
                     </article>
                     <div id="chatInterface">

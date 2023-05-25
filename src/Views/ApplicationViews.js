@@ -23,7 +23,6 @@ export const ApplicationViews = () => {
 				</>
 			}>
 				<Route path="" element={<HomePage />} />
-
 				<Route path="scorecards/:scorecardId" element={
 					<ScorecardProvider>
 						<Scorecard />
@@ -34,7 +33,6 @@ export const ApplicationViews = () => {
 						<Play />
 					</ScorecardProvider>
 				} />
-
 				<Route path="profile" element={
 					<ScorecardProvider>
 						<UserProfile />
@@ -48,11 +46,6 @@ export const ApplicationViews = () => {
 				<Route path="addCourse" element={<AddCourseForm />} />
 				<Route path="createTeeTime" element={<TeeTimeForm />} />
 				<Route path="messages" element={<MessageThread />} />
-
-
-
-
-
 			</Route>
 		</Routes>
 	)
