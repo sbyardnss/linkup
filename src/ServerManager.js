@@ -5,34 +5,28 @@ const getToken = () => {
 }
 //get fetches
 export const getAllUsers = () => { //check
-    // if (linkUpUserObj?.token) {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/golfers`, {
+    return fetch(`https://linkup-server.herokuapp.com//golfers`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
         }
     })
         .then(res => res.json())
-
-    // }
 }
 
 export const getAllCourses = () => { //check
-    // if (linkUpUserObj?.token){
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/courses`, {
+    return fetch(`https://linkup-server.herokuapp.com/courses`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
     })
         .then(res => res.json())
-
-    // }
 }
 export const getAllMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -41,7 +35,7 @@ export const getAllMatches = () => {
 }
 export const retrieveMatch = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches/${matchId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches/${matchId}`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -52,7 +46,7 @@ export const retrieveMatch = (matchId) => {
 //NEW BELOW
 export const getMyMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches/joined`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches/joined`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -62,7 +56,7 @@ export const getMyMatches = () => {
 }
 export const getOpenMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches/joined`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches/joined`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -73,7 +67,7 @@ export const getOpenMatches = () => {
 
 export const addFriend = (userId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/golfers/${userId}/add_friend`, {
+    return fetch(`https://linkup-server.herokuapp.com/golfers/${userId}/add_friend`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -83,7 +77,7 @@ export const addFriend = (userId) => {
 }
 export const removeFriend = (userId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/golfers/${userId}/remove_friend`, {
+    return fetch(`https://linkup-server.herokuapp.com/golfers/${userId}/remove_friend`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -93,7 +87,7 @@ export const removeFriend = (userId) => {
 }
 export const joinTeeTime = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches/${matchId}/join_tee_time`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches/${matchId}/join_tee_time`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -103,7 +97,7 @@ export const joinTeeTime = (matchId) => {
 }
 export const leaveTeeTime = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches/${matchId}/leave_tee_time`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches/${matchId}/leave_tee_time`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -113,7 +107,7 @@ export const leaveTeeTime = (matchId) => {
 }
 export const addHoleScore = (holeScoreObj) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/scores`, {
+    return fetch(`https://linkup-server.herokuapp.com/scores`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -124,7 +118,7 @@ export const addHoleScore = (holeScoreObj) => {
 }
 export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/scores/${holeScoreId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/scores/${holeScoreId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -135,7 +129,7 @@ export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
 }
 export const sendNewMessage = (newMsgObj) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/messages`, {
+    return fetch(`https://linkup-server.herokuapp.com/messages`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -146,7 +140,7 @@ export const sendNewMessage = (newMsgObj) => {
 }
 export const setMsgsToRead = (msgObjReplacement, msgId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/messages/${msgId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/messages/${msgId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -157,7 +151,7 @@ export const setMsgsToRead = (msgObjReplacement, msgId) => {
 }
 export const sendNewCourse = (newCourseObj) => { //check
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/courses`, {
+    return fetch(`https://linkup-server.herokuapp.com/courses`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -168,7 +162,7 @@ export const sendNewCourse = (newCourseObj) => { //check
 }
 export const deleteCourse = (courseId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/courses/${courseId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/courses/${courseId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -177,7 +171,7 @@ export const deleteCourse = (courseId) => {
 }
 export const updateUser = (userObjReplacement, userId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/golfers/${userId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/golfers/${userId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -188,7 +182,7 @@ export const updateUser = (userObjReplacement, userId) => {
 }
 export const getAllMessages = () => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/messages`, {
+    return fetch(`https://linkup-server.herokuapp.com/messages`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -198,7 +192,7 @@ export const getAllMessages = () => {
 }
 export const getUnreadMessages = () => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/messages/unread`, {
+    return fetch(`https://linkup-server.herokuapp.com/messages/unread`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -209,7 +203,7 @@ export const getUnreadMessages = () => {
 //NEW VERSION
 export const getHoleScoresForMatch = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/scores?match=${matchId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/scores?match=${matchId}`, {
         method: "GET",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -229,7 +223,7 @@ export const getWeatherInfo = () => {
 
 export const sendTeeTime = (teeTimeObj) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -248,7 +242,7 @@ export const sendTeeTime = (teeTimeObj) => {
 
 export const deleteTeeTime = (teeTimeId) => {
     const linkUpUserObj = getToken()
-    return fetch(`http://localhost:8000/matches/${teeTimeId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/matches/${teeTimeId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
@@ -257,19 +251,19 @@ export const deleteTeeTime = (teeTimeId) => {
 }
 
 // export const deleteUserMatch = (userMatchId) => {
-//     return fetch(`http://localhost:8000/userMatches/${userMatchId}`, {
+//     return fetch(`https://linkup-server.herokuapp.com/userMatches/${userMatchId}`, {
 //         method: "DELETE"
 //     })
 // }
 
 // // export const deleteCourse = (courseId) => {
-// //     return fetch(`http://localhost:8000/courses/${courseId}`, {
+// //     return fetch(`https://linkup-server.herokuapp.com/courses/${courseId}`, {
 // //         method: "DELETE"
 // //     })
 // // }
 
 // export const deleteFriend = (friendRelationshipId) => {
-//     return fetch(`http://localhost:8000/userFriends/${friendRelationshipId}`, {
+//     return fetch(`https://linkup-server.herokuapp.com/userFriends/${friendRelationshipId}`, {
 //         method: "DELETE"
 //     })
 // }
@@ -278,7 +272,7 @@ export const deleteTeeTime = (teeTimeId) => {
 //put fetches
 
 export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
-    return fetch(`http://localhost:8000/userFriends/${userFriendId}`, {
+    return fetch(`https://linkup-server.herokuapp.com/userFriends/${userFriendId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -294,7 +288,7 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
 // new python authorization fetches
 
 export const loginUser = (user) => {
-    return fetch("http://localhost:8000/login", {
+    return fetch("https://linkup-server.herokuapp.com/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
