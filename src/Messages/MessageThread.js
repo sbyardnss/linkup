@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState, useEffect, useRef } from "react"
 import { getAllMessages, getUnreadMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
@@ -48,10 +48,19 @@ export const MessageThread = () => {
         message: newMsg.message,
         read: 0
     }
-    const scrollToBottom = (id) => {
-        const element = document.getElementById(`${id}`)
-        element.scrollTop = element.scrollHeight
+    // const scrollToBottom = (id) => {
+    //     const element = document.getElementById(`${id}`)
+    //     element.scrollTop = element.scrollHeight
+    // }
+    //new scroll to bottom 
+    const messagesEndRef = useRef(null)
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({behavior: "auto"})
     }
+    useEffect(() => {
+        scrollToBottom()
+    }, [displayedMsgs])
+
     const handleChange = e => {
         const copy = { ...newMsg }
         copy.message = e.target.value
@@ -146,7 +155,7 @@ export const MessageThread = () => {
                 </ul>
                 <div id="chatAndInterfaceContainer">
                     <article id="chatContainer">
-                        <section id="chatThread">
+                        <section id="chatThread" >
                             {isChatUserSelected()}
                             {
                                 displayedMsgs.map(msg => {
@@ -178,6 +187,7 @@ export const MessageThread = () => {
                                     }
                                 })
                             }
+                            <div ref={messagesEndRef}/>
                         </section>
                     </article>
                     <div id="chatInterface">
