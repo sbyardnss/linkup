@@ -15,6 +15,7 @@ export const TeeTimeProvider = (props) => {
     //state variables below added for server conversion
     const [currentUser, setCurrentUser] = useState({})
     const [unreadMsgs, setUnreadMsgs] = useState([])
+    const [unreadMsgCount, setUnreadMsgCount] = useState(0)
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
@@ -70,8 +71,8 @@ export const TeeTimeProvider = (props) => {
     useEffect( //grabbing only unread messages for count on navbar and messages component
         () => {
             getUnreadMessages()
-            .then(data => setUnreadMsgs(data))
-        },[]
+            .then(data => setUnreadMsgCount(data.length))
+        },[chatUser]
     )
     useEffect(
         () => {
@@ -128,7 +129,8 @@ export const TeeTimeProvider = (props) => {
     return (
         <TeeTimeContext.Provider value={{
             users, setUsers, courses, setCourses, matches, navigate,currentDateParsed, chatUser, setChatUser, msgsRead, setMsgsRead,
-            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser
+            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser, setUnreadMsgs,
+            unreadMsgCount, setUnreadMsgCount
         }}>
             {props.children}
         </TeeTimeContext.Provider>

@@ -1,13 +1,15 @@
 import { Link, Navigate, useNavigate } from "react-router-dom"
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import profileIcon from "../images/abstract-user-flat-4.png"
 import "./NavBar.css"
 import { UnreadMsgCount } from "../Messages/MessageThread"
 import { getUnreadMessages } from "../ServerManager"
+import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 
 export const NavBar = () => {
     const navMenu = useRef(null)
-    const [unreadMsgCount, setUnreadMsgCount] = useState(0)
+    const { unreadMsgCount, setUnreadMsgCount, chatUser } = useContext(TeeTimeContext)
+    const [unread, setUnread] = useState(0)
     //close open menu
     const closeOpenMenus = (e) => {
         if (navMenu.current && !navMenu.current.contains(e.target)) {
@@ -19,21 +21,18 @@ export const NavBar = () => {
         }
     }
     document.addEventListener(`click`, closeOpenMenus)
-    
     useEffect(
         () => {
-            getUnreadMessages()
-            .then(data => setUnreadMsgCount(data.length))
-        },[]
+            setUnread(unreadMsgCount)
+        },[chatUser, unreadMsgCount]
     )
-    const msgNotification = () => { 
-        if (unreadMsgCount !== 0) {
+    const msgNotification = () => {
+        if (unread !== 0) {
             return <>
-                <div id="newMsgCount">{unreadMsgCount}</div>
+                <div id="newMsgCount">{unread}</div>
             </>
         }
     }
-    console.log(msgNotification())
     return (
         <header className="navigation">
             <div id="logoSpace">

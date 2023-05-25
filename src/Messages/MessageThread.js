@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { getAllMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
+import { getAllMessages, getUnreadMessages, sendNewMessage, setMsgsToRead } from "../ServerManager"
 import { TeeTimeContext } from "../TeeTime/TeeTimeProvider"
 import "./MessagesThread.css"
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter"
@@ -13,7 +13,7 @@ export const MessageThread = () => {
         message: "",
         recipient: 0
     })
-    const { users, chatUser, setChatUser, currentUser } = useContext(TeeTimeContext)
+    const { users, chatUser, setChatUser, currentUser, setUnreadMsgCount } = useContext(TeeTimeContext)
 
     const resetMessages = () => {
         getAllMessages()
@@ -48,7 +48,7 @@ export const MessageThread = () => {
         message: newMsg.message,
         read: 0
     }
-    const scrollToBottom = (id) => { //NOT WORKING. REMOVED FROM CODE FOR LACK OF FUNCTION
+    const scrollToBottom = (id) => {
         const element = document.getElementById(`${id}`)
         element.scrollTop = element.scrollHeight
     }
@@ -97,7 +97,9 @@ export const MessageThread = () => {
                             }
                             if (friend?.id === chatUser) {
                                 return <>
-                                    <li className="activeChatListItem">
+                                    <li className="activeChatListItem"
+                                        // onClick={() => scrollToBottom("chatThread")}
+                                    >
                                         <div>
                                             {friend.full_name}
                                         </div>
@@ -108,13 +110,11 @@ export const MessageThread = () => {
                                 return <>
                                     <li className="chatListItem" onClick={
                                         () => {
-                                            {
-                                                newMsgs.map(msg => {
-                                                    const copy = { ...msg }
-                                                    copy.read = true
-                                                    setMsgsToRead(copy, msg.id)
-                                                })
-                                            }
+                                            newMsgs.map(msg => {
+                                                const copy = { ...msg }
+                                                copy.read = true
+                                                setMsgsToRead(copy, msg.id)
+                                            })
                                             getAllMessages()
                                                 .then(
                                                     (data) => {
@@ -126,11 +126,15 @@ export const MessageThread = () => {
                                                         })
                                                         setMyMessages(sortedMyMsgData)
                                                     }
-                                                )
+                                                ).then(() => {
+                                                    getUnreadMessages()
+                                                        .then(data => setUnreadMsgCount(data.length))
+                                                })
                                             const copy = { ...newMsg }
                                             copy.recipient = friend.id
                                             updateNewMsg(copy)
                                             setChatUser(friend.id)
+                                            // scrollToBottom("chatThread")
                                         }
                                     }>
                                         {friend?.full_name} {newMsgsFromThisUser(friend)}
