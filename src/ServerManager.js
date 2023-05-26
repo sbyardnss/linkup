@@ -292,7 +292,8 @@ export const loginUser = (user) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify(user)
     })
