@@ -6,7 +6,7 @@ const getToken = () => {
 //get fetches
 export const getAllUsers = () => { //check
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com//golfers`, {
+    return fetch(`https://linkup-server.herokuapp.com/golfers`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
