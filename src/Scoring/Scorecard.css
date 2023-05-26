@@ -30,7 +30,7 @@
 
     .table-container {
         display: flex;
-        position: relative;
+        /* position: relative; */
         max-height: 300px;
         width: 60vw;
         overflow: scroll;
@@ -38,7 +38,7 @@
 
     }
     .profileTable-container {
-        position: relative;
+        /* position: relative; */
         max-height: 300px;
         width: 100%;
         overflow: scroll;
@@ -176,7 +176,7 @@
 
     .table-container {
         display: flex;
-        position: relative;
+        /* position: relative; */
         max-height: 300px;
         width: 60vw;
         overflow: scroll;
@@ -260,7 +260,7 @@
 
     /* scrolling table  */
     .table-container {
-        position: relative;
+        /* position: relative; */
         max-height: 300px;
         width: 500px;
         overflow: scroll;
@@ -268,7 +268,7 @@
     }
     /* scrolling table on profile */
     .profileTable-container {
-        position: relative;
+        /* position: relative; */
         max-height: 300px;
         width: inherit;
         overflow: scroll;

@@ -312,7 +312,7 @@
     .profileButtonBlock {
         display: flex;
         justify-content: flex-end;
-        position: relative;
+        /* position: relative; */
         margin-left: auto;
         /* margin-top: auto;
     margin-bottom: auto; */
@@ -719,7 +719,7 @@
     .profileButtonBlock {
         display: flex;
         justify-content: flex-end;
-        position: relative;
+        /* position: relative; */
         margin-left: auto;
         /* margin-top: auto;
     margin-bottom: auto; */

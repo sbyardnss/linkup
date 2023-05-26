@@ -2,7 +2,9 @@
   width: device-width;
   zoom: 1.0;
 }
-
+li {
+  display: block;
+}
 @media screen and (min-width: 641px) {
 
 

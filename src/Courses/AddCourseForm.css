@@ -113,7 +113,7 @@
 
     .addCourseFormButtonBlock {
         display: flex;
-        position: relative;
+        /* position: relative; */
         /* padding-top: 20px; */
         margin-top: auto;
         margin-bottom: auto;
@@ -391,7 +391,7 @@
 
     .addCourseFormButtonBlock {
         display: flex;
-        position: relative;
+        /* position: relative; */
         /* padding-top: 20px; */
         margin-top: auto;
         margin-bottom: auto;

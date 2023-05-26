@@ -34,7 +34,7 @@ export const HomePage = () => {
 
     const messageToUserOrOpenMatches = () => {
         if (openMatchesIHaveAccessTo.length === 0) {
-            return <li>
+            return <li key="noMyTeeTimes">
                 <h3>Make friends to access their tee times!</h3>
             </li>
         }
@@ -69,7 +69,7 @@ export const HomePage = () => {
     }
     const messageToUserOrMyMatches = () => {
         if (myJoinedMatchesFromMatches.length === 0) {
-            return <li>
+            return <li key="noOpenTeeTimes">
                 <h3>No joined tee times</h3>
             </li>
         }

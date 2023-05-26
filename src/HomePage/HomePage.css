@@ -86,6 +86,7 @@
         box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
         width: 100%;
         min-width: fit-content;
+        margin: 1em 0 0 0;
 
     }
     .listOfOpenTeeTimes {
@@ -101,7 +102,7 @@
         box-shadow: rgba(255, 255, 255, 0.26) 0px 2px 4px inset;
         width: 100%;
         min-width: fit-content;
-
+        /* margin: 1em; */
     }
 
 
