@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import "./Auth.css"
 
 export const Register = (props) => {
+    const apiKey = process.env.REACT_APP_API;
     const [user, setUser] = useState({
         username: "",
         email: "",
@@ -33,7 +34,7 @@ export const Register = (props) => {
     }
     const handleRegister = (e) => {
         e.preventDefault()
-        return fetch(`https://linkup-server.herokuapp.com/golfers?email=${user.email}`
+        return fetch(`${apiKey}/golfers?email=${user.email}`
             // headers: {
             //     "Authorization": "Token 159cb7e2b243c66486fcd79ec8475ced5e1a507d"
             // }
