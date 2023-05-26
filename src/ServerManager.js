@@ -293,7 +293,7 @@ export const loginUser = (user) => {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            'Access-Control-Allow-Origin': 'https://linkup-server.herokuapp.com/'
+            'Access-Control-Allow-Origin': 'https://linkup-server.herokuapp.com'
         },
         body: JSON.stringify(user)
     })
@@ -306,7 +306,7 @@ export const registerUser = (user) => {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            'Access-Control-Allow-Origin': 'https://linkup-server.herokuapp.com/'
+            'Access-Control-Allow-Origin': 'https://linkup-server.herokuapp.com'
         },
         body: JSON.stringify(user)
     })
