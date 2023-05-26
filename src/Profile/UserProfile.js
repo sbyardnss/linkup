@@ -1,6 +1,5 @@
-import { color } from "framer-motion"
 import { useState, useEffect, useContext } from "react"
-import { deleteFriend, getAllUsers, updateUser } from "../ServerManager"
+import { getAllUsers, updateUser } from "../ServerManager"
 import { Scorecard } from "../Scoring/Scorecard"
 import { ScorecardContext } from "../Scoring/ScorecardContext"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"

@@ -3,10 +3,12 @@ const getToken = () => {
     const linkUpUserObj = JSON.parse(localLinkUpUser)
     return linkUpUserObj
 }
+const apiKey = process.env.REACT_APP_API;
+
 //get fetches
 export const getAllUsers = () => { //check
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/golfers`, {
+    return fetch(`${apiKey}/golfers`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -17,7 +19,7 @@ export const getAllUsers = () => { //check
 
 export const getAllCourses = () => { //check
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/courses`, {
+    return fetch(`${apiKey}/courses`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -26,7 +28,7 @@ export const getAllCourses = () => { //check
 }
 export const getAllMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches`, {
+    return fetch(`${apiKey}/matches`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -35,7 +37,7 @@ export const getAllMatches = () => {
 }
 export const retrieveMatch = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches/${matchId}`, {
+    return fetch(`${apiKey}/matches/${matchId}`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -46,7 +48,7 @@ export const retrieveMatch = (matchId) => {
 //NEW BELOW
 export const getMyMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches/joined`, {
+    return fetch(`${apiKey}/matches/joined`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -56,7 +58,7 @@ export const getMyMatches = () => {
 }
 export const getOpenMatches = () => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches/joined`, {
+    return fetch(`${apiKey}/matches/joined`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
             "Content-Type": "application/json"
@@ -67,7 +69,7 @@ export const getOpenMatches = () => {
 
 export const addFriend = (userId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/golfers/${userId}/add_friend`, {
+    return fetch(`${apiKey}/golfers/${userId}/add_friend`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -77,7 +79,7 @@ export const addFriend = (userId) => {
 }
 export const removeFriend = (userId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/golfers/${userId}/remove_friend`, {
+    return fetch(`${apiKey}/golfers/${userId}/remove_friend`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -87,7 +89,7 @@ export const removeFriend = (userId) => {
 }
 export const joinTeeTime = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches/${matchId}/join_tee_time`, {
+    return fetch(`${apiKey}/matches/${matchId}/join_tee_time`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -97,7 +99,7 @@ export const joinTeeTime = (matchId) => {
 }
 export const leaveTeeTime = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches/${matchId}/leave_tee_time`, {
+    return fetch(`${apiKey}/matches/${matchId}/leave_tee_time`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -107,7 +109,7 @@ export const leaveTeeTime = (matchId) => {
 }
 export const addHoleScore = (holeScoreObj) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/scores`, {
+    return fetch(`${apiKey}/scores`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -118,7 +120,7 @@ export const addHoleScore = (holeScoreObj) => {
 }
 export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/scores/${holeScoreId}`, {
+    return fetch(`${apiKey}/scores/${holeScoreId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -129,7 +131,7 @@ export const updateHoleScore = (scoreObjReplacement, holeScoreId) => {
 }
 export const sendNewMessage = (newMsgObj) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/messages`, {
+    return fetch(`${apiKey}/messages`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -140,7 +142,7 @@ export const sendNewMessage = (newMsgObj) => {
 }
 export const setMsgsToRead = (msgObjReplacement, msgId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/messages/${msgId}`, {
+    return fetch(`${apiKey}/messages/${msgId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -151,7 +153,7 @@ export const setMsgsToRead = (msgObjReplacement, msgId) => {
 }
 export const sendNewCourse = (newCourseObj) => { //check
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/courses`, {
+    return fetch(`${apiKey}/courses`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -162,7 +164,7 @@ export const sendNewCourse = (newCourseObj) => { //check
 }
 export const deleteCourse = (courseId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/courses/${courseId}`, {
+    return fetch(`${apiKey}/courses/${courseId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -171,7 +173,7 @@ export const deleteCourse = (courseId) => {
 }
 export const updateUser = (userObjReplacement, userId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/golfers/${userId}`, {
+    return fetch(`${apiKey}/golfers/${userId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -182,7 +184,7 @@ export const updateUser = (userObjReplacement, userId) => {
 }
 export const getAllMessages = () => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/messages`, {
+    return fetch(`${apiKey}/messages`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -192,7 +194,7 @@ export const getAllMessages = () => {
 }
 export const getUnreadMessages = () => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/messages/unread`, {
+    return fetch(`${apiKey}/messages/unread`, {
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
         }
@@ -203,7 +205,7 @@ export const getUnreadMessages = () => {
 //NEW VERSION
 export const getHoleScoresForMatch = (matchId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/scores?match=${matchId}`, {
+    return fetch(`${apiKey}/scores?match=${matchId}`, {
         method: "GET",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -223,7 +225,7 @@ export const getWeatherInfo = () => {
 
 export const sendTeeTime = (teeTimeObj) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches`, {
+    return fetch(`${apiKey}/matches`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`,
@@ -242,7 +244,7 @@ export const sendTeeTime = (teeTimeObj) => {
 
 export const deleteTeeTime = (teeTimeId) => {
     const linkUpUserObj = getToken()
-    return fetch(`https://linkup-server.herokuapp.com/matches/${teeTimeId}`, {
+    return fetch(`${apiKey}/matches/${teeTimeId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${linkUpUserObj.token}`
@@ -251,19 +253,19 @@ export const deleteTeeTime = (teeTimeId) => {
 }
 
 // export const deleteUserMatch = (userMatchId) => {
-//     return fetch(`https://linkup-server.herokuapp.com/userMatches/${userMatchId}`, {
+//     return fetch(`${apiKey}/userMatches/${userMatchId}`, {
 //         method: "DELETE"
 //     })
 // }
 
 // // export const deleteCourse = (courseId) => {
-// //     return fetch(`https://linkup-server.herokuapp.com/courses/${courseId}`, {
+// //     return fetch(`${apiKey}/courses/${courseId}`, {
 // //         method: "DELETE"
 // //     })
 // // }
 
 // export const deleteFriend = (friendRelationshipId) => {
-//     return fetch(`https://linkup-server.herokuapp.com/userFriends/${friendRelationshipId}`, {
+//     return fetch(`${apiKey}/userFriends/${friendRelationshipId}`, {
 //         method: "DELETE"
 //     })
 // }
@@ -272,7 +274,7 @@ export const deleteTeeTime = (teeTimeId) => {
 //put fetches
 
 export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
-    return fetch(`https://linkup-server.herokuapp.com/userFriends/${userFriendId}`, {
+    return fetch(`${apiKey}/userFriends/${userFriendId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -288,7 +290,7 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
 // new python authorization fetches
 
 export const loginUser = (user) => {
-    return fetch("https://linkup-server.herokuapp.com/login", {
+    return fetch("${apiKey}/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -300,7 +302,7 @@ export const loginUser = (user) => {
 }
 
 export const registerUser = (user) => {
-    return fetch("https://linkup-server.herokuapp.com/register", {
+    return fetch("${apiKey}/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
