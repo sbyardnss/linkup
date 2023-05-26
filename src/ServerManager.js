@@ -290,7 +290,7 @@ export const changeFriendStatus = (userFriendReplacement, userFriendId) => {
 // new python authorization fetches
 
 export const loginUser = (user) => {
-    return fetch("${apiKey}/login", {
+    return fetch(`${apiKey}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -302,7 +302,7 @@ export const loginUser = (user) => {
 }
 
 export const registerUser = (user) => {
-    return fetch("${apiKey}/register", {
+    return fetch(`${apiKey}/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
