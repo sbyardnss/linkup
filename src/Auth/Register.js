@@ -12,7 +12,7 @@ export const Register = (props) => {
     })
     let navigate = useNavigate()
     const registerNewUser = () => {
-        return fetch("http://localhost:8000/register", {
+        return fetch("https://linkup-server.herokuapp.com/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,11 +33,11 @@ export const Register = (props) => {
     }
     const handleRegister = (e) => {
         e.preventDefault()
-        return fetch(`http://localhost:8000/golfers?email=${user.email}`, {
-            headers: {
-                "Authorization": "Token 159cb7e2b243c66486fcd79ec8475ced5e1a507d"
-            }
-        })
+        return fetch(`https://linkup-server.herokuapp.com/golfers?email=${user.email}`
+            // headers: {
+            //     "Authorization": "Token 159cb7e2b243c66486fcd79ec8475ced5e1a507d"
+            // }
+        )
             .then(res => res.json())
             .then(response => {
                 if (response.length > 0) {
