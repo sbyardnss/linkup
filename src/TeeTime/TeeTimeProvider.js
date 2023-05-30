@@ -32,7 +32,7 @@ export const TeeTimeProvider = (props) => {
     useEffect(
         () => {
             if (linkUpUserObj.token) {
-                getAllUsers()
+                Promise.resolve(getAllUsers())
                     .then(
                         (userData) => {
                             setUsers(userData)
