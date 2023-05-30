@@ -214,6 +214,17 @@ export const getHoleScoresForMatch = (matchId) => {
     }).then(res => res.json())
 }
 
+export const getUserProfileInfo = () => {
+    const linkUpUserObj = getToken()
+    return fetch(`${apiKey}/golfers/profile`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Token ${linkUpUserObj.token}`,
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json())
+}
+
 //external API fetches
 export const getWeatherInfo = () => {
     return fetch(`https://api.open-meteo.com/v1/forecast?latitude=36.17&longitude=-86.78&hourly=temperature_2m,precipitation_probability,windspeed_10m&models=best_match&daily=precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&forecast_days=14&timezone=America%2FChicago`)

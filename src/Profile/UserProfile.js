@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { getAllUsers, updateUser } from "../ServerManager"
+import { getAllUsers, getUserProfileInfo, updateUser } from "../ServerManager"
 import { Scorecard } from "../Scoring/Scorecard"
 import { ScorecardContext } from "../Scoring/ScorecardContext"
 import { MyTeeTime } from "../TeeTime/MyTeeTime"
@@ -10,23 +10,35 @@ import { WeatherContext } from "../Weather/WeatherProvider"
 import "./UserProfile.css"
 
 export const UserProfile = () => {
-    const { setUsers, navigate, setChatUser, currentUser, myJoinedMatchesFromMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
+    const { users, setUsers, navigate, setChatUser, currentUser, myJoinedMatchesFromMatches, myPastMatches, dateStringBuilder } = useContext(TeeTimeContext)
     const { selectedMatch, setSelectedMatch } = useContext(ScorecardContext)
     const { next14Dates } = useContext(WeatherContext)
     const [profileEdit, editProfile] = useState(false)
     const [profile, updateProfile] = useState({})
     const [passwordVisible, setPasswordVisible] = useState(false)
+    const [currentProfileUser, setCurrentProfileUser] = useState({})
+
 
     const localLinkUpUser = localStorage.getItem("linkUp_user")
     const linkUpUserObj = JSON.parse(localLinkUpUser)
 
-
+    useEffect(
+        () => {
+            if (profileEdit) {
+                // const loggedInUser = users?.find(user => user.id === linkUpUserObj.userId)
+                getUserProfileInfo()
+                .then(
+                    data => setCurrentProfileUser(data)
+                )
+            }
+        }, [profileEdit]
+    )
 
     useEffect(
         () => {
-            updateProfile(currentUser)
+            updateProfile(currentProfileUser)
         },
-        [profileEdit]
+        [currentProfileUser]
     )
     const currentDate = new Date();
     const currentMonth = (currentDate.getMonth() + 1)
@@ -35,11 +47,11 @@ export const UserProfile = () => {
     const currentDateString = `${currentMonth}-${currentDayOfMonth}-${currentYear}`
     const currentDateParsed = Date.parse(currentDateString)
     const updatedUserForAPI = {
-        first_name: profile?.first_name,
-        last_name: profile?.last_name,
-        username: profile?.username,
-        email: profile?.email,
-        password: profile?.password
+        first_name: currentProfileUser?.first_name,
+        last_name: currentProfileUser?.last_name,
+        username: currentProfileUser?.username,
+        email: currentProfileUser?.email,
+        password: currentProfileUser?.password
     }
     const showPassword = (passwordVisible) => {
         if (passwordVisible === true) {
@@ -77,7 +89,7 @@ export const UserProfile = () => {
                     <label className="editProfileInputLabel" htmlFor="first_name">first name</label>
                     <input className="editProfileInput" type="text" value={profile?.first_name} onChange={
                         (evt) => {
-                            const copy = { ...currentUser }
+                            const copy = { ...currentProfileUser }
                             copy.first_name = evt.target.value
                             updateProfile(copy)
                         }
@@ -85,7 +97,7 @@ export const UserProfile = () => {
                     <label className="editProfileInputLabel" htmlFor="last_name">last name</label>
                     <input className="editProfileInput" type="text" value={profile?.last_name} onChange={
                         (evt) => {
-                            const copy = { ...currentUser }
+                            const copy = { ...currentProfileUser }
                             copy.last_name = evt.target.value
                             updateProfile(copy)
                         }
@@ -93,7 +105,7 @@ export const UserProfile = () => {
                     <label className="editProfileInputLabel" htmlFor="username">username</label>
                     <input className="editProfileInput" type="text" value={profile?.username} onChange={
                         (evt) => {
-                            const copy = { ...currentUser }
+                            const copy = { ...currentProfileUser }
                             copy.username = evt.target.value
                             updateProfile(copy)
                         }
@@ -101,7 +113,7 @@ export const UserProfile = () => {
                     <label className="editProfileInputLabel" htmlFor="email">email</label>
                     <input className="editProfileInput" type="text" value={profile?.email} onChange={
                         (evt) => {
-                            const copy = { ...currentUser }
+                            const copy = { ...currentProfileUser }
                             copy.email = evt.target.value
                             updateProfile(copy)
                         }
@@ -109,7 +121,7 @@ export const UserProfile = () => {
                     <label className="editProfileInputLabel" htmlFor="password">password</label>
                     <input className="editProfileInput" type={showPassword(passwordVisible)} value={profile?.password} onChange={
                         (evt) => {
-                            const copy = { ...currentUser }
+                            const copy = { ...currentProfileUser }
                             copy.password = evt.target.value
                             updateProfile(copy)
                         }
@@ -125,6 +137,8 @@ export const UserProfile = () => {
                         <button className="cancelProfileEditButton" onClick={
                             () => {
                                 editProfile(false)
+                                setCurrentProfileUser({})
+                                updateProfile({})
                             }
                         }>cancel</button>
                         {showPasswordButtons()}
@@ -136,7 +150,7 @@ export const UserProfile = () => {
             return null
         }
     }
-    if (currentUser) {
+    // if (currentUser) {
         return <>
             <div id="profileContainer">
                 <article id="profileTop">
@@ -289,5 +303,5 @@ export const UserProfile = () => {
                 </article>
             </div>
         </>
-    }
+    // }
 }

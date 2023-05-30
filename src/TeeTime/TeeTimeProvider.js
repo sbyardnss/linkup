@@ -129,7 +129,7 @@ export const TeeTimeProvider = (props) => {
     return (
         <TeeTimeContext.Provider value={{
             users, setUsers, courses, setCourses, matches, navigate,currentDateParsed, chatUser, setChatUser, msgsRead, setMsgsRead,
-            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentDateString, currentUser, setUnreadMsgs,
+            setUsers, myJoinedMatchesFromMatches, openMatchesIHaveAccessTo, myPastMatches, setMatches, dateStringBuilder, currentUser, currentDateString, setUnreadMsgs,
             unreadMsgCount, setUnreadMsgCount
         }}>
             {props.children}
